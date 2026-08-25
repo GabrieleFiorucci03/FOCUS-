@@ -14,6 +14,7 @@ si trasforma in crediti da spendere per tirare su, pezzo dopo pezzo, una città
 ![GDScript](https://img.shields.io/badge/linguaggio-GDScript-355570)
 ![Blender](https://img.shields.io/badge/Blender-5.2-ea7600?logo=blender&logoColor=white)
 ![Stato](https://img.shields.io/badge/stato-fase%201%20di%205-yellow)
+![Licenza](https://img.shields.io/badge/licenza-GPL--3.0-blue)
 
 </div>
 
@@ -86,7 +87,7 @@ Serve **Godot 4.x** (versione standard, non .NET). Blender serve solo se vuoi
 rigenerare gli asset.
 
 ```bash
-git clone <questo-repo>
+git clone https://github.com/GabrieleFiorucci03/FOCUS-.git
 ```
 
 Apri la cartella con Godot e premi `F5`. Al primo avvio l'engine importa i 72
@@ -154,4 +155,8 @@ chiavi, i salvataggi vecchi continueranno ad aprirsi invece di rompersi.
 
 ## Licenza
 
-Da definire.
+[GNU General Public License v3.0](LICENSE) — Copyright © 2026 Gabriele Fiorucci.
+
+Sei libero di usare, studiare, modificare e ridistribuire questo progetto. Se ne
+distribuisci una versione modificata, devi rilasciarne il codice sorgente sotto
+la stessa licenza.

@@ -1,3 +1,18 @@
+# FOCUS! — il tempo di concentrazione diventa una città.
+# Copyright (C) 2026 Gabriele Fiorucci
+#
+# Questo programma è software libero: puoi ridistribuirlo e/o modificarlo
+# secondo i termini della GNU General Public License come pubblicata dalla
+# Free Software Foundation, nella versione 3 della Licenza o (a tua scelta)
+# in una versione successiva.
+#
+# Questo programma è distribuito nella speranza che sia utile, ma SENZA ALCUNA
+# GARANZIA; senza neppure la garanzia implicita di COMMERCIABILITÀ o IDONEITÀ
+# PER UNO SCOPO PARTICOLARE. Vedi la GNU General Public License per i dettagli.
+#
+# Dovresti aver ricevuto una copia della GNU General Public License insieme a
+# questo programma. In caso contrario, vedi <https://www.gnu.org/licenses/>.
+
 class_name FocusTimer
 extends Node
 ## Countdown a durata libera basato sull'orologio monotono, non sui frame.
