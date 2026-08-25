@@ -82,11 +82,14 @@ script Python (bpy)  ──►  Blender (headless)  ──►  modello.glb  ─�
 - [x] Creare progetto Godot + struttura cartelle
 - [x] Git per il versioning (`.gitignore` + `.gitattributes`)
 
-### Fase 1 — Core loop: Timer + Crediti + Salvataggio (app già funzionante senza 3D)
-- [ ] SaveManager (salva/carica JSON)
-- [ ] Schermata Timer + countdown a durata libera
-- [ ] Accredito crediti (~10/ora, proporzionale)
-- [ ] Statistiche base + visualizzazione crediti
+### Fase 1 — Core loop: Timer + Crediti + Salvataggio ✅ completata
+- [x] `SaveManager` autoload — JSON in `user://focus_save.json`, innesto sui default
+      così un salvataggio vecchio non si rompe quando lo schema cresce
+- [x] Schermata Timer + countdown a durata libera (ore/minuti + preset 25/50/90)
+- [x] Accredito crediti proporzionale; il resto sotto l'unità resta da parte e si
+      somma alla sessione dopo, quindi 20 sessioni da 3 minuti valgono un'ora
+- [x] Statistiche base (sessioni, focus totale) + crediti sempre a schermo
+- [x] `Config` autoload che legge `data/economy.json`
 
 ### Fase 2 — Mondo 3D + Camera
 - [ ] Griglia di moduli + conversione coordinate griglia↔mondo
@@ -132,7 +135,16 @@ FOCUS!/
 Convenzioni ereditate dalla pipeline asset: **cella 2 x 2 m**, origine al centro
 della base, fronte verso `-Y`, collisioni con suffisso `-colonly`.
 
+## Scelte di progetto
+
+- **Il timer legge l'orologio monotono**, non i delta dei frame: un calo di FPS o
+  una finestra sospesa non falsano un'ora di concentrazione.
+- **Un'interruzione manuale paga il tempo svolto** (sopra `min_session_seconds`).
+  Si disattiva con `credits_on_early_stop: false` in `data/economy.json`.
+- **Le coordinate nel salvataggio sono array `[x, y]`**, non `Vector2i`: JSON non
+  conosce i tipi di Godot. La conversione avviene al caricamento.
+
 ## Prossimo passo
 
-Fase 1: `SaveManager` (JSON su `user://`), file di config dell'economia,
-schermata Timer con countdown a durata libera e accredito crediti.
+Fase 2: griglia di moduli (cella 2 x 2 m), conversione griglia↔mondo, camera
+ortografica isometrica con rotazione a 90° sui 4 lati e pan.

@@ -1,0 +1,159 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/focus/focus_screen.gd" id="1_screen"]
+[ext_resource type="Script" path="res://scripts/focus/focus_timer.gd" id="2_timer"]
+
+[node name="FocusScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_screen")
+
+[node name="FocusTimer" type="Node" parent="."]
+script = ExtResource("2_timer")
+
+[node name="Sfondo" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.121569, 0.160784, 0.2, 1)
+
+[node name="Margini" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 48
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 48
+theme_override_constants/margin_bottom = 32
+
+[node name="Colonna" type="VBoxContainer" parent="Margini"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="BarraSuperiore" type="HBoxContainer" parent="Margini/Colonna"]
+layout_mode = 2
+
+[node name="Titolo" type="Label" parent="Margini/Colonna/BarraSuperiore"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 24
+text = "FOCUS!"
+vertical_alignment = 1
+
+[node name="Crediti" type="Label" parent="Margini/Colonna/BarraSuperiore"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.180392, 0.768627, 0.713726, 1)
+theme_override_font_sizes/font_size = 24
+text = "0 crediti"
+vertical_alignment = 1
+
+[node name="SpazioAlto" type="Control" parent="Margini/Colonna"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Tempo" type="Label" parent="Margini/Colonna"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 108
+text = "25:00"
+horizontal_alignment = 1
+
+[node name="Progresso" type="ProgressBar" parent="Margini/Colonna"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+value = 0.0
+show_percentage = false
+
+[node name="Stato" type="Label" parent="Margini/Colonna"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.701961, 0.729412, 0.760784, 1)
+text = "Imposta una durata e comincia."
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="SpazioBasso" type="Control" parent="Margini/Colonna"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="RigaDurata" type="HBoxContainer" parent="Margini/Colonna"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="EtichettaDurata" type="Label" parent="Margini/Colonna/RigaDurata"]
+layout_mode = 2
+text = "Durata"
+vertical_alignment = 1
+
+[node name="Ore" type="SpinBox" parent="Margini/Colonna/RigaDurata"]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 12.0
+
+[node name="EtichettaOre" type="Label" parent="Margini/Colonna/RigaDurata"]
+layout_mode = 2
+text = "h"
+vertical_alignment = 1
+
+[node name="Minuti" type="SpinBox" parent="Margini/Colonna/RigaDurata"]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 59.0
+value = 25.0
+
+[node name="EtichettaMinuti" type="Label" parent="Margini/Colonna/RigaDurata"]
+layout_mode = 2
+text = "min"
+vertical_alignment = 1
+
+[node name="Separatore" type="VSeparator" parent="Margini/Colonna/RigaDurata"]
+layout_mode = 2
+
+[node name="Preset" type="HBoxContainer" parent="Margini/Colonna/RigaDurata"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Comandi" type="HBoxContainer" parent="Margini/Colonna"]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="Avvia" type="Button" parent="Margini/Colonna/Comandi"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 46)
+layout_mode = 2
+text = "Avvia focus"
+
+[node name="Pausa" type="Button" parent="Margini/Colonna/Comandi"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 46)
+layout_mode = 2
+text = "Pausa"
+
+[node name="Annulla" type="Button" parent="Margini/Colonna/Comandi"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 46)
+layout_mode = 2
+text = "Termina"
+
+[node name="Statistiche" type="Label" parent="Margini/Colonna"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.545098, 0.588235, 0.639216, 1)
+text = "0 sessioni · 0m di focus totale"
+horizontal_alignment = 1

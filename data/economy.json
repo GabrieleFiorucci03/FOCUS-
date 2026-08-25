@@ -1,0 +1,15 @@
+{
+	"_commento": "Tutti i numeri dell'economia. Modifica qui e riavvia l'app: non serve toccare il codice.",
+
+	"credits_per_hour": 10.0,
+	"credits_on_early_stop": true,
+	"min_session_seconds": 60,
+
+	"_commento_prezzi": "Prezzi provvisori per categoria (Fase 4 li collegherà ai singoli ID del catalogo).",
+	"prices": {
+		"NAT_TREE": 2,
+		"ROAD": 3,
+		"RES_LOW": 8,
+		"RES_MID": 25
+	}
+}
