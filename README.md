@@ -113,6 +113,7 @@ Apri la cartella con Godot e premi `F5`. Al primo avvio l'engine importa i 72
 | 3 | Terreno procedurale, biomi, fiumi | ✅ |
 | 3.5 | Pipeline asset Blender | ✅ |
 | 4 | Negozio e costruzione sulla griglia | ⬜ |
+| 4.5 | Modellare il terreno: colline, laghi, isole | ⬜ |
 | 5 | Bilanciamento, suoni, statistiche | ⬜ |
 
 Il dettaglio sta in [`PIANO.md`](PIANO.md).

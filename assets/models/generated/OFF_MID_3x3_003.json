@@ -6,11 +6,15 @@
     3
   ],
   "grid_unit_meters": 2.0,
-  "height_meters": 6.15,
+  "elevation_step_meters": 0.5,
+  "height_meters": 6.187,
+  "min_z": -0.037,
+  "max_z": 6.15,
   "triangles": 792,
   "seed": 703,
   "model": "OFF_MID_3x3_003.glb",
   "front_axis": "-Y",
-  "generator_version": 2,
+  "origin_mode": "ground",
+  "generator_version": 3,
   "shape": "atrium"
 }

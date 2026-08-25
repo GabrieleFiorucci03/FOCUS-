@@ -6,11 +6,15 @@
     2
   ],
   "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
   "height_meters": 0.564,
+  "min_z": 0.0,
+  "max_z": 0.564,
   "triangles": 600,
   "seed": 1503,
   "model": "UTIL_SOLAR_3x2_001.glb",
   "front_axis": "-Y",
-  "generator_version": 2,
+  "origin_mode": "ground",
+  "generator_version": 3,
   "variant": "solar"
 }

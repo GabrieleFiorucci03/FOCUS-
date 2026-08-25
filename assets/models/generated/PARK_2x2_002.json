@@ -6,11 +6,15 @@
     2
   ],
   "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
   "height_meters": 1.152,
+  "min_z": 0.0,
+  "max_z": 1.152,
   "triangles": 852,
   "seed": 902,
   "model": "PARK_2x2_002.glb",
   "front_axis": "-Y",
-  "generator_version": 2,
+  "origin_mode": "ground",
+  "generator_version": 3,
   "variant": "playground"
 }

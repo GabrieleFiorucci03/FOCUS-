@@ -6,11 +6,15 @@
     1
   ],
   "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
   "height_meters": 1.977,
+  "min_z": 0.0,
+  "max_z": 1.977,
   "triangles": 84,
   "seed": 1203,
   "model": "NAT_TREE_BIRCH_1x1_001.glb",
   "front_axis": "-Y",
-  "generator_version": 2,
+  "origin_mode": "ground",
+  "generator_version": 3,
   "variant": "birch"
 }

@@ -1,0 +1,25 @@
+{
+  "id": "BRG_LOCAL_DECK_1x1_CORNER",
+  "kind": "bridge",
+  "footprint": [
+    1,
+    1
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 0.608,
+  "min_z": -0.2,
+  "max_z": 0.407,
+  "triangles": 600,
+  "seed": 1704,
+  "model": "BRG_LOCAL_DECK_1x1_CORNER.glb",
+  "front_axis": "-Y",
+  "origin_mode": "road_surface",
+  "generator_version": 3,
+  "variant": "corner",
+  "style": "local",
+  "connections": {
+    "north": 0.0,
+    "east": 0.0
+  }
+}

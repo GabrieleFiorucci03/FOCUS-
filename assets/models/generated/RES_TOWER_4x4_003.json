@@ -6,11 +6,15 @@
     4
   ],
   "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
   "height_meters": 14.045,
+  "min_z": 0.0,
+  "max_z": 14.045,
   "triangles": 1876,
   "seed": 503,
   "model": "RES_TOWER_4x4_003.glb",
   "front_axis": "-Y",
-  "generator_version": 2,
+  "origin_mode": "ground",
+  "generator_version": 3,
   "shape": "twin"
 }

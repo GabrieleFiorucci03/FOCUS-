@@ -6,11 +6,15 @@
     2
   ],
   "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
   "height_meters": 2.89,
+  "min_z": 0.0,
+  "max_z": 2.89,
   "triangles": 476,
   "seed": 802,
   "model": "IND_LOW_3x2_002.glb",
   "front_axis": "-Y",
-  "generator_version": 2,
+  "origin_mode": "ground",
+  "generator_version": 3,
   "variant": "warehouse"
 }

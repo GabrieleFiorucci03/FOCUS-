@@ -6,10 +6,14 @@
     2
   ],
   "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
   "height_meters": 1.96,
+  "min_z": 0.0,
+  "max_z": 1.96,
   "triangles": 800,
   "seed": 401,
   "model": "RES_LUX_2x2_001.glb",
   "front_axis": "-Y",
-  "generator_version": 2
+  "origin_mode": "ground",
+  "generator_version": 3
 }

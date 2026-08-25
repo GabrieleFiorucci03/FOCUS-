@@ -6,11 +6,15 @@
     2
   ],
   "grid_unit_meters": 2.0,
-  "height_meters": 5.4,
+  "elevation_step_meters": 0.5,
+  "height_meters": 5.438,
+  "min_z": -0.037,
+  "max_z": 5.4,
   "triangles": 616,
   "seed": 702,
   "model": "OFF_MID_2x2_002.glb",
   "front_axis": "-Y",
-  "generator_version": 2,
+  "origin_mode": "ground",
+  "generator_version": 3,
   "shape": "stepped"
 }

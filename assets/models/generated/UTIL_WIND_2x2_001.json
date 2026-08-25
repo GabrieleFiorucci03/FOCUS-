@@ -6,11 +6,15 @@
     2
   ],
   "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
   "height_meters": 4.875,
+  "min_z": 0.0,
+  "max_z": 4.875,
   "triangles": 292,
   "seed": 1501,
   "model": "UTIL_WIND_2x2_001.glb",
   "front_axis": "-Y",
-  "generator_version": 2,
+  "origin_mode": "ground",
+  "generator_version": 3,
   "variant": "wind"
 }

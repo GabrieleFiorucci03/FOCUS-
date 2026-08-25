@@ -1,0 +1,21 @@
+{
+  "id": "BRG_SUPPORT_ABUTMENT_1x1_050",
+  "kind": "bridge_support",
+  "footprint": [
+    1,
+    1
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 0.66,
+  "min_z": 0.0,
+  "max_z": 0.66,
+  "triangles": 176,
+  "seed": 1714,
+  "model": "BRG_SUPPORT_ABUTMENT_1x1_050.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 3,
+  "variant": "abutment",
+  "support_height": 0.5
+}

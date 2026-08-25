@@ -6,11 +6,15 @@
     1
   ],
   "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
   "height_meters": 1.82,
+  "min_z": 0.0,
+  "max_z": 1.82,
   "triangles": 60,
   "seed": 1202,
   "model": "NAT_TREE_PINE_1x1_001.glb",
   "front_axis": "-Y",
-  "generator_version": 2,
+  "origin_mode": "ground",
+  "generator_version": 3,
   "variant": "pine"
 }

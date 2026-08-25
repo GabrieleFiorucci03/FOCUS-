@@ -6,12 +6,16 @@
     1
   ],
   "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
   "height_meters": 0.12,
+  "min_z": 0.0,
+  "max_z": 0.104,
   "triangles": 176,
   "seed": 1111,
   "model": "ROAD_DIRT_1x1_STRAIGHT.glb",
   "front_axis": "-Y",
-  "generator_version": 2,
+  "origin_mode": "ground",
+  "generator_version": 3,
   "variant": "straight",
   "style": "dirt"
 }

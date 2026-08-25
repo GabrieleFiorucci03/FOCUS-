@@ -1,0 +1,27 @@
+{
+  "id": "BRG_LOCAL_RAMP_1x1_UP_050",
+  "kind": "bridge",
+  "footprint": [
+    1,
+    1
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 1.067,
+  "min_z": -0.16,
+  "max_z": 0.907,
+  "triangles": 204,
+  "seed": 1701,
+  "model": "BRG_LOCAL_RAMP_1x1_UP_050.glb",
+  "front_axis": "-Y",
+  "origin_mode": "terrain",
+  "generator_version": 3,
+  "variant": "ramp",
+  "style": "local",
+  "direction": "up",
+  "rise": 0.5,
+  "connections": {
+    "north": 0.0,
+    "south": 0.5
+  }
+}

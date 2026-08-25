@@ -6,12 +6,16 @@
     2
   ],
   "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
   "height_meters": 3.15,
+  "min_z": 0.0,
+  "max_z": 3.15,
   "triangles": 1832,
   "seed": 1004,
   "model": "CIV_POLICE_3x2_002.glb",
   "front_axis": "-Y",
-  "generator_version": 2,
+  "origin_mode": "ground",
+  "generator_version": 3,
   "variant": "central",
   "service": "police"
 }

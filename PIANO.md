@@ -42,12 +42,17 @@ SaveData:
   world:
     seed: int                  # per rigenerare il terreno
     size: Vector2i             # es. 32x32 moduli
-    tiles: [                   # solo le celle modificate
+    tiles: [                   # solo le celle costruite
       { pos: Vector2i, type: "casa_01", rotation: int }
+    ]
+    terrain_edits: [           # solo le quote toccate a mano (Fase 4.5)
+      { pos: Vector2i, level: int }
     ]
 ```
 
-Si salvano solo le celle costruite (non tutto il terreno), che si rigenera dal `seed`.
+Si salvano solo le celle costruite e le quote modificate: tutto il resto del
+terreno si rigenera dal `seed`. In JSON `Vector2i` non esiste, le coordinate
+viaggiano come array `[x, z]`.
 
 ## Economia — valori di partenza (da bilanciare)
 
@@ -117,6 +122,40 @@ script Python (bpy)  ──►  Blender (headless)  ──►  modello.glb  ─�
 - [ ] Catalogo oggetti (dati) collegato ai `.glb`
 - [ ] UI negozio + logica acquisto (scala crediti, controllo saldo)
 - [ ] Modalità piazzamento sulla griglia + anteprima + rotazione + salvataggio
+- [ ] Decidere la politica di livellamento (vedi Fase 4.5): se il piazzamento
+      spiana in automatico e gratis, lo strumento terreno nasce inutile
+
+### Fase 4.5 — Modellare il terreno
+
+Alzare e abbassare il suolo per farsi colline, laghi, fiumi e isole artificiali.
+
+**Va fatta dopo la Fase 4, non prima.** Il negozio costruisce già tutto il
+meccanismo di interazione — raycast dal mouse alla cella, anteprima, controllo
+del saldo, addebito, salvataggio — e lo strumento terreno usa esattamente lo
+stesso con un'azione diversa. Farla prima vuol dire scrivere quella macchina due
+volte.
+
+Quello che c'è già e non va rifatto:
+
+- Le quote sono numeri interi per cella: alzare è `livelli[i] += 1`.
+- `CityTerrain.spiana()` livella un lotto.
+- La classificazione delle acque è un flood fill dal bordo mappa, e questo
+  risponde da solo a tre casi diversi senza codice dedicato:
+  scavare una conca chiusa sotto il livello del mare produce un **lago**,
+  collegarla alla costa con un canale la trasforma in **mare**,
+  alzare il fondale fin sopra il pelo dell'acqua produce un'**isola**.
+
+Da fare:
+
+- [ ] Strumenti alza / abbassa / livella, con anteprima della cella bersaglio
+- [ ] Ricalcolo di biomi e acque dopo ogni modifica (rieseguire il flood fill)
+- [ ] Ricostruzione della mesh: oggi si rifà tutto il terreno in un colpo, su
+      32x32 regge anche a ogni click; se la mappa cresce va spezzata in blocchi
+- [ ] Salvataggio delle quote modificate (`terrain_edits`, additivo allo schema)
+- [ ] Costo in crediti, altrimenti il terraforming è gratis e l'economia salta
+- [ ] Decidere cosa succede a un edificio su una cella che cambia quota:
+      si rimuove, si blocca l'operazione, o scende con il terreno
+- [ ] Decidere se limitare il dislivello tra celle adiacenti o lasciare i dirupi
 
 ### Fase 5 — Rifinitura
 - [ ] Bilanciamento economia

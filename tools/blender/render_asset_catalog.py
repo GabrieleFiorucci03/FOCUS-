@@ -50,7 +50,7 @@ def add_box(size, location, material):
     return obj
 
 
-def import_asset(asset: dict, position: Vector) -> None:
+def import_asset(asset: dict, position: Vector) -> list:
     before = set(bpy.context.scene.objects)
     bpy.ops.import_scene.gltf(filepath=str(MODEL_DIR / asset["model"]))
     imported = set(bpy.context.scene.objects) - before
@@ -61,6 +61,7 @@ def import_asset(asset: dict, position: Vector) -> None:
     roots = [obj for obj in imported if obj.parent is None or obj.parent not in imported]
     for root in roots:
         root.location += position
+    return roots
 
 
 def point_camera(camera, target: Vector) -> None:

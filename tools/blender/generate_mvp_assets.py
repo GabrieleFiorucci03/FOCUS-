@@ -25,7 +25,7 @@ SCRIPT_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = SCRIPT_DIR.parents[1]
 sys.path.insert(0, str(SCRIPT_DIR))
 
-from focus_asset_specs import ASSETS, ASSET_BY_ID, GRID_UNIT_METERS  # noqa: E402
+from focus_asset_specs import ASSETS, ASSET_BY_ID, ELEVATION_STEP_METERS, GRID_UNIT_METERS  # noqa: E402
 
 
 GENERATOR_VERSION = 3
@@ -953,6 +953,7 @@ def finalize_and_export(spec, output_dir: Path) -> dict:
         "kind": spec["kind"],
         "footprint": footprint,
         "grid_unit_meters": GRID_UNIT_METERS,
+        "elevation_step_meters": ELEVATION_STEP_METERS,
         "height_meters": round(height, 3),
         "min_z": round(min_z, 3),
         "max_z": round(max_z, 3),
@@ -960,6 +961,7 @@ def finalize_and_export(spec, output_dir: Path) -> dict:
         "seed": spec["seed"],
         "model": glb_path.name,
         "front_axis": "-Y",
+        "origin_mode": spec.get("origin_mode", "ground"),
         "generator_version": GENERATOR_VERSION,
     }
     if "variant" in spec:
@@ -991,7 +993,17 @@ def main() -> None:
         print(f"[FOCUS] {index}/{len(selected)} Generazione {spec['id']}")
         catalog.append(generate_asset(spec, output_dir))
     with (output_dir / "catalog.json").open("w", encoding="utf-8") as handle:
-        json.dump({"generator_version": GENERATOR_VERSION, "assets": catalog}, handle, ensure_ascii=False, indent=2)
+        json.dump(
+            {
+                "generator_version": GENERATOR_VERSION,
+                "grid_unit_meters": GRID_UNIT_METERS,
+                "elevation_step_meters": ELEVATION_STEP_METERS,
+                "assets": catalog,
+            },
+            handle,
+            ensure_ascii=False,
+            indent=2,
+        )
         handle.write("\n")
     print(f"[FOCUS] Completato: {len(catalog)} asset in {output_dir}")
 

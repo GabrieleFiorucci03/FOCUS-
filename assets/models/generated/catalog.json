@@ -1,5 +1,7 @@
 {
-  "generator_version": 2,
+  "generator_version": 3,
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
   "assets": [
     {
       "id": "RES_LOW_1x1_001",
@@ -9,12 +11,16 @@
         1
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 1.37,
+      "min_z": 0.0,
+      "max_z": 1.37,
       "triangles": 448,
       "seed": 101,
       "model": "RES_LOW_1x1_001.glb",
       "front_axis": "-Y",
-      "generator_version": 2
+      "origin_mode": "ground",
+      "generator_version": 3
     },
     {
       "id": "RES_LOW_1x1_002",
@@ -24,12 +30,16 @@
         1
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 1.38,
+      "min_z": 0.0,
+      "max_z": 1.38,
       "triangles": 402,
       "seed": 102,
       "model": "RES_LOW_1x1_002.glb",
       "front_axis": "-Y",
-      "generator_version": 2
+      "origin_mode": "ground",
+      "generator_version": 3
     },
     {
       "id": "RES_LOW_1x1_003",
@@ -39,12 +49,16 @@
         1
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 2.09,
+      "min_z": 0.0,
+      "max_z": 2.09,
       "triangles": 712,
       "seed": 103,
       "model": "RES_LOW_1x1_003.glb",
       "front_axis": "-Y",
-      "generator_version": 2
+      "origin_mode": "ground",
+      "generator_version": 3
     },
     {
       "id": "RES_LOW_1x1_004",
@@ -54,12 +68,16 @@
         1
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 1.785,
+      "min_z": 0.0,
+      "max_z": 1.785,
       "triangles": 748,
       "seed": 104,
       "model": "RES_LOW_1x1_004.glb",
       "front_axis": "-Y",
-      "generator_version": 2
+      "origin_mode": "ground",
+      "generator_version": 3
     },
     {
       "id": "RES_LOW_1x1_005",
@@ -69,12 +87,16 @@
         1
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 1.37,
+      "min_z": 0.0,
+      "max_z": 1.37,
       "triangles": 484,
       "seed": 105,
       "model": "RES_LOW_1x1_005.glb",
       "front_axis": "-Y",
-      "generator_version": 2
+      "origin_mode": "ground",
+      "generator_version": 3
     },
     {
       "id": "RES_LOW_1x2_006",
@@ -84,12 +106,16 @@
         2
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 1.36,
+      "min_z": 0.0,
+      "max_z": 1.36,
       "triangles": 536,
       "seed": 106,
       "model": "RES_LOW_1x2_006.glb",
       "front_axis": "-Y",
-      "generator_version": 2,
+      "origin_mode": "ground",
+      "generator_version": 3,
       "feature": "garage"
     },
     {
@@ -100,12 +126,16 @@
         1
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 2.09,
+      "min_z": 0.0,
+      "max_z": 2.09,
       "triangles": 756,
       "seed": 107,
       "model": "RES_LOW_2x1_007.glb",
       "front_axis": "-Y",
-      "generator_version": 2,
+      "origin_mode": "ground",
+      "generator_version": 3,
       "feature": "duplex"
     },
     {
@@ -116,12 +146,16 @@
         1
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 1.065,
+      "min_z": 0.0,
+      "max_z": 1.065,
       "triangles": 572,
       "seed": 108,
       "model": "RES_LOW_1x1_008.glb",
       "front_axis": "-Y",
-      "generator_version": 2,
+      "origin_mode": "ground",
+      "generator_version": 3,
       "feature": "modern"
     },
     {
@@ -132,12 +166,16 @@
         2
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 2.1,
+      "min_z": 0.0,
+      "max_z": 2.1,
       "triangles": 970,
       "seed": 109,
       "model": "RES_LOW_1x2_009.glb",
       "front_axis": "-Y",
-      "generator_version": 2,
+      "origin_mode": "ground",
+      "generator_version": 3,
       "feature": "porch"
     },
     {
@@ -148,12 +186,16 @@
         1
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 1.37,
+      "min_z": -0.0,
+      "max_z": 1.37,
       "triangles": 704,
       "seed": 110,
       "model": "RES_LOW_2x1_010.glb",
       "front_axis": "-Y",
-      "generator_version": 2,
+      "origin_mode": "ground",
+      "generator_version": 3,
       "feature": "courtyard"
     },
     {
@@ -164,12 +206,16 @@
         2
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 2.71,
+      "min_z": 0.0,
+      "max_z": 2.71,
       "triangles": 3256,
       "seed": 201,
       "model": "RES_MID_2x2_001.glb",
       "front_axis": "-Y",
-      "generator_version": 2
+      "origin_mode": "ground",
+      "generator_version": 3
     },
     {
       "id": "RES_MID_2x2_002",
@@ -179,12 +225,16 @@
         2
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 3.29,
+      "min_z": 0.0,
+      "max_z": 3.29,
       "triangles": 3696,
       "seed": 202,
       "model": "RES_MID_2x2_002.glb",
       "front_axis": "-Y",
-      "generator_version": 2
+      "origin_mode": "ground",
+      "generator_version": 3
     },
     {
       "id": "RES_MID_2x2_003",
@@ -194,12 +244,16 @@
         2
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 3.87,
+      "min_z": 0.0,
+      "max_z": 3.87,
       "triangles": 4840,
       "seed": 203,
       "model": "RES_MID_2x2_003.glb",
       "front_axis": "-Y",
-      "generator_version": 2
+      "origin_mode": "ground",
+      "generator_version": 3
     },
     {
       "id": "RES_MID_2x2_004",
@@ -209,12 +263,16 @@
         2
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 3.364,
+      "min_z": 0.0,
+      "max_z": 3.364,
       "triangles": 3300,
       "seed": 204,
       "model": "RES_MID_2x2_004.glb",
       "front_axis": "-Y",
-      "generator_version": 2,
+      "origin_mode": "ground",
+      "generator_version": 3,
       "shape": "stepped"
     },
     {
@@ -225,12 +283,16 @@
         3
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 3.87,
+      "min_z": 0.0,
+      "max_z": 3.87,
       "triangles": 5500,
       "seed": 205,
       "model": "RES_MID_2x3_005.glb",
       "front_axis": "-Y",
-      "generator_version": 2,
+      "origin_mode": "ground",
+      "generator_version": 3,
       "shape": "wing"
     },
     {
@@ -241,12 +303,16 @@
         2
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 3.29,
+      "min_z": 0.0,
+      "max_z": 3.29,
       "triangles": 5016,
       "seed": 206,
       "model": "RES_MID_3x2_006.glb",
       "front_axis": "-Y",
-      "generator_version": 2,
+      "origin_mode": "ground",
+      "generator_version": 3,
       "shape": "twin"
     },
     {
@@ -257,12 +323,16 @@
         2
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 5.12,
+      "min_z": 0.0,
+      "max_z": 5.12,
       "triangles": 5632,
       "seed": 301,
       "model": "RES_HIGH_2x2_001.glb",
       "front_axis": "-Y",
-      "generator_version": 2
+      "origin_mode": "ground",
+      "generator_version": 3
     },
     {
       "id": "RES_HIGH_2x3_002",
@@ -272,12 +342,16 @@
         3
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 6.71,
+      "min_z": 0.0,
+      "max_z": 6.71,
       "triangles": 7524,
       "seed": 302,
       "model": "RES_HIGH_2x3_002.glb",
       "front_axis": "-Y",
-      "generator_version": 2,
+      "origin_mode": "ground",
+      "generator_version": 3,
       "shape": "offset"
     },
     {
@@ -288,12 +362,16 @@
         2
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 1.96,
+      "min_z": 0.0,
+      "max_z": 1.96,
       "triangles": 800,
       "seed": 401,
       "model": "RES_LUX_2x2_001.glb",
       "front_axis": "-Y",
-      "generator_version": 2
+      "origin_mode": "ground",
+      "generator_version": 3
     },
     {
       "id": "RES_LUX_2x2_002",
@@ -303,12 +381,16 @@
         2
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 1.665,
+      "min_z": 0.0,
+      "max_z": 1.665,
       "triangles": 876,
       "seed": 402,
       "model": "RES_LUX_2x2_002.glb",
       "front_axis": "-Y",
-      "generator_version": 2
+      "origin_mode": "ground",
+      "generator_version": 3
     },
     {
       "id": "RES_LUX_2x2_003",
@@ -318,12 +400,16 @@
         2
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 1.24,
+      "min_z": 0.0,
+      "max_z": 1.24,
       "triangles": 532,
       "seed": 403,
       "model": "RES_LUX_2x2_003.glb",
       "front_axis": "-Y",
-      "generator_version": 2,
+      "origin_mode": "ground",
+      "generator_version": 3,
       "shape": "courtyard"
     },
     {
@@ -334,12 +420,16 @@
         2
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 1.56,
+      "min_z": 0.0,
+      "max_z": 1.56,
       "triangles": 836,
       "seed": 404,
       "model": "RES_LUX_3x2_004.glb",
       "front_axis": "-Y",
-      "generator_version": 2,
+      "origin_mode": "ground",
+      "generator_version": 3,
       "shape": "modern"
     },
     {
@@ -350,12 +440,16 @@
         3
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 10.205,
+      "min_z": 0.0,
+      "max_z": 10.205,
       "triangles": 1436,
       "seed": 501,
       "model": "RES_TOWER_3x3_001.glb",
       "front_axis": "-Y",
-      "generator_version": 2
+      "origin_mode": "ground",
+      "generator_version": 3
     },
     {
       "id": "RES_TOWER_3x3_002",
@@ -365,12 +459,16 @@
         3
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 12.125,
+      "min_z": 0.0,
+      "max_z": 12.125,
       "triangles": 1656,
       "seed": 502,
       "model": "RES_TOWER_3x3_002.glb",
       "front_axis": "-Y",
-      "generator_version": 2,
+      "origin_mode": "ground",
+      "generator_version": 3,
       "shape": "setback"
     },
     {
@@ -381,12 +479,16 @@
         4
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 14.045,
+      "min_z": 0.0,
+      "max_z": 14.045,
       "triangles": 1876,
       "seed": 503,
       "model": "RES_TOWER_4x4_003.glb",
       "front_axis": "-Y",
-      "generator_version": 2,
+      "origin_mode": "ground",
+      "generator_version": 3,
       "shape": "twin"
     },
     {
@@ -397,12 +499,16 @@
         1
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 1.01,
+      "min_z": 0.0,
+      "max_z": 1.01,
       "triangles": 264,
       "seed": 601,
       "model": "COM_LOW_1x1_001.glb",
       "front_axis": "-Y",
-      "generator_version": 2
+      "origin_mode": "ground",
+      "generator_version": 3
     },
     {
       "id": "COM_LOW_1x1_002",
@@ -412,12 +518,16 @@
         1
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 1.01,
+      "min_z": 0.0,
+      "max_z": 1.01,
       "triangles": 264,
       "seed": 602,
       "model": "COM_LOW_1x1_002.glb",
       "front_axis": "-Y",
-      "generator_version": 2
+      "origin_mode": "ground",
+      "generator_version": 3
     },
     {
       "id": "COM_LOW_1x1_003",
@@ -427,12 +537,16 @@
         1
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 1.01,
+      "min_z": 0.0,
+      "max_z": 1.01,
       "triangles": 360,
       "seed": 603,
       "model": "COM_LOW_1x1_003.glb",
       "front_axis": "-Y",
-      "generator_version": 2,
+      "origin_mode": "ground",
+      "generator_version": 3,
       "variant": "cafe"
     },
     {
@@ -443,12 +557,16 @@
         1
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 1.01,
+      "min_z": 0.0,
+      "max_z": 1.01,
       "triangles": 308,
       "seed": 604,
       "model": "COM_LOW_2x1_004.glb",
       "front_axis": "-Y",
-      "generator_version": 2,
+      "origin_mode": "ground",
+      "generator_version": 3,
       "variant": "restaurant"
     },
     {
@@ -459,12 +577,16 @@
         2
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 1.26,
+      "min_z": 0.0,
+      "max_z": 1.26,
       "triangles": 308,
       "seed": 605,
       "model": "COM_MID_2x2_005.glb",
       "front_axis": "-Y",
-      "generator_version": 2,
+      "origin_mode": "ground",
+      "generator_version": 3,
       "variant": "market"
     },
     {
@@ -475,12 +597,16 @@
         1
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 1.01,
+      "min_z": 0.0,
+      "max_z": 1.01,
       "triangles": 264,
       "seed": 606,
       "model": "COM_KIOSK_1x1_006.glb",
       "front_axis": "-Y",
-      "generator_version": 2,
+      "origin_mode": "ground",
+      "generator_version": 3,
       "variant": "kiosk"
     },
     {
@@ -491,12 +617,16 @@
         2
       ],
       "grid_unit_meters": 2.0,
-      "height_meters": 3.15,
+      "elevation_step_meters": 0.5,
+      "height_meters": 3.188,
+      "min_z": -0.038,
+      "max_z": 3.15,
       "triangles": 484,
       "seed": 701,
       "model": "OFF_LOW_2x2_001.glb",
       "front_axis": "-Y",
-      "generator_version": 2
+      "origin_mode": "ground",
+      "generator_version": 3
     },
     {
       "id": "OFF_MID_2x2_002",
@@ -506,12 +636,16 @@
         2
       ],
       "grid_unit_meters": 2.0,
-      "height_meters": 5.4,
+      "elevation_step_meters": 0.5,
+      "height_meters": 5.438,
+      "min_z": -0.037,
+      "max_z": 5.4,
       "triangles": 616,
       "seed": 702,
       "model": "OFF_MID_2x2_002.glb",
       "front_axis": "-Y",
-      "generator_version": 2,
+      "origin_mode": "ground",
+      "generator_version": 3,
       "shape": "stepped"
     },
     {
@@ -522,12 +656,16 @@
         3
       ],
       "grid_unit_meters": 2.0,
-      "height_meters": 6.15,
+      "elevation_step_meters": 0.5,
+      "height_meters": 6.187,
+      "min_z": -0.037,
+      "max_z": 6.15,
       "triangles": 792,
       "seed": 703,
       "model": "OFF_MID_3x3_003.glb",
       "front_axis": "-Y",
-      "generator_version": 2,
+      "origin_mode": "ground",
+      "generator_version": 3,
       "shape": "atrium"
     },
     {
@@ -538,12 +676,16 @@
         2
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 2.89,
+      "min_z": 0.0,
+      "max_z": 2.89,
       "triangles": 344,
       "seed": 801,
       "model": "IND_LOW_2x2_001.glb",
       "front_axis": "-Y",
-      "generator_version": 2
+      "origin_mode": "ground",
+      "generator_version": 3
     },
     {
       "id": "IND_LOW_3x2_002",
@@ -553,12 +695,16 @@
         2
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 2.89,
+      "min_z": 0.0,
+      "max_z": 2.89,
       "triangles": 476,
       "seed": 802,
       "model": "IND_LOW_3x2_002.glb",
       "front_axis": "-Y",
-      "generator_version": 2,
+      "origin_mode": "ground",
+      "generator_version": 3,
       "variant": "warehouse"
     },
     {
@@ -569,12 +715,16 @@
         3
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 3.16,
+      "min_z": 0.0,
+      "max_z": 3.16,
       "triangles": 520,
       "seed": 803,
       "model": "IND_MID_3x3_003.glb",
       "front_axis": "-Y",
-      "generator_version": 2,
+      "origin_mode": "ground",
+      "generator_version": 3,
       "variant": "logistics"
     },
     {
@@ -585,12 +735,16 @@
         2
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 1.128,
+      "min_z": 0.0,
+      "max_z": 1.128,
       "triangles": 684,
       "seed": 901,
       "model": "PARK_2x2_001.glb",
       "front_axis": "-Y",
-      "generator_version": 2
+      "origin_mode": "ground",
+      "generator_version": 3
     },
     {
       "id": "PARK_2x2_002",
@@ -600,12 +754,16 @@
         2
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 1.152,
+      "min_z": 0.0,
+      "max_z": 1.152,
       "triangles": 852,
       "seed": 902,
       "model": "PARK_2x2_002.glb",
       "front_axis": "-Y",
-      "generator_version": 2,
+      "origin_mode": "ground",
+      "generator_version": 3,
       "variant": "playground"
     },
     {
@@ -616,12 +774,16 @@
         3
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 1.128,
+      "min_z": 0.0,
+      "max_z": 1.128,
       "triangles": 684,
       "seed": 903,
       "model": "PARK_3x3_003.glb",
       "front_axis": "-Y",
-      "generator_version": 2,
+      "origin_mode": "ground",
+      "generator_version": 3,
       "variant": "plaza"
     },
     {
@@ -632,12 +794,16 @@
         1
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 1.178,
+      "min_z": 0.0,
+      "max_z": 1.178,
       "triangles": 540,
       "seed": 904,
       "model": "PARK_1x1_004.glb",
       "front_axis": "-Y",
-      "generator_version": 2,
+      "origin_mode": "ground",
+      "generator_version": 3,
       "variant": "pocket"
     },
     {
@@ -648,12 +814,16 @@
         2
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 2.49,
+      "min_z": 0.0,
+      "max_z": 2.49,
       "triangles": 952,
       "seed": 1001,
       "model": "CIV_POLICE_2x2_001.glb",
       "front_axis": "-Y",
-      "generator_version": 2,
+      "origin_mode": "ground",
+      "generator_version": 3,
       "service": "police"
     },
     {
@@ -664,12 +834,16 @@
         2
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 1.45,
+      "min_z": 0.0,
+      "max_z": 1.45,
       "triangles": 1100,
       "seed": 1002,
       "model": "CIV_FIRE_2x2_001.glb",
       "front_axis": "-Y",
-      "generator_version": 2,
+      "origin_mode": "ground",
+      "generator_version": 3,
       "service": "fire"
     },
     {
@@ -680,12 +854,16 @@
         3
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 2.11,
+      "min_z": 0.0,
+      "max_z": 2.11,
       "triangles": 2948,
       "seed": 1003,
       "model": "CIV_HEALTH_3x3_001.glb",
       "front_axis": "-Y",
-      "generator_version": 2,
+      "origin_mode": "ground",
+      "generator_version": 3,
       "service": "health"
     },
     {
@@ -696,12 +874,16 @@
         2
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 3.15,
+      "min_z": 0.0,
+      "max_z": 3.15,
       "triangles": 1832,
       "seed": 1004,
       "model": "CIV_POLICE_3x2_002.glb",
       "front_axis": "-Y",
-      "generator_version": 2,
+      "origin_mode": "ground",
+      "generator_version": 3,
       "variant": "central",
       "service": "police"
     },
@@ -713,12 +895,16 @@
         2
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 1.45,
+      "min_z": 0.0,
+      "max_z": 1.45,
       "triangles": 1452,
       "seed": 1005,
       "model": "CIV_FIRE_3x2_002.glb",
       "front_axis": "-Y",
-      "generator_version": 2,
+      "origin_mode": "ground",
+      "generator_version": 3,
       "variant": "central",
       "service": "fire"
     },
@@ -730,12 +916,16 @@
         2
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 1.45,
+      "min_z": 0.0,
+      "max_z": 1.45,
       "triangles": 1716,
       "seed": 1006,
       "model": "CIV_HEALTH_2x2_002.glb",
       "front_axis": "-Y",
-      "generator_version": 2,
+      "origin_mode": "ground",
+      "generator_version": 3,
       "variant": "clinic",
       "service": "health"
     },
@@ -747,12 +937,16 @@
         1
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 0.12,
+      "min_z": 0.0,
+      "max_z": 0.118,
       "triangles": 264,
       "seed": 1101,
       "model": "ROAD_LOCAL_1x1_STRAIGHT.glb",
       "front_axis": "-Y",
-      "generator_version": 2,
+      "origin_mode": "ground",
+      "generator_version": 3,
       "variant": "straight"
     },
     {
@@ -763,12 +957,16 @@
         1
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 0.12,
+      "min_z": 0.0,
+      "max_z": 0.118,
       "triangles": 264,
       "seed": 1102,
       "model": "ROAD_LOCAL_1x1_CORNER.glb",
       "front_axis": "-Y",
-      "generator_version": 2,
+      "origin_mode": "ground",
+      "generator_version": 3,
       "variant": "corner"
     },
     {
@@ -779,12 +977,16 @@
         1
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 0.12,
+      "min_z": 0.0,
+      "max_z": 0.118,
       "triangles": 352,
       "seed": 1103,
       "model": "ROAD_LOCAL_1x1_T.glb",
       "front_axis": "-Y",
-      "generator_version": 2,
+      "origin_mode": "ground",
+      "generator_version": 3,
       "variant": "t"
     },
     {
@@ -795,12 +997,16 @@
         1
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 0.12,
+      "min_z": 0.0,
+      "max_z": 0.118,
       "triangles": 440,
       "seed": 1104,
       "model": "ROAD_LOCAL_1x1_CROSS.glb",
       "front_axis": "-Y",
-      "generator_version": 2,
+      "origin_mode": "ground",
+      "generator_version": 3,
       "variant": "cross"
     },
     {
@@ -811,12 +1017,16 @@
         1
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 0.12,
+      "min_z": 0.0,
+      "max_z": 0.118,
       "triangles": 220,
       "seed": 1105,
       "model": "ROAD_LOCAL_1x1_END.glb",
       "front_axis": "-Y",
-      "generator_version": 2,
+      "origin_mode": "ground",
+      "generator_version": 3,
       "variant": "end"
     },
     {
@@ -827,12 +1037,16 @@
         1
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 0.12,
+      "min_z": 0.0,
+      "max_z": 0.104,
       "triangles": 176,
       "seed": 1111,
       "model": "ROAD_DIRT_1x1_STRAIGHT.glb",
       "front_axis": "-Y",
-      "generator_version": 2,
+      "origin_mode": "ground",
+      "generator_version": 3,
       "variant": "straight",
       "style": "dirt"
     },
@@ -844,12 +1058,16 @@
         1
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 0.12,
+      "min_z": 0.0,
+      "max_z": 0.104,
       "triangles": 176,
       "seed": 1112,
       "model": "ROAD_DIRT_1x1_CORNER.glb",
       "front_axis": "-Y",
-      "generator_version": 2,
+      "origin_mode": "ground",
+      "generator_version": 3,
       "variant": "corner",
       "style": "dirt"
     },
@@ -861,12 +1079,16 @@
         1
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 0.12,
+      "min_z": 0.0,
+      "max_z": 0.104,
       "triangles": 220,
       "seed": 1113,
       "model": "ROAD_DIRT_1x1_T.glb",
       "front_axis": "-Y",
-      "generator_version": 2,
+      "origin_mode": "ground",
+      "generator_version": 3,
       "variant": "t",
       "style": "dirt"
     },
@@ -878,12 +1100,16 @@
         1
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 0.12,
+      "min_z": 0.0,
+      "max_z": 0.104,
       "triangles": 264,
       "seed": 1114,
       "model": "ROAD_DIRT_1x1_CROSS.glb",
       "front_axis": "-Y",
-      "generator_version": 2,
+      "origin_mode": "ground",
+      "generator_version": 3,
       "variant": "cross",
       "style": "dirt"
     },
@@ -895,14 +1121,491 @@
         1
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 0.12,
+      "min_z": 0.0,
+      "max_z": 0.104,
       "triangles": 132,
       "seed": 1115,
       "model": "ROAD_DIRT_1x1_END.glb",
       "front_axis": "-Y",
-      "generator_version": 2,
+      "origin_mode": "ground",
+      "generator_version": 3,
       "variant": "end",
       "style": "dirt"
+    },
+    {
+      "id": "ROAD_LOCAL_SLOPE_1x1_UP_050",
+      "kind": "sloped_road",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 0.684,
+      "min_z": -0.08,
+      "max_z": 0.604,
+      "triangles": 60,
+      "seed": 1121,
+      "model": "ROAD_LOCAL_SLOPE_1x1_UP_050.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 3,
+      "style": "local",
+      "direction": "up",
+      "rise": 0.5,
+      "connections": {
+        "north": 0.0,
+        "south": 0.5
+      }
+    },
+    {
+      "id": "ROAD_LOCAL_SLOPE_1x1_DOWN_050",
+      "kind": "sloped_road",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 0.684,
+      "min_z": -0.08,
+      "max_z": 0.604,
+      "triangles": 60,
+      "seed": 1122,
+      "model": "ROAD_LOCAL_SLOPE_1x1_DOWN_050.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 3,
+      "style": "local",
+      "direction": "down",
+      "rise": 0.5,
+      "connections": {
+        "north": 0.5,
+        "south": 0.0
+      }
+    },
+    {
+      "id": "ROAD_LOCAL_SLOPE_1x2_UP_050",
+      "kind": "sloped_road",
+      "footprint": [
+        1,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 0.685,
+      "min_z": -0.08,
+      "max_z": 0.605,
+      "triangles": 60,
+      "seed": 1123,
+      "model": "ROAD_LOCAL_SLOPE_1x2_UP_050.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 3,
+      "style": "local",
+      "direction": "up",
+      "rise": 0.5,
+      "connections": {
+        "north": 0.0,
+        "south": 0.5
+      }
+    },
+    {
+      "id": "ROAD_LOCAL_SLOPE_1x2_DOWN_050",
+      "kind": "sloped_road",
+      "footprint": [
+        1,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 0.685,
+      "min_z": -0.08,
+      "max_z": 0.605,
+      "triangles": 60,
+      "seed": 1124,
+      "model": "ROAD_LOCAL_SLOPE_1x2_DOWN_050.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 3,
+      "style": "local",
+      "direction": "down",
+      "rise": 0.5,
+      "connections": {
+        "north": 0.5,
+        "south": 0.0
+      }
+    },
+    {
+      "id": "ROAD_DIRT_SLOPE_1x1_UP_050",
+      "kind": "sloped_road",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 0.684,
+      "min_z": -0.08,
+      "max_z": 0.604,
+      "triangles": 48,
+      "seed": 1131,
+      "model": "ROAD_DIRT_SLOPE_1x1_UP_050.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 3,
+      "style": "dirt",
+      "direction": "up",
+      "rise": 0.5,
+      "connections": {
+        "north": 0.0,
+        "south": 0.5
+      }
+    },
+    {
+      "id": "ROAD_DIRT_SLOPE_1x1_DOWN_050",
+      "kind": "sloped_road",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 0.684,
+      "min_z": -0.08,
+      "max_z": 0.604,
+      "triangles": 48,
+      "seed": 1132,
+      "model": "ROAD_DIRT_SLOPE_1x1_DOWN_050.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 3,
+      "style": "dirt",
+      "direction": "down",
+      "rise": 0.5,
+      "connections": {
+        "north": 0.5,
+        "south": 0.0
+      }
+    },
+    {
+      "id": "ROAD_DIRT_SLOPE_1x2_UP_050",
+      "kind": "sloped_road",
+      "footprint": [
+        1,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 0.685,
+      "min_z": -0.08,
+      "max_z": 0.605,
+      "triangles": 48,
+      "seed": 1133,
+      "model": "ROAD_DIRT_SLOPE_1x2_UP_050.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 3,
+      "style": "dirt",
+      "direction": "up",
+      "rise": 0.5,
+      "connections": {
+        "north": 0.0,
+        "south": 0.5
+      }
+    },
+    {
+      "id": "ROAD_DIRT_SLOPE_1x2_DOWN_050",
+      "kind": "sloped_road",
+      "footprint": [
+        1,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 0.685,
+      "min_z": -0.08,
+      "max_z": 0.605,
+      "triangles": 48,
+      "seed": 1134,
+      "model": "ROAD_DIRT_SLOPE_1x2_DOWN_050.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 3,
+      "style": "dirt",
+      "direction": "down",
+      "rise": 0.5,
+      "connections": {
+        "north": 0.5,
+        "south": 0.0
+      }
+    },
+    {
+      "id": "BRG_LOCAL_RAMP_1x1_UP_050",
+      "kind": "bridge",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 1.067,
+      "min_z": -0.16,
+      "max_z": 0.907,
+      "triangles": 204,
+      "seed": 1701,
+      "model": "BRG_LOCAL_RAMP_1x1_UP_050.glb",
+      "front_axis": "-Y",
+      "origin_mode": "terrain",
+      "generator_version": 3,
+      "variant": "ramp",
+      "style": "local",
+      "direction": "up",
+      "rise": 0.5,
+      "connections": {
+        "north": 0.0,
+        "south": 0.5
+      }
+    },
+    {
+      "id": "BRG_LOCAL_RAMP_1x1_DOWN_050",
+      "kind": "bridge",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 1.067,
+      "min_z": -0.16,
+      "max_z": 0.907,
+      "triangles": 204,
+      "seed": 1702,
+      "model": "BRG_LOCAL_RAMP_1x1_DOWN_050.glb",
+      "front_axis": "-Y",
+      "origin_mode": "terrain",
+      "generator_version": 3,
+      "variant": "ramp",
+      "style": "local",
+      "direction": "down",
+      "rise": 0.5,
+      "connections": {
+        "north": 0.5,
+        "south": 0.0
+      }
+    },
+    {
+      "id": "BRG_LOCAL_DECK_1x1_STRAIGHT",
+      "kind": "bridge",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 0.608,
+      "min_z": -0.2,
+      "max_z": 0.407,
+      "triangles": 432,
+      "seed": 1703,
+      "model": "BRG_LOCAL_DECK_1x1_STRAIGHT.glb",
+      "front_axis": "-Y",
+      "origin_mode": "road_surface",
+      "generator_version": 3,
+      "variant": "straight",
+      "style": "local",
+      "connections": {
+        "north": 0.0,
+        "south": 0.0
+      }
+    },
+    {
+      "id": "BRG_LOCAL_DECK_1x1_CORNER",
+      "kind": "bridge",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 0.608,
+      "min_z": -0.2,
+      "max_z": 0.407,
+      "triangles": 600,
+      "seed": 1704,
+      "model": "BRG_LOCAL_DECK_1x1_CORNER.glb",
+      "front_axis": "-Y",
+      "origin_mode": "road_surface",
+      "generator_version": 3,
+      "variant": "corner",
+      "style": "local",
+      "connections": {
+        "north": 0.0,
+        "east": 0.0
+      }
+    },
+    {
+      "id": "BRG_LOCAL_DECK_1x1_T",
+      "kind": "bridge",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 0.608,
+      "min_z": -0.2,
+      "max_z": 0.407,
+      "triangles": 856,
+      "seed": 1705,
+      "model": "BRG_LOCAL_DECK_1x1_T.glb",
+      "front_axis": "-Y",
+      "origin_mode": "road_surface",
+      "generator_version": 3,
+      "variant": "t",
+      "style": "local",
+      "connections": {
+        "north": 0.0,
+        "east": 0.0,
+        "west": 0.0
+      }
+    },
+    {
+      "id": "BRG_LOCAL_DECK_1x1_CROSS",
+      "kind": "bridge",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 0.608,
+      "min_z": -0.2,
+      "max_z": 0.407,
+      "triangles": 1112,
+      "seed": 1706,
+      "model": "BRG_LOCAL_DECK_1x1_CROSS.glb",
+      "front_axis": "-Y",
+      "origin_mode": "road_surface",
+      "generator_version": 3,
+      "variant": "cross",
+      "style": "local",
+      "connections": {
+        "north": 0.0,
+        "east": 0.0,
+        "south": 0.0,
+        "west": 0.0
+      }
+    },
+    {
+      "id": "BRG_LOCAL_DECK_1x1_END",
+      "kind": "bridge",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 0.608,
+      "min_z": -0.2,
+      "max_z": 0.407,
+      "triangles": 428,
+      "seed": 1707,
+      "model": "BRG_LOCAL_DECK_1x1_END.glb",
+      "front_axis": "-Y",
+      "origin_mode": "road_surface",
+      "generator_version": 3,
+      "variant": "end",
+      "style": "local",
+      "connections": {
+        "north": 0.0
+      }
+    },
+    {
+      "id": "BRG_SUPPORT_PIER_1x1_LOW_050",
+      "kind": "bridge_support",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 0.5,
+      "min_z": 0.0,
+      "max_z": 0.5,
+      "triangles": 160,
+      "seed": 1711,
+      "model": "BRG_SUPPORT_PIER_1x1_LOW_050.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 3,
+      "variant": "pier",
+      "support_height": 0.5
+    },
+    {
+      "id": "BRG_SUPPORT_PIER_1x1_MID_100",
+      "kind": "bridge_support",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 1.0,
+      "min_z": 0.0,
+      "max_z": 1.0,
+      "triangles": 160,
+      "seed": 1712,
+      "model": "BRG_SUPPORT_PIER_1x1_MID_100.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 3,
+      "variant": "pier",
+      "support_height": 1.0
+    },
+    {
+      "id": "BRG_SUPPORT_PIER_1x1_HIGH_150",
+      "kind": "bridge_support",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 1.5,
+      "min_z": 0.0,
+      "max_z": 1.5,
+      "triangles": 160,
+      "seed": 1713,
+      "model": "BRG_SUPPORT_PIER_1x1_HIGH_150.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 3,
+      "variant": "pier",
+      "support_height": 1.5
+    },
+    {
+      "id": "BRG_SUPPORT_ABUTMENT_1x1_050",
+      "kind": "bridge_support",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 0.66,
+      "min_z": 0.0,
+      "max_z": 0.66,
+      "triangles": 176,
+      "seed": 1714,
+      "model": "BRG_SUPPORT_ABUTMENT_1x1_050.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 3,
+      "variant": "abutment",
+      "support_height": 0.5
     },
     {
       "id": "NAT_TREE_OAK_1x1_001",
@@ -912,12 +1615,16 @@
         1
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 1.777,
+      "min_z": 0.0,
+      "max_z": 1.777,
       "triangles": 84,
       "seed": 1201,
       "model": "NAT_TREE_OAK_1x1_001.glb",
       "front_axis": "-Y",
-      "generator_version": 2,
+      "origin_mode": "ground",
+      "generator_version": 3,
       "variant": "oak"
     },
     {
@@ -928,12 +1635,16 @@
         1
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 1.82,
+      "min_z": 0.0,
+      "max_z": 1.82,
       "triangles": 60,
       "seed": 1202,
       "model": "NAT_TREE_PINE_1x1_001.glb",
       "front_axis": "-Y",
-      "generator_version": 2,
+      "origin_mode": "ground",
+      "generator_version": 3,
       "variant": "pine"
     },
     {
@@ -944,12 +1655,16 @@
         1
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 1.977,
+      "min_z": 0.0,
+      "max_z": 1.977,
       "triangles": 84,
       "seed": 1203,
       "model": "NAT_TREE_BIRCH_1x1_001.glb",
       "front_axis": "-Y",
-      "generator_version": 2,
+      "origin_mode": "ground",
+      "generator_version": 3,
       "variant": "birch"
     },
     {
@@ -960,12 +1675,16 @@
         1
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 2.43,
+      "min_z": 0.0,
+      "max_z": 2.43,
       "triangles": 72,
       "seed": 1204,
       "model": "NAT_TREE_CYPRESS_1x1_001.glb",
       "front_axis": "-Y",
-      "generator_version": 2,
+      "origin_mode": "ground",
+      "generator_version": 3,
       "variant": "cypress"
     },
     {
@@ -976,12 +1695,16 @@
         1
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 1.709,
+      "min_z": 0.0,
+      "max_z": 1.709,
       "triangles": 84,
       "seed": 1205,
       "model": "NAT_TREE_FLOWER_1x1_001.glb",
       "front_axis": "-Y",
-      "generator_version": 2,
+      "origin_mode": "ground",
+      "generator_version": 3,
       "variant": "flowering"
     },
     {
@@ -992,12 +1715,16 @@
         1
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 1.749,
+      "min_z": 0.0,
+      "max_z": 1.749,
       "triangles": 84,
       "seed": 1206,
       "model": "NAT_TREE_OAK_1x1_002.glb",
       "front_axis": "-Y",
-      "generator_version": 2,
+      "origin_mode": "ground",
+      "generator_version": 3,
       "variant": "oak"
     },
     {
@@ -1008,12 +1735,16 @@
         3
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 1.45,
+      "min_z": 0.0,
+      "max_z": 1.45,
       "triangles": 1320,
       "seed": 1301,
       "model": "EDU_SCHOOL_3x3_001.glb",
       "front_axis": "-Y",
-      "generator_version": 2,
+      "origin_mode": "ground",
+      "generator_version": 3,
       "variant": "primary"
     },
     {
@@ -1024,12 +1755,16 @@
         3
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 2.11,
+      "min_z": 0.0,
+      "max_z": 2.11,
       "triangles": 2420,
       "seed": 1302,
       "model": "EDU_SCHOOL_4x3_002.glb",
       "front_axis": "-Y",
-      "generator_version": 2,
+      "origin_mode": "ground",
+      "generator_version": 3,
       "variant": "secondary"
     },
     {
@@ -1040,12 +1775,16 @@
         2
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 2.05,
+      "min_z": 0.0,
+      "max_z": 2.05,
       "triangles": 302,
       "seed": 1401,
       "model": "AGR_BARN_2x2_001.glb",
       "front_axis": "-Y",
-      "generator_version": 2,
+      "origin_mode": "ground",
+      "generator_version": 3,
       "variant": "barn"
     },
     {
@@ -1056,12 +1795,16 @@
         2
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 1.14,
+      "min_z": 0.0,
+      "max_z": 1.14,
       "triangles": 236,
       "seed": 1402,
       "model": "AGR_GREENHOUSE_3x2_001.glb",
       "front_axis": "-Y",
-      "generator_version": 2,
+      "origin_mode": "ground",
+      "generator_version": 3,
       "variant": "greenhouse"
     },
     {
@@ -1072,12 +1815,16 @@
         2
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 4.875,
+      "min_z": 0.0,
+      "max_z": 4.875,
       "triangles": 292,
       "seed": 1501,
       "model": "UTIL_WIND_2x2_001.glb",
       "front_axis": "-Y",
-      "generator_version": 2,
+      "origin_mode": "ground",
+      "generator_version": 3,
       "variant": "wind"
     },
     {
@@ -1088,12 +1835,16 @@
         2
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 3.705,
+      "min_z": 0.0,
+      "max_z": 3.705,
       "triangles": 234,
       "seed": 1502,
       "model": "UTIL_WATER_2x2_001.glb",
       "front_axis": "-Y",
-      "generator_version": 2,
+      "origin_mode": "ground",
+      "generator_version": 3,
       "variant": "water"
     },
     {
@@ -1104,12 +1855,16 @@
         2
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 0.564,
+      "min_z": 0.0,
+      "max_z": 0.564,
       "triangles": 600,
       "seed": 1503,
       "model": "UTIL_SOLAR_3x2_001.glb",
       "front_axis": "-Y",
-      "generator_version": 2,
+      "origin_mode": "ground",
+      "generator_version": 3,
       "variant": "solar"
     },
     {
@@ -1120,12 +1875,16 @@
         2
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 0.93,
+      "min_z": 0.0,
+      "max_z": 0.93,
       "triangles": 344,
       "seed": 1601,
       "model": "SPORT_FOOTBALL_3x2_001.glb",
       "front_axis": "-Y",
-      "generator_version": 2,
+      "origin_mode": "ground",
+      "generator_version": 3,
       "variant": "football"
     },
     {
@@ -1136,12 +1895,16 @@
         1
       ],
       "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
       "height_meters": 1.42,
+      "min_z": 0.0,
+      "max_z": 1.42,
       "triangles": 472,
       "seed": 1602,
       "model": "SPORT_BASKET_2x1_001.glb",
       "front_axis": "-Y",
-      "generator_version": 2,
+      "origin_mode": "ground",
+      "generator_version": 3,
       "variant": "basketball"
     }
   ]

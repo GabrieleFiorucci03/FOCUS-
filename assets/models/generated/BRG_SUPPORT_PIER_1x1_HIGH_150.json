@@ -1,0 +1,21 @@
+{
+  "id": "BRG_SUPPORT_PIER_1x1_HIGH_150",
+  "kind": "bridge_support",
+  "footprint": [
+    1,
+    1
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 1.5,
+  "min_z": 0.0,
+  "max_z": 1.5,
+  "triangles": 160,
+  "seed": 1713,
+  "model": "BRG_SUPPORT_PIER_1x1_HIGH_150.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 3,
+  "variant": "pier",
+  "support_height": 1.5
+}

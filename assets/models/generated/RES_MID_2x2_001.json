@@ -6,10 +6,14 @@
     2
   ],
   "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
   "height_meters": 2.71,
+  "min_z": 0.0,
+  "max_z": 2.71,
   "triangles": 3256,
   "seed": 201,
   "model": "RES_MID_2x2_001.glb",
   "front_axis": "-Y",
-  "generator_version": 2
+  "origin_mode": "ground",
+  "generator_version": 3
 }

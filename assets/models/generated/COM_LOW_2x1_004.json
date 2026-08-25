@@ -6,11 +6,15 @@
     1
   ],
   "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
   "height_meters": 1.01,
+  "min_z": 0.0,
+  "max_z": 1.01,
   "triangles": 308,
   "seed": 604,
   "model": "COM_LOW_2x1_004.glb",
   "front_axis": "-Y",
-  "generator_version": 2,
+  "origin_mode": "ground",
+  "generator_version": 3,
   "variant": "restaurant"
 }
