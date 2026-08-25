@@ -63,9 +63,9 @@ def main() -> None:
     # Scenario collina: due moduli da 0,5 m raggiungono una terrazza alta 1 m.
     hill_x = 5.0
     catalog_render.add_box((5.0, 4.0, 0.45), (hill_x, -5.0, -0.225), earth)
-    catalog_render.add_box((5.0, 5.0, 1.0), (hill_x, 3.5, 0.50), earth)
+    catalog_render.add_box((5.0, 6.0, 1.0), (hill_x, 3.0, 0.50), earth)
     catalog_render.add_box((5.0, 4.0, 0.06), (hill_x, -5.0, 0.03), grass)
-    catalog_render.add_box((5.0, 5.0, 0.06), (hill_x, 3.5, 1.03), grass)
+    catalog_render.add_box((5.0, 6.0, 0.06), (hill_x, 3.0, 1.03), grass)
     catalog_render.import_asset(assets["ROAD_LOCAL_1x1_STRAIGHT"], Vector((hill_x, -5, 0.08)))
     catalog_render.import_asset(assets["ROAD_LOCAL_SLOPE_1x1_UP_050"], Vector((hill_x, -3, 0.08)))
     catalog_render.import_asset(assets["ROAD_LOCAL_SLOPE_1x1_UP_050"], Vector((hill_x, -1, 0.58)))
@@ -109,4 +109,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

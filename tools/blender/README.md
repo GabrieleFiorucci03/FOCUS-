@@ -41,15 +41,23 @@ Gli output predefiniti finiscono in `assets/models/generated/`. Il file
 
 ## Cataloghi visuali reali
 
-Dopo aver generato i GLB, questo comando li reimporta e produce tre scene
-Blender e tre render PNG:
+Dopo aver generato i GLB, questo comando li reimporta e produce quattro scene
+Blender e quattro render PNG:
 
 ```powershell
 blender --background --python tools/blender/render_asset_catalog.py
 ```
 
 Gli output finiscono in `assets/previews/` e sono suddivisi in residenziale,
-urbano e infrastrutture. Le collisioni `-colonly` vengono nascoste nel render.
+urbano, infrastrutture e trasporti. Le collisioni `-colonly` vengono nascoste
+nel render.
+
+La composizione reale di un ponte sopra l'acqua e di una strada su due livelli
+di collina viene generata con:
+
+```powershell
+blender --background --python tools/blender/render_transport_demo.py
+```
 
 ## Kit generato — 91 asset
 
