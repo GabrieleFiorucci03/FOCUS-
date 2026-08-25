@@ -1,0 +1,15 @@
+{
+  "id": "COM_LOW_1x1_002",
+  "kind": "shop",
+  "footprint": [
+    1,
+    1
+  ],
+  "grid_unit_meters": 2.0,
+  "height_meters": 1.01,
+  "triangles": 264,
+  "seed": 602,
+  "model": "COM_LOW_1x1_002.glb",
+  "front_axis": "-Y",
+  "generator_version": 2
+}

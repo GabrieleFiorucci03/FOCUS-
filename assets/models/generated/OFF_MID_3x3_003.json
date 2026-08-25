@@ -1,0 +1,16 @@
+{
+  "id": "OFF_MID_3x3_003",
+  "kind": "office",
+  "footprint": [
+    3,
+    3
+  ],
+  "grid_unit_meters": 2.0,
+  "height_meters": 6.15,
+  "triangles": 792,
+  "seed": 703,
+  "model": "OFF_MID_3x3_003.glb",
+  "front_axis": "-Y",
+  "generator_version": 2,
+  "shape": "atrium"
+}

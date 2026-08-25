@@ -1,0 +1,16 @@
+{
+  "id": "UTIL_WATER_2x2_001",
+  "kind": "utility",
+  "footprint": [
+    2,
+    2
+  ],
+  "grid_unit_meters": 2.0,
+  "height_meters": 3.705,
+  "triangles": 234,
+  "seed": 1502,
+  "model": "UTIL_WATER_2x2_001.glb",
+  "front_axis": "-Y",
+  "generator_version": 2,
+  "variant": "water"
+}

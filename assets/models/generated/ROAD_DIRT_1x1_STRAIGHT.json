@@ -1,0 +1,17 @@
+{
+  "id": "ROAD_DIRT_1x1_STRAIGHT",
+  "kind": "road",
+  "footprint": [
+    1,
+    1
+  ],
+  "grid_unit_meters": 2.0,
+  "height_meters": 0.12,
+  "triangles": 176,
+  "seed": 1111,
+  "model": "ROAD_DIRT_1x1_STRAIGHT.glb",
+  "front_axis": "-Y",
+  "generator_version": 2,
+  "variant": "straight",
+  "style": "dirt"
+}

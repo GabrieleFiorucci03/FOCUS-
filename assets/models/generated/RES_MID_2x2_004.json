@@ -1,0 +1,16 @@
+{
+  "id": "RES_MID_2x2_004",
+  "kind": "apartment",
+  "footprint": [
+    2,
+    2
+  ],
+  "grid_unit_meters": 2.0,
+  "height_meters": 3.364,
+  "triangles": 3300,
+  "seed": 204,
+  "model": "RES_MID_2x2_004.glb",
+  "front_axis": "-Y",
+  "generator_version": 2,
+  "shape": "stepped"
+}

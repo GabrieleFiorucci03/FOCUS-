@@ -1,0 +1,15 @@
+{
+  "id": "OFF_LOW_2x2_001",
+  "kind": "office",
+  "footprint": [
+    2,
+    2
+  ],
+  "grid_unit_meters": 2.0,
+  "height_meters": 3.15,
+  "triangles": 484,
+  "seed": 701,
+  "model": "OFF_LOW_2x2_001.glb",
+  "front_axis": "-Y",
+  "generator_version": 2
+}

@@ -1,0 +1,1148 @@
+{
+  "generator_version": 2,
+  "assets": [
+    {
+      "id": "RES_LOW_1x1_001",
+      "kind": "house",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 1.37,
+      "triangles": 448,
+      "seed": 101,
+      "model": "RES_LOW_1x1_001.glb",
+      "front_axis": "-Y",
+      "generator_version": 2
+    },
+    {
+      "id": "RES_LOW_1x1_002",
+      "kind": "house",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 1.38,
+      "triangles": 402,
+      "seed": 102,
+      "model": "RES_LOW_1x1_002.glb",
+      "front_axis": "-Y",
+      "generator_version": 2
+    },
+    {
+      "id": "RES_LOW_1x1_003",
+      "kind": "house",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 2.09,
+      "triangles": 712,
+      "seed": 103,
+      "model": "RES_LOW_1x1_003.glb",
+      "front_axis": "-Y",
+      "generator_version": 2
+    },
+    {
+      "id": "RES_LOW_1x1_004",
+      "kind": "house",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 1.785,
+      "triangles": 748,
+      "seed": 104,
+      "model": "RES_LOW_1x1_004.glb",
+      "front_axis": "-Y",
+      "generator_version": 2
+    },
+    {
+      "id": "RES_LOW_1x1_005",
+      "kind": "house",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 1.37,
+      "triangles": 484,
+      "seed": 105,
+      "model": "RES_LOW_1x1_005.glb",
+      "front_axis": "-Y",
+      "generator_version": 2
+    },
+    {
+      "id": "RES_LOW_1x2_006",
+      "kind": "house",
+      "footprint": [
+        1,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 1.36,
+      "triangles": 536,
+      "seed": 106,
+      "model": "RES_LOW_1x2_006.glb",
+      "front_axis": "-Y",
+      "generator_version": 2,
+      "feature": "garage"
+    },
+    {
+      "id": "RES_LOW_2x1_007",
+      "kind": "house",
+      "footprint": [
+        2,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 2.09,
+      "triangles": 756,
+      "seed": 107,
+      "model": "RES_LOW_2x1_007.glb",
+      "front_axis": "-Y",
+      "generator_version": 2,
+      "feature": "duplex"
+    },
+    {
+      "id": "RES_LOW_1x1_008",
+      "kind": "house",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 1.065,
+      "triangles": 572,
+      "seed": 108,
+      "model": "RES_LOW_1x1_008.glb",
+      "front_axis": "-Y",
+      "generator_version": 2,
+      "feature": "modern"
+    },
+    {
+      "id": "RES_LOW_1x2_009",
+      "kind": "house",
+      "footprint": [
+        1,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 2.1,
+      "triangles": 970,
+      "seed": 109,
+      "model": "RES_LOW_1x2_009.glb",
+      "front_axis": "-Y",
+      "generator_version": 2,
+      "feature": "porch"
+    },
+    {
+      "id": "RES_LOW_2x1_010",
+      "kind": "house",
+      "footprint": [
+        2,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 1.37,
+      "triangles": 704,
+      "seed": 110,
+      "model": "RES_LOW_2x1_010.glb",
+      "front_axis": "-Y",
+      "generator_version": 2,
+      "feature": "courtyard"
+    },
+    {
+      "id": "RES_MID_2x2_001",
+      "kind": "apartment",
+      "footprint": [
+        2,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 2.71,
+      "triangles": 3256,
+      "seed": 201,
+      "model": "RES_MID_2x2_001.glb",
+      "front_axis": "-Y",
+      "generator_version": 2
+    },
+    {
+      "id": "RES_MID_2x2_002",
+      "kind": "apartment",
+      "footprint": [
+        2,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 3.29,
+      "triangles": 3696,
+      "seed": 202,
+      "model": "RES_MID_2x2_002.glb",
+      "front_axis": "-Y",
+      "generator_version": 2
+    },
+    {
+      "id": "RES_MID_2x2_003",
+      "kind": "apartment",
+      "footprint": [
+        2,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 3.87,
+      "triangles": 4840,
+      "seed": 203,
+      "model": "RES_MID_2x2_003.glb",
+      "front_axis": "-Y",
+      "generator_version": 2
+    },
+    {
+      "id": "RES_MID_2x2_004",
+      "kind": "apartment",
+      "footprint": [
+        2,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 3.364,
+      "triangles": 3300,
+      "seed": 204,
+      "model": "RES_MID_2x2_004.glb",
+      "front_axis": "-Y",
+      "generator_version": 2,
+      "shape": "stepped"
+    },
+    {
+      "id": "RES_MID_2x3_005",
+      "kind": "apartment",
+      "footprint": [
+        2,
+        3
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 3.87,
+      "triangles": 5500,
+      "seed": 205,
+      "model": "RES_MID_2x3_005.glb",
+      "front_axis": "-Y",
+      "generator_version": 2,
+      "shape": "wing"
+    },
+    {
+      "id": "RES_MID_3x2_006",
+      "kind": "apartment",
+      "footprint": [
+        3,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 3.29,
+      "triangles": 5016,
+      "seed": 206,
+      "model": "RES_MID_3x2_006.glb",
+      "front_axis": "-Y",
+      "generator_version": 2,
+      "shape": "twin"
+    },
+    {
+      "id": "RES_HIGH_2x2_001",
+      "kind": "slab",
+      "footprint": [
+        2,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 5.12,
+      "triangles": 5632,
+      "seed": 301,
+      "model": "RES_HIGH_2x2_001.glb",
+      "front_axis": "-Y",
+      "generator_version": 2
+    },
+    {
+      "id": "RES_HIGH_2x3_002",
+      "kind": "slab",
+      "footprint": [
+        2,
+        3
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 6.71,
+      "triangles": 7524,
+      "seed": 302,
+      "model": "RES_HIGH_2x3_002.glb",
+      "front_axis": "-Y",
+      "generator_version": 2,
+      "shape": "offset"
+    },
+    {
+      "id": "RES_LUX_2x2_001",
+      "kind": "villa",
+      "footprint": [
+        2,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 1.96,
+      "triangles": 800,
+      "seed": 401,
+      "model": "RES_LUX_2x2_001.glb",
+      "front_axis": "-Y",
+      "generator_version": 2
+    },
+    {
+      "id": "RES_LUX_2x2_002",
+      "kind": "villa",
+      "footprint": [
+        2,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 1.665,
+      "triangles": 876,
+      "seed": 402,
+      "model": "RES_LUX_2x2_002.glb",
+      "front_axis": "-Y",
+      "generator_version": 2
+    },
+    {
+      "id": "RES_LUX_2x2_003",
+      "kind": "villa",
+      "footprint": [
+        2,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 1.24,
+      "triangles": 532,
+      "seed": 403,
+      "model": "RES_LUX_2x2_003.glb",
+      "front_axis": "-Y",
+      "generator_version": 2,
+      "shape": "courtyard"
+    },
+    {
+      "id": "RES_LUX_3x2_004",
+      "kind": "villa",
+      "footprint": [
+        3,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 1.56,
+      "triangles": 836,
+      "seed": 404,
+      "model": "RES_LUX_3x2_004.glb",
+      "front_axis": "-Y",
+      "generator_version": 2,
+      "shape": "modern"
+    },
+    {
+      "id": "RES_TOWER_3x3_001",
+      "kind": "tower",
+      "footprint": [
+        3,
+        3
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 10.205,
+      "triangles": 1436,
+      "seed": 501,
+      "model": "RES_TOWER_3x3_001.glb",
+      "front_axis": "-Y",
+      "generator_version": 2
+    },
+    {
+      "id": "RES_TOWER_3x3_002",
+      "kind": "tower",
+      "footprint": [
+        3,
+        3
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 12.125,
+      "triangles": 1656,
+      "seed": 502,
+      "model": "RES_TOWER_3x3_002.glb",
+      "front_axis": "-Y",
+      "generator_version": 2,
+      "shape": "setback"
+    },
+    {
+      "id": "RES_TOWER_4x4_003",
+      "kind": "tower",
+      "footprint": [
+        4,
+        4
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 14.045,
+      "triangles": 1876,
+      "seed": 503,
+      "model": "RES_TOWER_4x4_003.glb",
+      "front_axis": "-Y",
+      "generator_version": 2,
+      "shape": "twin"
+    },
+    {
+      "id": "COM_LOW_1x1_001",
+      "kind": "shop",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 1.01,
+      "triangles": 264,
+      "seed": 601,
+      "model": "COM_LOW_1x1_001.glb",
+      "front_axis": "-Y",
+      "generator_version": 2
+    },
+    {
+      "id": "COM_LOW_1x1_002",
+      "kind": "shop",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 1.01,
+      "triangles": 264,
+      "seed": 602,
+      "model": "COM_LOW_1x1_002.glb",
+      "front_axis": "-Y",
+      "generator_version": 2
+    },
+    {
+      "id": "COM_LOW_1x1_003",
+      "kind": "shop",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 1.01,
+      "triangles": 360,
+      "seed": 603,
+      "model": "COM_LOW_1x1_003.glb",
+      "front_axis": "-Y",
+      "generator_version": 2,
+      "variant": "cafe"
+    },
+    {
+      "id": "COM_LOW_2x1_004",
+      "kind": "shop",
+      "footprint": [
+        2,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 1.01,
+      "triangles": 308,
+      "seed": 604,
+      "model": "COM_LOW_2x1_004.glb",
+      "front_axis": "-Y",
+      "generator_version": 2,
+      "variant": "restaurant"
+    },
+    {
+      "id": "COM_MID_2x2_005",
+      "kind": "shop",
+      "footprint": [
+        2,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 1.26,
+      "triangles": 308,
+      "seed": 605,
+      "model": "COM_MID_2x2_005.glb",
+      "front_axis": "-Y",
+      "generator_version": 2,
+      "variant": "market"
+    },
+    {
+      "id": "COM_KIOSK_1x1_006",
+      "kind": "shop",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 1.01,
+      "triangles": 264,
+      "seed": 606,
+      "model": "COM_KIOSK_1x1_006.glb",
+      "front_axis": "-Y",
+      "generator_version": 2,
+      "variant": "kiosk"
+    },
+    {
+      "id": "OFF_LOW_2x2_001",
+      "kind": "office",
+      "footprint": [
+        2,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 3.15,
+      "triangles": 484,
+      "seed": 701,
+      "model": "OFF_LOW_2x2_001.glb",
+      "front_axis": "-Y",
+      "generator_version": 2
+    },
+    {
+      "id": "OFF_MID_2x2_002",
+      "kind": "office",
+      "footprint": [
+        2,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 5.4,
+      "triangles": 616,
+      "seed": 702,
+      "model": "OFF_MID_2x2_002.glb",
+      "front_axis": "-Y",
+      "generator_version": 2,
+      "shape": "stepped"
+    },
+    {
+      "id": "OFF_MID_3x3_003",
+      "kind": "office",
+      "footprint": [
+        3,
+        3
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 6.15,
+      "triangles": 792,
+      "seed": 703,
+      "model": "OFF_MID_3x3_003.glb",
+      "front_axis": "-Y",
+      "generator_version": 2,
+      "shape": "atrium"
+    },
+    {
+      "id": "IND_LOW_2x2_001",
+      "kind": "factory",
+      "footprint": [
+        2,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 2.89,
+      "triangles": 344,
+      "seed": 801,
+      "model": "IND_LOW_2x2_001.glb",
+      "front_axis": "-Y",
+      "generator_version": 2
+    },
+    {
+      "id": "IND_LOW_3x2_002",
+      "kind": "factory",
+      "footprint": [
+        3,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 2.89,
+      "triangles": 476,
+      "seed": 802,
+      "model": "IND_LOW_3x2_002.glb",
+      "front_axis": "-Y",
+      "generator_version": 2,
+      "variant": "warehouse"
+    },
+    {
+      "id": "IND_MID_3x3_003",
+      "kind": "factory",
+      "footprint": [
+        3,
+        3
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 3.16,
+      "triangles": 520,
+      "seed": 803,
+      "model": "IND_MID_3x3_003.glb",
+      "front_axis": "-Y",
+      "generator_version": 2,
+      "variant": "logistics"
+    },
+    {
+      "id": "PARK_2x2_001",
+      "kind": "park",
+      "footprint": [
+        2,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 1.128,
+      "triangles": 684,
+      "seed": 901,
+      "model": "PARK_2x2_001.glb",
+      "front_axis": "-Y",
+      "generator_version": 2
+    },
+    {
+      "id": "PARK_2x2_002",
+      "kind": "park",
+      "footprint": [
+        2,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 1.152,
+      "triangles": 852,
+      "seed": 902,
+      "model": "PARK_2x2_002.glb",
+      "front_axis": "-Y",
+      "generator_version": 2,
+      "variant": "playground"
+    },
+    {
+      "id": "PARK_3x3_003",
+      "kind": "park",
+      "footprint": [
+        3,
+        3
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 1.128,
+      "triangles": 684,
+      "seed": 903,
+      "model": "PARK_3x3_003.glb",
+      "front_axis": "-Y",
+      "generator_version": 2,
+      "variant": "plaza"
+    },
+    {
+      "id": "PARK_1x1_004",
+      "kind": "park",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 1.178,
+      "triangles": 540,
+      "seed": 904,
+      "model": "PARK_1x1_004.glb",
+      "front_axis": "-Y",
+      "generator_version": 2,
+      "variant": "pocket"
+    },
+    {
+      "id": "CIV_POLICE_2x2_001",
+      "kind": "service",
+      "footprint": [
+        2,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 2.49,
+      "triangles": 952,
+      "seed": 1001,
+      "model": "CIV_POLICE_2x2_001.glb",
+      "front_axis": "-Y",
+      "generator_version": 2,
+      "service": "police"
+    },
+    {
+      "id": "CIV_FIRE_2x2_001",
+      "kind": "service",
+      "footprint": [
+        2,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 1.45,
+      "triangles": 1100,
+      "seed": 1002,
+      "model": "CIV_FIRE_2x2_001.glb",
+      "front_axis": "-Y",
+      "generator_version": 2,
+      "service": "fire"
+    },
+    {
+      "id": "CIV_HEALTH_3x3_001",
+      "kind": "service",
+      "footprint": [
+        3,
+        3
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 2.11,
+      "triangles": 2948,
+      "seed": 1003,
+      "model": "CIV_HEALTH_3x3_001.glb",
+      "front_axis": "-Y",
+      "generator_version": 2,
+      "service": "health"
+    },
+    {
+      "id": "CIV_POLICE_3x2_002",
+      "kind": "service",
+      "footprint": [
+        3,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 3.15,
+      "triangles": 1832,
+      "seed": 1004,
+      "model": "CIV_POLICE_3x2_002.glb",
+      "front_axis": "-Y",
+      "generator_version": 2,
+      "variant": "central",
+      "service": "police"
+    },
+    {
+      "id": "CIV_FIRE_3x2_002",
+      "kind": "service",
+      "footprint": [
+        3,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 1.45,
+      "triangles": 1452,
+      "seed": 1005,
+      "model": "CIV_FIRE_3x2_002.glb",
+      "front_axis": "-Y",
+      "generator_version": 2,
+      "variant": "central",
+      "service": "fire"
+    },
+    {
+      "id": "CIV_HEALTH_2x2_002",
+      "kind": "service",
+      "footprint": [
+        2,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 1.45,
+      "triangles": 1716,
+      "seed": 1006,
+      "model": "CIV_HEALTH_2x2_002.glb",
+      "front_axis": "-Y",
+      "generator_version": 2,
+      "variant": "clinic",
+      "service": "health"
+    },
+    {
+      "id": "ROAD_LOCAL_1x1_STRAIGHT",
+      "kind": "road",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 0.12,
+      "triangles": 264,
+      "seed": 1101,
+      "model": "ROAD_LOCAL_1x1_STRAIGHT.glb",
+      "front_axis": "-Y",
+      "generator_version": 2,
+      "variant": "straight"
+    },
+    {
+      "id": "ROAD_LOCAL_1x1_CORNER",
+      "kind": "road",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 0.12,
+      "triangles": 264,
+      "seed": 1102,
+      "model": "ROAD_LOCAL_1x1_CORNER.glb",
+      "front_axis": "-Y",
+      "generator_version": 2,
+      "variant": "corner"
+    },
+    {
+      "id": "ROAD_LOCAL_1x1_T",
+      "kind": "road",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 0.12,
+      "triangles": 352,
+      "seed": 1103,
+      "model": "ROAD_LOCAL_1x1_T.glb",
+      "front_axis": "-Y",
+      "generator_version": 2,
+      "variant": "t"
+    },
+    {
+      "id": "ROAD_LOCAL_1x1_CROSS",
+      "kind": "road",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 0.12,
+      "triangles": 440,
+      "seed": 1104,
+      "model": "ROAD_LOCAL_1x1_CROSS.glb",
+      "front_axis": "-Y",
+      "generator_version": 2,
+      "variant": "cross"
+    },
+    {
+      "id": "ROAD_LOCAL_1x1_END",
+      "kind": "road",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 0.12,
+      "triangles": 220,
+      "seed": 1105,
+      "model": "ROAD_LOCAL_1x1_END.glb",
+      "front_axis": "-Y",
+      "generator_version": 2,
+      "variant": "end"
+    },
+    {
+      "id": "ROAD_DIRT_1x1_STRAIGHT",
+      "kind": "road",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 0.12,
+      "triangles": 176,
+      "seed": 1111,
+      "model": "ROAD_DIRT_1x1_STRAIGHT.glb",
+      "front_axis": "-Y",
+      "generator_version": 2,
+      "variant": "straight",
+      "style": "dirt"
+    },
+    {
+      "id": "ROAD_DIRT_1x1_CORNER",
+      "kind": "road",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 0.12,
+      "triangles": 176,
+      "seed": 1112,
+      "model": "ROAD_DIRT_1x1_CORNER.glb",
+      "front_axis": "-Y",
+      "generator_version": 2,
+      "variant": "corner",
+      "style": "dirt"
+    },
+    {
+      "id": "ROAD_DIRT_1x1_T",
+      "kind": "road",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 0.12,
+      "triangles": 220,
+      "seed": 1113,
+      "model": "ROAD_DIRT_1x1_T.glb",
+      "front_axis": "-Y",
+      "generator_version": 2,
+      "variant": "t",
+      "style": "dirt"
+    },
+    {
+      "id": "ROAD_DIRT_1x1_CROSS",
+      "kind": "road",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 0.12,
+      "triangles": 264,
+      "seed": 1114,
+      "model": "ROAD_DIRT_1x1_CROSS.glb",
+      "front_axis": "-Y",
+      "generator_version": 2,
+      "variant": "cross",
+      "style": "dirt"
+    },
+    {
+      "id": "ROAD_DIRT_1x1_END",
+      "kind": "road",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 0.12,
+      "triangles": 132,
+      "seed": 1115,
+      "model": "ROAD_DIRT_1x1_END.glb",
+      "front_axis": "-Y",
+      "generator_version": 2,
+      "variant": "end",
+      "style": "dirt"
+    },
+    {
+      "id": "NAT_TREE_OAK_1x1_001",
+      "kind": "tree",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 1.777,
+      "triangles": 84,
+      "seed": 1201,
+      "model": "NAT_TREE_OAK_1x1_001.glb",
+      "front_axis": "-Y",
+      "generator_version": 2,
+      "variant": "oak"
+    },
+    {
+      "id": "NAT_TREE_PINE_1x1_001",
+      "kind": "tree",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 1.82,
+      "triangles": 60,
+      "seed": 1202,
+      "model": "NAT_TREE_PINE_1x1_001.glb",
+      "front_axis": "-Y",
+      "generator_version": 2,
+      "variant": "pine"
+    },
+    {
+      "id": "NAT_TREE_BIRCH_1x1_001",
+      "kind": "tree",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 1.977,
+      "triangles": 84,
+      "seed": 1203,
+      "model": "NAT_TREE_BIRCH_1x1_001.glb",
+      "front_axis": "-Y",
+      "generator_version": 2,
+      "variant": "birch"
+    },
+    {
+      "id": "NAT_TREE_CYPRESS_1x1_001",
+      "kind": "tree",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 2.43,
+      "triangles": 72,
+      "seed": 1204,
+      "model": "NAT_TREE_CYPRESS_1x1_001.glb",
+      "front_axis": "-Y",
+      "generator_version": 2,
+      "variant": "cypress"
+    },
+    {
+      "id": "NAT_TREE_FLOWER_1x1_001",
+      "kind": "tree",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 1.709,
+      "triangles": 84,
+      "seed": 1205,
+      "model": "NAT_TREE_FLOWER_1x1_001.glb",
+      "front_axis": "-Y",
+      "generator_version": 2,
+      "variant": "flowering"
+    },
+    {
+      "id": "NAT_TREE_OAK_1x1_002",
+      "kind": "tree",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 1.749,
+      "triangles": 84,
+      "seed": 1206,
+      "model": "NAT_TREE_OAK_1x1_002.glb",
+      "front_axis": "-Y",
+      "generator_version": 2,
+      "variant": "oak"
+    },
+    {
+      "id": "EDU_SCHOOL_3x3_001",
+      "kind": "school",
+      "footprint": [
+        3,
+        3
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 1.45,
+      "triangles": 1320,
+      "seed": 1301,
+      "model": "EDU_SCHOOL_3x3_001.glb",
+      "front_axis": "-Y",
+      "generator_version": 2,
+      "variant": "primary"
+    },
+    {
+      "id": "EDU_SCHOOL_4x3_002",
+      "kind": "school",
+      "footprint": [
+        4,
+        3
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 2.11,
+      "triangles": 2420,
+      "seed": 1302,
+      "model": "EDU_SCHOOL_4x3_002.glb",
+      "front_axis": "-Y",
+      "generator_version": 2,
+      "variant": "secondary"
+    },
+    {
+      "id": "AGR_BARN_2x2_001",
+      "kind": "agriculture",
+      "footprint": [
+        2,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 2.05,
+      "triangles": 302,
+      "seed": 1401,
+      "model": "AGR_BARN_2x2_001.glb",
+      "front_axis": "-Y",
+      "generator_version": 2,
+      "variant": "barn"
+    },
+    {
+      "id": "AGR_GREENHOUSE_3x2_001",
+      "kind": "agriculture",
+      "footprint": [
+        3,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 1.14,
+      "triangles": 236,
+      "seed": 1402,
+      "model": "AGR_GREENHOUSE_3x2_001.glb",
+      "front_axis": "-Y",
+      "generator_version": 2,
+      "variant": "greenhouse"
+    },
+    {
+      "id": "UTIL_WIND_2x2_001",
+      "kind": "utility",
+      "footprint": [
+        2,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 4.875,
+      "triangles": 292,
+      "seed": 1501,
+      "model": "UTIL_WIND_2x2_001.glb",
+      "front_axis": "-Y",
+      "generator_version": 2,
+      "variant": "wind"
+    },
+    {
+      "id": "UTIL_WATER_2x2_001",
+      "kind": "utility",
+      "footprint": [
+        2,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 3.705,
+      "triangles": 234,
+      "seed": 1502,
+      "model": "UTIL_WATER_2x2_001.glb",
+      "front_axis": "-Y",
+      "generator_version": 2,
+      "variant": "water"
+    },
+    {
+      "id": "UTIL_SOLAR_3x2_001",
+      "kind": "utility",
+      "footprint": [
+        3,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 0.564,
+      "triangles": 600,
+      "seed": 1503,
+      "model": "UTIL_SOLAR_3x2_001.glb",
+      "front_axis": "-Y",
+      "generator_version": 2,
+      "variant": "solar"
+    },
+    {
+      "id": "SPORT_FOOTBALL_3x2_001",
+      "kind": "sport",
+      "footprint": [
+        3,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 0.93,
+      "triangles": 344,
+      "seed": 1601,
+      "model": "SPORT_FOOTBALL_3x2_001.glb",
+      "front_axis": "-Y",
+      "generator_version": 2,
+      "variant": "football"
+    },
+    {
+      "id": "SPORT_BASKET_2x1_001",
+      "kind": "sport",
+      "footprint": [
+        2,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "height_meters": 1.42,
+      "triangles": 472,
+      "seed": 1602,
+      "model": "SPORT_BASKET_2x1_001.glb",
+      "front_axis": "-Y",
+      "generator_version": 2,
+      "variant": "basketball"
+    }
+  ]
+}

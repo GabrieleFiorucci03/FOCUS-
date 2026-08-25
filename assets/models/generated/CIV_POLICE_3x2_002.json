@@ -1,0 +1,17 @@
+{
+  "id": "CIV_POLICE_3x2_002",
+  "kind": "service",
+  "footprint": [
+    3,
+    2
+  ],
+  "grid_unit_meters": 2.0,
+  "height_meters": 3.15,
+  "triangles": 1832,
+  "seed": 1004,
+  "model": "CIV_POLICE_3x2_002.glb",
+  "front_axis": "-Y",
+  "generator_version": 2,
+  "variant": "central",
+  "service": "police"
+}

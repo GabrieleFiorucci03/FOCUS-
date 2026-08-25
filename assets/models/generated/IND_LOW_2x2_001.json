@@ -1,0 +1,15 @@
+{
+  "id": "IND_LOW_2x2_001",
+  "kind": "factory",
+  "footprint": [
+    2,
+    2
+  ],
+  "grid_unit_meters": 2.0,
+  "height_meters": 2.89,
+  "triangles": 344,
+  "seed": 801,
+  "model": "IND_LOW_2x2_001.glb",
+  "front_axis": "-Y",
+  "generator_version": 2
+}

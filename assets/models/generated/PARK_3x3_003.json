@@ -1,0 +1,16 @@
+{
+  "id": "PARK_3x3_003",
+  "kind": "park",
+  "footprint": [
+    3,
+    3
+  ],
+  "grid_unit_meters": 2.0,
+  "height_meters": 1.128,
+  "triangles": 684,
+  "seed": 903,
+  "model": "PARK_3x3_003.glb",
+  "front_axis": "-Y",
+  "generator_version": 2,
+  "variant": "plaza"
+}

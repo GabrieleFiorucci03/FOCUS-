@@ -1,0 +1,15 @@
+{
+  "id": "RES_LOW_1x1_005",
+  "kind": "house",
+  "footprint": [
+    1,
+    1
+  ],
+  "grid_unit_meters": 2.0,
+  "height_meters": 1.37,
+  "triangles": 484,
+  "seed": 105,
+  "model": "RES_LOW_1x1_005.glb",
+  "front_axis": "-Y",
+  "generator_version": 2
+}

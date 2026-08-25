@@ -1,0 +1,16 @@
+{
+  "id": "UTIL_SOLAR_3x2_001",
+  "kind": "utility",
+  "footprint": [
+    3,
+    2
+  ],
+  "grid_unit_meters": 2.0,
+  "height_meters": 0.564,
+  "triangles": 600,
+  "seed": 1503,
+  "model": "UTIL_SOLAR_3x2_001.glb",
+  "front_axis": "-Y",
+  "generator_version": 2,
+  "variant": "solar"
+}

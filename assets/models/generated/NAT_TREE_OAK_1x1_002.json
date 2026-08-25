@@ -1,0 +1,16 @@
+{
+  "id": "NAT_TREE_OAK_1x1_002",
+  "kind": "tree",
+  "footprint": [
+    1,
+    1
+  ],
+  "grid_unit_meters": 2.0,
+  "height_meters": 1.749,
+  "triangles": 84,
+  "seed": 1206,
+  "model": "NAT_TREE_OAK_1x1_002.glb",
+  "front_axis": "-Y",
+  "generator_version": 2,
+  "variant": "oak"
+}

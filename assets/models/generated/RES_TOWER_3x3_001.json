@@ -1,0 +1,15 @@
+{
+  "id": "RES_TOWER_3x3_001",
+  "kind": "tower",
+  "footprint": [
+    3,
+    3
+  ],
+  "grid_unit_meters": 2.0,
+  "height_meters": 10.205,
+  "triangles": 1436,
+  "seed": 501,
+  "model": "RES_TOWER_3x3_001.glb",
+  "front_axis": "-Y",
+  "generator_version": 2
+}

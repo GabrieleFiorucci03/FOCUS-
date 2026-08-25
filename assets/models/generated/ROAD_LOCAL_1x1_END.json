@@ -1,0 +1,16 @@
+{
+  "id": "ROAD_LOCAL_1x1_END",
+  "kind": "road",
+  "footprint": [
+    1,
+    1
+  ],
+  "grid_unit_meters": 2.0,
+  "height_meters": 0.12,
+  "triangles": 220,
+  "seed": 1105,
+  "model": "ROAD_LOCAL_1x1_END.glb",
+  "front_axis": "-Y",
+  "generator_version": 2,
+  "variant": "end"
+}

@@ -1,0 +1,16 @@
+{
+  "id": "NAT_TREE_PINE_1x1_001",
+  "kind": "tree",
+  "footprint": [
+    1,
+    1
+  ],
+  "grid_unit_meters": 2.0,
+  "height_meters": 1.82,
+  "triangles": 60,
+  "seed": 1202,
+  "model": "NAT_TREE_PINE_1x1_001.glb",
+  "front_axis": "-Y",
+  "generator_version": 2,
+  "variant": "pine"
+}

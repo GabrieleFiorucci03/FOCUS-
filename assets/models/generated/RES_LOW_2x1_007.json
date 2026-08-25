@@ -1,0 +1,16 @@
+{
+  "id": "RES_LOW_2x1_007",
+  "kind": "house",
+  "footprint": [
+    2,
+    1
+  ],
+  "grid_unit_meters": 2.0,
+  "height_meters": 2.09,
+  "triangles": 756,
+  "seed": 107,
+  "model": "RES_LOW_2x1_007.glb",
+  "front_axis": "-Y",
+  "generator_version": 2,
+  "feature": "duplex"
+}

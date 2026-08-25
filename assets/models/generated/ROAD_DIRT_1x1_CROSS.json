@@ -1,0 +1,17 @@
+{
+  "id": "ROAD_DIRT_1x1_CROSS",
+  "kind": "road",
+  "footprint": [
+    1,
+    1
+  ],
+  "grid_unit_meters": 2.0,
+  "height_meters": 0.12,
+  "triangles": 264,
+  "seed": 1114,
+  "model": "ROAD_DIRT_1x1_CROSS.glb",
+  "front_axis": "-Y",
+  "generator_version": 2,
+  "variant": "cross",
+  "style": "dirt"
+}

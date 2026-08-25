@@ -1,0 +1,16 @@
+{
+  "id": "EDU_SCHOOL_4x3_002",
+  "kind": "school",
+  "footprint": [
+    4,
+    3
+  ],
+  "grid_unit_meters": 2.0,
+  "height_meters": 2.11,
+  "triangles": 2420,
+  "seed": 1302,
+  "model": "EDU_SCHOOL_4x3_002.glb",
+  "front_axis": "-Y",
+  "generator_version": 2,
+  "variant": "secondary"
+}

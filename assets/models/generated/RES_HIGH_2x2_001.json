@@ -1,0 +1,15 @@
+{
+  "id": "RES_HIGH_2x2_001",
+  "kind": "slab",
+  "footprint": [
+    2,
+    2
+  ],
+  "grid_unit_meters": 2.0,
+  "height_meters": 5.12,
+  "triangles": 5632,
+  "seed": 301,
+  "model": "RES_HIGH_2x2_001.glb",
+  "front_axis": "-Y",
+  "generator_version": 2
+}

@@ -1,0 +1,16 @@
+{
+  "id": "CIV_FIRE_2x2_001",
+  "kind": "service",
+  "footprint": [
+    2,
+    2
+  ],
+  "grid_unit_meters": 2.0,
+  "height_meters": 1.45,
+  "triangles": 1100,
+  "seed": 1002,
+  "model": "CIV_FIRE_2x2_001.glb",
+  "front_axis": "-Y",
+  "generator_version": 2,
+  "service": "fire"
+}

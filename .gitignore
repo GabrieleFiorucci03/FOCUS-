@@ -1,0 +1,14 @@
+# Cache e import di Godot 4
+.godot/
+/android/
+export_presets.cfg
+*.translation
+
+# Pipeline Blender
+__pycache__/
+*.pyc
+*.blend1
+
+# Sistema
+Thumbs.db
+desktop.ini

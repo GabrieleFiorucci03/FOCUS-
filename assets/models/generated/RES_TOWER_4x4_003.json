@@ -1,0 +1,16 @@
+{
+  "id": "RES_TOWER_4x4_003",
+  "kind": "tower",
+  "footprint": [
+    4,
+    4
+  ],
+  "grid_unit_meters": 2.0,
+  "height_meters": 14.045,
+  "triangles": 1876,
+  "seed": 503,
+  "model": "RES_TOWER_4x4_003.glb",
+  "front_axis": "-Y",
+  "generator_version": 2,
+  "shape": "twin"
+}

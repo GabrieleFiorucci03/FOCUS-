@@ -1,0 +1,15 @@
+{
+  "id": "RES_LUX_2x2_002",
+  "kind": "villa",
+  "footprint": [
+    2,
+    2
+  ],
+  "grid_unit_meters": 2.0,
+  "height_meters": 1.665,
+  "triangles": 876,
+  "seed": 402,
+  "model": "RES_LUX_2x2_002.glb",
+  "front_axis": "-Y",
+  "generator_version": 2
+}

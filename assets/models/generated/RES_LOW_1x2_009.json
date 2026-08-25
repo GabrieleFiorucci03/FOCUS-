@@ -1,0 +1,16 @@
+{
+  "id": "RES_LOW_1x2_009",
+  "kind": "house",
+  "footprint": [
+    1,
+    2
+  ],
+  "grid_unit_meters": 2.0,
+  "height_meters": 2.1,
+  "triangles": 970,
+  "seed": 109,
+  "model": "RES_LOW_1x2_009.glb",
+  "front_axis": "-Y",
+  "generator_version": 2,
+  "feature": "porch"
+}

@@ -1,0 +1,16 @@
+{
+  "id": "COM_LOW_1x1_003",
+  "kind": "shop",
+  "footprint": [
+    1,
+    1
+  ],
+  "grid_unit_meters": 2.0,
+  "height_meters": 1.01,
+  "triangles": 360,
+  "seed": 603,
+  "model": "COM_LOW_1x1_003.glb",
+  "front_axis": "-Y",
+  "generator_version": 2,
+  "variant": "cafe"
+}

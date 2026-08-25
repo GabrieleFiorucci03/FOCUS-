@@ -1,0 +1,16 @@
+{
+  "id": "COM_MID_2x2_005",
+  "kind": "shop",
+  "footprint": [
+    2,
+    2
+  ],
+  "grid_unit_meters": 2.0,
+  "height_meters": 1.26,
+  "triangles": 308,
+  "seed": 605,
+  "model": "COM_MID_2x2_005.glb",
+  "front_axis": "-Y",
+  "generator_version": 2,
+  "variant": "market"
+}

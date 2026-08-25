@@ -1,0 +1,16 @@
+{
+  "id": "OFF_MID_2x2_002",
+  "kind": "office",
+  "footprint": [
+    2,
+    2
+  ],
+  "grid_unit_meters": 2.0,
+  "height_meters": 5.4,
+  "triangles": 616,
+  "seed": 702,
+  "model": "OFF_MID_2x2_002.glb",
+  "front_axis": "-Y",
+  "generator_version": 2,
+  "shape": "stepped"
+}

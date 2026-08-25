@@ -1,0 +1,16 @@
+{
+  "id": "PARK_2x2_002",
+  "kind": "park",
+  "footprint": [
+    2,
+    2
+  ],
+  "grid_unit_meters": 2.0,
+  "height_meters": 1.152,
+  "triangles": 852,
+  "seed": 902,
+  "model": "PARK_2x2_002.glb",
+  "front_axis": "-Y",
+  "generator_version": 2,
+  "variant": "playground"
+}

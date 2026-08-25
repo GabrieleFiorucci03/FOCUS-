@@ -1,0 +1,16 @@
+{
+  "id": "UTIL_WIND_2x2_001",
+  "kind": "utility",
+  "footprint": [
+    2,
+    2
+  ],
+  "grid_unit_meters": 2.0,
+  "height_meters": 4.875,
+  "triangles": 292,
+  "seed": 1501,
+  "model": "UTIL_WIND_2x2_001.glb",
+  "front_axis": "-Y",
+  "generator_version": 2,
+  "variant": "wind"
+}

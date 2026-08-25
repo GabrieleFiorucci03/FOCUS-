@@ -1,0 +1,16 @@
+{
+  "id": "AGR_BARN_2x2_001",
+  "kind": "agriculture",
+  "footprint": [
+    2,
+    2
+  ],
+  "grid_unit_meters": 2.0,
+  "height_meters": 2.05,
+  "triangles": 302,
+  "seed": 1401,
+  "model": "AGR_BARN_2x2_001.glb",
+  "front_axis": "-Y",
+  "generator_version": 2,
+  "variant": "barn"
+}

@@ -1,0 +1,16 @@
+{
+  "id": "IND_MID_3x3_003",
+  "kind": "factory",
+  "footprint": [
+    3,
+    3
+  ],
+  "grid_unit_meters": 2.0,
+  "height_meters": 3.16,
+  "triangles": 520,
+  "seed": 803,
+  "model": "IND_MID_3x3_003.glb",
+  "front_axis": "-Y",
+  "generator_version": 2,
+  "variant": "logistics"
+}

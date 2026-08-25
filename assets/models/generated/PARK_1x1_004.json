@@ -1,0 +1,16 @@
+{
+  "id": "PARK_1x1_004",
+  "kind": "park",
+  "footprint": [
+    1,
+    1
+  ],
+  "grid_unit_meters": 2.0,
+  "height_meters": 1.178,
+  "triangles": 540,
+  "seed": 904,
+  "model": "PARK_1x1_004.glb",
+  "front_axis": "-Y",
+  "generator_version": 2,
+  "variant": "pocket"
+}

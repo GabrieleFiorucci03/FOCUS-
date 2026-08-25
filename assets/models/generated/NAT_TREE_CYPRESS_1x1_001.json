@@ -1,0 +1,16 @@
+{
+  "id": "NAT_TREE_CYPRESS_1x1_001",
+  "kind": "tree",
+  "footprint": [
+    1,
+    1
+  ],
+  "grid_unit_meters": 2.0,
+  "height_meters": 2.43,
+  "triangles": 72,
+  "seed": 1204,
+  "model": "NAT_TREE_CYPRESS_1x1_001.glb",
+  "front_axis": "-Y",
+  "generator_version": 2,
+  "variant": "cypress"
+}

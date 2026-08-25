@@ -1,0 +1,16 @@
+{
+  "id": "AGR_GREENHOUSE_3x2_001",
+  "kind": "agriculture",
+  "footprint": [
+    3,
+    2
+  ],
+  "grid_unit_meters": 2.0,
+  "height_meters": 1.14,
+  "triangles": 236,
+  "seed": 1402,
+  "model": "AGR_GREENHOUSE_3x2_001.glb",
+  "front_axis": "-Y",
+  "generator_version": 2,
+  "variant": "greenhouse"
+}

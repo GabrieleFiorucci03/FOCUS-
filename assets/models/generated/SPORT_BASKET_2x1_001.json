@@ -1,0 +1,16 @@
+{
+  "id": "SPORT_BASKET_2x1_001",
+  "kind": "sport",
+  "footprint": [
+    2,
+    1
+  ],
+  "grid_unit_meters": 2.0,
+  "height_meters": 1.42,
+  "triangles": 472,
+  "seed": 1602,
+  "model": "SPORT_BASKET_2x1_001.glb",
+  "front_axis": "-Y",
+  "generator_version": 2,
+  "variant": "basketball"
+}
