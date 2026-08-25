@@ -1,14 +1,37 @@
 [gd_scene load_steps=2 format=3]
 
-[ext_resource type="PackedScene" path="res://scenes/focus/FocusScreen.tscn" id="1_focus"]
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_main"]
 
-[node name="Main" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="Main" type="Node"]
+script = ExtResource("1_main")
+
+[node name="Schermate" type="Node" parent="."]
+
+[node name="Interfaccia" type="CanvasLayer" parent="."]
+
+[node name="Modalita" type="HBoxContainer" parent="Interfaccia"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -110.0
+offset_top = 26.0
+offset_right = 110.0
+offset_bottom = 60.0
 grow_horizontal = 2
-grow_vertical = 2
+theme_override_constants/separation = 6
+alignment = 1
 
-[node name="FocusScreen" parent="." instance=ExtResource("1_focus")]
-layout_mode = 1
+[node name="ModoFocus" type="Button" parent="Interfaccia/Modalita"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+toggle_mode = true
+button_pressed = true
+text = "Focus"
+
+[node name="ModoCitta" type="Button" parent="Interfaccia/Modalita"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+toggle_mode = true
+text = "Città"

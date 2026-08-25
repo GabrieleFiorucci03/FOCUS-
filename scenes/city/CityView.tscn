@@ -1,0 +1,60 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/city/city_view.gd" id="1_city"]
+[ext_resource type="Script" path="res://scripts/city/iso_camera.gd" id="2_cam"]
+
+[sub_resource type="ProceduralSkyMaterial" id="SkyMat_1"]
+sky_top_color = Color(0.352941, 0.505882, 0.678431, 1)
+sky_horizon_color = Color(0.717647, 0.760784, 0.792157, 1)
+ground_horizon_color = Color(0.717647, 0.760784, 0.792157, 1)
+ground_bottom_color = Color(0.278431, 0.301961, 0.309804, 1)
+
+[sub_resource type="Sky" id="Sky_1"]
+sky_material = SubResource("SkyMat_1")
+
+[sub_resource type="Environment" id="Env_1"]
+background_mode = 2
+sky = SubResource("Sky_1")
+tonemap_mode = 2
+
+[node name="CityView" type="Node3D"]
+script = ExtResource("1_city")
+
+[node name="Ambiente" type="WorldEnvironment" parent="."]
+environment = SubResource("Env_1")
+
+[node name="Sole" type="DirectionalLight3D" parent="."]
+light_energy = 1.1
+shadow_enabled = true
+
+[node name="Terreno" type="MeshInstance3D" parent="."]
+
+[node name="Griglia" type="MeshInstance3D" parent="."]
+
+[node name="Edifici" type="Node3D" parent="."]
+
+[node name="Camera" type="Node3D" parent="."]
+script = ExtResource("2_cam")
+
+[node name="Braccio" type="Node3D" parent="Camera"]
+
+[node name="Camera3D" type="Camera3D" parent="Camera/Braccio"]
+
+[node name="Interfaccia" type="CanvasLayer" parent="."]
+
+[node name="Aiuto" type="Label" parent="Interfaccia"]
+unique_name_in_owner = true
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -46.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 0.72)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.55)
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 14
+text = "Q / E ruota · trascina col tasto destro · rotella per lo zoom"
+horizontal_alignment = 1

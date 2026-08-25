@@ -91,10 +91,13 @@ script Python (bpy)  ──►  Blender (headless)  ──►  modello.glb  ─�
 - [x] Statistiche base (sessioni, focus totale) + crediti sempre a schermo
 - [x] `Config` autoload che legge `data/economy.json`
 
-### Fase 2 — Mondo 3D + Camera
-- [ ] Griglia di moduli + conversione coordinate griglia↔mondo
-- [ ] Camera ortografica isometrica
-- [ ] Rotazione a 90° sui 4 lati + navigazione (pan)
+### Fase 2 — Mondo 3D + Camera ✅ completata
+- [x] `CityGrid` — celle 2 x 2 m, ingombri multi-cella, rotazione, conversione
+      griglia↔mondo
+- [x] Camera ortografica isometrica su braccio snodato
+- [x] Rotazione a 90° sui 4 lati con transizione, pan trascinando, zoom
+- [x] Passaggio Focus↔Città senza fermare il timer
+- [x] Banco di prova con 41 oggetti di tutte le taglie di footprint
 
 ### Fase 3 — Generazione terreno procedurale
 - [ ] Heightmap (noise) → colline/pianure
@@ -143,8 +146,33 @@ della base, fronte verso `-Y`, collisioni con suffisso `-colonly`.
   Si disattiva con `credits_on_early_stop: false` in `data/economy.json`.
 - **Le coordinate nel salvataggio sono array `[x, y]`**, non `Vector2i`: JSON non
   conosce i tipi di Godot. La conversione avviene al caricamento.
+- **Niente `GridMap`.** Vuole una `MeshLibrary` e ragiona per celle 1x1, mentre il
+  catalogo arriva a footprint 4x4: ingombri multi-cella e rotazione andrebbero
+  comunque reimplementati sopra di lui. `CityGrid` è un dizionario
+  `Vector2i → piazzamento`, ~140 righe.
+- **Le due schermate restano entrambe istanziate**, si mostrano e si nascondono.
+  Distruggerle a ogni cambio fermerebbe il countdown appena vai a vedere la città.
+- **La città smette di girare quando non si vede** (`process_mode`), la schermata
+  focus no: è il timer che deve continuare.
+
+## Verifiche fatte sugli asset
+
+Misurando l'ingombro **al livello del suolo** di tutti e 72 i modelli contro il
+footprint dichiarato nel catalogo:
+
+- Nessun modello ha geometria sotto `y = 0`: l'origine al centro della base
+  regge su tutta la libreria.
+- 3 modelli debordano dal footprint di 12–22 cm (`COM_LOW_1x1_003`,
+  `COM_LOW_2x1_004`, `PARK_1x1_004`): sono tettoie e gradini che arrivano a
+  terra. Non rompono la griglia, ma due edifici adiacenti si sfiorano.
+- 15 modelli hanno la base non centrata di 6–37 cm, quasi sempre verso `+Z`:
+  ingressi e portici sul fronte. Stessa conclusione.
+
+Nessuno di questi è bloccante. Se dà fastidio si sistema nel generatore Blender,
+non in Godot.
 
 ## Prossimo passo
 
-Fase 2: griglia di moduli (cella 2 x 2 m), conversione griglia↔mondo, camera
-ortografica isometrica con rotazione a 90° sui 4 lati e pan.
+Fase 3: heightmap con `FastNoiseLite`, biomi (mare, lago, pianura, collina),
+fiumi, seed salvato e materiali per bioma. Poi la griglia dovrà tenere conto
+della quota del terreno.
