@@ -20,7 +20,8 @@ PREVIEW_DIR = PROJECT_ROOT / "assets" / "previews"
 GROUPS = {
     "residential": {"house", "apartment", "slab", "villa", "tower"},
     "urban": {"shop", "office", "factory", "service", "school"},
-    "infrastructure": {"park", "road", "tree", "agriculture", "utility", "sport"},
+    "infrastructure": {"park", "tree", "agriculture", "utility", "sport"},
+    "transport": {"road", "sloped_road", "bridge", "bridge_support"},
 }
 
 
@@ -124,7 +125,7 @@ def build_group(group_name: str, catalog: list[dict]) -> None:
     for index, asset in enumerate(assets):
         column = index % columns
         row = index // columns
-        position = Vector((x_origin + column * spacing, y_origin - row * spacing, 0))
+        position = Vector((x_origin + column * spacing, y_origin - row * spacing, 0.08 - asset.get("min_z", 0.0)))
         footprint = asset["footprint"]
         pad_width = max(2.2, footprint[0] * asset["grid_unit_meters"] + 0.35)
         pad_depth = max(2.2, footprint[1] * asset["grid_unit_meters"] + 0.35)

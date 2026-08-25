@@ -5,6 +5,7 @@ ispezionare il catalogo o generare dati per Godot.
 """
 
 GRID_UNIT_METERS = 2.0
+ELEVATION_STEP_METERS = 0.5
 
 
 ASSETS = [
@@ -74,6 +75,30 @@ ASSETS = [
     {"id": "ROAD_DIRT_1x1_T", "kind": "road", "variant": "t", "style": "dirt", "footprint": [1, 1], "seed": 1113},
     {"id": "ROAD_DIRT_1x1_CROSS", "kind": "road", "variant": "cross", "style": "dirt", "footprint": [1, 1], "seed": 1114},
     {"id": "ROAD_DIRT_1x1_END", "kind": "road", "variant": "end", "style": "dirt", "footprint": [1, 1], "seed": 1115},
+
+    # Rampe modulari: un dislivello standard misura 0,5 m.
+    {"id": "ROAD_LOCAL_SLOPE_1x1_UP_050", "kind": "sloped_road", "style": "local", "direction": "up", "rise": 0.5, "footprint": [1, 1], "connections": {"north": 0.0, "south": 0.5}, "seed": 1121},
+    {"id": "ROAD_LOCAL_SLOPE_1x1_DOWN_050", "kind": "sloped_road", "style": "local", "direction": "down", "rise": 0.5, "footprint": [1, 1], "connections": {"north": 0.5, "south": 0.0}, "seed": 1122},
+    {"id": "ROAD_LOCAL_SLOPE_1x2_UP_050", "kind": "sloped_road", "style": "local", "direction": "up", "rise": 0.5, "footprint": [1, 2], "connections": {"north": 0.0, "south": 0.5}, "seed": 1123},
+    {"id": "ROAD_LOCAL_SLOPE_1x2_DOWN_050", "kind": "sloped_road", "style": "local", "direction": "down", "rise": 0.5, "footprint": [1, 2], "connections": {"north": 0.5, "south": 0.0}, "seed": 1124},
+    {"id": "ROAD_DIRT_SLOPE_1x1_UP_050", "kind": "sloped_road", "style": "dirt", "direction": "up", "rise": 0.5, "footprint": [1, 1], "connections": {"north": 0.0, "south": 0.5}, "seed": 1131},
+    {"id": "ROAD_DIRT_SLOPE_1x1_DOWN_050", "kind": "sloped_road", "style": "dirt", "direction": "down", "rise": 0.5, "footprint": [1, 1], "connections": {"north": 0.5, "south": 0.0}, "seed": 1132},
+    {"id": "ROAD_DIRT_SLOPE_1x2_UP_050", "kind": "sloped_road", "style": "dirt", "direction": "up", "rise": 0.5, "footprint": [1, 2], "connections": {"north": 0.0, "south": 0.5}, "seed": 1133},
+    {"id": "ROAD_DIRT_SLOPE_1x2_DOWN_050", "kind": "sloped_road", "style": "dirt", "direction": "down", "rise": 0.5, "footprint": [1, 2], "connections": {"north": 0.5, "south": 0.0}, "seed": 1134},
+
+    # Kit ponte modulare. Gli impalcati hanno origine sulla superficie stradale
+    # e possono essere posizionati a qualunque quota; i supporti restano separati.
+    {"id": "BRG_LOCAL_RAMP_1x1_UP_050", "kind": "bridge", "variant": "ramp", "style": "local", "direction": "up", "rise": 0.5, "origin_mode": "terrain", "footprint": [1, 1], "connections": {"north": 0.0, "south": 0.5}, "seed": 1701},
+    {"id": "BRG_LOCAL_RAMP_1x1_DOWN_050", "kind": "bridge", "variant": "ramp", "style": "local", "direction": "down", "rise": 0.5, "origin_mode": "terrain", "footprint": [1, 1], "connections": {"north": 0.5, "south": 0.0}, "seed": 1702},
+    {"id": "BRG_LOCAL_DECK_1x1_STRAIGHT", "kind": "bridge", "variant": "straight", "style": "local", "origin_mode": "road_surface", "footprint": [1, 1], "connections": {"north": 0.0, "south": 0.0}, "seed": 1703},
+    {"id": "BRG_LOCAL_DECK_1x1_CORNER", "kind": "bridge", "variant": "corner", "style": "local", "origin_mode": "road_surface", "footprint": [1, 1], "connections": {"north": 0.0, "east": 0.0}, "seed": 1704},
+    {"id": "BRG_LOCAL_DECK_1x1_T", "kind": "bridge", "variant": "t", "style": "local", "origin_mode": "road_surface", "footprint": [1, 1], "connections": {"north": 0.0, "east": 0.0, "west": 0.0}, "seed": 1705},
+    {"id": "BRG_LOCAL_DECK_1x1_CROSS", "kind": "bridge", "variant": "cross", "style": "local", "origin_mode": "road_surface", "footprint": [1, 1], "connections": {"north": 0.0, "east": 0.0, "south": 0.0, "west": 0.0}, "seed": 1706},
+    {"id": "BRG_LOCAL_DECK_1x1_END", "kind": "bridge", "variant": "end", "style": "local", "origin_mode": "road_surface", "footprint": [1, 1], "connections": {"north": 0.0}, "seed": 1707},
+    {"id": "BRG_SUPPORT_PIER_1x1_LOW_050", "kind": "bridge_support", "variant": "pier", "support_height": 0.5, "origin_mode": "ground", "footprint": [1, 1], "seed": 1711},
+    {"id": "BRG_SUPPORT_PIER_1x1_MID_100", "kind": "bridge_support", "variant": "pier", "support_height": 1.0, "origin_mode": "ground", "footprint": [1, 1], "seed": 1712},
+    {"id": "BRG_SUPPORT_PIER_1x1_HIGH_150", "kind": "bridge_support", "variant": "pier", "support_height": 1.5, "origin_mode": "ground", "footprint": [1, 1], "seed": 1713},
+    {"id": "BRG_SUPPORT_ABUTMENT_1x1_050", "kind": "bridge_support", "variant": "abutment", "support_height": 0.5, "origin_mode": "ground", "footprint": [1, 1], "seed": 1714},
 
     # Vegetazione riutilizzabile con instancing/MultiMesh in Godot.
     {"id": "NAT_TREE_OAK_1x1_001", "kind": "tree", "variant": "oak", "footprint": [1, 1], "seed": 1201},

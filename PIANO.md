@@ -99,10 +99,12 @@ script Python (bpy)  ──►  Blender (headless)  ──►  modello.glb  ─�
 - [x] Passaggio Focus↔Città senza fermare il timer
 - [x] Banco di prova con 41 oggetti di tutte le taglie di footprint
 
-### Fase 3 — Generazione terreno procedurale
-- [ ] Heightmap (noise) → colline/pianure
-- [ ] Biomi (mare, lago, pianura, collina) + fiumi
-- [ ] Seed salvato + materiali per bioma
+### Fase 3 — Generazione terreno procedurale ✅ completata
+- [x] Heightmap con `FastNoiseLite`, quantizzata a gradini da 0.5 m
+- [x] Biomi: mare, lago, fiume, spiaggia, pianura, collina
+- [x] Fiumi che scendono dalle alture e laghi dove restano incastrati
+- [x] Seed salvato, terreno rigenerato identico; colori per bioma nei vertici
+- [x] `spiana()` per livellare un lotto prima di costruirci
 
 ### Fase 3.5 — Pipeline asset Blender ✅ completata
 - [x] Script base con stile condiviso — `tools/blender/focus_asset_specs.py` (stile "Focus Grove")
@@ -154,6 +156,30 @@ della base, fronte verso `-Y`, collisioni con suffisso `-colonly`.
   Distruggerle a ogni cambio fermerebbe il countdown appena vai a vedere la città.
 - **La città smette di girare quando non si vede** (`process_mode`), la schermata
   focus no: è il timer che deve continuare.
+- **Le quote del terreno sono discrete**, non continue. Un edificio appoggia in
+  piano senza compenetrare il suolo e dire se un lotto è pianeggiante è
+  immediato; un terreno liscio costringerebbe a deformare o sollevare ogni casa.
+- **I colori dei biomi viaggiano nei vertici**, non in un materiale per tipo:
+  tutto il terreno è una superficie sola e un bioma nuovo non aggiunge un
+  materiale. Vanno convertiti con `srgb_to_linear()`, altrimenti Godot li usa
+  come lineari e il terreno viene slavato.
+
+## Verifiche fatte sul generatore di terreno
+
+Su 200 mondi 32x32 generati con semi diversi:
+
+| Misura | Risultato |
+|---|---|
+| Mondi con almeno un fiume | 100 % |
+| Mondi con almeno un lago | 82.5 % |
+| Mondi con collina | 100 % |
+| Terra emersa | 66.6 % della mappa |
+| Posizioni 3x3 pianeggianti | 39 in media |
+
+Stesso seme → stesso mondo, seme diverso → mondo diverso: verificato.
+
+Le 39 posizioni 3x3 sono poche per una città intera, ma la Fase 4 livella il
+lotto al momento del piazzamento (`spiana()` c'è già), quindi non è un limite.
 
 ## Verifiche fatte sugli asset
 
@@ -173,6 +199,6 @@ non in Godot.
 
 ## Prossimo passo
 
-Fase 3: heightmap con `FastNoiseLite`, biomi (mare, lago, pianura, collina),
-fiumi, seed salvato e materiali per bioma. Poi la griglia dovrà tenere conto
-della quota del terreno.
+Fase 4: catalogo degli oggetti collegato ai `.glb`, UI del negozio con controllo
+del saldo, e modalità piazzamento sulla griglia con anteprima, rotazione,
+livellamento del lotto e salvataggio delle celle costruite.

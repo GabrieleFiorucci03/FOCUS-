@@ -14,17 +14,22 @@
 # questo programma. In caso contrario, vedi <https://www.gnu.org/licenses/>.
 
 extends Node3D
-## Il mondo della città: terreno, griglia, camera e il banco di prova della Fase 2.
+## Il mondo della città: terreno procedurale, griglia, camera e banco di prova.
 ##
-## Il terreno qui è una tavola piatta di proposito: le colline arrivano con la
-## Fase 3. Tenere separate le due cose vuol dire che se un edificio non si
-## allinea si sa già che la colpa è della griglia e non del rilievo.
+## Il terreno si rigenera dal seme salvato: non finisce su disco nemmeno una
+## quota. Su disco vanno solo il seme e le celle che l'utente ha costruito.
 
 const CATALOGO := "res://assets/models/generated/catalog.json"
 const CARTELLA_MODELLI := "res://assets/models/generated/"
 
-@onready var _terreno: MeshInstance3D = $Terreno
-@onready var _griglia_mesh: MeshInstance3D = $Griglia
+## Il quartiere di prova ha bisogno di terreno piano: questo rettangolo viene
+## livellato prima di costruire la mesh. La Fase 4 farà lo stesso, un lotto
+## alla volta, quando l'utente piazza qualcosa.
+const LOTTO_DI_PROVA := Rect2i(8, 11, 16, 13)
+
+@onready var _terreno_mesh: MeshInstance3D = $Terreno
+@onready var _acqua_mesh: MeshInstance3D = $Acqua
+@onready var _reticolo: MeshInstance3D = $Griglia
 @onready var _edifici: Node3D = $Edifici
 @onready var _camera: IsoCamera = $Camera
 @onready var _sole: DirectionalLight3D = $Sole
@@ -32,6 +37,7 @@ const CARTELLA_MODELLI := "res://assets/models/generated/"
 @onready var _aiuto: Label = %Aiuto
 
 var griglia: CityGrid
+var terreno: CityTerrain
 var _voci: Dictionary = {}
 
 
@@ -44,17 +50,22 @@ func _ready() -> void:
 
 	_sole.rotation_degrees = Vector3(-52.0, -125.0, 0.0)
 
-	var dimensione: Array = SaveManager.data.get("world", {}).get("size", [32, 32])
+	var mondo: Dictionary = SaveManager.data.get("world", {})
+	var dimensione: Array = mondo.get("size", [32, 32])
+	var seme := int(mondo.get("seed", 0))
 	griglia = CityGrid.new(Vector2i(int(dimensione[0]), int(dimensione[1])))
+	terreno = CityTerrain.new(griglia.size, seme)
 
 	_carica_catalogo()
-	_costruisci_terreno()
-	_costruisci_griglia()
+	var quota_lotto := terreno.spiana(_celle_del_lotto(LOTTO_DI_PROVA))
+	_costruisci_mesh()
 	var piazzati := _costruisci_banco_di_prova()
 
-	_camera.inquadra(griglia.centro_cella(Vector2i(16, 17)))
-	_aiuto.text = "Q / E ruota · trascina col tasto destro · rotella per lo zoom      %d oggetti, %d x %d celle" % [
-		piazzati, griglia.size.x, griglia.size.y
+	var centro := griglia.centro_cella(Vector2i(16, 17))
+	centro.y = float(quota_lotto) * CityTerrain.PASSO_QUOTA
+	_camera.inquadra(centro)
+	_aiuto.text = "Q / E ruota · trascina col tasto destro · rotella per lo zoom      seme %d · %d oggetti · %s" % [
+		seme, piazzati, _riepilogo_biomi()
 	]
 
 
@@ -74,47 +85,31 @@ func _carica_catalogo() -> void:
 		_voci[str(voce["id"])] = voce
 
 
-func _costruisci_terreno() -> void:
-	var lato_x := float(griglia.size.x) * CityGrid.CELL_SIZE
-	var lato_z := float(griglia.size.y) * CityGrid.CELL_SIZE
-	var piano := PlaneMesh.new()
-	piano.size = Vector2(lato_x, lato_z)
-	var materiale := StandardMaterial3D.new()
-	materiale.albedo_color = Color(0.404, 0.478, 0.361)
-	materiale.roughness = 1.0
-	piano.material = materiale
-	_terreno.mesh = piano
-	_terreno.position = griglia.centro_mondo()
+func _costruisci_mesh() -> void:
+	_terreno_mesh.mesh = TerrainMesh.costruisci_terreno(terreno)
+	_acqua_mesh.mesh = TerrainMesh.costruisci_acqua(terreno)
+	_reticolo.mesh = TerrainMesh.costruisci_reticolo(terreno)
 
 
-## Reticolo di linee sui bordi delle celle, giusto per leggere la scala.
-func _costruisci_griglia() -> void:
-	var mezza := CityGrid.CELL_SIZE * 0.5
-	var da_x := -mezza
-	var a_x := float(griglia.size.x) * CityGrid.CELL_SIZE - mezza
-	var da_z := -mezza
-	var a_z := float(griglia.size.y) * CityGrid.CELL_SIZE - mezza
+func _celle_del_lotto(rettangolo: Rect2i) -> Array[Vector2i]:
+	var celle: Array[Vector2i] = []
+	for dz in rettangolo.size.y:
+		for dx in rettangolo.size.x:
+			celle.append(Vector2i(rettangolo.position.x + dx, rettangolo.position.y + dz))
+	return celle
 
-	var materiale := StandardMaterial3D.new()
-	materiale.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-	materiale.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	materiale.albedo_color = Color(1.0, 1.0, 1.0, 0.09)
 
-	var mesh := ImmediateMesh.new()
-	mesh.surface_begin(Mesh.PRIMITIVE_LINES, materiale)
-	for x in griglia.size.x + 1:
-		var px := da_x + float(x) * CityGrid.CELL_SIZE
-		mesh.surface_add_vertex(Vector3(px, 0.0, da_z))
-		mesh.surface_add_vertex(Vector3(px, 0.0, a_z))
-	for z in griglia.size.y + 1:
-		var pz := da_z + float(z) * CityGrid.CELL_SIZE
-		mesh.surface_add_vertex(Vector3(da_x, 0.0, pz))
-		mesh.surface_add_vertex(Vector3(a_x, 0.0, pz))
-	mesh.surface_end()
-
-	_griglia_mesh.mesh = mesh
-	# Un filo sopra il terreno, altrimenti le linee sfarfallano contro il piano.
-	_griglia_mesh.position.y = 0.012
+func _riepilogo_biomi() -> String:
+	var conteggio := {}
+	for i in terreno.biomi.size():
+		var b: int = terreno.biomi[i]
+		conteggio[b] = int(conteggio.get(b, 0)) + 1
+	var nomi := ["mare", "lago", "fiume", "spiaggia", "pianura", "collina"]
+	var pezzi: Array[String] = []
+	for b in range(nomi.size()):
+		if conteggio.has(b):
+			pezzi.append("%s %d" % [nomi[b], conteggio[b]])
+	return " · ".join(pezzi)
 
 
 # --- Banco di prova ---------------------------------------------------------
@@ -123,8 +118,8 @@ func _costruisci_griglia() -> void:
 ##
 ## Non è contenuto di gioco: serve a verificare che la convenzione della
 ## pipeline (cella 2 x 2 m, origine al centro della base) regga dentro Godot,
-## che gli ingombri multi-cella non si sovrappongano e che le strade combacino.
-## La Fase 4 lo sostituirà con quello che l'utente costruisce davvero.
+## che gli ingombri multi-cella non si sovrappongano e che gli edifici appoggino
+## alla quota giusta. La Fase 4 lo sostituirà con quello che l'utente costruisce.
 func _costruisci_banco_di_prova() -> int:
 	var piazzati := 0
 
@@ -169,7 +164,11 @@ func _piazza(id: String, cella: Vector2i, rotazione: int = 0) -> int:
 	var voce: Dictionary = _voci[id]
 	var f: Array = voce["footprint"]
 	var footprint := Vector2i(int(f[0]), int(f[1]))
+	var celle := griglia.celle_occupate(cella, footprint, rotazione)
 
+	if not terreno.lotto_piano(celle):
+		push_error("CityView: %s in %s finisce in acqua o a cavallo di un dislivello" % [id, cella])
+		return 0
 	if griglia.piazza(cella, footprint, rotazione, id) == 0:
 		push_error("CityView: %s non entra in %s (fuori griglia o celle occupate)" % [id, cella])
 		return 0
@@ -181,6 +180,7 @@ func _piazza(id: String, cella: Vector2i, rotazione: int = 0) -> int:
 
 	var nodo: Node3D = (scena as PackedScene).instantiate()
 	nodo.position = griglia.posizione_mondo(cella, footprint, rotazione)
+	nodo.position.y = terreno.quota(cella)
 	nodo.rotation.y = deg_to_rad(-90.0 * rotazione)
 	_edifici.add_child(nodo)
 	return 1

@@ -28,7 +28,7 @@ sys.path.insert(0, str(SCRIPT_DIR))
 from focus_asset_specs import ASSETS, ASSET_BY_ID, GRID_UNIT_METERS  # noqa: E402
 
 
-GENERATOR_VERSION = 2
+GENERATOR_VERSION = 3
 
 COLORS = {
     "cream": (0.82, 0.70, 0.52, 1.0),
@@ -189,6 +189,38 @@ def gable_roof(name: str, width: float, depth: float, base_z: float, height: flo
     mesh.update()
     obj = bpy.data.objects.new(name, mesh)
     bpy.context.collection.objects.link(obj)
+    return assign_material(obj, color)
+
+
+def ramp_prism(name: str, width: float, length: float, z_start: float, z_end: float, thickness: float, color: str | None):
+    """Prisma inclinato lungo Y; il lato nord (-Y) usa z_start."""
+    x = width * 0.5
+    y = length * 0.5
+    verts = [
+        (-x, -y, z_start), (x, -y, z_start), (x, y, z_end), (-x, y, z_end),
+        (-x, -y, z_start - thickness), (x, -y, z_start - thickness),
+        (x, y, z_end - thickness), (-x, y, z_end - thickness),
+    ]
+    faces = [(0, 1, 2, 3), (4, 7, 6, 5), (0, 4, 5, 1), (1, 5, 6, 2), (2, 6, 7, 3), (3, 7, 4, 0)]
+    mesh = bpy.data.meshes.new(f"{name}_Mesh")
+    mesh.from_pydata(verts, [], faces)
+    mesh.update()
+    obj = bpy.data.objects.new(name, mesh)
+    bpy.context.collection.objects.link(obj)
+    return assign_material(obj, color) if color else obj
+
+
+def beam_between(name: str, start, end, width: float, depth: float, color: str):
+    start_v = Vector(start)
+    end_v = Vector(end)
+    direction = end_v - start_v
+    bpy.ops.mesh.primitive_cube_add(location=(start_v + end_v) * 0.5)
+    obj = bpy.context.active_object
+    obj.name = name
+    obj.rotation_mode = "QUATERNION"
+    obj.rotation_quaternion = direction.to_track_quat("Y", "Z")
+    obj.scale = (width * 0.5, direction.length * 0.5, depth * 0.5)
+    bpy.ops.object.transform_apply(location=False, rotation=False, scale=True)
     return assign_material(obj, color)
 
 
@@ -685,6 +717,119 @@ def generate_road(spec, rng):
         box("EndMark", (0.60, 0.07, 0.012), (0, 0.28, 0.112), "white", 0.004)
 
 
+def generate_sloped_road(spec, rng):
+    footprint = spec["footprint"]
+    length = footprint[1] * GRID_UNIT_METERS - 0.02
+    rise = spec["rise"]
+    z_start, z_end = (0.0, rise) if spec["direction"] == "up" else (rise, 0.0)
+    style = spec["style"]
+    base_color = "grass" if style == "dirt" else "sidewalk"
+    road_color = "ochre" if style == "dirt" else "asphalt"
+    ramp_prism("SlopeBase", 1.98, length, z_start, z_end, 0.08, base_color)
+    ramp_prism("SlopeRoad", 0.90, length, z_start + 0.025, z_end + 0.025, 0.025, road_color)
+    if style != "dirt":
+        inset = (z_end - z_start) * 0.11
+        ramp_prism("SlopeLine", 0.075, length * 0.78, z_start + inset + 0.052, z_end - inset + 0.052, 0.012, "road_line")
+    for x in (-0.64, 0.64):
+        beam_between(
+            "SlopeCurb",
+            (x, -length * 0.5, z_start + 0.07),
+            (x, length * 0.5, z_end + 0.07),
+            0.075,
+            0.07,
+            "concrete_light" if style != "dirt" else "wood",
+        )
+    ramp_prism(f"{spec['id']}-colonly", 1.92, length, z_start + 0.08, z_end + 0.08, 0.16, None)
+
+
+def add_bridge_railing_y(x: float, y_start: float, y_end: float, z_start: float = 0.0, z_end: float = 0.0):
+    rail_height = 0.38
+    beam_between(
+        "BridgeRail",
+        (x, y_start, z_start + rail_height),
+        (x, y_end, z_end + rail_height),
+        0.055,
+        0.055,
+        "teal",
+    )
+    for y, z in ((y_start, z_start), ((y_start + y_end) * 0.5, (z_start + z_end) * 0.5), (y_end, z_end)):
+        cylinder("BridgePost", 0.035, rail_height, (x, y, z + rail_height * 0.5), "teal", 7)
+
+
+def add_bridge_railing_x(y: float, x_start: float, x_end: float, z: float = 0.0):
+    rail_height = 0.38
+    beam_between("BridgeRail", (x_start, y, z + rail_height), (x_end, y, z + rail_height), 0.055, 0.055, "teal")
+    for x in (x_start, (x_start + x_end) * 0.5, x_end):
+        cylinder("BridgePost", 0.035, rail_height, (x, y, z + rail_height * 0.5), "teal", 7)
+
+
+def generate_bridge(spec, rng):
+    variant = spec["variant"]
+    if variant == "ramp":
+        length = GRID_UNIT_METERS - 0.02
+        rise = spec["rise"]
+        z_start, z_end = (0.0, rise) if spec["direction"] == "up" else (rise, 0.0)
+        ramp_prism("BridgeRampSlab", 1.45, length, z_start, z_end, 0.16, "concrete_light")
+        ramp_prism("BridgeRampRoad", 0.94, length, z_start + 0.025, z_end + 0.025, 0.025, "asphalt")
+        inset = (z_end - z_start) * 0.11
+        ramp_prism("BridgeRampLine", 0.075, length * 0.78, z_start + inset + 0.052, z_end - inset + 0.052, 0.012, "road_line")
+        add_bridge_railing_y(-0.69, -length * 0.5, length * 0.5, z_start, z_end)
+        add_bridge_railing_y(0.69, -length * 0.5, length * 0.5, z_start, z_end)
+        ramp_prism(f"{spec['id']}-colonly", 1.38, length, z_start + 0.08, z_end + 0.08, 0.20, None)
+        return
+
+    connections = ROAD_CONNECTIONS[variant]
+    slab_z = -0.10
+    road_z = 0.018
+    box("BridgeCenter", (0.92, 0.92, 0.20), (0, 0, slab_z), "concrete_light", 0.018)
+    box("BridgeRoadCenter", (0.82, 0.82, 0.035), (0, 0, road_z), "asphalt", 0.008)
+    branches = {
+        "north": ((1.38, 0.62, 0.20), (0, -0.69, slab_z), (0.92, 0.62, 0.035), (0, -0.69, road_z)),
+        "south": ((1.38, 0.62, 0.20), (0, 0.69, slab_z), (0.92, 0.62, 0.035), (0, 0.69, road_z)),
+        "east": ((0.62, 1.38, 0.20), (0.69, 0, slab_z), (0.62, 0.92, 0.035), (0.69, 0, road_z)),
+        "west": ((0.62, 1.38, 0.20), (-0.69, 0, slab_z), (0.62, 0.92, 0.035), (-0.69, 0, road_z)),
+    }
+    for direction in connections:
+        slab_size, slab_location, road_size, road_location = branches[direction]
+        box("BridgeBranch", slab_size, slab_location, "concrete_light", 0.014)
+        box("BridgeRoad", road_size, road_location, "asphalt", 0.006)
+
+    if variant == "straight":
+        add_bridge_railing_y(-0.69, -0.99, 0.99)
+        add_bridge_railing_y(0.69, -0.99, 0.99)
+    else:
+        if "north" in connections:
+            add_bridge_railing_y(-0.69, -0.99, -0.28)
+            add_bridge_railing_y(0.69, -0.99, -0.28)
+        if "south" in connections:
+            add_bridge_railing_y(-0.69, 0.28, 0.99)
+            add_bridge_railing_y(0.69, 0.28, 0.99)
+        if "east" in connections:
+            add_bridge_railing_x(-0.69, 0.28, 0.99)
+            add_bridge_railing_x(0.69, 0.28, 0.99)
+        if "west" in connections:
+            add_bridge_railing_x(-0.69, -0.99, -0.28)
+            add_bridge_railing_x(0.69, -0.99, -0.28)
+    if variant == "end":
+        add_bridge_railing_x(0.48, -0.69, 0.69)
+
+
+def generate_bridge_support(spec, rng):
+    height = spec["support_height"]
+    variant = spec["variant"]
+    if variant == "abutment":
+        box("AbutmentWall", (1.55, 0.48, height), (0, 0.30, height * 0.5), "concrete", 0.035)
+        box("AbutmentCap", (1.68, 0.62, 0.16), (0, 0.30, height + 0.08), "concrete_light", 0.025)
+        for x in (-0.78, 0.78):
+            box("WingWall", (0.18, 1.18, height * 0.82), (x, 0.02, height * 0.41), "concrete", 0.025)
+        return
+    box("PierFoot", (1.30, 0.92, 0.16), (0, 0, 0.08), "concrete", 0.035)
+    column_height = max(0.18, height - 0.20)
+    for x in (-0.34, 0.34):
+        cylinder("PierColumn", 0.16, column_height, (x, 0, 0.16 + column_height * 0.5), "concrete", 10)
+    box("PierCap", (1.50, 0.62, 0.18), (0, 0, height - 0.09), "concrete_light", 0.025)
+
+
 def generate_tree(spec, rng):
     variant = spec["variant"]
     if variant in ("oak", "pine"):
@@ -719,6 +864,9 @@ GENERATORS = {
     "utility": generate_utility,
     "sport": generate_sport,
     "road": generate_road,
+    "sloped_road": generate_sloped_road,
+    "bridge": generate_bridge,
+    "bridge_support": generate_bridge_support,
     "tree": generate_tree,
 }
 
@@ -737,8 +885,9 @@ def join_visual_meshes(asset_id: str):
     return joined
 
 
-def object_height(obj) -> float:
-    return max((obj.matrix_world @ Vector(corner)).z for corner in obj.bound_box)
+def object_z_bounds(obj) -> tuple[float, float]:
+    values = [(obj.matrix_world @ Vector(corner)).z for corner in obj.bound_box]
+    return min(values), max(values)
 
 
 def triangle_count(obj) -> int:
@@ -748,7 +897,8 @@ def triangle_count(obj) -> int:
 def finalize_and_export(spec, output_dir: Path) -> dict:
     asset_id = spec["id"]
     visual = join_visual_meshes(asset_id)
-    height = max(0.12, object_height(visual))
+    min_z, max_z = object_z_bounds(visual)
+    height = max(0.12, max_z - min_z)
     footprint = spec["footprint"]
 
     bpy.ops.object.empty_add(type="PLAIN_AXES", location=(0, 0, 0))
@@ -761,21 +911,31 @@ def finalize_and_export(spec, output_dir: Path) -> dict:
     root["grid_unit_meters"] = GRID_UNIT_METERS
     root["seed"] = spec["seed"]
     root["height_meters"] = round(height, 4)
+    root["min_z"] = round(min_z, 4)
+    root["max_z"] = round(max_z, 4)
+    root["origin_mode"] = spec.get("origin_mode", "ground")
     root["generator_version"] = GENERATOR_VERSION
     visual.parent = root
 
-    collision_height = 0.12 if spec["kind"] == "road" else height
-    collision_width = footprint[0] * GRID_UNIT_METERS * (0.82 if spec["kind"] == "tree" else 0.90)
-    collision_depth = footprint[1] * GRID_UNIT_METERS * (0.82 if spec["kind"] == "tree" else 0.90)
-    collision = box(
-        f"{asset_id}-colonly",
-        (collision_width, collision_depth, collision_height),
-        (0, 0, collision_height * 0.5),
-        None,
-        0,
-    )
-    collision.parent = root
-    collision.display_type = "WIRE"
+    existing_collisions = [obj for obj in bpy.context.scene.objects if obj.type == "MESH" and obj.name.endswith("-colonly")]
+    if existing_collisions:
+        for collision in existing_collisions:
+            collision.parent = root
+            collision.display_type = "WIRE"
+    else:
+        collision_height = 0.12 if spec["kind"] == "road" else height
+        collision_width = footprint[0] * GRID_UNIT_METERS * (0.82 if spec["kind"] == "tree" else 0.90)
+        collision_depth = footprint[1] * GRID_UNIT_METERS * (0.82 if spec["kind"] == "tree" else 0.90)
+        collision_center_z = 0.06 if spec["kind"] == "road" else min_z + collision_height * 0.5
+        collision = box(
+            f"{asset_id}-colonly",
+            (collision_width, collision_depth, collision_height),
+            (0, 0, collision_center_z),
+            None,
+            0,
+        )
+        collision.parent = root
+        collision.display_type = "WIRE"
 
     output_dir.mkdir(parents=True, exist_ok=True)
     glb_path = output_dir / f"{asset_id}.glb"
@@ -794,6 +954,8 @@ def finalize_and_export(spec, output_dir: Path) -> dict:
         "footprint": footprint,
         "grid_unit_meters": GRID_UNIT_METERS,
         "height_meters": round(height, 3),
+        "min_z": round(min_z, 3),
+        "max_z": round(max_z, 3),
         "triangles": triangle_count(visual),
         "seed": spec["seed"],
         "model": glb_path.name,
@@ -804,7 +966,7 @@ def finalize_and_export(spec, output_dir: Path) -> dict:
         metadata["variant"] = spec["variant"]
     if "service" in spec:
         metadata["service"] = spec["service"]
-    for optional_key in ("style", "shape", "feature"):
+    for optional_key in ("style", "shape", "feature", "direction", "rise", "connections", "origin_mode", "support_height"):
         if optional_key in spec:
             metadata[optional_key] = spec[optional_key]
     with (output_dir / f"{asset_id}.json").open("w", encoding="utf-8") as handle:

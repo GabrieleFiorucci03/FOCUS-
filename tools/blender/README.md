@@ -51,7 +51,7 @@ blender --background --python tools/blender/render_asset_catalog.py
 Gli output finiscono in `assets/previews/` e sono suddivisi in residenziale,
 urbano e infrastrutture. Le collisioni `-colonly` vengono nascoste nel render.
 
-## Kit generato — 72 asset
+## Kit generato — 91 asset
 
 - 10 case, incluse varianti con garage, duplex, portico e corte
 - 6 condomini e 2 palazzoni
@@ -65,6 +65,20 @@ urbano e infrastrutture. Le collisioni `-colonly` vengono nascoste nel render.
 - fienile e serre
 - turbina eolica, torre idrica e campo solare
 - campo da calcio e campo da basket
+- 8 rampe stradali modulari, asfaltate e sterrate, con dislivello di 0,5 m
+- 7 moduli di impalcato/raccordo per ponti
+- 3 piloni di altezze differenti e una spalla di ponte
+
+## Contratto altimetrico
+
+- una cella misura 2 m;
+- un livello di terreno misura 0,5 m;
+- le rampe dichiarano `connections` con quota nord/sud;
+- gli impalcati dei ponti hanno origine sulla superficie stradale e possono
+  essere piazzati dal runtime a qualunque quota;
+- piloni e spalle sono asset separati, quindi la lunghezza del ponte non e
+  prefissata;
+- i tratti in salita e discesa includono collisioni inclinate `-colonly`.
 
 Il generatore e deterministico: lo stesso ID e seed producono lo stesso asset.
 Le specifiche sono centralizzate in `focus_asset_specs.py`.

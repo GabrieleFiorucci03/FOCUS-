@@ -13,7 +13,7 @@ si trasforma in crediti da spendere per tirare su, pezzo dopo pezzo, una città
 ![Godot](https://img.shields.io/badge/Godot-4.7-478cbf?logo=godotengine&logoColor=white)
 ![GDScript](https://img.shields.io/badge/linguaggio-GDScript-355570)
 ![Blender](https://img.shields.io/badge/Blender-5.2-ea7600?logo=blender&logoColor=white)
-![Stato](https://img.shields.io/badge/stato-fase%202%20di%205-yellow)
+![Stato](https://img.shields.io/badge/stato-fase%203%20di%205-yellow)
 ![Licenza](https://img.shields.io/badge/licenza-GPL--3.0-blue)
 
 </div>
@@ -54,10 +54,12 @@ statistiche sempre a schermo.
 
 ![Il mondo 3D](docs/citta.png)
 
-Il mondo su griglia da 2 metri, con camera ortografica che ruota a scatti di 90°
-sui quattro lati. Gli edifici nell'immagine sono un banco di prova piazzato dal
-codice: serve a verificare che i footprint del catalogo si incastrino davvero.
-Il timer continua a scorrere mentre sei qui.
+Il mondo su griglia da 2 metri, generato da un seme: heightmap a gradini, mare,
+laghi, fiumi che scendono dalle alture, spiagge, pianure e colline. La camera
+ortografica ruota a scatti di 90° sui quattro lati. Del terreno non si salva
+niente se non il seme — si rigenera identico. Gli edifici nell'immagine sono un
+banco di prova piazzato dal codice, per verificare che i footprint del catalogo
+si incastrino davvero. Il timer continua a scorrere mentre sei qui.
 
 ## Il kit di asset
 
@@ -108,7 +110,7 @@ Apri la cartella con Godot e premi `F5`. Al primo avvio l'engine importa i 72
 | 0 | Setup, progetto, struttura | ✅ |
 | 1 | Timer, crediti, salvataggio | ✅ |
 | 2 | Griglia 3D e camera isometrica | ✅ |
-| 3 | Terreno procedurale, biomi, fiumi | ⬜ |
+| 3 | Terreno procedurale, biomi, fiumi | ✅ |
 | 3.5 | Pipeline asset Blender | ✅ |
 | 4 | Negozio e costruzione sulla griglia | ⬜ |
 | 5 | Bilanciamento, suoni, statistiche | ⬜ |
@@ -123,7 +125,8 @@ FOCUS!/
 ├─ scripts/
 │  ├─ autoload/       config.gd · save_manager.gd
 │  ├─ focus/          focus_timer.gd · focus_screen.gd
-│  └─ city/           city_grid.gd · iso_camera.gd · city_view.gd
+│  └─ city/           city_grid.gd · city_terrain.gd · terrain_mesh.gd
+│                       iso_camera.gd · city_view.gd
 ├─ data/              economy.json
 ├─ assets/
 │  ├─ models/generated/   72 .glb + catalog.json

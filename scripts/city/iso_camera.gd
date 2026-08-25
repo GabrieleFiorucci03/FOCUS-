@@ -72,7 +72,7 @@ func ruota(verso: int) -> void:
 
 
 func inquadra(punto: Vector3) -> void:
-	global_position = Vector3(punto.x, 0.0, punto.z)
+	global_position = punto
 
 
 func zoom() -> float:
