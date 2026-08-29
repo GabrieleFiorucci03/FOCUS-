@@ -50,6 +50,12 @@ var biomi: PackedByteArray
 ## Quota in metri del pelo dell'acqua, cella per cella. Zero sulla terraferma.
 var quota_acqua: PackedFloat32Array
 
+## Com'era il terreno appena uscito dal seme, prima che ci costruissero sopra.
+## Serve a rimettere a posto un lotto quando la costruzione che l'aveva spianato
+## viene demolita: il suolo torna quello che il seme aveva previsto, che è anche
+## quello che si ritroverebbe riaprendo la partita.
+var _naturale: Dictionary = {}
+
 
 func _init(dimensione: Vector2i, seme_iniziale: int) -> void:
 	size = dimensione
@@ -104,6 +110,21 @@ func lotto_piano(celle: Array[Vector2i]) -> bool:
 	return true
 
 
+## La quota a cui va spianato un lotto: la più bassa fra le celle che occupa,
+## mai sotto il livello del mare.
+##
+## Livellare al minimo invece che alla mediana ha una conseguenza comoda: un
+## oggetto che sta in una cella sola trova il terreno già a quella quota e non
+## lo tocca. Il suolo si muove solo dove serve davvero, cioè sotto le
+## costruzioni larghe che prendono in mezzo un gradino.
+func livello_piu_basso(celle: Array[Vector2i]) -> int:
+	var minimo := LIVELLO_MASSIMO
+	for cella in celle:
+		if dentro(cella):
+			minimo = mini(minimo, livello(cella))
+	return maxi(minimo, LIVELLO_MARE + 1)
+
+
 ## Livella un lotto e restituisce la quota scelta.
 ##
 ## Senza un livello esplicito usa la mediana delle celle, che regge meglio della
@@ -132,6 +153,27 @@ func spiana(celle: Array[Vector2i], livello_scelto: int = -1) -> int:
 	return scelto
 
 
+## Rimette le celle come le aveva fatte il seme. Restituisce true se qualcosa è
+## cambiato davvero, così chi chiama rifà la mesh solo quando serve.
+##
+## Si tocca solo quello che si è chiesto: i lotti spianati lì intorno restano
+## come sono, e un dirupo che ricompare fra i due è la verità del terreno, non
+## un errore.
+func ripristina(celle: Array[Vector2i]) -> bool:
+	var cambiato := false
+	for cella in celle:
+		if not dentro(cella):
+			continue
+		var i := indice(cella)
+		if livelli[i] == int(_naturale["livelli"][i]):
+			continue
+		livelli[i] = _naturale["livelli"][i]
+		biomi[i] = _naturale["biomi"][i]
+		quota_acqua[i] = _naturale["quota_acqua"][i]
+		cambiato = true
+	return cambiato
+
+
 # --- Generazione ------------------------------------------------------------
 
 func _genera() -> void:
@@ -149,6 +191,12 @@ func _genera() -> void:
 	_scava_fiumi()
 	_assegna_biomi_terrestri()
 	_calcola_quote_acqua()
+
+	_naturale = {
+		"livelli": livelli.duplicate(),
+		"biomi": biomi.duplicate(),
+		"quota_acqua": quota_acqua.duplicate(),
+	}
 
 
 ## Rumore frattale smorzato verso i bordi, così la terra sta al centro e il mare

@@ -167,6 +167,45 @@ static func costruisci_reticolo(terreno: CityTerrain) -> Mesh:
 	return mesh
 
 
+## Riquadri traslucidi sulle celle che un oggetto occuperebbe, alla quota a cui
+## finirebbe davvero.
+##
+## Disegnarli alla quota di arrivo e non a quella attuale fa vedere in anticipo
+## anche lo spianamento: se il lotto sta per scendere di un gradino, l'anteprima
+## è già là sotto. Per questo il materiale ignora la profondità — altrimenti il
+## terreno che sta per essere scavato coprirebbe proprio il riquadro che spiega
+## cosa succederà.
+static func costruisci_selezione(celle: Array[Vector2i], quota: float, colore: Color) -> Mesh:
+	var mesh := ImmediateMesh.new()
+	if celle.is_empty():
+		return mesh
+
+	var materiale := StandardMaterial3D.new()
+	materiale.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	materiale.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	materiale.no_depth_test = true
+	materiale.cull_mode = BaseMaterial3D.CULL_DISABLED
+	materiale.albedo_color = colore
+	materiale.render_priority = 1
+
+	var cella := CityGrid.CELL_SIZE
+	var mezza := cella * 0.5
+	mesh.surface_begin(Mesh.PRIMITIVE_TRIANGLES, materiale)
+	for coord in celle:
+		var x0 := float(coord.x) * cella - mezza
+		var x1 := float(coord.x) * cella + mezza
+		var z0 := float(coord.y) * cella - mezza
+		var z1 := float(coord.y) * cella + mezza
+		var a := Vector3(x0, quota, z0)
+		var b := Vector3(x0, quota, z1)
+		var c := Vector3(x1, quota, z1)
+		var d := Vector3(x1, quota, z0)
+		for vertice in [a, b, c, a, c, d]:
+			mesh.surface_add_vertex(vertice)
+	mesh.surface_end()
+	return mesh
+
+
 # --- Dettagli ---------------------------------------------------------------
 
 static func _materiale_terreno() -> StandardMaterial3D:

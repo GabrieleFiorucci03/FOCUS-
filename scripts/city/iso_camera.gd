@@ -75,6 +75,17 @@ func inquadra(punto: Vector3) -> void:
 	global_position = punto
 
 
+## Da dove parte, in coordinate di mondo, il raggio che passa per un punto
+## dello schermo. In proiezione ortografica è un punto sul piano vicino, non la
+## posizione della camera: due pixel diversi danno due origini diverse.
+func origine_raggio(punto_schermo: Vector2) -> Vector3:
+	return _camera.project_ray_origin(punto_schermo)
+
+
+func direzione_raggio(punto_schermo: Vector2) -> Vector3:
+	return _camera.project_ray_normal(punto_schermo)
+
+
 func zoom() -> float:
 	return _camera.size
 

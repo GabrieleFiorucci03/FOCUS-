@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=7 format=3]
 
 [ext_resource type="Script" path="res://scripts/city/city_view.gd" id="1_city"]
 [ext_resource type="Script" path="res://scripts/city/iso_camera.gd" id="2_cam"]
+[ext_resource type="PackedScene" path="res://scenes/ui/ShopPanel.tscn" id="3_shop"]
 
 [sub_resource type="ProceduralSkyMaterial" id="SkyMat_1"]
 sky_top_color = Color(0.352941, 0.505882, 0.678431, 1)
@@ -31,11 +32,20 @@ shadow_enabled = true
 
 [node name="Terreno" type="MeshInstance3D" parent="."]
 
+[node name="Corpo" type="StaticBody3D" parent="Terreno"]
+collision_mask = 0
+
+[node name="Forma" type="CollisionShape3D" parent="Terreno/Corpo"]
+
 [node name="Acqua" type="MeshInstance3D" parent="."]
 
 [node name="Griglia" type="MeshInstance3D" parent="."]
 
+[node name="Selezione" type="MeshInstance3D" parent="."]
+
 [node name="Edifici" type="Node3D" parent="."]
+
+[node name="Anteprima" type="Node3D" parent="."]
 
 [node name="Camera" type="Node3D" parent="."]
 script = ExtResource("2_cam")
@@ -60,5 +70,8 @@ theme_override_colors/font_color = Color(1, 1, 1, 0.72)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.55)
 theme_override_constants/shadow_offset_y = 2
 theme_override_font_sizes/font_size = 14
-text = "Q / E ruota · trascina col tasto destro · rotella per lo zoom"
+text = "Q / E ruota la vista · trascina col tasto destro · rotella per lo zoom"
 horizontal_alignment = 1
+
+[node name="Negozio" parent="Interfaccia" instance=ExtResource("3_shop")]
+unique_name_in_owner = true

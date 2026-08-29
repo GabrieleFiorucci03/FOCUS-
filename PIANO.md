@@ -43,7 +43,7 @@ SaveData:
     seed: int                  # per rigenerare il terreno
     size: Vector2i             # es. 32x32 moduli
     tiles: [                   # solo le celle costruite
-      { pos: Vector2i, type: "casa_01", rotation: int }
+      { pos: [x, z], type: "RES_LOW_1x1_001", rotation: int, level: int }
     ]
     terrain_edits: [           # solo le quote toccate a mano (Fase 4.5)
       { pos: Vector2i, level: int }
@@ -54,17 +54,27 @@ Si salvano solo le celle costruite e le quote modificate: tutto il resto del
 terreno si rigenera dal `seed`. In JSON `Vector2i` non esiste, le coordinate
 viaggiano come array `[x, z]`.
 
+Il `level` di una cella non è ridondante col `seed`: piazzare spiana il lotto,
+quindi il suolo sotto una costruzione non è più quello che il seme aveva
+previsto. Senza quel numero, riaprendo la partita le case si ritroverebbero su
+un terreno diverso da quello su cui erano state messe.
+
 ## Economia — valori di partenza (da bilanciare)
 
-| Voce           | Valore proposto      |
-|----------------|----------------------|
-| Guadagno       | ~10 crediti / ora    |
-| Albero         | 2 crediti            |
-| Strada         | 3 crediti            |
-| Casa piccola   | 8 crediti            |
-| Edificio grande| 25 crediti           |
+| Voce                  | Valore               |
+|-----------------------|----------------------|
+| Guadagno              | ~10 crediti / ora    |
+| Albero                | 2 crediti            |
+| Strada                | 3 crediti            |
+| Casa                  | 8 crediti            |
+| Palazzina             | 25 crediti           |
+| Torre                 | 45 crediti           |
+| Rimborso in demolizione | 50 % del prezzo    |
 
-Valori in un unico file di config per ritoccarli facilmente.
+Tutto in `data/economy.json`, **un prezzo per tipo** (il campo `kind` del
+catalogo asset), non per singolo modello: 19 numeri da bilanciare invece di 91,
+e due case che si somigliano non possono costare in modo diverso per sbaglio.
+Un tipo non elencato costa `price_default`.
 
 ## Pipeline asset (Blender)
 
@@ -113,32 +123,51 @@ script Python (bpy)  ──►  Blender (headless)  ──►  modello.glb  ─�
 
 ### Fase 3.5 — Pipeline asset Blender ✅ completata
 - [x] Script base con stile condiviso — `tools/blender/focus_asset_specs.py` (stile "Focus Grove")
-- [x] Alberi, case, edifici, strade e servizi: **72 asset** generati
+- [x] Alberi, case, edifici, strade, servizi, rampe e ponti: **91 asset** generati
 - [x] Comando unico per rigenerare la libreria → `assets/models/generated/`
 - [x] `catalog.json` con footprint, altezza, triangoli e seed
 - [x] Render di anteprima in `assets/previews/`
 
-### Fase 4 — Negozio + Costruzione
-- [ ] Catalogo oggetti (dati) collegato ai `.glb`
-- [ ] UI negozio + logica acquisto (scala crediti, controllo saldo)
-- [ ] Modalità piazzamento sulla griglia + anteprima + rotazione + salvataggio
-- [ ] Decidere la politica di livellamento (vedi Fase 4.5): se il piazzamento
-      spiana in automatico e gratis, lo strumento terreno nasce inutile
+### Fase 4 — Negozio + Costruzione ✅ completata
+- [x] `CityCatalog` — unisce il catalogo tecnico della pipeline a `data/catalog.json`
+      (nomi italiani, scaffali, regole) e ai prezzi per tipo di `economy.json`
+- [x] UI negozio: cinque scaffali, prezzi, saldo, e le voci fuori portata spente
+      invece che nascoste — sapere quanto manca è metà del motivo per tornare a
+      fare focus
+- [x] Puntamento col mouse: collisione sul terreno e raggio dalla camera
+- [x] Modalità piazzamento con anteprima colorata, rotazione con `R`, controllo
+      del saldo, addebito e salvataggio della cella
+- [x] Demolizione con rimborso del 50 % (arrotondato per difetto: costruire e
+      demolire non deve far guadagnare crediti)
+- [x] Ricostruzione della città dal salvataggio all'avvio, spianamenti compresi
+
+**Politica di livellamento decisa: piazzare spiana al livello più basso del
+lotto**, gratis. Non svuota la Fase 4.5 per due motivi. Il primo è che un
+oggetto da una cella sola non tocca mai il terreno — il minimo di una cella è
+la cella stessa — quindi il suolo si muove solo sotto le costruzioni larghe a
+cavallo di un gradino. Il secondo è che spianare va sempre e solo verso il
+basso: colline, isole e conche restano roba dello strumento terreno.
+
+Lo spianamento vive quanto la costruzione che l'ha chiesto: demolendo, il lotto
+torna alla quota del seme. È l'unico comportamento coerente con il salvataggio,
+che dei lotti spianati si ricorda solo finché c'è sopra qualcosa.
 
 ### Fase 4.5 — Modellare il terreno
 
 Alzare e abbassare il suolo per farsi colline, laghi, fiumi e isole artificiali.
 
-**Va fatta dopo la Fase 4, non prima.** Il negozio costruisce già tutto il
-meccanismo di interazione — raycast dal mouse alla cella, anteprima, controllo
-del saldo, addebito, salvataggio — e lo strumento terreno usa esattamente lo
-stesso con un'azione diversa. Farla prima vuol dire scrivere quella macchina due
-volte.
+La Fase 4 ha costruito la macchina che serve — raggio dal mouse alla cella,
+anteprima, controllo del saldo, addebito, salvataggio — e lo strumento terreno
+la riusa tal quale con un'azione diversa.
 
 Quello che c'è già e non va rifatto:
 
+- Il puntamento: `CityView._cella_puntata()` dà la cella sotto il cursore, e
+  `TerrainMesh.costruisci_selezione()` disegna il riquadro sulla cella bersaglio
+  già alla quota di arrivo.
 - Le quote sono numeri interi per cella: alzare è `livelli[i] += 1`.
-- `CityTerrain.spiana()` livella un lotto.
+- `CityTerrain.spiana()` livella un lotto, `livello_piu_basso()` sceglie la
+  quota, `ripristina()` riporta delle celle a com'erano appena uscite dal seme.
 - La classificazione delle acque è un flood fill dal bordo mappa, e questo
   risponde da solo a tre casi diversi senza codice dedicato:
   scavare una conca chiusa sotto il livello del mare produce un **lago**,
@@ -148,14 +177,22 @@ Quello che c'è già e non va rifatto:
 Da fare:
 
 - [ ] Strumenti alza / abbassa / livella, con anteprima della cella bersaglio
-- [ ] Ricalcolo di biomi e acque dopo ogni modifica (rieseguire il flood fill)
+- [ ] Ricalcolo di biomi e acque dopo ogni modifica (rieseguire il flood fill).
+      Attenzione: `spiana()` oggi riclassifica la cella a mano in pianura o
+      collina, che basta perché spiana solo all'asciutto e verso il basso.
+      Alzare e abbassare per scelta non se la cava così.
 - [ ] Ricostruzione della mesh: oggi si rifà tutto il terreno in un colpo, su
       32x32 regge anche a ogni click; se la mappa cresce va spezzata in blocchi
-- [ ] Salvataggio delle quote modificate (`terrain_edits`, additivo allo schema)
+- [ ] Salvataggio delle quote modificate (`terrain_edits`, additivo allo schema).
+      Va tenuto distinto dal `level` delle celle costruite, che è già lì e che
+      la demolizione disfa: una collina scavata a mano invece deve restare.
 - [ ] Costo in crediti, altrimenti il terraforming è gratis e l'economia salta
 - [ ] Decidere cosa succede a un edificio su una cella che cambia quota:
       si rimuove, si blocca l'operazione, o scende con il terreno
 - [ ] Decidere se limitare il dislivello tra celle adiacenti o lasciare i dirupi
+- [ ] Decidere cosa fa una campata quando le si scava sotto o le si alza la
+      sponda: la sua quota è decisa al momento del piazzamento e poi non si
+      muove più
 
 ### Fase 5 — Rifinitura
 - [ ] Bilanciamento economia
@@ -171,8 +208,8 @@ FOCUS!/
   project.godot          # progetto Godot 4.7
   scenes/                # main, focus, city, ui
   scripts/               # autoload, focus, city, ui
-  data/                  # cataloghi ed economia (JSON)
-  assets/models/generated/   # 72 .glb + catalog.json
+  data/                  # economy.json (prezzi) e catalog.json (nomi, scaffali)
+  assets/models/generated/   # 91 .glb + catalog.json
   tools/blender/         # pipeline di generazione (ignorata da Godot)
 ```
 
@@ -198,6 +235,23 @@ della base, fronte verso `-Y`, collisioni con suffisso `-colonly`.
 - **Le quote del terreno sono discrete**, non continue. Un edificio appoggia in
   piano senza compenetrare il suolo e dire se un lotto è pianeggiante è
   immediato; un terreno liscio costringerebbe a deformare o sollevare ogni casa.
+- **Piazzare spiana al livello più basso del lotto.** Alla mediana un lotto in
+  pendenza si sarebbe scavato da una parte e riempito dall'altra; al minimo si
+  scava e basta, e soprattutto un oggetto 1x1 non tocca mai il terreno, perché
+  il minimo di una cella sola è la cella stessa.
+- **Un ponte si aggancia, non si appoggia dove capita.** Una campata va solo
+  sull'acqua e solo attaccata a una riva o a un'altra campata, e sta un gradino
+  sopra la sponda: è la composizione che la pipeline aveva già verificato in
+  Blender (`tools/blender/render_transport_demo.py`), dove la rampa colma
+  esattamente quei 0,5 m. Le pile non si comprano e non occupano celle — la
+  griglia ne ammette una sola per cella e sarebbe già presa dall'impalcato —
+  ma nascono sotto la campata scegliendo l'altezza sulla luce da colmare.
+- **Il terreno è l'unica cosa che il raggio del mouse colpisce.** Gli edifici
+  hanno le collisioni spente: puntando una casa si vuole la cella su cui poggia,
+  non la sua grondaia, e demolire vuol dire cliccare quello che si vede.
+- **Il prezzo sta sul tipo, non sul modello.** Diciannove numeri invece di
+  novantuno, e due case che si somigliano non possono costare in modo diverso
+  per una distrazione.
 - **I colori dei biomi viaggiano nei vertici**, non in un materiale per tipo:
   tutto il terreno è una superficie sola e un bioma nuovo non aggiunge un
   materiale. Vanno convertiti con `srgb_to_linear()`, altrimenti Godot li usa
@@ -222,8 +276,8 @@ lotto al momento del piazzamento (`spiana()` c'è già), quindi non è un limite
 
 ## Verifiche fatte sugli asset
 
-Misurando l'ingombro **al livello del suolo** di tutti e 72 i modelli contro il
-footprint dichiarato nel catalogo:
+Misurando l'ingombro **al livello del suolo** contro il footprint dichiarato nel
+catalogo, sui 72 modelli del primo kit (prima che arrivassero rampe e ponti):
 
 - Nessun modello ha geometria sotto `y = 0`: l'origine al centro della base
   regge su tutta la libreria.
@@ -236,8 +290,28 @@ footprint dichiarato nel catalogo:
 Nessuno di questi è bloccante. Se dà fastidio si sistema nel generatore Blender,
 non in Godot.
 
+## Verifiche fatte sul negozio e sul cantiere
+
+Su un mondo 32x32, guidando `CityView` dal di fuori:
+
+| Prova | Esito |
+|---|---|
+| 91 asset letti, 87 in vendita (i 4 sostegni no) | ok |
+| Nessun nome ripetuto fra le 91 voci | ok |
+| Una scuola 3x3 su quote `[4,4,5,4,4,5,4,5,6]` | spiana tutto a 4 |
+| Una casa 1x1 | non tocca il terreno |
+| Casa sull'acqua, campata a terra, ponte al largo | rifiutati, uno per volta |
+| Campata su una sponda a quota 4 | posata a 2,50 m, con la pila sotto |
+| Campata successiva al largo | eredita la quota, resta in piano |
+| Scuola da 35 demolita | +17 crediti, e il lotto torna a `[4,4,5,4,4,5,4,5,6]` |
+| Riapertura della partita | stesse costruzioni, stesso terreno |
+
+Guardati anche i frame veri: il ponte con le sue rampe attraversa il fiume, il
+fantasma verde della palazzina sta alla quota a cui il lotto verrà spianato, e
+il negozio elenca i prezzi con le voci fuori portata spente.
+
 ## Prossimo passo
 
-Fase 4: catalogo degli oggetti collegato ai `.glb`, UI del negozio con controllo
-del saldo, e modalità piazzamento sulla griglia con anteprima, rotazione,
-livellamento del lotto e salvataggio delle celle costruite.
+Fase 4.5: alzare e abbassare il terreno per scelta, con il costo in crediti e il
+salvataggio delle quote modificate. Il puntamento, l'anteprima e l'addebito sono
+già in piedi dalla Fase 4: quello che manca è l'azione.

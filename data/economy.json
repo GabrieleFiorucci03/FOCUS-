@@ -5,11 +5,29 @@
 	"credits_on_early_stop": true,
 	"min_session_seconds": 60,
 
-	"_commento_prezzi": "Prezzi provvisori per categoria (Fase 4 li collegherà ai singoli ID del catalogo).",
+	"_commento_prezzi": "Un prezzo per tipo di oggetto: la chiave e' il campo 'kind' di assets/models/generated/catalog.json. Un tipo non elencato costa price_default. I sostegni dei ponti non sono in vendita: nascono da soli sotto le campate.",
+	"price_default": 10,
 	"prices": {
-		"NAT_TREE": 2,
-		"ROAD": 3,
-		"RES_LOW": 8,
-		"RES_MID": 25
-	}
+		"tree": 2,
+		"road": 3,
+		"sloped_road": 4,
+		"park": 6,
+		"house": 8,
+		"bridge": 10,
+		"shop": 12,
+		"agriculture": 14,
+		"villa": 16,
+		"service": 20,
+		"sport": 22,
+		"apartment": 25,
+		"office": 28,
+		"utility": 30,
+		"factory": 32,
+		"school": 35,
+		"slab": 40,
+		"tower": 45
+	},
+
+	"_commento_rimborso": "Quanto torna indietro demolendo: 0.5 = meta' del prezzo, arrotondata per difetto.",
+	"refund_ratio": 0.5
 }

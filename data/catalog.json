@@ -1,0 +1,102 @@
+{
+	"_commento": "Come il negozio presenta gli asset generati da Blender: nome leggibile, scaffale e regola di piazzamento. I dati tecnici (footprint, altezza, file .glb) stanno in assets/models/generated/catalog.json e li scrive la pipeline: non si toccano a mano. I prezzi stanno in economy.json, uno per tipo.",
+
+	"_commento_nomi": "Il nome di un oggetto parte dal nome del tipo. I campi descrittivi dell'asset (style, variant, service, shape, feature, direction) lo rifiniscono: se il valore compare in 'nomi' sostituisce il nome, se compare in 'qualificatori' gli si accoda. I valori che non compaiono da nessuna parte vengono ignorati, e i nomi che restano uguali si numerano da soli.",
+
+	"_commento_regole": "terra = si posa all'asciutto e spiana il lotto al livello piu' basso. ponte = si posa sull'acqua, non tocca il terreno e sta un gradino sopra la sponda.",
+
+	"categorie": [
+		{ "id": "abitare", "nome": "Abitare" },
+		{ "id": "lavoro", "nome": "Lavoro" },
+		{ "id": "servizi", "nome": "Servizi" },
+		{ "id": "mobilita", "nome": "Strade" },
+		{ "id": "verde", "nome": "Verde" }
+	],
+
+	"tipo_predefinito": { "nome": "Oggetto", "categoria": "servizi", "regola": "terra" },
+
+	"tipi": {
+		"house": {
+			"nome": "Casa", "categoria": "abitare",
+			"qualificatori": { "porch": "con portico", "garage": "con garage", "duplex": "bifamiliare", "modern": "moderna", "courtyard": "a corte" }
+		},
+		"villa": {
+			"nome": "Villa", "categoria": "abitare",
+			"qualificatori": { "modern": "moderna", "courtyard": "a corte" }
+		},
+		"apartment": {
+			"nome": "Palazzina", "categoria": "abitare",
+			"qualificatori": { "stepped": "a gradoni", "twin": "gemella", "wing": "ad ali" }
+		},
+		"slab": {
+			"nome": "Stecca", "categoria": "abitare",
+			"qualificatori": { "offset": "sfalsata" }
+		},
+		"tower": {
+			"nome": "Torre", "categoria": "abitare",
+			"qualificatori": { "setback": "a rientri", "twin": "gemella" }
+		},
+
+		"shop": {
+			"nome": "Negozio", "categoria": "lavoro",
+			"nomi": { "cafe": "Bar", "kiosk": "Chiosco", "market": "Mercato", "restaurant": "Ristorante" }
+		},
+		"office": {
+			"nome": "Ufficio", "categoria": "lavoro",
+			"qualificatori": { "atrium": "con atrio", "stepped": "a gradoni" }
+		},
+		"factory": {
+			"nome": "Fabbrica", "categoria": "lavoro",
+			"nomi": { "warehouse": "Magazzino", "logistics": "Polo logistico" }
+		},
+		"agriculture": {
+			"nome": "Azienda agricola", "categoria": "lavoro",
+			"nomi": { "barn": "Fienile", "greenhouse": "Serra" }
+		},
+
+		"school": {
+			"nome": "Scuola", "categoria": "servizi",
+			"qualificatori": { "primary": "elementare", "secondary": "superiore" }
+		},
+		"service": {
+			"nome": "Presidio", "categoria": "servizi",
+			"nomi": { "police": "Stazione di polizia", "fire": "Caserma dei pompieri", "health": "Presidio sanitario" }
+		},
+		"sport": {
+			"nome": "Campo sportivo", "categoria": "servizi",
+			"nomi": { "basketball": "Campo da basket", "football": "Campo da calcio" }
+		},
+		"utility": {
+			"nome": "Impianto", "categoria": "servizi",
+			"nomi": { "wind": "Pale eoliche", "solar": "Impianto solare", "water": "Serbatoio idrico" }
+		},
+
+		"road": {
+			"nome": "Strada", "categoria": "mobilita",
+			"qualificatori": { "dirt": "sterrata", "straight": "dritta", "corner": "in curva", "t": "a T", "cross": "a incrocio", "end": "senza uscita" }
+		},
+		"sloped_road": {
+			"nome": "Rampa", "categoria": "mobilita",
+			"qualificatori": { "dirt": "sterrata", "up": "in salita", "down": "in discesa" }
+		},
+		"bridge": {
+			"nome": "Ponte", "categoria": "mobilita", "regola": "ponte",
+			"_commento_rampe": "Le rampe del ponte non stanno sull'acqua: sono il raccordo che sale dalla sponda all'impalcato, quindi si posano a terra.",
+			"regola_varianti": { "ramp": "terra" },
+			"qualificatori": { "straight": "dritto", "corner": "in curva", "t": "a T", "cross": "a incrocio", "end": "di testata", "ramp": "rampa", "up": "in salita", "down": "in discesa" }
+		},
+		"bridge_support": {
+			"nome": "Sostegno del ponte", "categoria": "mobilita", "regola": "ponte", "in_vendita": false
+		},
+
+		"tree": {
+			"nome": "Albero", "categoria": "verde",
+			"nomi": { "oak": "Quercia", "pine": "Pino", "birch": "Betulla", "cypress": "Cipresso", "flowering": "Albero in fiore" }
+		},
+		"park": {
+			"nome": "Parco", "categoria": "verde",
+			"nomi": { "plaza": "Piazza" },
+			"qualificatori": { "playground": "giochi", "pocket": "tascabile" }
+		}
+	}
+}

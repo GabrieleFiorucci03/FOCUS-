@@ -14,59 +14,131 @@
 # questo programma. In caso contrario, vedi <https://www.gnu.org/licenses/>.
 
 extends Node3D
-## Il mondo della città: terreno procedurale, griglia, camera e banco di prova.
+## Il mondo della città: terreno procedurale, griglia, camera, negozio e cantiere.
 ##
 ## Il terreno si rigenera dal seme salvato: non finisce su disco nemmeno una
-## quota. Su disco vanno solo il seme e le celle che l'utente ha costruito.
+## quota. Su disco vanno il seme, le celle costruite e il livello a cui ognuna
+## è stata spianata — quello sì, perché costruire muove il suolo e il seme da
+## solo non se ne ricorderebbe.
 
-const CATALOGO := "res://assets/models/generated/catalog.json"
 const CARTELLA_MODELLI := "res://assets/models/generated/"
 
-## Il quartiere di prova ha bisogno di terreno piano: questo rettangolo viene
-## livellato prima di costruire la mesh. La Fase 4 farà lo stesso, un lotto
-## alla volta, quando l'utente piazza qualcosa.
-const LOTTO_DI_PROVA := Rect2i(8, 11, 16, 13)
+## Le coordinate di griglia non sono mai negative, quindi questa vale "nessuna".
+const CELLA_NULLA := Vector2i(-1, -1)
+
+## Il terreno è l'unica cosa che il raggio del mouse deve colpire. Gli edifici
+## restano fuori da ogni layer: puntando una casa si vuole la cella su cui
+## poggia, non la sua grondaia.
+const LAYER_TERRENO := 1
+
+const COLORE_VALIDO := Color(0.36, 0.84, 0.47, 0.55)
+const COLORE_INVALIDO := Color(0.90, 0.31, 0.26, 0.50)
+const COLORE_DEMOLIZIONE := Color(0.95, 0.47, 0.20, 0.45)
+
+enum Modo { NAVIGA, PIAZZA, DEMOLISCI }
 
 @onready var _terreno_mesh: MeshInstance3D = $Terreno
+@onready var _forma_terreno: CollisionShape3D = $Terreno/Corpo/Forma
 @onready var _acqua_mesh: MeshInstance3D = $Acqua
 @onready var _reticolo: MeshInstance3D = $Griglia
+@onready var _selezione: MeshInstance3D = $Selezione
 @onready var _edifici: Node3D = $Edifici
+@onready var _anteprima: Node3D = $Anteprima
 @onready var _camera: IsoCamera = $Camera
 @onready var _sole: DirectionalLight3D = $Sole
 @onready var _interfaccia: CanvasLayer = $Interfaccia
+@onready var _negozio: ShopPanel = %Negozio
 @onready var _aiuto: Label = %Aiuto
 
 var griglia: CityGrid
 var terreno: CityTerrain
-var _voci: Dictionary = {}
+var catalogo: CityCatalog
+
+var _modo: Modo = Modo.NAVIGA
+## Cosa si sta per costruire, e come.
+var _scelto: String = ""
+var _rotazione: int = 0
+var _cella := CELLA_NULLA
+var _ancora := CELLA_NULLA
+var _esito: Dictionary = {}
+var _fantasma: Node3D = null
+
+## id del piazzamento -> { nodo, livello }. La griglia sa chi occupa cosa; qui
+## sta quello che serve per disfare: il nodo da buttare e la quota a cui sta.
+var _costruzioni: Dictionary = {}
+
+var _messaggio_corrente: String = ""
+var _materiale_valido: StandardMaterial3D
+var _materiale_invalido: StandardMaterial3D
 
 
 func _ready() -> void:
 	# Un CanvasLayer non eredita la visibilità dal Node3D che lo contiene:
-	# senza questo, l'aiuto della città resterebbe stampato sopra la
-	# schermata di focus quando si cambia modalità.
+	# senza questo, il negozio resterebbe stampato sopra la schermata di focus
+	# quando si cambia modalità.
 	visibility_changed.connect(_aggiorna_interfaccia)
 	_aggiorna_interfaccia()
 
 	_sole.rotation_degrees = Vector3(-52.0, -125.0, 0.0)
+	_materiale_valido = _materiale_fantasma(COLORE_VALIDO)
+	_materiale_invalido = _materiale_fantasma(COLORE_INVALIDO)
 
-	var mondo: Dictionary = SaveManager.data.get("world", {})
-	var dimensione: Array = mondo.get("size", [32, 32])
-	var seme := int(mondo.get("seed", 0))
-	griglia = CityGrid.new(Vector2i(int(dimensione[0]), int(dimensione[1])))
-	terreno = CityTerrain.new(griglia.size, seme)
+	catalogo = CityCatalog.new()
+	griglia = CityGrid.new(SaveManager.world_size())
+	terreno = CityTerrain.new(griglia.size, SaveManager.world_seed())
 
-	_carica_catalogo()
-	var quota_lotto := terreno.spiana(_celle_del_lotto(LOTTO_DI_PROVA))
+	_negozio.voce_scelta.connect(_on_voce_scelta)
+	_negozio.demolizione_commutata.connect(_on_demolizione_commutata)
+	SaveManager.credits_changed.connect(_on_crediti_cambiati)
+	_negozio.mostra_catalogo(catalogo)
+	_negozio.aggiorna_saldo(SaveManager.credits)
+
+	var costruiti := _ricostruisci_dal_salvataggio()
 	_costruisci_mesh()
-	var piazzati := _costruisci_banco_di_prova()
 
-	var centro := griglia.centro_cella(Vector2i(16, 17))
-	centro.y = float(quota_lotto) * CityTerrain.PASSO_QUOTA
+	var centro_griglia := Vector2i(griglia.size.x / 2, griglia.size.y / 2)
+	var centro := griglia.centro_cella(centro_griglia)
+	centro.y = terreno.quota(centro_griglia)
 	_camera.inquadra(centro)
-	_aiuto.text = "Q / E ruota · trascina col tasto destro · rotella per lo zoom      seme %d · %d oggetti · %s" % [
-		seme, piazzati, _riepilogo_biomi()
-	]
+
+	if costruiti == 0:
+		_messaggio("Mondo %d · %s · la città è tutta da fare." % [terreno.seme, _riepilogo_biomi()])
+	else:
+		_messaggio("Mondo %d · %d costruzioni." % [terreno.seme, costruiti])
+
+
+func _process(_delta: float) -> void:
+	if _modo == Modo.NAVIGA:
+		return
+	# Col cursore sopra il negozio il raggio andrebbe comunque a colpire il
+	# terreno dietro il pannello, e l'anteprima ballerebbe mentre si sceglie.
+	var puntata := CELLA_NULLA if _mouse_sul_pannello() else _cella_puntata()
+	if puntata != _cella:
+		_cella = puntata
+		_aggiorna_bersaglio()
+
+
+func _unhandled_input(evento: InputEvent) -> void:
+	if _modo == Modo.NAVIGA:
+		return
+
+	if evento is InputEventKey:
+		var tasto := evento as InputEventKey
+		if not tasto.pressed or tasto.echo:
+			return
+		match tasto.physical_keycode:
+			KEY_R:
+				# Q ed E girano la vista: il pezzo gira con un tasto suo.
+				_ruota_il_pezzo(-1 if tasto.shift_pressed else 1)
+				get_viewport().set_input_as_handled()
+			KEY_ESCAPE:
+				_torna_a_navigare()
+				get_viewport().set_input_as_handled()
+	elif evento is InputEventMouseButton:
+		var clic := evento as InputEventMouseButton
+		if clic.pressed and clic.button_index == MOUSE_BUTTON_LEFT:
+			_conferma()
+			get_viewport().set_input_as_handled()
 
 
 func _aggiorna_interfaccia() -> void:
@@ -75,28 +147,439 @@ func _aggiorna_interfaccia() -> void:
 
 # --- Costruzione del mondo --------------------------------------------------
 
-func _carica_catalogo() -> void:
-	var testo := FileAccess.get_file_as_string(CATALOGO)
-	var dati: Variant = JSON.parse_string(testo)
-	if typeof(dati) != TYPE_DICTIONARY or not (dati as Dictionary).has("assets"):
-		push_error("CityView: catalogo illeggibile in %s" % CATALOGO)
-		return
-	for voce in (dati as Dictionary)["assets"]:
-		_voci[str(voce["id"])] = voce
-
-
 func _costruisci_mesh() -> void:
 	_terreno_mesh.mesh = TerrainMesh.costruisci_terreno(terreno)
 	_acqua_mesh.mesh = TerrainMesh.costruisci_acqua(terreno)
 	_reticolo.mesh = TerrainMesh.costruisci_reticolo(terreno)
+	# La collisione del terreno serve solo al raggio del mouse: senza, non c'è
+	# modo di sapere quale cella si sta indicando.
+	_forma_terreno.shape = _terreno_mesh.mesh.create_trimesh_shape()
 
 
-func _celle_del_lotto(rettangolo: Rect2i) -> Array[Vector2i]:
-	var celle: Array[Vector2i] = []
-	for dz in rettangolo.size.y:
-		for dx in rettangolo.size.x:
-			celle.append(Vector2i(rettangolo.position.x + dx, rettangolo.position.y + dz))
-	return celle
+## Rimette in piedi la città salvata. Restituisce quante costruzioni ha ripreso.
+##
+## Il livello di ogni lotto viene riapplicato al terreno appena rigenerato, così
+## il suolo torna com'era a prescindere dall'ordine in cui le cose sono state
+## costruite. La mesh si ricostruisce una volta sola, alla fine.
+func _ricostruisci_dal_salvataggio() -> int:
+	var ripresi := 0
+	for tile in SaveManager.world_tiles():
+		var pos: Array = tile.get("pos", [])
+		if pos.size() != 2:
+			continue
+		var id := str(tile.get("type", ""))
+		if not catalogo.esiste(id):
+			push_warning("CityView: nel salvataggio c'è %s, che il catalogo non conosce." % id)
+			continue
+		var ancora := Vector2i(int(pos[0]), int(pos[1]))
+		var rotazione := int(tile.get("rotation", 0))
+		var footprint: Vector2i = catalogo.voce(id)["footprint"]
+		var celle := griglia.celle_occupate(ancora, footprint, rotazione)
+		var livello := int(tile.get("level", terreno.livello_piu_basso(celle)))
+		if _costruisci(id, ancora, rotazione, livello, false):
+			ripresi += 1
+	return ripresi
+
+
+## Mette un oggetto sulla griglia e nel mondo. Non tocca né i crediti né il
+## salvataggio: quelli li gestisce chi chiama, perché ricaricare una città già
+## pagata non deve farla ripagare.
+func _costruisci(id: String, ancora: Vector2i, rotazione: int, livello: int,
+		rifai_la_mesh: bool = true) -> bool:
+	var voce := catalogo.voce(id)
+	if voce.is_empty():
+		push_error("CityView: id assente dal catalogo: %s" % id)
+		return false
+
+	var footprint: Vector2i = voce["footprint"]
+	if not griglia.libero(ancora, footprint, rotazione):
+		push_warning("CityView: %s non entra in %s." % [id, ancora])
+		return false
+
+	var celle := griglia.celle_occupate(ancora, footprint, rotazione)
+	if voce["regola"] == CityCatalog.Regola.TERRA and _serve_livellare(celle, livello):
+		terreno.spiana(celle, livello)
+		if rifai_la_mesh:
+			_costruisci_mesh()
+
+	var nodo := _istanzia(voce, ancora, rotazione, livello)
+	if nodo == null:
+		return false
+	var id_piazzamento := griglia.piazza(ancora, footprint, rotazione, id)
+	_costruzioni[id_piazzamento] = { "nodo": nodo, "livello": livello }
+	return true
+
+
+func _istanzia(voce: Dictionary, ancora: Vector2i, rotazione: int, livello: int) -> Node3D:
+	var scena := load(CARTELLA_MODELLI + str(voce["modello"])) as PackedScene
+	if scena == null:
+		push_error("CityView: modello mancante per %s" % voce["id"])
+		return null
+
+	var nodo: Node3D = scena.instantiate()
+	nodo.position = griglia.posizione_mondo(ancora, voce["footprint"], rotazione)
+	nodo.position.y = float(livello) * CityTerrain.PASSO_QUOTA
+	nodo.rotation.y = deg_to_rad(-90.0 * rotazione)
+	_spegni_collisioni(nodo)
+	if voce["regola"] == CityCatalog.Regola.PONTE:
+		_appoggia_la_campata(nodo, ancora, livello)
+	_edifici.add_child(nodo)
+	return nodo
+
+
+## Infila la pila sotto una campata. Non è un piazzamento: non occupa la cella,
+## non si compra e non finisce nel salvataggio, vive appesa al ponte che regge.
+func _appoggia_la_campata(campata: Node3D, ancora: Vector2i, livello: int) -> void:
+	var luce := float(livello) * CityTerrain.PASSO_QUOTA - terreno.quota(ancora)
+	var id_pila := catalogo.sostegno_per_luce(luce)
+	if id_pila.is_empty():
+		return
+	var scena := load(CARTELLA_MODELLI + str(catalogo.voce(id_pila)["modello"])) as PackedScene
+	if scena == null:
+		return
+	var pila: Node3D = scena.instantiate()
+	pila.position = Vector3(0.0, -luce, 0.0)
+	_spegni_collisioni(pila)
+	campata.add_child(pila)
+
+
+func _serve_livellare(celle: Array[Vector2i], livello: int) -> bool:
+	for cella in celle:
+		if terreno.livello(cella) != livello:
+			return true
+	return false
+
+
+## I modelli portano con sé le collisioni "-colonly" della pipeline. Qui non
+## servono a niente e ruberebbero il raggio al terreno, quindi si spengono.
+static func _spegni_collisioni(nodo: Node) -> void:
+	if nodo is CollisionObject3D:
+		var corpo := nodo as CollisionObject3D
+		corpo.collision_layer = 0
+		corpo.collision_mask = 0
+	for figlio in nodo.get_children():
+		_spegni_collisioni(figlio)
+
+
+# --- Scelta del posto -------------------------------------------------------
+
+## La cella sotto il cursore, o CELLA_NULLA se il raggio esce dal mondo.
+func _cella_puntata() -> Vector2i:
+	var punto_schermo := get_viewport().get_mouse_position()
+	var origine := _camera.origine_raggio(punto_schermo)
+	var query := PhysicsRayQueryParameters3D.create(
+		origine, origine + _camera.direzione_raggio(punto_schermo) * 1000.0
+	)
+	query.collision_mask = LAYER_TERRENO
+	var colpo := get_world_3d().direct_space_state.intersect_ray(query)
+	if colpo.is_empty():
+		return CELLA_NULLA
+	var cella: Vector2i = griglia.cella_da_mondo(colpo["position"])
+	return cella if griglia.in_griglia(cella) else CELLA_NULLA
+
+
+## L'oggetto si centra sul cursore invece di crescergli a destra: puntando il
+## posto dove si vuole una torre 4x4, la si vuole lì, non lì accanto.
+func _ancora_da(cella: Vector2i, footprint: Vector2i, rotazione: int) -> Vector2i:
+	var f := CityGrid.footprint_ruotato(footprint, rotazione)
+	return cella - Vector2i((f.x - 1) / 2, (f.y - 1) / 2)
+
+
+## Se e dove si può posare quello che si è scelto, e a che quota finirebbe.
+## Restituisce { valido, celle, livello, motivo }.
+func _valuta(id: String, ancora: Vector2i, rotazione: int) -> Dictionary:
+	var voce := catalogo.voce(id)
+	if voce.is_empty():
+		return { "valido": false, "celle": [] as Array[Vector2i], "livello": 0,
+			"motivo": "Oggetto sconosciuto: %s." % id }
+	var celle := griglia.celle_occupate(ancora, voce["footprint"], rotazione)
+	var esito := {
+		"valido": false,
+		"celle": celle,
+		"livello": terreno.livello(ancora),
+		"motivo": "",
+	}
+
+	for cella in celle:
+		if not griglia.in_griglia(cella):
+			esito["motivo"] = "Fuori dal mondo."
+			return esito
+	for cella in celle:
+		if not griglia.occupante(cella).is_empty():
+			esito["motivo"] = "Qui c'è già qualcosa."
+			return esito
+
+	if voce["regola"] == CityCatalog.Regola.PONTE:
+		for cella in celle:
+			if not terreno.e_acqua(cella):
+				esito["motivo"] = "Una campata va sull'acqua: a terra ci vuole una strada."
+				return esito
+		var livello := _livello_impalcato(celle)
+		if livello < 0:
+			esito["motivo"] = "Un ponte parte da una riva o da un'altra campata."
+			return esito
+		esito["livello"] = livello
+	else:
+		for cella in celle:
+			if not terreno.costruibile(cella):
+				esito["motivo"] = "Sull'acqua non si costruisce."
+				return esito
+		esito["livello"] = terreno.livello_piu_basso(celle)
+
+	esito["valido"] = true
+	return esito
+
+
+## A che quota va una campata: un gradino sopra la riva a cui si aggancia.
+##
+## È la composizione che la pipeline ha già verificato in Blender, in
+## tools/blender/render_transport_demo.py: l'impalcato sta 0,5 m sopra il piano
+## stradale della sponda, e la rampa colma esattamente quel dislivello. Una
+## campata attaccata a un'altra campata ne eredita la quota, altrimenti un fiume
+## largo non si attraverserebbe mai restando in piano.
+##
+## Restituisce -1 se non c'è niente a cui agganciarsi: un ponte in mezzo al mare
+## che non parte da nessuna parte non è un ponte.
+func _livello_impalcato(celle: Array[Vector2i]) -> int:
+	var da_campata := -1
+	var da_riva := -1
+	for cella in celle:
+		for direzione in CityTerrain.VICINI:
+			var vicina: Vector2i = cella + direzione
+			if celle.has(vicina) or not griglia.in_griglia(vicina):
+				continue
+			var occupante := griglia.occupante(vicina)
+			var e_campata: bool = not occupante.is_empty() \
+				and catalogo.regola(str(occupante["modello"])) == CityCatalog.Regola.PONTE
+			if e_campata:
+				da_campata = maxi(da_campata, int(_costruzioni[occupante["id"]]["livello"]))
+			elif terreno.costruibile(vicina):
+				var candidato := terreno.livello(vicina) + 1
+				da_riva = candidato if da_riva < 0 else mini(da_riva, candidato)
+	return da_campata if da_campata >= 0 else da_riva
+
+
+# --- Modalità ---------------------------------------------------------------
+
+func _on_voce_scelta(id: String) -> void:
+	_modo = Modo.PIAZZA
+	_scelto = id
+	_rotazione = 0
+	_crea_fantasma()
+	_cella = CELLA_NULLA
+	_messaggio("")
+
+
+func _on_demolizione_commutata(attiva: bool) -> void:
+	if not attiva:
+		_torna_a_navigare()
+		return
+	_modo = Modo.DEMOLISCI
+	_scelto = ""
+	_libera_fantasma()
+	_cella = CELLA_NULLA
+	_messaggio("")
+
+
+func _on_crediti_cambiati(crediti: int) -> void:
+	_negozio.aggiorna_saldo(crediti)
+
+
+func _torna_a_navigare() -> void:
+	_modo = Modo.NAVIGA
+	_scelto = ""
+	_cella = CELLA_NULLA
+	_esito = {}
+	_libera_fantasma()
+	_selezione.mesh = null
+	_negozio.deseleziona()
+	_aggiorna_aiuto()
+
+
+func _ruota_il_pezzo(verso: int) -> void:
+	_rotazione = posmod(_rotazione + verso, 4)
+	if _fantasma != null:
+		_fantasma.rotation.y = deg_to_rad(-90.0 * _rotazione)
+	_aggiorna_bersaglio()
+
+
+func _conferma() -> void:
+	if _cella == CELLA_NULLA:
+		return
+	if _modo == Modo.DEMOLISCI:
+		_demolisci_sotto_il_cursore()
+		return
+
+	if not bool(_esito.get("valido", false)):
+		_messaggio(str(_esito.get("motivo", "")))
+		return
+
+	var prezzo := catalogo.prezzo(_scelto)
+	if not SaveManager.try_spend(prezzo):
+		_messaggio("Servono %d crediti, ne hai %d. Torna a fare focus." % [prezzo, SaveManager.credits])
+		return
+
+	var livello := int(_esito["livello"])
+	if not _costruisci(_scelto, _ancora, _rotazione, livello):
+		# Non è stato costruito niente: i crediti non si tengono.
+		SaveManager.add_credits(prezzo)
+		SaveManager.save_game()
+		_messaggio("Non si riesce a costruire qui.")
+		return
+
+	SaveManager.add_tile(_ancora, _scelto, _rotazione, livello)
+	_messaggio("%s: -%d crediti." % [catalogo.voce(_scelto)["nome"], prezzo])
+	_aggiorna_bersaglio()
+
+
+func _demolisci_sotto_il_cursore() -> void:
+	var occupante := griglia.occupante(_cella)
+	if occupante.is_empty():
+		_messaggio("Qui non c'è niente da demolire.")
+		return
+
+	var id_modello := str(occupante["modello"])
+	var ancora: Vector2i = occupante["ancora"]
+	var id_piazzamento := int(occupante["id"])
+	var rimborso := catalogo.rimborso(id_modello)
+
+	var celle := griglia.celle_occupate(ancora, occupante["footprint"], occupante["rotazione"])
+	var costruzione: Dictionary = _costruzioni.get(id_piazzamento, {})
+	if costruzione.has("nodo"):
+		(costruzione["nodo"] as Node3D).queue_free()
+	_costruzioni.erase(id_piazzamento)
+	griglia.rimuovi(_cella)
+
+	# Il lotto torna quello che il seme aveva previsto. Non è un ripensamento
+	# gentile: lo spianamento vive solo finché vive la costruzione che l'ha
+	# chiesto, quindi lasciarlo lì vorrebbe dire mostrare una città che alla
+	# prossima apertura non c'è più. Modellare il terreno per scelta, e che
+	# resti, è la Fase 4.5.
+	if terreno.ripristina(celle):
+		_costruisci_mesh()
+
+	SaveManager.remove_tile(ancora)
+	SaveManager.add_credits(rimborso)
+	SaveManager.save_game()
+
+	_messaggio("%s demolita: +%d crediti. Il terreno torna com'era." % [
+		catalogo.voce(id_modello)["nome"], rimborso
+	])
+	_aggiorna_bersaglio()
+
+
+# --- Anteprima --------------------------------------------------------------
+
+func _aggiorna_bersaglio() -> void:
+	if _cella == CELLA_NULLA:
+		_selezione.mesh = null
+		if _fantasma != null:
+			_fantasma.visible = false
+		_aggiorna_aiuto()
+		return
+
+	if _modo == Modo.DEMOLISCI:
+		_mostra_bersaglio_demolizione()
+	else:
+		_mostra_bersaglio_piazzamento()
+	_aggiorna_aiuto()
+
+
+func _mostra_bersaglio_piazzamento() -> void:
+	var voce := catalogo.voce(_scelto)
+	_ancora = _ancora_da(_cella, voce["footprint"], _rotazione)
+	_esito = _valuta(_scelto, _ancora, _rotazione)
+
+	var valido: bool = _esito["valido"]
+	var quota := float(_esito["livello"]) * CityTerrain.PASSO_QUOTA
+
+	if _fantasma != null:
+		_fantasma.visible = true
+		_fantasma.position = griglia.posizione_mondo(_ancora, voce["footprint"], _rotazione)
+		_fantasma.position.y = quota
+		_tinge(_fantasma, _materiale_valido if valido else _materiale_invalido)
+
+	_selezione.mesh = TerrainMesh.costruisci_selezione(
+		_esito["celle"], quota + 0.02, COLORE_VALIDO if valido else COLORE_INVALIDO
+	)
+
+
+func _mostra_bersaglio_demolizione() -> void:
+	var occupante := griglia.occupante(_cella)
+	if occupante.is_empty():
+		var sola: Array[Vector2i] = [_cella]
+		_selezione.mesh = TerrainMesh.costruisci_selezione(
+			sola, terreno.quota(_cella) + 0.02, COLORE_INVALIDO
+		)
+		return
+	var celle := griglia.celle_occupate(
+		occupante["ancora"], occupante["footprint"], occupante["rotazione"]
+	)
+	var quota := float(_costruzioni[occupante["id"]]["livello"]) * CityTerrain.PASSO_QUOTA
+	_selezione.mesh = TerrainMesh.costruisci_selezione(celle, quota + 0.02, COLORE_DEMOLIZIONE)
+
+
+func _crea_fantasma() -> void:
+	_libera_fantasma()
+	var voce := catalogo.voce(_scelto)
+	var scena := load(CARTELLA_MODELLI + str(voce["modello"])) as PackedScene
+	if scena == null:
+		return
+	_fantasma = scena.instantiate()
+	_fantasma.visible = false
+	_spegni_collisioni(_fantasma)
+	_anteprima.add_child(_fantasma)
+
+
+func _libera_fantasma() -> void:
+	if _fantasma != null:
+		_fantasma.queue_free()
+		_fantasma = null
+
+
+static func _materiale_fantasma(colore: Color) -> StandardMaterial3D:
+	var materiale := StandardMaterial3D.new()
+	materiale.albedo_color = colore
+	materiale.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	materiale.cull_mode = BaseMaterial3D.CULL_DISABLED
+	return materiale
+
+
+## L'anteprima si vede attraverso: colorarla di verde o di rosso dice se il
+## posto va bene senza doverlo leggere da nessuna parte.
+static func _tinge(nodo: Node, materiale: Material) -> void:
+	if nodo is MeshInstance3D:
+		(nodo as MeshInstance3D).material_override = materiale
+	for figlio in nodo.get_children():
+		_tinge(figlio, materiale)
+
+
+func _mouse_sul_pannello() -> bool:
+	return _negozio.get_global_rect().has_point(get_viewport().get_mouse_position())
+
+
+# --- Testi ------------------------------------------------------------------
+
+func _messaggio(testo: String) -> void:
+	_messaggio_corrente = testo
+	_aggiorna_aiuto()
+
+
+func _aggiorna_aiuto() -> void:
+	var pezzi := PackedStringArray([_suggerimento()])
+	if not _messaggio_corrente.is_empty():
+		pezzi.append(_messaggio_corrente)
+	_aiuto.text = "      ".join(pezzi)
+
+
+func _suggerimento() -> String:
+	match _modo:
+		Modo.PIAZZA:
+			return "Clic per posare · R ruota (Shift+R al contrario) · Esc annulla"
+		Modo.DEMOLISCI:
+			return "Clic su una costruzione per demolirla · Esc annulla"
+		_:
+			return "Q / E ruota la vista · trascina col tasto destro · rotella per lo zoom"
 
 
 func _riepilogo_biomi() -> String:
@@ -110,77 +593,3 @@ func _riepilogo_biomi() -> String:
 		if conteggio.has(b):
 			pezzi.append("%s %d" % [nomi[b], conteggio[b]])
 	return " · ".join(pezzi)
-
-
-# --- Banco di prova ---------------------------------------------------------
-
-## Piazza un pezzo di quartiere con tutte le taglie di footprint del catalogo.
-##
-## Non è contenuto di gioco: serve a verificare che la convenzione della
-## pipeline (cella 2 x 2 m, origine al centro della base) regga dentro Godot,
-## che gli ingombri multi-cella non si sovrappongano e che gli edifici appoggino
-## alla quota giusta. La Fase 4 lo sostituirà con quello che l'utente costruisce.
-func _costruisci_banco_di_prova() -> int:
-	var piazzati := 0
-
-	# Strada principale che taglia il quartiere.
-	for x in range(8, 24):
-		piazzati += _piazza("ROAD_LOCAL_1x1_STRAIGHT", Vector2i(x, 16))
-
-	# A nord: dal footprint più piccolo al più grande, tutti allineati alla strada.
-	piazzati += _piazza("RES_LOW_1x1_001", Vector2i(8, 14))
-	piazzati += _piazza("RES_LOW_1x1_003", Vector2i(9, 14))
-	piazzati += _piazza("RES_LOW_2x1_007", Vector2i(10, 14))
-	piazzati += _piazza("RES_LOW_1x2_006", Vector2i(12, 13))
-	piazzati += _piazza("RES_MID_2x2_001", Vector2i(13, 13))
-	piazzati += _piazza("RES_TOWER_3x3_001", Vector2i(15, 12))
-	piazzati += _piazza("RES_TOWER_4x4_003", Vector2i(18, 11))
-	piazzati += _piazza("NAT_TREE_OAK_1x1_001", Vector2i(22, 14))
-	piazzati += _piazza("NAT_TREE_PINE_1x1_001", Vector2i(23, 14))
-
-	# A sud: servizi e industria.
-	piazzati += _piazza("PARK_2x2_001", Vector2i(8, 17))
-	piazzati += _piazza("EDU_SCHOOL_3x3_001", Vector2i(11, 17))
-	piazzati += _piazza("COM_LOW_1x1_001", Vector2i(15, 17))
-	piazzati += _piazza("COM_MID_2x2_005", Vector2i(16, 17))
-	piazzati += _piazza("IND_MID_3x3_003", Vector2i(19, 17))
-	piazzati += _piazza("UTIL_WIND_2x2_001", Vector2i(22, 17))
-
-	# Vetrina dei moduli stradali, per controllare che gli spigoli combacino.
-	var moduli := ["STRAIGHT", "CORNER", "T", "CROSS", "END"]
-	for i in moduli.size():
-		piazzati += _piazza("ROAD_LOCAL_1x1_%s" % moduli[i], Vector2i(8 + i * 2, 21))
-		piazzati += _piazza("ROAD_DIRT_1x1_%s" % moduli[i], Vector2i(8 + i * 2, 23))
-
-	return piazzati
-
-
-## Mette un modello sulla griglia. Restituisce 1 se ce l'ha fatta, 0 altrimenti.
-func _piazza(id: String, cella: Vector2i, rotazione: int = 0) -> int:
-	if not _voci.has(id):
-		push_error("CityView: id assente dal catalogo: %s" % id)
-		return 0
-
-	var voce: Dictionary = _voci[id]
-	var f: Array = voce["footprint"]
-	var footprint := Vector2i(int(f[0]), int(f[1]))
-	var celle := griglia.celle_occupate(cella, footprint, rotazione)
-
-	if not terreno.lotto_piano(celle):
-		push_error("CityView: %s in %s finisce in acqua o a cavallo di un dislivello" % [id, cella])
-		return 0
-	if griglia.piazza(cella, footprint, rotazione, id) == 0:
-		push_error("CityView: %s non entra in %s (fuori griglia o celle occupate)" % [id, cella])
-		return 0
-
-	var scena: Resource = load(CARTELLA_MODELLI + str(voce["model"]))
-	if scena == null or not scena is PackedScene:
-		push_error("CityView: modello mancante per %s" % id)
-		return 0
-
-	var nodo: Node3D = (scena as PackedScene).instantiate()
-	nodo.position = griglia.posizione_mondo(cella, footprint, rotazione)
-	nodo.position.y = terreno.quota(cella)
-	nodo.rotation.y = deg_to_rad(-90.0 * rotazione)
-	_edifici.add_child(nodo)
-	return 1

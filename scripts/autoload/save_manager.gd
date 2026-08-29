@@ -134,3 +134,51 @@ func register_focus_session(seconds: float) -> int:
 	stats_changed.emit()
 	save_game()
 	return whole
+
+
+# --- Il mondo ---------------------------------------------------------------
+
+func world_seed() -> int:
+	var world: Dictionary = data.get("world", {})
+	return int(world.get("seed", 0))
+
+
+func world_size() -> Vector2i:
+	var world: Dictionary = data.get("world", {})
+	var size: Array = world.get("size", [DEFAULT_WORLD_SIZE, DEFAULT_WORLD_SIZE])
+	return Vector2i(int(size[0]), int(size[1]))
+
+
+## Le celle costruite, così come stanno su disco: pos come array [x, z], tipo,
+## rotazione a scatti di 90° e quota del lotto in livelli interi.
+##
+## La quota si salva anche se il terreno si rigenera dal seme, perché piazzare
+## spiana: senza il livello scelto allora, ricaricando la stessa città il suolo
+## sotto gli edifici tornerebbe quello di prima.
+func world_tiles() -> Array:
+	var world: Dictionary = data.get("world", {})
+	if not world.has("tiles"):
+		world["tiles"] = []
+	return world["tiles"]
+
+
+func add_tile(cell: Vector2i, type: String, rotation: int, level: int) -> void:
+	world_tiles().append({
+		"pos": [cell.x, cell.y],
+		"type": type,
+		"rotation": rotation,
+		"level": level,
+	})
+	save_game()
+
+
+## Toglie la cella ancorata in "cell". Restituisce true se c'era davvero.
+func remove_tile(cell: Vector2i) -> bool:
+	var tiles := world_tiles()
+	for i in tiles.size():
+		var pos: Array = tiles[i].get("pos", [])
+		if pos.size() == 2 and int(pos[0]) == cell.x and int(pos[1]) == cell.y:
+			tiles.remove_at(i)
+			save_game()
+			return true
+	return false

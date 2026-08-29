@@ -26,11 +26,13 @@ const DEFAULTS := {
 	"credits_per_hour": 10.0,
 	"credits_on_early_stop": true,
 	"min_session_seconds": 60,
+	"price_default": 10,
+	"refund_ratio": 0.5,
 	"prices": {
-		"NAT_TREE": 2,
-		"ROAD": 3,
-		"RES_LOW": 8,
-		"RES_MID": 25,
+		"tree": 2,
+		"road": 3,
+		"house": 8,
+		"apartment": 25,
 	},
 }
 
@@ -43,9 +45,15 @@ var credits_on_early_stop: bool = bool(DEFAULTS["credits_on_early_stop"])
 ## Sotto questa soglia un'interruzione manuale non accredita nulla.
 var min_session_seconds: int = int(DEFAULTS["min_session_seconds"])
 
-## Prezzi provvisori per prefisso di categoria. La Fase 4 li collegherà ai
-## singoli ID di assets/models/generated/catalog.json.
+## Prezzo di ogni tipo di oggetto: la chiave è il "kind" del catalogo asset.
+## Un tipo assente da qui costa price_default.
 var prices: Dictionary = (DEFAULTS["prices"] as Dictionary).duplicate()
+
+## Quanto costa un tipo che non compare in prices.
+var price_default: int = int(DEFAULTS["price_default"])
+
+## Quanta parte del prezzo torna indietro demolendo. 0.5 = metà.
+var refund_ratio: float = float(DEFAULTS["refund_ratio"])
 
 
 func _ready() -> void:
@@ -60,12 +68,25 @@ func reload() -> void:
 	credits_per_hour = float(values["credits_per_hour"])
 	credits_on_early_stop = bool(values["credits_on_early_stop"])
 	min_session_seconds = int(values["min_session_seconds"])
+	price_default = int(values["price_default"])
+	refund_ratio = clampf(float(values["refund_ratio"]), 0.0, 1.0)
 	prices = values["prices"]
 
 
 ## Crediti (con decimali) maturati da un tempo di focus espresso in secondi.
 func credits_for_seconds(seconds: float) -> float:
 	return seconds / 3600.0 * credits_per_hour
+
+
+## Quanto costa un oggetto, dato il suo tipo nel catalogo asset.
+func price_for_kind(kind: String) -> int:
+	return int(prices.get(kind, price_default))
+
+
+## Quanto rende demolire qualcosa che era costato "price". Si arrotonda per
+## difetto: costruire e demolire non deve mai far guadagnare crediti.
+func refund_for_price(price: int) -> int:
+	return int(floor(float(price) * refund_ratio))
 
 
 func _read_json() -> Dictionary:

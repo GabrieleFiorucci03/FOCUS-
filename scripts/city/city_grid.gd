@@ -33,7 +33,7 @@ var size: Vector2i
 
 ## Vector2i -> id del piazzamento che occupa quella cella.
 var _occupanti: Dictionary = {}
-## id -> { ancora, footprint, rotazione, modello }
+## id -> { id, ancora, footprint, rotazione, modello }
 var _piazzamenti: Dictionary = {}
 var _prossimo_id: int = 1
 
@@ -77,6 +77,7 @@ func piazza(ancora: Vector2i, footprint: Vector2i, rotazione: int, modello: Stri
 	var id := _prossimo_id
 	_prossimo_id += 1
 	_piazzamenti[id] = {
+		"id": id,
 		"ancora": ancora,
 		"footprint": footprint,
 		"rotazione": posmod(rotazione, 4),
