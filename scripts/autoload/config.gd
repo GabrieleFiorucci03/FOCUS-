@@ -28,6 +28,7 @@ const DEFAULTS := {
 	"min_session_seconds": 60,
 	"price_default": 10,
 	"refund_ratio": 0.5,
+	"terrain_cost_per_level": 1,
 	"prices": {
 		"tree": 2,
 		"road": 3,
@@ -55,6 +56,10 @@ var price_default: int = int(DEFAULTS["price_default"])
 ## Quanta parte del prezzo torna indietro demolendo. 0.5 = metà.
 var refund_ratio: float = float(DEFAULTS["refund_ratio"])
 
+## Quanto costa alzare o abbassare una cella di un gradino. Non si rimborsa:
+## rimettere il terreno com'era è un lavoro come scavarlo.
+var terrain_cost_per_level: int = int(DEFAULTS["terrain_cost_per_level"])
+
 
 func _ready() -> void:
 	reload()
@@ -70,6 +75,7 @@ func reload() -> void:
 	min_session_seconds = int(values["min_session_seconds"])
 	price_default = int(values["price_default"])
 	refund_ratio = clampf(float(values["refund_ratio"]), 0.0, 1.0)
+	terrain_cost_per_level = maxi(0, int(values["terrain_cost_per_level"]))
 	prices = values["prices"]
 
 

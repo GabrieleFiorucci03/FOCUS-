@@ -3,7 +3,7 @@
 
 	"_commento_nomi": "Il nome di un oggetto parte dal nome del tipo. I campi descrittivi dell'asset (style, variant, service, shape, feature, direction) lo rifiniscono: se il valore compare in 'nomi' sostituisce il nome, se compare in 'qualificatori' gli si accoda. I valori che non compaiono da nessuna parte vengono ignorati, e i nomi che restano uguali si numerano da soli.",
 
-	"_commento_regole": "terra = si posa all'asciutto e spiana il lotto al livello piu' basso. ponte = si posa sull'acqua, non tocca il terreno e sta un gradino sopra la sponda.",
+	"_commento_regole": "terra = si posa all'asciutto e spiana il lotto al livello piu' basso. ponte = si posa sull'acqua, non tocca il terreno e sta un gradino sopra la sponda. rampa = non spiana niente, sta in piano su un gradino e raccorda con quello sopra, che deve stare esattamente un livello piu' su.",
 
 	"categorie": [
 		{ "id": "abitare", "nome": "Abitare" },
@@ -76,13 +76,13 @@
 			"qualificatori": { "dirt": "sterrata", "straight": "dritta", "corner": "in curva", "t": "a T", "cross": "a incrocio", "end": "senza uscita" }
 		},
 		"sloped_road": {
-			"nome": "Rampa", "categoria": "mobilita",
+			"nome": "Rampa", "categoria": "mobilita", "regola": "rampa",
 			"qualificatori": { "dirt": "sterrata", "up": "in salita", "down": "in discesa" }
 		},
 		"bridge": {
 			"nome": "Ponte", "categoria": "mobilita", "regola": "ponte",
-			"_commento_rampe": "Le rampe del ponte non stanno sull'acqua: sono il raccordo che sale dalla sponda all'impalcato, quindi si posano a terra.",
-			"regola_varianti": { "ramp": "terra" },
+			"_commento_rampe": "Le rampe del ponte non stanno sull'acqua: sono il raccordo che sale dalla sponda all'impalcato, quindi seguono la regola della rampa.",
+			"regola_varianti": { "ramp": "rampa" },
 			"qualificatori": { "straight": "dritto", "corner": "in curva", "t": "a T", "cross": "a incrocio", "end": "di testata", "ramp": "rampa", "up": "in salita", "down": "in discesa" }
 		},
 		"bridge_support": {

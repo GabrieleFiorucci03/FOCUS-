@@ -13,7 +13,7 @@ si trasforma in crediti da spendere per tirare su, pezzo dopo pezzo, una città
 ![Godot](https://img.shields.io/badge/Godot-4.7-478cbf?logo=godotengine&logoColor=white)
 ![GDScript](https://img.shields.io/badge/linguaggio-GDScript-355570)
 ![Blender](https://img.shields.io/badge/Blender-5.2-ea7600?logo=blender&logoColor=white)
-![Stato](https://img.shields.io/badge/stato-fase%204%20di%205-yellow)
+![Stato](https://img.shields.io/badge/stato-fase%204.5%20di%205-yellow)
 ![Licenza](https://img.shields.io/badge/licenza-GPL--3.0-blue)
 
 </div>
@@ -22,8 +22,9 @@ si trasforma in crediti da spendere per tirare su, pezzo dopo pezzo, una città
 
 > [!NOTE]
 > **Progetto in sviluppo.** Il giro completo si chiude: fai focus, guadagni
-> crediti, apri il negozio e costruisci. Quello che manca è modellare il terreno
-> a mano, il bilanciamento e la rifinitura. La roadmap qui sotto dice dove siamo.
+> crediti, apri il negozio, costruisci e modelli il terreno. Quello che manca è
+> il bilanciamento e la rifinitura — suoni, menu, statistiche. La roadmap qui
+> sotto dice dove siamo.
 
 ## L'idea
 
@@ -70,7 +71,16 @@ modifica al mondo e non un pezzo dell'edificio.
 **I ponti hanno una regola loro.** Una campata va solo sull'acqua e solo
 attaccata a una riva o a un'altra campata, e sta un gradino sopra la sponda —
 esattamente il dislivello che le rampe del kit colmano. La pila sotto non si
-compra: nasce da sola, scegliendo l'altezza sulla luce da coprire.
+compra: nasce da sola, scegliendo l'altezza sulla luce da coprire. E le rampe
+ne hanno una loro: vogliono il piede in piano e un gradino solo da salire,
+terreno o impalcato che sia, quindi la campata si posa prima delle sue rampe.
+
+**E poi c'è il badile.** Alza, abbassa e livella spostano il suolo di mezzo
+metro per volta, a un credito a gradino e senza rimborso. Sotto una costruzione
+il terreno non si tocca — demolisci prima — e fra due celle vicine il salto non
+può superare i quattro gradini. Il resto lo decide l'acqua da sola: scava una
+conca abbastanza a fondo e ci trovi un lago, collegalo alla costa con un canale
+e diventa mare, alza un fondale e ti resta un'isola.
 
 ## Il kit di asset
 
@@ -127,7 +137,7 @@ Apri la cartella con Godot e premi `F5`. Al primo avvio l'engine importa i 91
 | 3 | Terreno procedurale, biomi, fiumi | ✅ |
 | 3.5 | Pipeline asset Blender | ✅ |
 | 4 | Negozio e costruzione sulla griglia | ✅ |
-| 4.5 | Modellare il terreno: colline, laghi, isole | ⬜ |
+| 4.5 | Modellare il terreno: colline, laghi, isole | ✅ |
 | 5 | Bilanciamento, suoni, statistiche | ⬜ |
 
 Il dettaglio sta in [`PIANO.md`](PIANO.md).
@@ -162,7 +172,8 @@ riavvii, fatto — non si tocca il codice.
   "min_session_seconds": 60,
   "price_default": 10,
   "prices": { "tree": 2, "road": 3, "house": 8, "tower": 45 },
-  "refund_ratio": 0.5
+  "refund_ratio": 0.5,
+  "terrain_cost_per_level": 1
 }
 ```
 
@@ -170,9 +181,11 @@ riavvii, fatto — non si tocca il codice.
 già svolto o non paga niente. I prezzi sono **per tipo di oggetto**, non per
 singolo modello: 19 numeri da bilanciare invece di 91, e due case che si
 somigliano non possono costare in modo diverso per una distrazione.
-`refund_ratio` è quanto torna indietro demolendo.
+`refund_ratio` è quanto torna indietro demolendo. `terrain_cost_per_level` è
+quanto costa spostare una cella di terreno di mezzo metro: quello non si
+rimborsa, perché rimettere una collina com'era è un lavoro come spianarla.
 
-## Quattro dettagli di cui vale la pena parlare
+## Cinque dettagli di cui vale la pena parlare
 
 **Il timer non conta i frame.** Contare i `delta` di `_process` accumula errore e
 si ferma se la finestra viene sospesa. Su una sessione da due ore è la differenza
@@ -190,6 +203,13 @@ cella stessa — e il suolo si muove soltanto sotto le costruzioni larghe a
 cavallo di un dislivello. Lo sbancamento si salva per conto suo, staccato
 dall'edificio: demolisci, e il pianoro resta lì dov'era, anche riaprendo la
 partita.
+
+**Il mare non è scritto da nessuna parte.** Non c'è una lista di celle d'acqua:
+il mare è semplicemente l'acqua che si raggiunge partendo dal bordo della mappa,
+e viene ridedotto da capo a ogni modifica. Da questa sola riga di logica escono
+gratis tre comportamenti che sembravano tre funzioni diverse — il lago, il
+canale, l'isola. Fanno eccezione i fiumi e i laghi rimasti in collina, che si
+ricordano di essere tali: quelli il flood fill non saprebbe rimetterli a posto.
 
 **Il salvataggio sopravvive alle versioni future.** In caricamento il file JSON
 viene innestato sopra uno schema di default: quando una fase nuova aggiungerà

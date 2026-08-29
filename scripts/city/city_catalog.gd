@@ -32,7 +32,18 @@ const CATALOGO_GIOCO := "res://data/catalog.json"
 ## Come si posa un oggetto.
 ## TERRA: all'asciutto, spianando il lotto sotto di sé.
 ## PONTE: sull'acqua, senza toccare il terreno, un gradino sopra la sponda.
-enum Regola { TERRA, PONTE }
+## RAMPA: all'asciutto e in piano, ma solo dove c'è un gradino da raccordare.
+enum Regola { TERRA, PONTE, RAMPA }
+
+## I lati come li nomina la pipeline, tradotti in passi di griglia. Il fronte di
+## ogni modello guarda -Y in Blender, che diventa -Z in Godot: "north" è la
+## cella davanti.
+const DIREZIONI := {
+	"north": Vector2i(0, -1),
+	"south": Vector2i(0, 1),
+	"east": Vector2i(1, 0),
+	"west": Vector2i(-1, 0),
+}
 
 ## I campi con cui la pipeline descrive una variante, nell'ordine in cui vanno
 ## letti per comporre il nome: "Strada sterrata a incrocio", non "a incrocio
@@ -79,6 +90,14 @@ func prezzo(id: String) -> int:
 
 func rimborso(id: String) -> int:
 	return Config.refund_for_price(prezzo(id))
+
+
+## Ruota un passo di griglia come Godot ruota il modello: -90° per scatto.
+static func ruota_passo(passo: Vector2i, rotazione: int) -> Vector2i:
+	var p := passo
+	for _i in posmod(rotazione, 4):
+		p = Vector2i(-p.y, p.x)
+	return p
 
 
 func regola(id: String) -> Regola:
@@ -135,6 +154,8 @@ func _costruisci_voci(asset: Dictionary, gioco: Dictionary) -> void:
 			"in_vendita": bool(tipo.get("in_vendita", true)),
 			"variante": str(voce_asset.get("variant", "")),
 			"sostegno": float(voce_asset.get("support_height", 0.0)),
+			"salita": _salita(voce_asset),
+			"passo_alto": _passo_alto(voce_asset),
 		}
 		ordine.append(id)
 
@@ -202,6 +223,26 @@ static func _componi_nome(voce_asset: Dictionary, tipo: Dictionary) -> String:
 	return nome + " " + " ".join(coda)
 
 
+## Di quanti gradini sale una rampa. Tutte quelle del kit salgono di 0,5 m, che
+## è un gradino esatto: è per questo che una rampa vuole un dislivello di uno.
+static func _salita(voce_asset: Dictionary) -> int:
+	var gradino := float(voce_asset.get("elevation_step_meters", 0.5))
+	return maxi(1, roundi(float(voce_asset.get("rise", 0.0)) / maxf(gradino, 0.001)))
+
+
+## Da che parte guarda il lato alto di una rampa, a rotazione zero. La pipeline
+## lo dice già: fra le "connections" è il lato con la quota maggiore.
+static func _passo_alto(voce_asset: Dictionary) -> Vector2i:
+	var connessioni: Dictionary = voce_asset.get("connections", {})
+	var lato := ""
+	var quota := -INF
+	for nome in connessioni:
+		if float(connessioni[nome]) > quota:
+			quota = float(connessioni[nome])
+			lato = str(nome)
+	return DIREZIONI.get(lato, Vector2i.ZERO)
+
+
 static func _regola_di(voce_asset: Dictionary, tipo: Dictionary, predefinito: Dictionary) -> Regola:
 	var nome_regola := str(tipo.get("regola", predefinito.get("regola", "terra")))
 	# Le rampe sono di tipo "bridge" ma non stanno sull'acqua: sono il raccordo
@@ -210,7 +251,13 @@ static func _regola_di(voce_asset: Dictionary, tipo: Dictionary, predefinito: Di
 	var variante := str(voce_asset.get("variant", ""))
 	if per_variante.has(variante):
 		nome_regola = str(per_variante[variante])
-	return Regola.PONTE if nome_regola == "ponte" else Regola.TERRA
+	match nome_regola:
+		"ponte":
+			return Regola.PONTE
+		"rampa":
+			return Regola.RAMPA
+		_:
+			return Regola.TERRA
 
 
 static func _leggi(percorso: String) -> Dictionary:

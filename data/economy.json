@@ -29,5 +29,8 @@
 	},
 
 	"_commento_rimborso": "Quanto torna indietro demolendo: 0.5 = meta' del prezzo, arrotondata per difetto.",
-	"refund_ratio": 0.5
+	"refund_ratio": 0.5,
+
+	"_commento_terreno": "Quanto costa alzare o abbassare una cella di un gradino (0,5 m). Non si rimborsa: rimettere il terreno com'era e' un lavoro come scavarlo. Da bilanciare.",
+	"terrain_cost_per_level": 1
 }

@@ -160,9 +160,9 @@ cambia idea su cosa costruirci. Per questo lo spianamento si salva per conto suo
 in `terrain_edits`, staccato dal tile, e sopravvive alla demolizione anche
 riaprendo la partita.
 
-### Fase 4.5 — Modellare il terreno
+### Fase 4.5 — Modellare il terreno ✅ completata
 
-Alzare e abbassare il suolo per farsi colline, laghi, fiumi e isole artificiali.
+Alzare e abbassare il suolo per farsi colline, laghi e isole artificiali.
 
 La Fase 4 ha costruito la macchina che serve — raggio dal mouse alla cella,
 anteprima, controllo del saldo, addebito, salvataggio — e lo strumento terreno
@@ -184,22 +184,46 @@ Quello che c'è già e non va rifatto:
   collegarla alla costa con un canale la trasforma in **mare**,
   alzare il fondale fin sopra il pelo dell'acqua produce un'**isola**.
 
-Da fare:
+Fatto:
 
-- [ ] Strumenti alza / abbassa / livella, con anteprima della cella bersaglio
-- [ ] Ricalcolo di biomi e acque dopo ogni modifica (rieseguire il flood fill).
-      Attenzione: `spiana()` oggi riclassifica la cella a mano in pianura o
-      collina, che basta perché spiana solo all'asciutto e verso il basso.
-      Alzare e abbassare per scelta non se la cava così.
-- [ ] Ricostruzione della mesh: oggi si rifà tutto il terreno in un colpo, su
-      32x32 regge anche a ogni click; se la mappa cresce va spezzata in blocchi
-- [ ] Costo in crediti, altrimenti il terraforming è gratis e l'economia salta
-- [ ] Decidere cosa succede a un edificio su una cella che cambia quota:
-      si rimuove, si blocca l'operazione, o scende con il terreno
-- [ ] Decidere se limitare il dislivello tra celle adiacenti o lasciare i dirupi
-- [ ] Decidere cosa fa una campata quando le si scava sotto o le si alza la
-      sponda: la sua quota è decisa al momento del piazzamento e poi non si
-      muove più
+- [x] Attrezzi **alza**, **abbassa** e **livella** nel pannello, con l'anteprima
+      del riquadro già alla quota di arrivo. Livella prende la quota col primo
+      clic e poi la copia sulle celle che tocchi.
+- [x] Ricalcolo di biomi e acque a ogni modifica, `CityTerrain.riclassifica()`
+- [x] Costo in crediti (`terrain_cost_per_level`), **senza rimborso**: rimettere
+      il terreno com'era è un lavoro come scavarlo
+- [x] Salvataggio: le quote finiscono in `terrain_edits`, le stesse che già
+      scriveva lo spianamento da piazzamento
+
+Le regole, decise:
+
+- **Sotto una costruzione il terreno non si tocca**, e vale anche per una
+  campata di ponte: spostarle il fondale la lascerebbe appesa. Prima si
+  demolisce.
+- **Al massimo quattro gradini di salto fra due celle vicine** (2 m). Oltre, il
+  terreno smette di essere un paesaggio e diventa una scacchiera di torri.
+- **Le rampe salgono di un gradino solo.** Non è una scelta di bilanciamento: le
+  rampe del kit salgono di 0,5 m, che è esattamente un gradino, e su un salto
+  diverso resterebbero per aria.
+
+Il ricalcolo ha portato con sé un cambio in generazione. Il flood fill delle
+acque girava **prima** che i fiumi venissero scavati e le conche allagate, e
+nessuno tornava a controllare: una conca allagata poteva essersi collegata al
+mare senza che il mare se ne accorgesse. Ora la classificazione chiude i conti
+anche in generazione, così il mondo appena nato è già quello che si otterrebbe
+riclassificandolo — senza, il primo colpo di badile avrebbe cambiato qualche
+cella dall'altra parte della mappa. Fiumi e laghi di collina se lo ricordano da
+soli, perché il flood fill non saprebbe rimetterli al loro posto; il mare e le
+conche sotto il suo livello no, ed è proprio quello che fa funzionare il canale
+scavato a mano.
+
+Restano fuori, e vanno decisi se serviranno:
+
+- [ ] Ricostruzione della mesh a blocchi. Oggi si rifà tutto il terreno a ogni
+      modifica: su 32x32 regge, su una mappa grande no.
+- [ ] Cosa fa una campata quando le si alza la sponda accanto: la sua quota è
+      decisa al piazzamento e poi non si muove più, quindi il raccordo si può
+      rompere. La cella del ponte è protetta, quelle intorno no.
 
 ### Fase 5 — Rifinitura
 - [ ] Bilanciamento economia
@@ -258,9 +282,26 @@ della base, fronte verso `-Y`, collisioni con suffisso `-colonly`.
 - **Il terreno è l'unica cosa che il raggio del mouse colpisce.** Gli edifici
   hanno le collisioni spente: puntando una casa si vuole la cella su cui poggia,
   non la sua grondaia, e demolire vuol dire cliccare quello che si vede.
+- **Una rampa vuole un gradino, non un pendio.** Le rampe del kit salgono di
+  0,5 m, che è esattamente un gradino del terreno: su un salto diverso
+  resterebbero per aria. Da qui la regola — piede in piano, e appena oltre il
+  lato alto qualcosa a un livello esatto sopra. Quel "qualcosa" può essere
+  terreno o l'impalcato di un ponte, che è il motivo per cui le rampe da ponte
+  esistono; e per questo la campata va posata prima delle sue rampe.
+- **Modellare il terreno non si rimborsa, demolire sì.** Un edificio demolito
+  esiste ancora, come materiale; una collina spianata no. E senza questa
+  asimmetria il terraforming diventerebbe un magazzino di crediti a costo zero.
 - **Il prezzo sta sul tipo, non sul modello.** Diciannove numeri invece di
   novantuno, e due case che si somigliano non possono costare in modo diverso
   per una distrazione.
+- **Il flood fill delle acque ha l'ultima parola, sempre.** Mare e conche sotto
+  il suo livello non vengono ricordati da nessuna parte: si rideducono a ogni
+  modifica partendo dal bordo mappa. È questo che fa rispondere da solo a tre
+  casi che sembrano diversi — la conca scavata diventa un lago, il canale che la
+  collega alla costa la trasforma in mare, il fondale alzato diventa un'isola.
+  Fiumi e laghi di collina fanno eccezione e si ricordano: quelli il flood fill
+  non saprebbe rimetterli al loro posto. Una cella modellata perde l'etichetta,
+  e se torna alla quota del seme se la riprende.
 - **I colori dei biomi viaggiano nei vertici**, non in un materiale per tipo:
   tutto il terreno è una superficie sola e un bioma nuovo non aggiunge un
   materiale. Vanno convertiti con `srgb_to_linear()`, altrimenti Godot li usa
@@ -273,12 +314,16 @@ Su 200 mondi 32x32 generati con semi diversi:
 | Misura | Risultato |
 |---|---|
 | Mondi con almeno un fiume | 100 % |
-| Mondi con almeno un lago | 82.5 % |
+| Mondi con almeno un lago | 80.5 % |
 | Mondi con collina | 100 % |
 | Terra emersa | 66.6 % della mappa |
 | Posizioni 3x3 pianeggianti | 39 in media |
 
 Stesso seme → stesso mondo, seme diverso → mondo diverso: verificato.
+
+I laghi erano l'82,5 % prima che la Fase 4.5 facesse chiudere i conti al flood
+fill anche in generazione: quattro mondi su duecento avevano un lago che in
+realtà era attaccato al mare.
 
 Le 39 posizioni 3x3 sono poche per una città intera, ma la Fase 4 livella il
 lotto al momento del piazzamento (`spiana()` c'è già), quindi non è un limite.
@@ -320,8 +365,28 @@ Guardati anche i frame veri: il ponte con le sue rampe attraversa il fiume, il
 fantasma verde della palazzina sta alla quota a cui il lotto verrà spianato, e
 il negozio elenca i prezzi con le voci fuori portata spente.
 
+## Verifiche fatte su rampe e terreno
+
+| Prova | Esito |
+|---|---|
+| Riclassificare un mondo intatto, su 100 semi | non sposta un solo bioma |
+| Riclassificare due volte | stesso risultato di una |
+| Rampa al piede di un gradino, quattro rotazioni | ne vale una sola, quella che punta in su |
+| Rampa in piano, o girata al contrario | rifiutata |
+| Posare una rampa | non spiana niente |
+| Alza una cella | +1 gradino, 1 credito, quota nel salvataggio |
+| Riabbassarla | torna al seme, sparisce dal salvataggio, e si ripaga |
+| Livella | primo clic prende la quota, il secondo la copia |
+| Scavare una conca chiusa fino sotto il mare | nasce un lago |
+| Terreno sotto una casa, sotto una campata, oltre i 4 gradini | rifiutato, uno per volta |
+| Riapertura della partita | quote, biomi e costruzioni identici |
+
+Guardati anche i frame veri: la rampa punta in salita e i due tratti di strada
+si saldano alle sue estremità senza scalini.
+
 ## Prossimo passo
 
-Fase 4.5: alzare e abbassare il terreno per scelta, con il costo in crediti e il
-salvataggio delle quote modificate. Il puntamento, l'anteprima e l'addebito sono
-già in piedi dalla Fase 4: quello che manca è l'azione.
+Fase 5: bilanciamento dell'economia, menu e transizioni, suoni, pannello
+statistiche. Il giro completo si chiude già — focus, crediti, negozio,
+costruzione, terreno — quindi da qui in poi si tratta di renderlo finito, non
+più ricco.

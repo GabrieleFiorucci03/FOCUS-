@@ -35,7 +35,10 @@ const COLORE_VALIDO := Color(0.36, 0.84, 0.47, 0.55)
 const COLORE_INVALIDO := Color(0.90, 0.31, 0.26, 0.50)
 const COLORE_DEMOLIZIONE := Color(0.95, 0.47, 0.20, 0.45)
 
-enum Modo { NAVIGA, PIAZZA, DEMOLISCI }
+enum Modo { NAVIGA, PIAZZA, DEMOLISCI, TERRENO }
+
+## Gli attrezzi della modalità terreno.
+enum Attrezzo { ALZA, ABBASSA, LIVELLA }
 
 @onready var _terreno_mesh: MeshInstance3D = $Terreno
 @onready var _forma_terreno: CollisionShape3D = $Terreno/Corpo/Forma
@@ -67,6 +70,10 @@ var _fantasma: Node3D = null
 ## sta quello che serve per disfare: il nodo da buttare e la quota a cui sta.
 var _costruzioni: Dictionary = {}
 
+var _attrezzo: Attrezzo = Attrezzo.ALZA
+## La quota a cui livellare, presa col primo clic. -1 = ancora da scegliere.
+var _quota_riferimento: int = -1
+
 var _messaggio_corrente: String = ""
 var _materiale_valido: StandardMaterial3D
 var _materiale_invalido: StandardMaterial3D
@@ -88,7 +95,7 @@ func _ready() -> void:
 	terreno = CityTerrain.new(griglia.size, SaveManager.world_seed())
 
 	_negozio.voce_scelta.connect(_on_voce_scelta)
-	_negozio.demolizione_commutata.connect(_on_demolizione_commutata)
+	_negozio.strumento_scelto.connect(_on_strumento_scelto)
 	SaveManager.credits_changed.connect(_on_crediti_cambiati)
 	_negozio.mostra_catalogo(catalogo)
 	_negozio.aggiorna_saldo(SaveManager.credits)
@@ -162,7 +169,7 @@ func _costruisci_mesh() -> void:
 ## alle demolizioni, quindi ce ne possono essere anche dove non c'è più niente.
 ## La mesh si ricostruisce una volta sola, alla fine.
 func _ricostruisci_dal_salvataggio() -> int:
-	_riapplica_le_quote_spianate()
+	_riapplica_le_quote_salvate()
 	var ripresi := 0
 	for tile in SaveManager.world_tiles():
 		var pos: Array = tile.get("pos", [])
@@ -182,23 +189,40 @@ func _ricostruisci_dal_salvataggio() -> int:
 	return ripresi
 
 
-func _riapplica_le_quote_spianate() -> void:
+## Rimette le quote scelte dal giocatore, spianamenti e scavi insieme.
+##
+## Non passa da spiana(), che è una regola di piazzamento e non scende mai sotto
+## il livello del mare: una conca scavata apposta deve poter restare una conca.
+## Biomi e acque si rifanno una volta sola, alla fine.
+func _riapplica_le_quote_salvate() -> void:
+	var quante := 0
 	for modifica in SaveManager.world_terrain_edits():
 		var pos: Array = modifica.get("pos", [])
 		if pos.size() != 2 or not modifica.has("level"):
 			continue
-		var sola: Array[Vector2i] = [Vector2i(int(pos[0]), int(pos[1]))]
-		terreno.spiana(sola, int(modifica["level"]))
+		terreno.imposta_livello(Vector2i(int(pos[0]), int(pos[1])), int(modifica["level"]))
+		quante += 1
+	if quante > 0:
+		terreno.riclassifica()
 
 
-## Scrive nel salvataggio le celle che questo piazzamento ha spianato davvero:
-## solo quelle che si scostano dal terreno del seme, così una casa 1x1 su
-## terreno piatto non lascia traccia.
-func _segna_le_quote_spianate(celle: Array[Vector2i]) -> void:
+## Scrive nel salvataggio le celle che un piazzamento ha spianato davvero: solo
+## quelle che si scostano dal terreno del seme, così una casa 1x1 su terreno
+## piatto non lascia traccia.
+func _segna_le_quote_del_lotto(celle: Array[Vector2i]) -> void:
 	for cella in celle:
-		var livello := terreno.livello(cella)
-		if livello != terreno.livello_naturale(cella):
-			SaveManager.set_terrain_edit(cella, livello)
+		_registra_quota(cella)
+
+
+## Nel salvataggio ci va solo quello che si scosta dal seme: riportare una cella
+## alla quota di partenza la toglie dall'elenco, invece di lasciarci una riga
+## che dice "come prima".
+func _registra_quota(cella: Vector2i) -> void:
+	var livello := terreno.livello(cella)
+	if livello == terreno.livello_naturale(cella):
+		SaveManager.clear_terrain_edit(cella)
+	else:
+		SaveManager.set_terrain_edit(cella, livello)
 
 
 ## Mette un oggetto sulla griglia e nel mondo. Non tocca né i crediti né il
@@ -329,25 +353,82 @@ func _valuta(id: String, ancora: Vector2i, rotazione: int) -> Dictionary:
 			esito["motivo"] = "Qui c'è già qualcosa."
 			return esito
 
-	if voce["regola"] == CityCatalog.Regola.PONTE:
-		for cella in celle:
-			if not terreno.e_acqua(cella):
-				esito["motivo"] = "Una campata va sull'acqua: a terra ci vuole una strada."
+	match voce["regola"]:
+		CityCatalog.Regola.PONTE:
+			for cella in celle:
+				if not terreno.e_acqua(cella):
+					esito["motivo"] = "Una campata va sull'acqua: a terra ci vuole una strada."
+					return esito
+			var livello := _livello_impalcato(celle)
+			if livello < 0:
+				esito["motivo"] = "Un ponte parte da una riva o da un'altra campata."
 				return esito
-		var livello := _livello_impalcato(celle)
-		if livello < 0:
-			esito["motivo"] = "Un ponte parte da una riva o da un'altra campata."
-			return esito
-		esito["livello"] = livello
-	else:
-		for cella in celle:
-			if not terreno.costruibile(cella):
-				esito["motivo"] = "Sull'acqua non si costruisce."
+			esito["livello"] = livello
+
+		CityCatalog.Regola.RAMPA:
+			for cella in celle:
+				if not terreno.costruibile(cella):
+					esito["motivo"] = "Una rampa si posa all'asciutto."
+					return esito
+			var piede := terreno.livello(celle[0])
+			for cella in celle:
+				if terreno.livello(cella) != piede:
+					esito["motivo"] = "Il piede della rampa vuole il terreno in piano."
+					return esito
+			var passo := CityCatalog.ruota_passo(voce["passo_alto"], rotazione)
+			var quota_alta := _quota_oltre(celle, passo)
+			if quota_alta < 0:
+				esito["motivo"] = "Di là non c'è niente a cui salire: girala con R."
 				return esito
-		esito["livello"] = terreno.livello_piu_basso(celle)
+			var salita := int(voce["salita"])
+			if quota_alta != piede + salita:
+				esito["motivo"] = "Una rampa sale di un gradino solo: qui il salto è di %d." % (quota_alta - piede)
+				return esito
+			esito["livello"] = piede
+
+		_:
+			for cella in celle:
+				if not terreno.costruibile(cella):
+					esito["motivo"] = "Sull'acqua non si costruisce."
+					return esito
+			esito["livello"] = terreno.livello_piu_basso(celle)
 
 	esito["valido"] = true
 	return esito
+
+
+## A che quota si cammina su una cella: l'impalcato se c'è un ponte, il terreno
+## se è asciutto. -1 se lì c'è acqua libera o si esce dalla mappa.
+func _quota_calpestabile(cella: Vector2i) -> int:
+	if not griglia.in_griglia(cella):
+		return -1
+	var occupante := griglia.occupante(cella)
+	if not occupante.is_empty() and catalogo.regola(str(occupante["modello"])) == CityCatalog.Regola.PONTE:
+		return int(_costruzioni[occupante["id"]]["livello"])
+	if terreno.costruibile(cella):
+		return terreno.livello(cella)
+	return -1
+
+
+## La quota di quello che sta appena oltre il lato alto della rampa. Può essere
+## terreno o l'impalcato di un ponte: le rampe da ponte servono proprio a quello.
+## -1 se di là non c'è niente su cui salire, o se il bordo alto affaccia su due
+## quote diverse.
+func _quota_oltre(celle: Array[Vector2i], passo: Vector2i) -> int:
+	if passo == Vector2i.ZERO:
+		return -1
+	var estremo := -0x7FFFFFFF
+	for cella in celle:
+		estremo = maxi(estremo, cella.x * passo.x + cella.y * passo.y)
+	var quota := -1
+	for cella in celle:
+		if cella.x * passo.x + cella.y * passo.y != estremo:
+			continue
+		var q := _quota_calpestabile(cella + passo)
+		if q < 0 or (quota >= 0 and q != quota):
+			return -1
+		quota = q
+	return quota
 
 
 ## A che quota va una campata: un gradino sopra la riva a cui si aggancia.
@@ -390,15 +471,27 @@ func _on_voce_scelta(id: String) -> void:
 	_messaggio("")
 
 
-func _on_demolizione_commutata(attiva: bool) -> void:
-	if not attiva:
+func _on_strumento_scelto(strumento: String) -> void:
+	if strumento.is_empty():
 		_torna_a_navigare()
 		return
-	_modo = Modo.DEMOLISCI
 	_scelto = ""
 	_libera_fantasma()
 	_cella = CELLA_NULLA
-	_messaggio("")
+	_quota_riferimento = -1
+	match strumento:
+		"demolisci":
+			_modo = Modo.DEMOLISCI
+		"alza":
+			_modo = Modo.TERRENO
+			_attrezzo = Attrezzo.ALZA
+		"abbassa":
+			_modo = Modo.TERRENO
+			_attrezzo = Attrezzo.ABBASSA
+		"livella":
+			_modo = Modo.TERRENO
+			_attrezzo = Attrezzo.LIVELLA
+	_messaggio("Prendi una quota col primo clic." if _attrezzo == Attrezzo.LIVELLA and _modo == Modo.TERRENO else "")
 
 
 func _on_crediti_cambiati(crediti: int) -> void:
@@ -408,6 +501,7 @@ func _on_crediti_cambiati(crediti: int) -> void:
 func _torna_a_navigare() -> void:
 	_modo = Modo.NAVIGA
 	_scelto = ""
+	_quota_riferimento = -1
 	_cella = CELLA_NULLA
 	_esito = {}
 	_libera_fantasma()
@@ -429,6 +523,9 @@ func _conferma() -> void:
 	if _modo == Modo.DEMOLISCI:
 		_demolisci_sotto_il_cursore()
 		return
+	if _modo == Modo.TERRENO:
+		_modella_sotto_il_cursore()
+		return
 
 	if not bool(_esito.get("valido", false)):
 		_messaggio(str(_esito.get("motivo", "")))
@@ -448,7 +545,7 @@ func _conferma() -> void:
 		return
 
 	if catalogo.regola(_scelto) == CityCatalog.Regola.TERRA:
-		_segna_le_quote_spianate(_esito["celle"])
+		_segna_le_quote_del_lotto(_esito["celle"])
 	SaveManager.add_tile(_ancora, _scelto, _rotazione, livello)
 	_messaggio("%s: -%d crediti." % [catalogo.voce(_scelto)["nome"], prezzo])
 	_aggiorna_bersaglio()
@@ -485,6 +582,85 @@ func _demolisci_sotto_il_cursore() -> void:
 	_aggiorna_bersaglio()
 
 
+# --- Terreno ----------------------------------------------------------------
+
+## Dove porterebbe la cella l'attrezzo in mano.
+func _quota_bersaglio(attuale: int) -> int:
+	match _attrezzo:
+		Attrezzo.ALZA:
+			return attuale + 1
+		Attrezzo.ABBASSA:
+			return attuale - 1
+		_:
+			return _quota_riferimento
+
+
+## Se e come si può modellare una cella. Restituisce { valido, livello, costo,
+## motivo }.
+func _valuta_terreno(cella: Vector2i) -> Dictionary:
+	var attuale := terreno.livello(cella)
+	var nuovo := _quota_bersaglio(attuale)
+	var esito := { "valido": false, "livello": nuovo, "costo": 0, "motivo": "" }
+
+	if nuovo < 0:
+		esito["motivo"] = "Prendi prima una quota da qualche parte."
+		return esito
+	if nuovo == attuale:
+		esito["motivo"] = "Il terreno è già a questa quota."
+		return esito
+	if nuovo > CityTerrain.LIVELLO_MASSIMO:
+		esito["motivo"] = "Più in alto di così il terreno non va."
+		return esito
+	# Il terreno sotto una costruzione non si tocca, e vale anche per una
+	# campata: spostare il fondale sotto un ponte lo lascerebbe appeso.
+	if not griglia.occupante(cella).is_empty():
+		esito["motivo"] = "Sotto una costruzione il terreno non si tocca: demolisci prima."
+		return esito
+	if not terreno.dislivello_accettabile(cella, nuovo):
+		esito["motivo"] = "Con una cella vicina il salto passerebbe i %d gradini." % CityTerrain.DISLIVELLO_MASSIMO
+		return esito
+
+	esito["costo"] = absi(nuovo - attuale) * Config.terrain_cost_per_level
+	if not SaveManager.can_afford(esito["costo"]):
+		esito["motivo"] = "Costa %d crediti, ne hai %d." % [esito["costo"], SaveManager.credits]
+		return esito
+
+	esito["valido"] = true
+	return esito
+
+
+func _modella_sotto_il_cursore() -> void:
+	# Il primo clic del livellatore non muove niente: prende la quota da copiare.
+	if _attrezzo == Attrezzo.LIVELLA and _quota_riferimento < 0:
+		_quota_riferimento = terreno.livello(_cella)
+		_messaggio("Quota presa: %.1f m. Ora clicca dove portarla." % [
+			float(_quota_riferimento) * CityTerrain.PASSO_QUOTA
+		])
+		_aggiorna_bersaglio()
+		return
+
+	var esito := _valuta_terreno(_cella)
+	if not bool(esito["valido"]):
+		_messaggio(str(esito["motivo"]))
+		return
+
+	var costo := int(esito["costo"])
+	if costo > 0 and not SaveManager.try_spend(costo):
+		_messaggio("Servono %d crediti, ne hai %d." % [costo, SaveManager.credits])
+		return
+
+	terreno.imposta_livello(_cella, int(esito["livello"]))
+	terreno.riclassifica()
+	_costruisci_mesh()
+	_registra_quota(_cella)
+	SaveManager.save_game()
+
+	_messaggio("Terreno a %.1f m: -%d crediti." % [
+		float(esito["livello"]) * CityTerrain.PASSO_QUOTA, costo
+	])
+	_aggiorna_bersaglio()
+
+
 # --- Anteprima --------------------------------------------------------------
 
 func _aggiorna_bersaglio() -> void:
@@ -495,10 +671,13 @@ func _aggiorna_bersaglio() -> void:
 		_aggiorna_aiuto()
 		return
 
-	if _modo == Modo.DEMOLISCI:
-		_mostra_bersaglio_demolizione()
-	else:
-		_mostra_bersaglio_piazzamento()
+	match _modo:
+		Modo.DEMOLISCI:
+			_mostra_bersaglio_demolizione()
+		Modo.TERRENO:
+			_mostra_bersaglio_terreno()
+		_:
+			_mostra_bersaglio_piazzamento()
 	_aggiorna_aiuto()
 
 
@@ -534,6 +713,19 @@ func _mostra_bersaglio_demolizione() -> void:
 	)
 	var quota := float(_costruzioni[occupante["id"]]["livello"]) * CityTerrain.PASSO_QUOTA
 	_selezione.mesh = TerrainMesh.costruisci_selezione(celle, quota + 0.02, COLORE_DEMOLIZIONE)
+
+
+## Il riquadro sta alla quota di arrivo, non a quella di adesso: si vede dove
+## finirà il terreno prima di spendere.
+func _mostra_bersaglio_terreno() -> void:
+	var esito := _valuta_terreno(_cella)
+	var quota := float(esito["livello"]) * CityTerrain.PASSO_QUOTA
+	if int(esito["livello"]) < 0:
+		quota = terreno.quota(_cella)
+	var sola: Array[Vector2i] = [_cella]
+	_selezione.mesh = TerrainMesh.costruisci_selezione(
+		sola, quota + 0.02, COLORE_VALIDO if bool(esito["valido"]) else COLORE_INVALIDO
+	)
 
 
 func _crea_fantasma() -> void:
@@ -595,6 +787,10 @@ func _suggerimento() -> String:
 			return "Clic per posare · R ruota (Shift+R al contrario) · Esc annulla"
 		Modo.DEMOLISCI:
 			return "Clic su una costruzione per demolirla · Esc annulla"
+		Modo.TERRENO:
+			if _attrezzo == Attrezzo.LIVELLA and _quota_riferimento < 0:
+				return "Clic per prendere la quota da copiare · Esc annulla"
+			return "Clic per modellare il terreno · Esc annulla"
 		_:
 			return "Q / E ruota la vista · trascina col tasto destro · rotella per lo zoom"
 

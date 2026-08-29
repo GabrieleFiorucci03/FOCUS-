@@ -198,6 +198,17 @@ func set_terrain_edit(cell: Vector2i, level: int) -> void:
 	edits.append({ "pos": [cell.x, cell.y], "level": level })
 
 
+## Dimentica la quota di una cella: si usa quando torna a quella del seme, che
+## si rigenera da sola e non ha bisogno di stare su disco.
+func clear_terrain_edit(cell: Vector2i) -> void:
+	var edits := world_terrain_edits()
+	for i in edits.size():
+		var pos: Array = edits[i].get("pos", [])
+		if pos.size() == 2 and int(pos[0]) == cell.x and int(pos[1]) == cell.y:
+			edits.remove_at(i)
+			return
+
+
 ## Toglie la cella ancorata in "cell". Restituisce true se c'era davvero.
 func remove_tile(cell: Vector2i) -> bool:
 	var tiles := world_tiles()

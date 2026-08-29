@@ -23,24 +23,50 @@ extends PanelContainer
 ## è l'unico a sapere se il posto scelto va bene.
 
 signal voce_scelta(id: String)
-signal demolizione_commutata(attiva: bool)
+## Lo strumento in mano, o "" quando non ce n'è nessuno.
+signal strumento_scelto(strumento: String)
 
 const TESTO_VUOTO := "Scegli qualcosa da costruire."
+
+## Gli attrezzi, nell'ordine in cui compaiono. Costruire sta nell'elenco qui
+## sopra; qui sotto c'è quello che si fa a una città che esiste già.
+const STRUMENTI := {
+	"alza": "Alza",
+	"abbassa": "Abbassa",
+	"livella": "Livella",
+	"demolisci": "Demolisci",
+}
 
 @onready var _saldo: Label = %Saldo
 @onready var _categorie: TabBar = %Categorie
 @onready var _elenco: ItemList = %Elenco
 @onready var _dettaglio: Label = %Dettaglio
-@onready var _demolisci: Button = %Demolisci
+@onready var _strumenti: GridContainer = %Strumenti
 
 var _catalogo: CityCatalog
 var _crediti: int = 0
+var _gruppo: ButtonGroup
 
 
 func _ready() -> void:
 	_categorie.tab_changed.connect(_on_categoria_cambiata)
 	_elenco.item_selected.connect(_on_voce_selezionata)
-	_demolisci.toggled.connect(_on_demolizione_commutata)
+	_costruisci_gli_strumenti()
+
+
+func _costruisci_gli_strumenti() -> void:
+	# Un gruppo solo: gli attrezzi si escludono a vicenda, e riclicare quello
+	# acceso lo spegne invece di lasciare senza via d'uscita.
+	_gruppo = ButtonGroup.new()
+	_gruppo.allow_unpress = true
+	for id in STRUMENTI:
+		var bottone := Button.new()
+		bottone.text = str(STRUMENTI[id])
+		bottone.toggle_mode = true
+		bottone.button_group = _gruppo
+		bottone.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		bottone.toggled.connect(_on_strumento_commutato.bind(id))
+		_strumenti.add_child(bottone)
 
 
 func mostra_catalogo(catalogo: CityCatalog) -> void:
@@ -63,12 +89,14 @@ func aggiorna_saldo(crediti: int) -> void:
 ## modalità, quindi non deve rimbalzare indietro nessun segnale.
 func deseleziona() -> void:
 	_elenco.deselect_all()
-	_demolisci.set_pressed_no_signal(false)
+	_spegni_gli_strumenti()
 	_dettaglio.text = TESTO_VUOTO
 
 
-func demolizione_attiva() -> bool:
-	return _demolisci.button_pressed
+func _spegni_gli_strumenti() -> void:
+	var acceso := _gruppo.get_pressed_button()
+	if acceso != null:
+		acceso.set_pressed_no_signal(false)
 
 
 # --- Interazione ------------------------------------------------------------
@@ -79,18 +107,22 @@ func _on_categoria_cambiata(_indice: int) -> void:
 
 func _on_voce_selezionata(indice: int) -> void:
 	var id := str(_elenco.get_item_metadata(indice))
-	_demolisci.set_pressed_no_signal(false)
+	_spegni_gli_strumenti()
 	_dettaglio.text = _descrizione(id)
 	voce_scelta.emit(id)
 
 
-func _on_demolizione_commutata(attiva: bool) -> void:
-	if attiva:
-		_elenco.deselect_all()
-		_dettaglio.text = "Clic su una costruzione per demolirla: torna indietro il %d%% del prezzo.\nEsc per smettere." % roundi(Config.refund_ratio * 100.0)
-	else:
-		_dettaglio.text = TESTO_VUOTO
-	demolizione_commutata.emit(attiva)
+func _on_strumento_commutato(attivo: bool, id: String) -> void:
+	if not attivo:
+		# Cambiando attrezzo arriva prima lo spegnimento del vecchio: solo se
+		# non se n'è acceso un altro vuol dire davvero "nessuno strumento".
+		if _gruppo.get_pressed_button() == null:
+			_dettaglio.text = TESTO_VUOTO
+			strumento_scelto.emit("")
+		return
+	_elenco.deselect_all()
+	_dettaglio.text = _descrizione_strumento(id)
+	strumento_scelto.emit(id)
 
 
 # --- Elenco -----------------------------------------------------------------
@@ -121,14 +153,34 @@ func _aggiorna_disponibilita() -> void:
 		_elenco.set_item_custom_fg_color(i, Color(1, 1, 1, 0.35) if troppo_caro else Color(1, 1, 1))
 
 
+func _descrizione_strumento(id: String) -> String:
+	var a_capo := "\n"
+	match id:
+		"demolisci":
+			return "Clic su una costruzione per demolirla: torna indietro il %d%% del prezzo, ma il terreno resta come l'hai spianato.%sEsc per smettere." % [
+				roundi(Config.refund_ratio * 100.0), a_capo
+			]
+		"livella":
+			return "Primo clic: prende la quota. Da lì in poi ci porta le celle che tocchi.%s%d crediti a gradino, senza rimborso." % [
+				a_capo, Config.terrain_cost_per_level
+			]
+		_:
+			return "%s il terreno di un gradino (0,5 m) a ogni clic.%s%d crediti a gradino, senza rimborso. Sotto una costruzione non si tocca." % [
+				"Alza" if id == "alza" else "Abbassa", a_capo, Config.terrain_cost_per_level
+			]
+
+
 func _descrizione(id: String) -> String:
 	var v := _catalogo.voce(id)
 	var f: Vector2i = v["footprint"]
 	var righe := PackedStringArray()
 	righe.append("%s · %dx%d celle · %d crediti" % [v["nome"], f.x, f.y, _catalogo.prezzo(id)])
-	if _catalogo.regola(id) == CityCatalog.Regola.PONTE:
-		righe.append("Va sull'acqua, agganciato a una riva o a un'altra campata.")
-	else:
-		righe.append("Spiana il lotto al livello più basso che tocca.")
+	match _catalogo.regola(id):
+		CityCatalog.Regola.PONTE:
+			righe.append("Va sull'acqua, agganciato a una riva o a un'altra campata.")
+		CityCatalog.Regola.RAMPA:
+			righe.append("Va dove c'è un gradino solo da salire, e non spiana niente.")
+		_:
+			righe.append("Spiana il lotto al livello più basso che tocca.")
 	righe.append("Clic per posare · R ruota · Esc annulla")
 	return "\n".join(righe)
