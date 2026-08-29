@@ -16,10 +16,10 @@
 extends Node3D
 ## Il mondo della città: terreno procedurale, griglia, camera, negozio e cantiere.
 ##
-## Il terreno si rigenera dal seme salvato: non finisce su disco nemmeno una
-## quota. Su disco vanno il seme, le celle costruite e il livello a cui ognuna
-## è stata spianata — quello sì, perché costruire muove il suolo e il seme da
-## solo non se ne ricorderebbe.
+## Il terreno si rigenera dal seme salvato: del suolo naturale non finisce su
+## disco nemmeno una quota. Su disco vanno il seme, le celle costruite e le
+## quote spianate — quelle sì, perché costruire muove il suolo e il seme da solo
+## non se ne ricorderebbe.
 
 const CARTELLA_MODELLI := "res://assets/models/generated/"
 
@@ -158,10 +158,11 @@ func _costruisci_mesh() -> void:
 
 ## Rimette in piedi la città salvata. Restituisce quante costruzioni ha ripreso.
 ##
-## Il livello di ogni lotto viene riapplicato al terreno appena rigenerato, così
-## il suolo torna com'era a prescindere dall'ordine in cui le cose sono state
-## costruite. La mesh si ricostruisce una volta sola, alla fine.
+## Prima il terreno, poi quello che ci sta sopra: gli spianamenti sopravvivono
+## alle demolizioni, quindi ce ne possono essere anche dove non c'è più niente.
+## La mesh si ricostruisce una volta sola, alla fine.
 func _ricostruisci_dal_salvataggio() -> int:
+	_riapplica_le_quote_spianate()
 	var ripresi := 0
 	for tile in SaveManager.world_tiles():
 		var pos: Array = tile.get("pos", [])
@@ -179,6 +180,25 @@ func _ricostruisci_dal_salvataggio() -> int:
 		if _costruisci(id, ancora, rotazione, livello, false):
 			ripresi += 1
 	return ripresi
+
+
+func _riapplica_le_quote_spianate() -> void:
+	for modifica in SaveManager.world_terrain_edits():
+		var pos: Array = modifica.get("pos", [])
+		if pos.size() != 2 or not modifica.has("level"):
+			continue
+		var sola: Array[Vector2i] = [Vector2i(int(pos[0]), int(pos[1]))]
+		terreno.spiana(sola, int(modifica["level"]))
+
+
+## Scrive nel salvataggio le celle che questo piazzamento ha spianato davvero:
+## solo quelle che si scostano dal terreno del seme, così una casa 1x1 su
+## terreno piatto non lascia traccia.
+func _segna_le_quote_spianate(celle: Array[Vector2i]) -> void:
+	for cella in celle:
+		var livello := terreno.livello(cella)
+		if livello != terreno.livello_naturale(cella):
+			SaveManager.set_terrain_edit(cella, livello)
 
 
 ## Mette un oggetto sulla griglia e nel mondo. Non tocca né i crediti né il
@@ -427,6 +447,8 @@ func _conferma() -> void:
 		_messaggio("Non si riesce a costruire qui.")
 		return
 
+	if catalogo.regola(_scelto) == CityCatalog.Regola.TERRA:
+		_segna_le_quote_spianate(_esito["celle"])
 	SaveManager.add_tile(_ancora, _scelto, _rotazione, livello)
 	_messaggio("%s: -%d crediti." % [catalogo.voce(_scelto)["nome"], prezzo])
 	_aggiorna_bersaglio()
@@ -443,26 +465,21 @@ func _demolisci_sotto_il_cursore() -> void:
 	var id_piazzamento := int(occupante["id"])
 	var rimborso := catalogo.rimborso(id_modello)
 
-	var celle := griglia.celle_occupate(ancora, occupante["footprint"], occupante["rotazione"])
 	var costruzione: Dictionary = _costruzioni.get(id_piazzamento, {})
 	if costruzione.has("nodo"):
 		(costruzione["nodo"] as Node3D).queue_free()
 	_costruzioni.erase(id_piazzamento)
 	griglia.rimuovi(_cella)
 
-	# Il lotto torna quello che il seme aveva previsto. Non è un ripensamento
-	# gentile: lo spianamento vive solo finché vive la costruzione che l'ha
-	# chiesto, quindi lasciarlo lì vorrebbe dire mostrare una città che alla
-	# prossima apertura non c'è più. Modellare il terreno per scelta, e che
-	# resti, è la Fase 4.5.
-	if terreno.ripristina(celle):
-		_costruisci_mesh()
-
+	# Il lotto resta spianato: sbancare è una modifica al mondo, non un pezzo
+	# dell'edificio, e il terreno non deve rimbalzare su e giù ogni volta che si
+	# cambia idea su cosa costruirci. Il salvataggio se ne ricorda per conto suo
+	# (terrain_edits), quindi resta spianato anche riaprendo la partita.
 	SaveManager.remove_tile(ancora)
 	SaveManager.add_credits(rimborso)
 	SaveManager.save_game()
 
-	_messaggio("%s demolita: +%d crediti. Il terreno torna com'era." % [
+	_messaggio("%s demolita: +%d crediti. Il lotto resta spianato." % [
 		catalogo.voce(id_modello)["nome"], rimborso
 	])
 	_aggiorna_bersaglio()

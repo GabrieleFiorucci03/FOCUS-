@@ -45,8 +45,8 @@ SaveData:
     tiles: [                   # solo le celle costruite
       { pos: [x, z], type: "RES_LOW_1x1_001", rotation: int, level: int }
     ]
-    terrain_edits: [           # solo le quote toccate a mano (Fase 4.5)
-      { pos: Vector2i, level: int }
+    terrain_edits: [           # solo le quote spianate, cella per cella
+      { pos: [x, z], level: int }
     ]
 ```
 
@@ -54,10 +54,15 @@ Si salvano solo le celle costruite e le quote modificate: tutto il resto del
 terreno si rigenera dal `seed`. In JSON `Vector2i` non esiste, le coordinate
 viaggiano come array `[x, z]`.
 
-Il `level` di una cella non è ridondante col `seed`: piazzare spiana il lotto,
-quindi il suolo sotto una costruzione non è più quello che il seme aveva
-previsto. Senza quel numero, riaprendo la partita le case si ritroverebbero su
-un terreno diverso da quello su cui erano state messe.
+`terrain_edits` non è ridondante col `seed`: piazzare spiana il lotto, quindi il
+suolo lì non è più quello che il seme aveva previsto. Ci finiscono solo le celle
+scese davvero — un lotto 3x3 livellato al minimo di solito ne muove tre o
+quattro, non nove — e ci restano anche dopo che la costruzione è stata demolita:
+sbancare è una modifica al mondo, non un pezzo dell'edificio.
+
+Il `level` di un tile è un'altra cosa: è la quota a cui sta l'oggetto. Per una
+casa coincide col terreno, per una campata di ponte no, perché quella sta
+sospesa sopra l'acqua.
 
 ## Economia — valori di partenza (da bilanciare)
 
@@ -139,7 +144,8 @@ script Python (bpy)  ──►  Blender (headless)  ──►  modello.glb  ─�
       del saldo, addebito e salvataggio della cella
 - [x] Demolizione con rimborso del 50 % (arrotondato per difetto: costruire e
       demolire non deve far guadagnare crediti)
-- [x] Ricostruzione della città dal salvataggio all'avvio, spianamenti compresi
+- [x] Salvataggio delle quote spianate (`terrain_edits`) e ricostruzione della
+      città all'avvio: prima il terreno, poi quello che ci sta sopra
 
 **Politica di livellamento decisa: piazzare spiana al livello più basso del
 lotto**, gratis. Non svuota la Fase 4.5 per due motivi. Il primo è che un
@@ -148,9 +154,11 @@ la cella stessa — quindi il suolo si muove solo sotto le costruzioni larghe a
 cavallo di un gradino. Il secondo è che spianare va sempre e solo verso il
 basso: colline, isole e conche restano roba dello strumento terreno.
 
-Lo spianamento vive quanto la costruzione che l'ha chiesto: demolendo, il lotto
-torna alla quota del seme. È l'unico comportamento coerente con il salvataggio,
-che dei lotti spianati si ricorda solo finché c'è sopra qualcosa.
+**Demolendo, il lotto resta spianato.** Sbancare è una modifica al mondo, non un
+pezzo dell'edificio: il terreno non deve rimbalzare su e giù ogni volta che si
+cambia idea su cosa costruirci. Per questo lo spianamento si salva per conto suo
+in `terrain_edits`, staccato dal tile, e sopravvive alla demolizione anche
+riaprendo la partita.
 
 ### Fase 4.5 — Modellare il terreno
 
@@ -167,7 +175,9 @@ Quello che c'è già e non va rifatto:
   già alla quota di arrivo.
 - Le quote sono numeri interi per cella: alzare è `livelli[i] += 1`.
 - `CityTerrain.spiana()` livella un lotto, `livello_piu_basso()` sceglie la
-  quota, `ripristina()` riporta delle celle a com'erano appena uscite dal seme.
+  quota, `livello_naturale()` dice com'era la cella appena uscita dal seme.
+- Il salvataggio delle quote: `terrain_edits` c'è già, lo scrive il piazzamento
+  e lo rilegge l'avvio. Lo strumento terreno ci scrive dentro allo stesso modo.
 - La classificazione delle acque è un flood fill dal bordo mappa, e questo
   risponde da solo a tre casi diversi senza codice dedicato:
   scavare una conca chiusa sotto il livello del mare produce un **lago**,
@@ -183,9 +193,6 @@ Da fare:
       Alzare e abbassare per scelta non se la cava così.
 - [ ] Ricostruzione della mesh: oggi si rifà tutto il terreno in un colpo, su
       32x32 regge anche a ogni click; se la mappa cresce va spezzata in blocchi
-- [ ] Salvataggio delle quote modificate (`terrain_edits`, additivo allo schema).
-      Va tenuto distinto dal `level` delle celle costruite, che è già lì e che
-      la demolizione disfa: una collina scavata a mano invece deve restare.
 - [ ] Costo in crediti, altrimenti il terraforming è gratis e l'economia salta
 - [ ] Decidere cosa succede a un edificio su una cella che cambia quota:
       si rimuove, si blocca l'operazione, o scende con il terreno
@@ -238,7 +245,9 @@ della base, fronte verso `-Y`, collisioni con suffisso `-colonly`.
 - **Piazzare spiana al livello più basso del lotto.** Alla mediana un lotto in
   pendenza si sarebbe scavato da una parte e riempito dall'altra; al minimo si
   scava e basta, e soprattutto un oggetto 1x1 non tocca mai il terreno, perché
-  il minimo di una cella sola è la cella stessa.
+  il minimo di una cella sola è la cella stessa. Lo sbancamento resta anche
+  dopo la demolizione: è una modifica al mondo, non un pezzo dell'edificio, e
+  si salva staccato dal tile che l'ha chiesta.
 - **Un ponte si aggancia, non si appoggia dove capita.** Una campata va solo
   sull'acqua e solo attaccata a una riva o a un'altra campata, e sta un gradino
   sopra la sponda: è la composizione che la pipeline aveva già verificato in
@@ -303,8 +312,9 @@ Su un mondo 32x32, guidando `CityView` dal di fuori:
 | Casa sull'acqua, campata a terra, ponte al largo | rifiutati, uno per volta |
 | Campata su una sponda a quota 4 | posata a 2,50 m, con la pila sotto |
 | Campata successiva al largo | eredita la quota, resta in piano |
-| Scuola da 35 demolita | +17 crediti, e il lotto torna a `[4,4,5,4,4,5,4,5,6]` |
-| Riapertura della partita | stesse costruzioni, stesso terreno |
+| Le quote salvate dopo lo spianamento | 4, cioè solo le celle scese davvero |
+| Scuola da 35 demolita | +17 crediti, e il lotto resta a `[4,4,4,4,4,4,4,4,4]` |
+| Riapertura della partita | stesse costruzioni, e il lotto sgombro ancora spianato |
 
 Guardati anche i frame veri: il ponte con le sue rampe attraversa il fiume, il
 fantasma verde della palazzina sta alla quota a cui il lotto verrà spianato, e

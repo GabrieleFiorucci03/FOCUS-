@@ -65,6 +65,7 @@ static func new_save() -> Dictionary:
 			"seed": randi(),
 			"size": [DEFAULT_WORLD_SIZE, DEFAULT_WORLD_SIZE],
 			"tiles": [],
+			"terrain_edits": [],
 		},
 	}
 
@@ -170,6 +171,31 @@ func add_tile(cell: Vector2i, type: String, rotation: int, level: int) -> void:
 		"level": level,
 	})
 	save_game()
+
+
+## Le quote che sono state spianate, come stanno su disco: pos come array
+## [x, z] e la quota in livelli interi.
+##
+## Sono separate dalle celle costruite perché sopravvivono alla demolizione: un
+## lotto spianato è una modifica al mondo, non un pezzo dell'edificio che l'ha
+## chiesta. Chi ricarica applica prima queste e poi ci rimette sopra le case.
+func world_terrain_edits() -> Array:
+	var world: Dictionary = data.get("world", {})
+	if not world.has("terrain_edits"):
+		world["terrain_edits"] = []
+	return world["terrain_edits"]
+
+
+## Segna una cella spianata. Se c'era già, ne aggiorna la quota invece di
+## aggiungere una riga: di una cella conta solo com'è adesso.
+func set_terrain_edit(cell: Vector2i, level: int) -> void:
+	var edits := world_terrain_edits()
+	for edit in edits:
+		var pos: Array = edit.get("pos", [])
+		if pos.size() == 2 and int(pos[0]) == cell.x and int(pos[1]) == cell.y:
+			edit["level"] = level
+			return
+	edits.append({ "pos": [cell.x, cell.y], "level": level })
 
 
 ## Toglie la cella ancorata in "cell". Restituisce true se c'era davvero.

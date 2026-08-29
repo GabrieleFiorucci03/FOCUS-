@@ -64,7 +64,8 @@ ancora permettere resta a schermo, spento, perché sapere quanto manca è metà 
 motivo per tornare a fare focus. Scegli, e l'oggetto ti segue col mouse: verde
 se il posto va bene, rosso se no, con i riquadri già alla quota a cui il lotto
 verrà spianato. `R` lo gira, un clic lo posa e scala i crediti. Demolire ne
-restituisce la metà, e restituisce anche il terreno, che torna quello del seme.
+restituisce la metà; il lotto invece resta spianato, perché sbancare è una
+modifica al mondo e non un pezzo dell'edificio.
 
 **I ponti hanno una regola loro.** Una campata va solo sull'acqua e solo
 attaccata a una riva o a un'altra campata, e sta un gradino sopra la sponda —
@@ -186,9 +187,9 @@ dopo. Venti sessioni da tre minuti valgono esattamente quanto un'ora piena.
 viene livellato al più basso dei suoi gradini, non alla media: così un oggetto
 che sta in una cella sola non tocca mai il terreno — il minimo di una cella è la
 cella stessa — e il suolo si muove soltanto sotto le costruzioni larghe a
-cavallo di un dislivello. Lo spianamento vive quanto la costruzione che l'ha
-chiesto: demolendo, il lotto torna alla quota del seme, che è anche quella che
-ritroveresti riaprendo la partita.
+cavallo di un dislivello. Lo sbancamento si salva per conto suo, staccato
+dall'edificio: demolisci, e il pianoro resta lì dov'era, anche riaprendo la
+partita.
 
 **Il salvataggio sopravvive alle versioni future.** In caricamento il file JSON
 viene innestato sopra uno schema di default: quando una fase nuova aggiungerà

@@ -51,10 +51,9 @@ var biomi: PackedByteArray
 var quota_acqua: PackedFloat32Array
 
 ## Com'era il terreno appena uscito dal seme, prima che ci costruissero sopra.
-## Serve a rimettere a posto un lotto quando la costruzione che l'aveva spianato
-## viene demolita: il suolo torna quello che il seme aveva previsto, che è anche
-## quello che si ritroverebbe riaprendo la partita.
-var _naturale: Dictionary = {}
+## Serve a dire quali celle sono state spianate davvero: sono quelle, e solo
+## quelle, che vanno scritte nel salvataggio.
+var _naturale: PackedInt32Array = PackedInt32Array()
 
 
 func _init(dimensione: Vector2i, seme_iniziale: int) -> void:
@@ -153,25 +152,12 @@ func spiana(celle: Array[Vector2i], livello_scelto: int = -1) -> int:
 	return scelto
 
 
-## Rimette le celle come le aveva fatte il seme. Restituisce true se qualcosa è
-## cambiato davvero, così chi chiama rifà la mesh solo quando serve.
-##
-## Si tocca solo quello che si è chiesto: i lotti spianati lì intorno restano
-## come sono, e un dirupo che ricompare fra i due è la verità del terreno, non
-## un errore.
-func ripristina(celle: Array[Vector2i]) -> bool:
-	var cambiato := false
-	for cella in celle:
-		if not dentro(cella):
-			continue
-		var i := indice(cella)
-		if livelli[i] == int(_naturale["livelli"][i]):
-			continue
-		livelli[i] = _naturale["livelli"][i]
-		biomi[i] = _naturale["biomi"][i]
-		quota_acqua[i] = _naturale["quota_acqua"][i]
-		cambiato = true
-	return cambiato
+## La quota che il seme aveva dato a questa cella, prima che ci si costruisse.
+## Confrontarla con quella di adesso dice se la cella è stata spianata.
+func livello_naturale(cella: Vector2i) -> int:
+	if not dentro(cella):
+		return 0
+	return _naturale[indice(cella)]
 
 
 # --- Generazione ------------------------------------------------------------
@@ -192,11 +178,7 @@ func _genera() -> void:
 	_assegna_biomi_terrestri()
 	_calcola_quote_acqua()
 
-	_naturale = {
-		"livelli": livelli.duplicate(),
-		"biomi": biomi.duplicate(),
-		"quota_acqua": quota_acqua.duplicate(),
-	}
+	_naturale = livelli.duplicate()
 
 
 ## Rumore frattale smorzato verso i bordi, così la terra sta al centro e il mare
