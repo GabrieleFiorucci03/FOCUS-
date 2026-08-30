@@ -1,0 +1,96 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/stats_panel.gd" id="1_stats"]
+[ext_resource type="Script" path="res://scripts/ui/grafico_giorni.gd" id="2_grafico"]
+[ext_resource type="StyleBox" path="res://scenes/ui/pannello.tres" id="3_fondo"]
+
+[node name="StatsPanel" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_stats")
+
+[node name="Velo" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0392157, 0.054902, 0.0705882, 0.72)
+
+[node name="Centro" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Pannello" type="PanelContainer" parent="Centro"]
+custom_minimum_size = Vector2(560, 0)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("3_fondo")
+
+[node name="Margine" type="MarginContainer" parent="Centro/Pannello"]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 20
+
+[node name="Colonna" type="VBoxContainer" parent="Centro/Pannello/Margine"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Intestazione" type="HBoxContainer" parent="Centro/Pannello/Margine/Colonna"]
+layout_mode = 2
+
+[node name="Titolo" type="Label" parent="Centro/Pannello/Margine/Colonna/Intestazione"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 24
+text = "Statistiche"
+vertical_alignment = 1
+
+[node name="Chiudi" type="Button" parent="Centro/Pannello/Margine/Colonna/Intestazione"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(96, 34)
+layout_mode = 2
+text = "Chiudi"
+
+[node name="Oggi" type="Label" parent="Centro/Pannello/Margine/Colonna"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.180392, 0.768627, 0.713726, 1)
+text = "Oggi non hai ancora cominciato."
+
+[node name="Cifre" type="GridContainer" parent="Centro/Pannello/Margine/Colonna"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/h_separation = 12
+columns = 4
+
+[node name="TitoloGrafico" type="Label" parent="Centro/Pannello/Margine/Colonna"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.545098, 0.588235, 0.639216, 1)
+theme_override_font_sizes/font_size = 12
+text = "ULTIME DUE SETTIMANE"
+
+[node name="Grafico" type="Control" parent="Centro/Pannello/Margine/Colonna"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+mouse_filter = 2
+script = ExtResource("2_grafico")
+
+[node name="Riepilogo" type="Label" parent="Centro/Pannello/Margine/Colonna"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.545098, 0.588235, 0.639216, 1)
+theme_override_font_sizes/font_size = 12
+text = "0 crediti guadagnati in tutto"
+autowrap_mode = 3

@@ -24,6 +24,7 @@ extends Node
 signal credits_changed(credits: int)
 signal stats_changed()
 signal game_loaded()
+signal settings_changed()
 
 const SAVE_PATH := "user://focus_save.json"
 const SAVE_VERSION := 1
@@ -43,6 +44,10 @@ var sessions_completed: int:
 	get:
 		return int(data.get("sessions_completed", 0))
 
+var credits_earned_total: int:
+	get:
+		return int(data.get("credits_earned_total", 0))
+
 
 func _ready() -> void:
 	load_game()
@@ -61,6 +66,14 @@ static func new_save() -> Dictionary:
 		"credit_remainder": 0.0,
 		"total_focus_seconds": 0,
 		"sessions_completed": 0,
+		"credits_earned_total": 0,
+		# Un giorno per chiave, "AAAA-MM-GG" -> { seconds, sessions }. Lo streak non
+		# si salva: si ricalcola da qui, cosi non puo' scollarsi dai giorni veri.
+		"daily": {},
+		"settings": {
+			"volume": 0.8,
+			"muted": false,
+		},
 		"world": {
 			"seed": randi(),
 			"size": [DEFAULT_WORLD_SIZE, DEFAULT_WORLD_SIZE],
@@ -130,11 +143,168 @@ func register_focus_session(seconds: float) -> int:
 	data["credit_remainder"] = earned - float(whole)
 	data["total_focus_seconds"] = total_focus_seconds + int(round(seconds))
 	data["sessions_completed"] = sessions_completed + 1
+	_segna_il_giorno(int(round(seconds)), whole)
 	if whole > 0:
 		add_credits(whole)
 	stats_changed.emit()
 	save_game()
 	return whole
+
+
+# --- Statistiche e streak ---------------------------------------------------
+#
+# Del registro si salvano solo i giorni: lo streak no, si ricalcola. E' la
+# stessa scelta che il mondo fa con il mare — quello che si puo' ridedurre non
+# si scrive, cosi non puo' scollarsi da cio' che descrive.
+
+## Oggi come chiave del registro, secondo l'orologio locale.
+##
+## Locale e non UTC di proposito: un'ora di studio finita a mezzanotte e mezza
+## appartiene alla giornata in cui l'hai vissuta.
+static func chiave_di_oggi() -> String:
+	var adesso := Time.get_datetime_dict_from_system()
+	return "%04d-%02d-%02d" % [adesso["year"], adesso["month"], adesso["day"]]
+
+
+## Il giorno prima di una chiave. Il conto si fa a mezzogiorno e in UTC, cosi
+## un fuso orario o un'ora legale non possono far saltare o ripetere un giorno.
+static func giorno_prima(chiave: String) -> String:
+	var istante := int(Time.get_unix_time_from_datetime_string(chiave + "T12:00:00"))
+	return Time.get_date_string_from_unix_time(istante - 86400)
+
+
+func giorni() -> Dictionary:
+	if not data.has("daily"):
+		data["daily"] = {}
+	return data["daily"]
+
+
+func secondi_del_giorno(chiave: String) -> int:
+	var giorno: Dictionary = giorni().get(chiave, {})
+	return int(giorno.get("seconds", 0))
+
+
+func sessioni_del_giorno(chiave: String) -> int:
+	var giorno: Dictionary = giorni().get(chiave, {})
+	return int(giorno.get("sessions", 0))
+
+
+## Un giorno conta per lo streak se ci sta dentro almeno il minimo che rende
+## una sessione accreditabile: la soglia e' la stessa, non una seconda regola.
+func giorno_valido(chiave: String) -> bool:
+	return secondi_del_giorno(chiave) >= Config.min_session_seconds
+
+
+## I giorni che contano, in ordine di calendario.
+func giorni_validi() -> Array:
+	var chiavi: Array = []
+	for chiave in giorni():
+		if giorno_valido(str(chiave)):
+			chiavi.append(str(chiave))
+	chiavi.sort()
+	return chiavi
+
+
+func giorni_attivi() -> int:
+	return giorni_validi().size()
+
+
+## Giorni di fila fino a oggi. Se oggi non hai ancora fatto niente la serie
+## regge lo stesso: si riparte da ieri, perche' la giornata non e' finita.
+func streak_attuale() -> int:
+	var chiave := chiave_di_oggi()
+	if not giorno_valido(chiave):
+		chiave = giorno_prima(chiave)
+		if not giorno_valido(chiave):
+			return 0
+	var conta := 0
+	while giorno_valido(chiave):
+		conta += 1
+		chiave = giorno_prima(chiave)
+	return conta
+
+
+## La serie piu' lunga mai fatta.
+func streak_record() -> int:
+	var chiavi := giorni_validi()
+	if chiavi.is_empty():
+		return 0
+	var record := 1
+	var corrente := 1
+	for i in range(1, chiavi.size()):
+		corrente = corrente + 1 if giorno_prima(str(chiavi[i])) == str(chiavi[i - 1]) else 1
+		record = maxi(record, corrente)
+	return record
+
+
+## Gli ultimi giorni, dal piu' vecchio a oggi, buchi compresi: il grafico deve
+## poter disegnare anche le colonne vuote.
+func ultimi_giorni(quanti: int) -> Array:
+	var elenco: Array = []
+	var chiave := chiave_di_oggi()
+	for _i in maxi(0, quanti):
+		elenco.append({
+			"data": chiave,
+			"secondi": secondi_del_giorno(chiave),
+			"sessioni": sessioni_del_giorno(chiave),
+		})
+		chiave = giorno_prima(chiave)
+	elenco.reverse()
+	return elenco
+
+
+func _segna_il_giorno(secondi: int, crediti: int) -> void:
+	var registro := giorni()
+	var chiave := chiave_di_oggi()
+	var giorno: Dictionary = registro.get(chiave, { "seconds": 0, "sessions": 0 })
+	giorno["seconds"] = int(giorno.get("seconds", 0)) + secondi
+	giorno["sessions"] = int(giorno.get("sessions", 0)) + 1
+	registro[chiave] = giorno
+	data["credits_earned_total"] = credits_earned_total + crediti
+
+
+# --- Preferenze e partita ---------------------------------------------------
+
+func impostazioni() -> Dictionary:
+	if not data.has("settings"):
+		data["settings"] = { "volume": 0.8, "muted": false }
+	return data["settings"]
+
+
+func volume() -> float:
+	return clampf(float(impostazioni().get("volume", 0.8)), 0.0, 1.0)
+
+
+func muto() -> bool:
+	return bool(impostazioni().get("muted", false))
+
+
+func imposta_audio(volume_nuovo: float, muto_nuovo: bool) -> void:
+	var preferenze := impostazioni()
+	preferenze["volume"] = clampf(volume_nuovo, 0.0, 1.0)
+	preferenze["muted"] = muto_nuovo
+	settings_changed.emit()
+	save_game()
+
+
+## Se c'e' gia' qualcosa da riprendere. Serve al menu per dire "Continua"
+## invece di "Comincia", e per chiedere conferma prima di buttare via tutto.
+func partita_iniziata() -> bool:
+	return total_focus_seconds > 0 or credits > 0 or not world_tiles().is_empty()
+
+
+## Ricomincia da capo: mondo nuovo, crediti a zero, statistiche azzerate.
+##
+## Le preferenze sopravvivono: il volume dell'audio e' dell'utente, non della
+## partita, e non c'e' motivo di rialzarlo ogni volta che si riparte.
+func reset_game() -> void:
+	var preferenze: Dictionary = (impostazioni() as Dictionary).duplicate(true)
+	data = new_save()
+	data["settings"] = preferenze
+	save_game()
+	game_loaded.emit()
+	credits_changed.emit(credits)
+	stats_changed.emit()
 
 
 # --- Il mondo ---------------------------------------------------------------

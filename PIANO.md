@@ -64,22 +64,42 @@ Il `level` di un tile è un'altra cosa: è la quota a cui sta l'oggetto. Per una
 casa coincide col terreno, per una campata di ponte no, perché quella sta
 sospesa sopra l'acqua.
 
-## Economia — valori di partenza (da bilanciare)
+## Economia — bilanciata in Fase 5
 
-| Voce                  | Valore               |
-|-----------------------|----------------------|
-| Guadagno              | ~10 crediti / ora    |
-| Albero                | 2 crediti            |
-| Strada                | 3 crediti            |
-| Casa                  | 8 crediti            |
-| Palazzina             | 25 crediti           |
-| Torre                 | 45 crediti           |
-| Rimborso in demolizione | 50 % del prezzo    |
+I prezzi non si scelgono in crediti ma **in minuti**, e poi si moltiplicano per
+`credits_per_hour`. È l'unica domanda che conta davvero: quanto tempo di
+concentrazione deve costare una casa?
+
+| Voce                    | Tempo    | Crediti |
+|-------------------------|----------|---------|
+| Guadagno                | —        | 24 / ora |
+| Albero                  | 5 min    | 2       |
+| Strada                  | 7,5 min  | 3       |
+| Terreno (un gradino)    | 5 min    | 2       |
+| Casa, parco             | 25 min   | 10      |
+| Negozio                 | 45 min   | 18      |
+| Villa, palazzina        | 1h 15m   | 30      |
+| Scuola                  | 3h       | 72      |
+| Palazzone               | 4h       | 96      |
+| Torre                   | 5h       | 120     |
+| Rimborso in demolizione | —        | 50 % del prezzo |
 
 Tutto in `data/economy.json`, **un prezzo per tipo** (il campo `kind` del
 catalogo asset), non per singolo modello: 19 numeri da bilanciare invece di 91,
 e due case che si somigliano non possono costare in modo diverso per sbaglio.
 Un tipo non elencato costa `price_default`.
+
+Le due misure che hanno deciso questi numeri, ricavate con
+`tools/balance/simula_economia.py`:
+
+- **La prima sessione da 25 minuti compra una casa.** A 10 crediti l'ora ne
+  comprava due alberi, e il primo premio dell'app era un cespuglio.
+- **Un primo quartiere (37 pezzi) costa 13 ore**, cioè due settimane a un'ora al
+  giorno. Erano 23 ore, che sono più di un mese.
+
+La forbice fra l'albero e la torre è passata da 22 a 60: le cose grandi restano
+traguardi di giorni mentre ogni singola sessione paga comunque qualcosa da
+posare.
 
 ## Pipeline asset (Blender)
 
@@ -221,27 +241,57 @@ Restano fuori, e vanno decisi se serviranno:
 
 - [ ] Ricostruzione della mesh a blocchi. Oggi si rifà tutto il terreno a ogni
       modifica: su 32x32 regge, su una mappa grande no.
-- [ ] Cosa fa una campata quando le si alza la sponda accanto: la sua quota è
-      decisa al piazzamento e poi non si muove più, quindi il raccordo si può
-      rompere. La cella del ponte è protetta, quelle intorno no.
+- [x] Cosa fa una campata quando le si alza la sponda accanto — **chiuso in
+      Fase 5**: il terreno che serve a una costruzione vicina non si tocca più.
 
-### Fase 5 — Rifinitura
-- [ ] Bilanciamento economia
-- [ ] UI/UX (menu, transizioni Focus↔Città)
-- [ ] Suoni e feedback (fine timer, acquisto, piazzamento)
-- [ ] Pannello statistiche (streak, ore totali)
-- [ ] Test generale e correzione bug
+### Fase 5 — Rifinitura ✅ completata
+
+- [x] **Statistiche e streak.** Il salvataggio tiene un registro per giorno
+      (`daily`), e da lì si ricavano serie in corso, record, giorni attivi e le
+      ultime due settimane. Pannello con quattro cifre grandi e un grafico a
+      colonne disegnato a mano, raggiungibile dal menu e dalla schermata focus.
+- [x] **Bilanciamento economia.** Prezzi riscritti partendo dal tempo, con
+      `tools/balance/simula_economia.py` a fare i conti sui file veri.
+- [x] **Menu e transizioni.** Schermata iniziale con riepilogo della partita,
+      continua / nuova città / statistiche / esci e il volume; dissolvenza corta
+      fra focus e città; l'Esc apre e chiude il menu.
+- [x] **Suoni.** Nove effetti sintetizzati all'avvio da `Sfx`, nessun file
+      audio sul disco. Avvio, pausa, campana di fine, crediti, posa,
+      demolizione, badile, rifiuto, clic.
+- [x] **Correzione bug.** Il terreno che regge un ponte o una rampa non si
+      tocca più; i pannelli davanti a qualcosa sono diventati opachi; la riga
+      di stato della città non finisce più sotto il negozio.
+- [x] 98 controlli automatici, tutti verdi, più i frame veri guardati a occhio.
+
+Quello che la Fase 5 ha deciso, e perché:
+
+- **Un giorno conta per lo streak se ci sta dentro almeno `min_session_seconds`
+  di focus**, la stessa soglia sotto la quale un'interruzione non viene pagata.
+  Una soglia sola: non ha senso che un tempo valga crediti ma non valga giornata.
+- **La serie regge fino a mezzanotte.** Se oggi non hai ancora cominciato si
+  conta da ieri: il giorno non è finito, e un contatore che si azzera alle 00:01
+  punirebbe per una cosa che non è ancora successa.
+- **Il giorno è quello dell'orologio locale**, non UTC: un'ora di studio finita
+  a mezzanotte e mezza appartiene alla giornata in cui l'hai vissuta. I conti
+  fra date invece si fanno a mezzogiorno e in UTC, così un fuso o un'ora legale
+  non possono far saltare o ripetere un giorno.
+- **Chiudere la finestra paga la sessione in corso.** Vale il tempo svolto,
+  esattamente come premere Termina: chiudere una finestra non è un buon motivo
+  per perdere mezz'ora di lavoro vero.
+- **Il volume sopravvive a "nuova città".** È una preferenza dell'utente, non un
+  pezzo della partita.
 
 ## Struttura del progetto
 
 ```
 FOCUS!/
   project.godot          # progetto Godot 4.7
-  scenes/                # main, focus, city, ui
-  scripts/               # autoload, focus, city, ui
+  scenes/                # main (+ menu), focus, city, ui (negozio, statistiche)
+  scripts/               # autoload (config, salvataggio, suoni), focus, city, ui
   data/                  # economy.json (prezzi) e catalog.json (nomi, scaffali)
   assets/models/generated/   # 91 .glb + catalog.json
   tools/blender/         # pipeline di generazione (ignorata da Godot)
+  tools/balance/         # simulatore dell'economia (Python puro)
 ```
 
 Convenzioni ereditate dalla pipeline asset: **cella 2 x 2 m**, origine al centro
@@ -302,6 +352,31 @@ della base, fronte verso `-Y`, collisioni con suffisso `-colonly`.
   Fiumi e laghi di collina fanno eccezione e si ricordano: quelli il flood fill
   non saprebbe rimetterli al loro posto. Una cella modellata perde l'etichetta,
   e se torna alla quota del seme se la riprende.
+- **Lo streak non si salva, si ricalcola.** Su disco vanno solo i giorni e i
+  loro secondi; serie in corso, record e giorni attivi si rideducono da lì a
+  ogni lettura. È la stessa scelta che il mondo fa con il mare: quello che si
+  può ridedurre non si scrive, così non può scollarsi da ciò che descrive. Un
+  contatore salvato a parte, prima o poi, dice un numero che i giorni smentiscono.
+- **I suoni si sintetizzano all'avvio, non si caricano.** Nove effetti nascono
+  da una tabella di note — frequenza, entrata, durata, timbro — come i 91
+  modelli nascono da uno script Blender. Nessun binario nel repository, nessun
+  editor audio da aprire per cambiare un suono, e un banco che sta sotto i tre
+  secondi di audio totale. Le note non sono a caso: quello che dice sì sale
+  (do-sol, do-mi-sol), quello che dice no scende.
+- **Il prezzo si sceglie in minuti.** In `economy.json` ci finiscono crediti, ma
+  la domanda a monte è sempre "quanto tempo di concentrazione deve costare
+  questa cosa", e il numero è quel tempo moltiplicato per `credits_per_hour`.
+  Ragionare in crediti significa non sapere cosa si sta decidendo.
+- **Il terreno che regge una costruzione vicina non si tocca.** Proteggere la
+  cella sotto un edificio non bastava: una campata sta un gradino sopra la sua
+  sponda e una rampa sale verso la cella accanto, e tutte e due decidono la
+  propria quota al piazzamento e poi non la muovono più. Alzare la riva
+  lasciava il ponte a mezz'aria senza un messaggio, perché il terreno da solo
+  non sa cosa regge.
+- **Un pannello che sta davanti a qualcosa è opaco.** Col fondo semitrasparente
+  del tema di serie il terreno passava attraverso i prezzi del negozio e il
+  countdown attraverso le statistiche. Un fondo solo, condiviso dai due
+  pannelli, così restano parenti.
 - **I colori dei biomi viaggiano nei vertici**, non in un materiale per tipo:
   tutto il terreno è una superficie sola e un bioma nuovo non aggiunge un
   materiale. Vanno convertiti con `srgb_to_linear()`, altrimenti Godot li usa
@@ -384,9 +459,38 @@ il negozio elenca i prezzi con le voci fuori portata spente.
 Guardati anche i frame veri: la rampa punta in salita e i due tratti di strada
 si saldano alle sue estremità senza scalini.
 
+## Verifiche fatte sulla rifinitura
+
+98 controlli automatici, guidando l'app dal di fuori con una scena usa e getta:
+
+| Prova | Esito |
+|---|---|
+| Tre giorni pieni di fila | serie 3 |
+| Un buco al quarto, poi cinque giorni pieni | serie 3, record 5 |
+| Oggi ancora vuoto, ieri e l'altro ieri pieni | serie 2: la giornata non è finita |
+| Un giorno da trenta secondi | non conta |
+| Mezz'ora di focus | 12 crediti, e il giorno se li segna |
+| Tre sessioni da un minuto | 1 credito: i resti si sommano ancora |
+| Nuova città | mondo, crediti e statistiche azzerati, volume no |
+| I nove suoni | sintetizzati, picco a 0,9, silenzio in testa e in coda |
+| Alzare la sponda di un ponte già posato | rifiutato, e lo dice |
+| Abbassarla | rifiutato |
+| Alzare una cella lontana dal ponte | permesso |
+| Alzare la cella a cui sale una rampa | rifiutato, e lo dice |
+| Rampa al piede di un gradino, quattro rotazioni | ne vale una sola |
+| All'avvio | menu aperto, città ferma dietro |
+| Esc | apre il menu, e da aperto lo richiude |
+| Esc con le statistiche davanti | lo prendono loro, il menu non si muove |
+
+Guardati anche i frame veri, ed è lì che sono usciti i tre bug che compilavano
+benissimo: il pannello statistiche era trasparente e il countdown si leggeva
+attraverso le cifre, le colonne dei giorni vuoti sembravano giornate grigie
+invece che giornate assenti, e la riga di stato della città finiva sotto il
+negozio.
+
 ## Prossimo passo
 
-Fase 5: bilanciamento dell'economia, menu e transizioni, suoni, pannello
-statistiche. Il giro completo si chiude già — focus, crediti, negozio,
-costruzione, terreno — quindi da qui in poi si tratta di renderlo finito, non
-più ricco.
+Le cinque fasi sono chiuse: il giro è completo e rifinito. Quello che resta
+sono scelte, non debiti — la mesh del terreno a blocchi se la mappa dovrà
+crescere, e il bilanciamento da riguardare dopo averci vissuto qualche
+settimana, che è l'unica prova che il simulatore non sa fare.

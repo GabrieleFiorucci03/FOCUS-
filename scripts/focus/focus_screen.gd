@@ -13,8 +13,13 @@
 # Dovresti aver ricevuto una copia della GNU General Public License insieme a
 # questo programma. In caso contrario, vedi <https://www.gnu.org/licenses/>.
 
+class_name FocusScreen
 extends Control
 ## Schermata di focus: imposti una durata, lavori, e il tempo diventa crediti.
+
+## Chi vuole vedere le statistiche per intero: le mostra Main, che e' l'unico
+## a sapere cosa c'e' gia' aperto davanti.
+signal statistiche_richieste()
 
 ## Durate rapide offerte come pulsanti, in minuti.
 const PRESET_MINUTES: Array[int] = [25, 50, 90]
@@ -32,6 +37,7 @@ const PRESET_MINUTES: Array[int] = [25, 50, 90]
 @onready var _pausa: Button = %Pausa
 @onready var _annulla: Button = %Annulla
 @onready var _statistiche: Label = %Statistiche
+@onready var _bottone_statistiche: Button = %BottoneStatistiche
 
 
 func _ready() -> void:
@@ -39,6 +45,7 @@ func _ready() -> void:
 
 	_ore.value_changed.connect(_on_durata_cambiata)
 	_minuti.value_changed.connect(_on_durata_cambiata)
+	_bottone_statistiche.pressed.connect(statistiche_richieste.emit)
 	_avvia.pressed.connect(_on_avvia_premuto)
 	_pausa.pressed.connect(_on_pausa_premuto)
 	_annulla.pressed.connect(_on_annulla_premuto)
@@ -62,21 +69,26 @@ func _ready() -> void:
 func _on_avvia_premuto() -> void:
 	if _timer.state == FocusTimer.State.PAUSED:
 		_timer.resume()
+		Sfx.suona("avvio")
 		return
 	var durata := _durata_impostata()
 	if durata <= 0.0:
 		_stato.text = "Imposta almeno un minuto."
+		Sfx.suona("errore")
 		return
 	_timer.start(durata)
+	Sfx.suona("avvio")
 	_stato.text = "Focus in corso. Buon lavoro."
 
 
 func _on_pausa_premuto() -> void:
 	if _timer.state == FocusTimer.State.RUNNING:
 		_timer.pause()
+		Sfx.suona("pausa")
 		_stato.text = "In pausa. Il tempo non scorre."
 	elif _timer.state == FocusTimer.State.PAUSED:
 		_timer.resume()
+		Sfx.suona("avvio")
 		_stato.text = "Focus in corso."
 
 
@@ -96,6 +108,10 @@ func _on_tick(remaining: float, elapsed: float) -> void:
 
 
 func _on_finita(elapsed: float) -> void:
+	Sfx.suona("fine")
+	# Un timer di concentrazione si usa guardando altrove: se la finestra e'
+	# dietro a quella in cui stavi lavorando, la campana da sola non basta.
+	DisplayServer.window_request_attention()
 	_registra_sessione(elapsed, true)
 	_mostra_tempo(_durata_impostata(), 0.0)
 
@@ -124,15 +140,40 @@ func _registra_sessione(secondi: float, completata: bool) -> void:
 		paga = Config.credits_on_early_stop and secondi >= float(Config.min_session_seconds)
 
 	if not paga:
-		_stato.text = "Interrotta dopo %s: troppo poco per essere accreditata." % _formatta(secondi)
+		Sfx.suona("errore")
+		_stato.text = "Interrotta dopo %s: troppo poco per essere accreditata." % Durata.orologio(secondi)
 		return
 
 	var guadagnati := SaveManager.register_focus_session(secondi)
-	var durata_testo := _formatta(secondi)
+	var durata_testo := Durata.orologio(secondi)
+	if not completata:
+		# A sessione finita suona gia' la campana: due suoni insieme sarebbero
+		# uno solo, confuso.
+		Sfx.suona("credito")
 	if completata:
 		_stato.text = "Sessione completata: %s di focus, +%d crediti." % [durata_testo, guadagnati]
 	else:
 		_stato.text = "Interrotta a %s: +%d crediti per il tempo svolto." % [durata_testo, guadagnati]
+
+
+## Chiude una sessione in corso pagando il tempo svolto, come il pulsante
+## Termina. La chiama Main quando si esce dall'app: chiudere la finestra non e'
+## un buon motivo per perdere mezz'ora di lavoro vero.
+func chiudi_la_sessione() -> void:
+	if not _timer.is_active():
+		return
+	_registra_sessione(_timer.stop(), false)
+
+
+## Butta via la sessione in corso senza accreditare niente. La chiama Main
+## quando si ricomincia da capo: quel tempo apparteneva a una partita che non
+## esiste piu'.
+func abbandona_la_sessione() -> void:
+	if not _timer.is_active():
+		return
+	_timer.stop()
+	_mostra_tempo(_durata_impostata(), 0.0)
+	_stato.text = "Imposta una durata e comincia."
 
 
 func _durata_impostata() -> float:
@@ -140,7 +181,7 @@ func _durata_impostata() -> float:
 
 
 func _mostra_tempo(remaining: float, elapsed: float) -> void:
-	_tempo.text = _formatta(remaining)
+	_tempo.text = Durata.orologio(remaining)
 	var totale := elapsed + remaining
 	_progresso.value = (elapsed / totale) * 100.0 if totale > 0.0 else 0.0
 
@@ -157,10 +198,13 @@ func _aggiorna_comandi() -> void:
 
 
 func _aggiorna_statistiche() -> void:
-	_statistiche.text = "%d sessioni · %s di focus totale" % [
-		SaveManager.sessions_completed,
-		_formatta_lungo(SaveManager.total_focus_seconds),
-	]
+	var righe := PackedStringArray()
+	righe.append("%d sessioni" % SaveManager.sessions_completed)
+	righe.append("%s di focus totale" % Durata.discorsiva(SaveManager.total_focus_seconds))
+	var streak := SaveManager.streak_attuale()
+	if streak > 0:
+		righe.append("%d %s di fila" % [streak, "giorno" if streak == 1 else "giorni"])
+	_statistiche.text = " · ".join(righe)
 
 
 func _costruisci_preset() -> void:
@@ -175,24 +219,3 @@ func _imposta_durata(minuti_totali: int) -> void:
 	_ore.value = minuti_totali / 60
 	_minuti.value = minuti_totali % 60
 
-
-# --- Formattazione ----------------------------------------------------------
-
-## Countdown grande: mm:ss, oppure h:mm:ss oltre l'ora.
-static func _formatta(secondi: float) -> String:
-	var totale := int(ceil(maxf(0.0, secondi)))
-	var h := totale / 3600
-	var m := (totale % 3600) / 60
-	var s := totale % 60
-	if h > 0:
-		return "%d:%02d:%02d" % [h, m, s]
-	return "%02d:%02d" % [m, s]
-
-
-## Statistiche: "12h 34m", oppure "34m" sotto l'ora.
-static func _formatta_lungo(secondi: int) -> String:
-	var h := secondi / 3600
-	var m := (secondi % 3600) / 60
-	if h > 0:
-		return "%dh %02dm" % [h, m]
-	return "%dm" % m

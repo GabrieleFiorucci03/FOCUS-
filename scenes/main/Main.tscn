@@ -10,12 +10,13 @@ script = ExtResource("1_main")
 [node name="Interfaccia" type="CanvasLayer" parent="."]
 
 [node name="Modalita" type="HBoxContainer" parent="Interfaccia"]
+unique_name_in_owner = true
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -110.0
+offset_left = -166.0
 offset_top = 26.0
-offset_right = 110.0
+offset_right = 166.0
 offset_bottom = 60.0
 grow_horizontal = 2
 theme_override_constants/separation = 6
@@ -35,3 +36,28 @@ custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 toggle_mode = true
 text = "Città"
+
+[node name="Separatore" type="VSeparator" parent="Interfaccia/Modalita"]
+layout_mode = 2
+
+[node name="Menu" type="Button" parent="Interfaccia/Modalita"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+text = "Menu"
+
+[node name="Sovrapposizioni" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="Velo" type="CanvasLayer" parent="."]
+layer = 20
+
+[node name="Dissolvenza" type="ColorRect" parent="Velo"]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.0705882, 0.0941176, 0.117647, 0)

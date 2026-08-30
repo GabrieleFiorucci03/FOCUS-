@@ -1,0 +1,111 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/main_menu.gd" id="1_menu"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_menu")
+
+[node name="Sfondo" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0705882, 0.0941176, 0.117647, 1)
+
+[node name="Centro" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Colonna" type="VBoxContainer" parent="Centro"]
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Titolo" type="Label" parent="Centro/Colonna"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "FOCUS!"
+horizontal_alignment = 1
+
+[node name="Sottotitolo" type="Label" parent="Centro/Colonna"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.545098, 0.588235, 0.639216, 1)
+text = "Il tempo che passi a concentrarti diventa una città."
+horizontal_alignment = 1
+
+[node name="Riepilogo" type="Label" parent="Centro/Colonna"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.180392, 0.768627, 0.713726, 1)
+text = "Nessuna partita: la città è tutta da fare."
+horizontal_alignment = 1
+
+[node name="Spazio" type="Control" parent="Centro/Colonna"]
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+
+[node name="Gioca" type="Button" parent="Centro/Colonna"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(320, 52)
+layout_mode = 2
+text = "Comincia"
+
+[node name="Statistiche" type="Button" parent="Centro/Colonna"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(320, 40)
+layout_mode = 2
+text = "Statistiche"
+
+[node name="Nuova" type="Button" parent="Centro/Colonna"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(320, 40)
+layout_mode = 2
+text = "Nuova città"
+
+[node name="Esci" type="Button" parent="Centro/Colonna"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(320, 40)
+layout_mode = 2
+text = "Esci"
+
+[node name="SpazioAudio" type="Control" parent="Centro/Colonna"]
+custom_minimum_size = Vector2(0, 14)
+layout_mode = 2
+
+[node name="RigaAudio" type="HBoxContainer" parent="Centro/Colonna"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="EtichettaVolume" type="Label" parent="Centro/Colonna/RigaAudio"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.545098, 0.588235, 0.639216, 1)
+theme_override_font_sizes/font_size = 12
+text = "Volume"
+vertical_alignment = 1
+
+[node name="Volume" type="HSlider" parent="Centro/Colonna/RigaAudio"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.05
+value = 0.8
+
+[node name="Muto" type="CheckButton" parent="Centro/Colonna/RigaAudio"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Muto"

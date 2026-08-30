@@ -1,0 +1,25 @@
+[gd_resource type="StyleBoxFlat" format=3]
+
+; Il fondo dei pannelli che stanno davanti a qualcos'altro: il negozio sopra il
+; mondo 3D, le statistiche sopra il countdown. Uno solo per tutti e due, perche'
+; devono somigliarsi. Opaco di proposito: col fondo semitrasparente del tema di
+; serie il terreno passava attraverso i prezzi, e il countdown attraverso le
+; statistiche. Un pannello che sta davanti a qualcosa deve stare davvero davanti.
+
+[resource]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.101961, 0.129412, 0.160784, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 0.09)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 0.35)
+shadow_size = 14

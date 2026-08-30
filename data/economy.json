@@ -1,36 +1,38 @@
 {
-	"_commento": "Tutti i numeri dell'economia. Modifica qui e riavvia l'app: non serve toccare il codice.",
+	"_commento": "Tutti i numeri dell'economia. Modifica qui e riavvia l'app: non serve toccare il codice. Per vedere che effetto fa un prezzo: python tools/balance/simula_economia.py",
 
-	"credits_per_hour": 10.0,
+	"_commento_guadagno": "24 crediti l'ora vuol dire che un credito vale due minuti e mezzo di concentrazione. E' la costante che traduce i prezzi qui sotto in tempo, e l'unica ragione per cui vale proprio 24 e' che la sessione piu' corta dell'app, 25 minuti, deve bastare a comprare una casa: il primo premio dev'essere un edificio, non due alberi.",
+	"credits_per_hour": 24.0,
 	"credits_on_early_stop": true,
 	"min_session_seconds": 60,
 
 	"_commento_prezzi": "Un prezzo per tipo di oggetto: la chiave e' il campo 'kind' di assets/models/generated/catalog.json. Un tipo non elencato costa price_default. I sostegni dei ponti non sono in vendita: nascono da soli sotto le campate.",
-	"price_default": 10,
+	"_commento_scala": "I prezzi sono scelti come tempo e poi moltiplicati per 24: albero 5 minuti, strada 7 e mezzo, casa 25, villa e palazzina un'ora e un quarto, scuola tre ore, palazzone quattro, torre cinque. Due estremi che stanno a 1 a 60, cosi' una torre resta un traguardo di giorni mentre ogni singola sessione paga comunque qualcosa da posare.",
+	"price_default": 24,
 	"prices": {
 		"tree": 2,
 		"road": 3,
 		"sloped_road": 4,
-		"park": 6,
-		"house": 8,
-		"bridge": 10,
-		"shop": 12,
-		"agriculture": 14,
-		"villa": 16,
-		"service": 20,
-		"sport": 22,
-		"apartment": 25,
-		"office": 28,
-		"utility": 30,
-		"factory": 32,
-		"school": 35,
-		"slab": 40,
-		"tower": 45
+		"park": 10,
+		"house": 10,
+		"bridge": 12,
+		"shop": 18,
+		"agriculture": 20,
+		"villa": 30,
+		"apartment": 30,
+		"service": 36,
+		"sport": 40,
+		"office": 48,
+		"utility": 54,
+		"factory": 60,
+		"school": 72,
+		"slab": 96,
+		"tower": 120
 	},
 
 	"_commento_rimborso": "Quanto torna indietro demolendo: 0.5 = meta' del prezzo, arrotondata per difetto.",
 	"refund_ratio": 0.5,
 
-	"_commento_terreno": "Quanto costa alzare o abbassare una cella di un gradino (0,5 m). Non si rimborsa: rimettere il terreno com'era e' un lavoro come scavarlo. Da bilanciare.",
-	"terrain_cost_per_level": 1
+	"_commento_terreno": "Quanto costa alzare o abbassare una cella di un gradino (0,5 m): quanto piantare un albero, che e' il paragone giusto per mezzo metro cubo di terra spostato. Non si rimborsa, perche' rimettere il terreno com'era e' un lavoro come scavarlo.",
+	"terrain_cost_per_level": 2
 }

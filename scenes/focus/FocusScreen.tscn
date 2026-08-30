@@ -42,6 +42,7 @@ theme_override_constants/separation = 18
 
 [node name="BarraSuperiore" type="HBoxContainer" parent="Margini/Colonna"]
 layout_mode = 2
+theme_override_constants/separation = 12
 
 [node name="Titolo" type="Label" parent="Margini/Colonna/BarraSuperiore"]
 layout_mode = 2
@@ -49,6 +50,13 @@ size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 24
 text = "FOCUS!"
 vertical_alignment = 1
+
+[node name="BottoneStatistiche" type="Button" parent="Margini/Colonna/BarraSuperiore"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 34)
+layout_mode = 2
+size_flags_vertical = 4
+text = "Statistiche"
 
 [node name="Crediti" type="Label" parent="Margini/Colonna/BarraSuperiore"]
 unique_name_in_owner = true

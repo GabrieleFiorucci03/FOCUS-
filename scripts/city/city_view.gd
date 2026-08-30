@@ -52,6 +52,7 @@ enum Attrezzo { ALZA, ABBASSA, LIVELLA }
 @onready var _interfaccia: CanvasLayer = $Interfaccia
 @onready var _negozio: ShopPanel = %Negozio
 @onready var _aiuto: Label = %Aiuto
+@onready var _messaggio_label: Label = %Messaggio
 
 var griglia: CityGrid
 var terreno: CityTerrain
@@ -463,6 +464,7 @@ func _livello_impalcato(celle: Array[Vector2i]) -> int:
 # --- Modalità ---------------------------------------------------------------
 
 func _on_voce_scelta(id: String) -> void:
+	Sfx.suona("clic")
 	_modo = Modo.PIAZZA
 	_scelto = id
 	_rotazione = 0
@@ -472,6 +474,7 @@ func _on_voce_scelta(id: String) -> void:
 
 
 func _on_strumento_scelto(strumento: String) -> void:
+	Sfx.suona("clic")
 	if strumento.is_empty():
 		_torna_a_navigare()
 		return
@@ -528,11 +531,13 @@ func _conferma() -> void:
 		return
 
 	if not bool(_esito.get("valido", false)):
+		Sfx.suona("errore")
 		_messaggio(str(_esito.get("motivo", "")))
 		return
 
 	var prezzo := catalogo.prezzo(_scelto)
 	if not SaveManager.try_spend(prezzo):
+		Sfx.suona("errore")
 		_messaggio("Servono %d crediti, ne hai %d. Torna a fare focus." % [prezzo, SaveManager.credits])
 		return
 
@@ -541,12 +546,14 @@ func _conferma() -> void:
 		# Non è stato costruito niente: i crediti non si tengono.
 		SaveManager.add_credits(prezzo)
 		SaveManager.save_game()
+		Sfx.suona("errore")
 		_messaggio("Non si riesce a costruire qui.")
 		return
 
 	if catalogo.regola(_scelto) == CityCatalog.Regola.TERRA:
 		_segna_le_quote_del_lotto(_esito["celle"])
 	SaveManager.add_tile(_ancora, _scelto, _rotazione, livello)
+	Sfx.suona("posa")
 	_messaggio("%s: -%d crediti." % [catalogo.voce(_scelto)["nome"], prezzo])
 	_aggiorna_bersaglio()
 
@@ -554,6 +561,7 @@ func _conferma() -> void:
 func _demolisci_sotto_il_cursore() -> void:
 	var occupante := griglia.occupante(_cella)
 	if occupante.is_empty():
+		Sfx.suona("errore")
 		_messaggio("Qui non c'è niente da demolire.")
 		return
 
@@ -576,6 +584,7 @@ func _demolisci_sotto_il_cursore() -> void:
 	SaveManager.add_credits(rimborso)
 	SaveManager.save_game()
 
+	Sfx.suona("demolisci")
 	_messaggio("%s demolita: +%d crediti. Il lotto resta spianato." % [
 		catalogo.voce(id_modello)["nome"], rimborso
 	])
@@ -616,6 +625,10 @@ func _valuta_terreno(cella: Vector2i) -> Dictionary:
 	if not griglia.occupante(cella).is_empty():
 		esito["motivo"] = "Sotto una costruzione il terreno non si tocca: demolisci prima."
 		return esito
+	var impegnato := _terreno_impegnato(cella)
+	if not impegnato.is_empty():
+		esito["motivo"] = impegnato
+		return esito
 	if not terreno.dislivello_accettabile(cella, nuovo):
 		esito["motivo"] = "Con una cella vicina il salto passerebbe i %d gradini." % CityTerrain.DISLIVELLO_MASSIMO
 		return esito
@@ -629,10 +642,70 @@ func _valuta_terreno(cella: Vector2i) -> Dictionary:
 	return esito
 
 
+## Se una costruzione vicina ha bisogno di questa cella cosi' com'e'.
+##
+## Proteggere la cella sotto un edificio non basta: ponti e rampe si agganciano
+## a quello che hanno accanto, e la loro quota viene decisa al piazzamento e poi
+## non si muove piu'. Alzare la sponda di un metro lascerebbe la campata a
+## mezz'aria, e la rampa che ci saliva punterebbe in mezzo al nulla — tutto
+## senza un messaggio, perche' il terreno da solo non sa cosa regge.
+##
+## Restituisce il motivo del rifiuto, oppure "" se la cella e' libera di
+## muoversi.
+func _terreno_impegnato(cella: Vector2i) -> String:
+	for direzione in CityTerrain.VICINI:
+		var vicina: Vector2i = cella + direzione
+		if not griglia.in_griglia(vicina):
+			continue
+		var occupante := griglia.occupante(vicina)
+		if occupante.is_empty():
+			continue
+		match catalogo.regola(str(occupante["modello"])):
+			CityCatalog.Regola.PONTE:
+				# La sponda di una campata sta esattamente un gradino sotto
+				# l'impalcato: se questa cella e' li', e' quella che lo regge.
+				var id_piazzamento := int(occupante["id"])
+				if not _costruzioni.has(id_piazzamento):
+					continue
+				var impalcato := int(_costruzioni[id_piazzamento]["livello"])
+				if terreno.costruibile(cella) and terreno.livello(cella) == impalcato - 1:
+					return "Di qui una campata prende la sponda: demolisci il ponte prima."
+			CityCatalog.Regola.RAMPA:
+				if _rampa_sale_verso(occupante, cella):
+					return "Una rampa sale proprio qui: demoliscila prima."
+			_:
+				continue
+	return ""
+
+
+## Se il lato alto di quella rampa affaccia proprio su questa cella.
+##
+## Stesso conto che fa _quota_oltre quando la rampa viene posata, guardato
+## dall'altra parte: li' si cerca la quota di la', qui si chiede se il "di la'"
+## e' questa cella.
+func _rampa_sale_verso(occupante: Dictionary, cella: Vector2i) -> bool:
+	var voce := catalogo.voce(str(occupante["modello"]))
+	if voce.is_empty():
+		return false
+	var rotazione := int(occupante["rotazione"])
+	var passo := CityCatalog.ruota_passo(voce["passo_alto"], rotazione)
+	if passo == Vector2i.ZERO:
+		return false
+	var celle := griglia.celle_occupate(occupante["ancora"], voce["footprint"], rotazione)
+	var estremo := -0x7FFFFFFF
+	for c in celle:
+		estremo = maxi(estremo, c.x * passo.x + c.y * passo.y)
+	for c in celle:
+		if c.x * passo.x + c.y * passo.y == estremo and c + passo == cella:
+			return true
+	return false
+
+
 func _modella_sotto_il_cursore() -> void:
 	# Il primo clic del livellatore non muove niente: prende la quota da copiare.
 	if _attrezzo == Attrezzo.LIVELLA and _quota_riferimento < 0:
 		_quota_riferimento = terreno.livello(_cella)
+		Sfx.suona("clic")
 		_messaggio("Quota presa: %.1f m. Ora clicca dove portarla." % [
 			float(_quota_riferimento) * CityTerrain.PASSO_QUOTA
 		])
@@ -641,11 +714,13 @@ func _modella_sotto_il_cursore() -> void:
 
 	var esito := _valuta_terreno(_cella)
 	if not bool(esito["valido"]):
+		Sfx.suona("errore")
 		_messaggio(str(esito["motivo"]))
 		return
 
 	var costo := int(esito["costo"])
 	if costo > 0 and not SaveManager.try_spend(costo):
+		Sfx.suona("errore")
 		_messaggio("Servono %d crediti, ne hai %d." % [costo, SaveManager.credits])
 		return
 
@@ -655,6 +730,7 @@ func _modella_sotto_il_cursore() -> void:
 	_registra_quota(_cella)
 	SaveManager.save_game()
 
+	Sfx.suona("terreno")
 	_messaggio("Terreno a %.1f m: -%d crediti." % [
 		float(esito["livello"]) * CityTerrain.PASSO_QUOTA, costo
 	])
@@ -774,11 +850,12 @@ func _messaggio(testo: String) -> void:
 	_aggiorna_aiuto()
 
 
+## Due righe e non una: il suggerimento e' sempre lo stesso e sta in fondo, il
+## messaggio cambia e sta sopra. Su una riga sola il riepilogo di un mondo
+## appena nato arrivava a toccare tutti e due i bordi dello schermo.
 func _aggiorna_aiuto() -> void:
-	var pezzi := PackedStringArray([_suggerimento()])
-	if not _messaggio_corrente.is_empty():
-		pezzi.append(_messaggio_corrente)
-	_aiuto.text = "      ".join(pezzi)
+	_aiuto.text = _suggerimento()
+	_messaggio_label.text = _messaggio_corrente
 
 
 func _suggerimento() -> String:
