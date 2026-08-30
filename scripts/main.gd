@@ -48,6 +48,11 @@ var _in_transizione: bool = false
 
 
 func _ready() -> void:
+	# Sotto questa misura il negozio comincerebbe a mangiarsi la citta e il
+	# pannello statistiche non ci starebbe piu dentro. Meglio non permetterlo
+	# che lasciar rimpicciolire la finestra fino a rompere il gioco.
+	get_window().min_size = Vector2i(1024, 640)
+
 	_focus = SCENA_FOCUS.instantiate()
 	_citta = SCENA_CITTA.instantiate()
 	_schermate.add_child(_focus)

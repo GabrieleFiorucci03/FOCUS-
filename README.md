@@ -136,17 +136,44 @@ I nomi italiani, gli scaffali e le regole di piazzamento stanno a parte, in
 [`data/catalog.json`](data/catalog.json): la pipeline riscrive il proprio
 catalogo a ogni rigenerazione, e quello del gioco non deve finirci sotto.
 
-## Provalo
+## Scaricalo
 
-Serve **Godot 4.x** (versione standard, non .NET). Blender serve solo se vuoi
-rigenerare gli asset.
+Windows a 64 bit: prendi `FOCUS.exe` dall'ultima
+[release](https://github.com/GabrieleFiorucci03/FOCUS-/releases). È **un file
+solo** e non si installa niente — lo metti dove vuoi e ci clicchi sopra.
+
+> [!IMPORTANT]
+> La prima volta Windows dirà **"Windows ha protetto il PC"**. Capita a
+> qualunque eseguibile non firmato con un certificato a pagamento, che per un
+> progetto libero non ha molto senso comprare. Clicca *Ulteriori informazioni*
+> → *Esegui comunque*. Se non ti fidi — e fai bene a non fidarti di un `.exe`
+> preso da internet — il codice è tutto qui e te lo puoi compilare da solo in
+> due comandi, qui sotto.
+
+La partita finisce in `%APPDATA%\Godot\app_userdata\FOCUS!\`, non accanto
+all'eseguibile: puoi spostare o riscaricare il `.exe` e la città resta dov'è.
+
+## Compilarlo da te
+
+Serve **Godot 4.7** (versione standard, non .NET) e i suoi modelli di
+esportazione, che l'editor scarica da *Editor → Gestisci modelli di
+esportazione*. Blender serve solo se vuoi rigenerare i modelli 3D.
 
 ```bash
 git clone https://github.com/GabrieleFiorucci03/FOCUS-.git
 ```
 
-Apri la cartella con Godot e premi `F5`. Al primo avvio l'engine importa i 91
-`.glb`, ci mette una ventina di secondi.
+Apri la cartella con Godot e premi `F5` per giocarci subito. Al primo avvio
+l'engine importa i 91 `.glb`, ci mette una ventina di secondi. Per costruire
+l'eseguibile:
+
+```bash
+godot --headless --export-release "Windows Desktop" build/windows/FOCUS.exe
+```
+
+Le impostazioni stanno in [`export_presets.cfg`](export_presets.cfg), versionato
+apposta: non contiene credenziali e documenta com'è fatta la build. Il `.pck`
+finisce dentro l'eseguibile, che infatti è uno solo.
 
 ## Roadmap
 

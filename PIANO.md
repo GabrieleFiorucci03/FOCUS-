@@ -488,6 +488,36 @@ attraverso le cifre, le colonne dei giorni vuoti sembravano giornate grigie
 invece che giornate assenti, e la riga di stato della città finiva sotto il
 negozio.
 
+## Distribuzione
+
+Le cinque fasi facevano un progetto; questo lo rende un'app che si può dare a
+qualcuno.
+
+- **Un file solo.** `binary_format/embed_pck` mette i dati dentro
+  l'eseguibile: si scarica `FOCUS.exe` e basta, niente cartella da tenere
+  insieme e niente installer da far girare.
+- **`export_presets.cfg` è versionato**, contro l'abitudine del `.gitignore` che
+  Godot suggerisce. Quel consiglio serve a non pubblicare credenziali di firma:
+  qui non ce ne sono, e il preset documenta come si costruisce la build. La
+  cartella `build/` invece resta fuori.
+- **L'icona nasce dallo stesso script del `.svg`.**
+  `tools/icon/genera_icona.py` scrive tutti e due i file dalle stesse misure:
+  Godot vuole l'SVG per il progetto, Windows vuole un `.ico` con sei
+  risoluzioni dentro. Due formati, una geometria sola — cambiare un colore in
+  uno e scordarselo nell'altro non è possibile. Da Godot 4.7 non serve più
+  `rcedit`: icona e informazioni di versione le scrive l'esportatore.
+- **La LICENSE viaggia dentro il pacchetto** (`include_filter`). La GPL chiede
+  che il testo accompagni il binario, e un eseguibile unico non può avere un
+  file di licenza accanto per caso.
+- **Il salvataggio sta in `%APPDATA%`, non accanto all'eseguibile.** Era già
+  così dalla Fase 1 (`user://`), e adesso ha una conseguenza visibile: si può
+  sostituire il `.exe` con una versione nuova senza perdere la città.
+- **Non c'è firma digitale.** Un certificato costa qualche centinaio di euro
+  l'anno e non ha senso per un progetto libero, quindi Windows mostrerà
+  SmartScreen al primo avvio. Il README lo dice prima che succeda, e ricorda che
+  chi non si fida può compilarselo da sé in due comandi: è la risposta onesta,
+  ed è anche il motivo per cui il codice è aperto.
+
 ## Prossimo passo
 
 Le cinque fasi sono chiuse: il giro è completo e rifinito. Quello che resta

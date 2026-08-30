@@ -8,6 +8,7 @@ config_version=5
 config/name="FOCUS!"
 config/description="Timer di concentrazione che premia il tempo di focus con crediti da spendere per costruire una citta 3D."
 run/main_scene="res://scenes/main/Main.tscn"
+config/version="1.0.0"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -22,6 +23,7 @@ Sfx="*res://scripts/autoload/sfx.gd"
 window/size/viewport_width=1280
 window/size/viewport_height=720
 window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
 
 [rendering]
 

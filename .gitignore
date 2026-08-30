@@ -1,8 +1,12 @@
 # Cache e import di Godot 4
 .godot/
 /android/
-export_presets.cfg
 *.translation
+
+# L'eseguibile costruito: si scarica dalle release, non si versiona.
+# export_presets.cfg invece resta tracciato: non contiene credenziali e
+# documenta come si costruisce la build.
+/build/
 
 # Pipeline Blender
 __pycache__/
