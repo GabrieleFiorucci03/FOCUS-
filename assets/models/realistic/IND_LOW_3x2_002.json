@@ -1,0 +1,22 @@
+{
+  "id": "IND_LOW_3x2_002",
+  "kind": "factory",
+  "footprint": [
+    3,
+    2
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 3.262,
+  "min_z": 0.0,
+  "max_z": 3.262,
+  "triangles": 2900,
+  "seed": 802,
+  "model": "IND_LOW_3x2_002.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 1001,
+  "variant": "warehouse",
+  "style_variant": "realistic_preview_v1",
+  "source_asset_id": "IND_LOW_3x2_002"
+}

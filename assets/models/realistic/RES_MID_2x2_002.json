@@ -1,0 +1,21 @@
+{
+  "id": "RES_MID_2x2_002",
+  "kind": "apartment",
+  "footprint": [
+    2,
+    2
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 3.663,
+  "min_z": 0.0,
+  "max_z": 3.663,
+  "triangles": 15180,
+  "seed": 202,
+  "model": "RES_MID_2x2_002.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 1001,
+  "style_variant": "realistic_preview_v1",
+  "source_asset_id": "RES_MID_2x2_002"
+}

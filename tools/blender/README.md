@@ -90,3 +90,26 @@ blender --background --python tools/blender/render_transport_demo.py
 
 Il generatore e deterministico: lo stesso ID e seed producono lo stesso asset.
 Le specifiche sono centralizzate in `focus_asset_specs.py`.
+
+## Variante realistica sperimentale
+
+La variante realistica riusa gli stessi 91 ID, footprint, seed, orientamento e
+collisioni del kit principale, ma applica materiali meno saturi, primitive piu
+morbide e un livello aggiuntivo di dettagli architettonici e infrastrutturali.
+Non sovrascrive il kit usato dal gioco: gli output finiscono in
+`assets/models/realistic/` e le tavole in `assets/previews/realistic/`.
+
+```powershell
+./tools/blender/generate_realistic_assets.ps1
+blender --background --python tools/blender/render_realistic_catalog.py
+```
+
+Per rigenerare un solo modello durante l'iterazione:
+
+```powershell
+./tools/blender/generate_realistic_assets.ps1 -Asset RES_LOW_1x1_001
+```
+
+Questa libreria e intenzionalmente separata e non e ancora referenziata da
+`data/catalog.json` o dalle scene Godot. La sostituzione puo quindi avvenire in
+un secondo momento, dopo la valutazione visiva e prestazionale.

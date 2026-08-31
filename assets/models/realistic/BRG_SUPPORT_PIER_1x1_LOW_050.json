@@ -1,0 +1,23 @@
+{
+  "id": "BRG_SUPPORT_PIER_1x1_LOW_050",
+  "kind": "bridge_support",
+  "footprint": [
+    1,
+    1
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 0.5,
+  "min_z": 0.0,
+  "max_z": 0.5,
+  "triangles": 952,
+  "seed": 1711,
+  "model": "BRG_SUPPORT_PIER_1x1_LOW_050.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 1001,
+  "variant": "pier",
+  "support_height": 0.5,
+  "style_variant": "realistic_preview_v1",
+  "source_asset_id": "BRG_SUPPORT_PIER_1x1_LOW_050"
+}

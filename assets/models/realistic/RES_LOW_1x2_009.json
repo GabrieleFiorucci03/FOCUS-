@@ -1,0 +1,22 @@
+{
+  "id": "RES_LOW_1x2_009",
+  "kind": "house",
+  "footprint": [
+    1,
+    2
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 2.1,
+  "min_z": -0.0,
+  "max_z": 2.1,
+  "triangles": 4154,
+  "seed": 109,
+  "model": "RES_LOW_1x2_009.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 1001,
+  "feature": "porch",
+  "style_variant": "realistic_preview_v1",
+  "source_asset_id": "RES_LOW_1x2_009"
+}

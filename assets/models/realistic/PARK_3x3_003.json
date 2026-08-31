@@ -1,0 +1,22 @@
+{
+  "id": "PARK_3x3_003",
+  "kind": "park",
+  "footprint": [
+    3,
+    3
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 1.132,
+  "min_z": -0.004,
+  "max_z": 1.128,
+  "triangles": 3120,
+  "seed": 903,
+  "model": "PARK_3x3_003.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 1001,
+  "variant": "plaza",
+  "style_variant": "realistic_preview_v1",
+  "source_asset_id": "PARK_3x3_003"
+}

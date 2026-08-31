@@ -1,0 +1,22 @@
+{
+  "id": "UTIL_WATER_2x2_001",
+  "kind": "utility",
+  "footprint": [
+    2,
+    2
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 3.705,
+  "min_z": 0.0,
+  "max_z": 3.705,
+  "triangles": 978,
+  "seed": 1502,
+  "model": "UTIL_WATER_2x2_001.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 1001,
+  "variant": "water",
+  "style_variant": "realistic_preview_v1",
+  "source_asset_id": "UTIL_WATER_2x2_001"
+}

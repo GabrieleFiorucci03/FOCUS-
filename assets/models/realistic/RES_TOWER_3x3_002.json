@@ -1,0 +1,22 @@
+{
+  "id": "RES_TOWER_3x3_002",
+  "kind": "tower",
+  "footprint": [
+    3,
+    3
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 13.025,
+  "min_z": 0.0,
+  "max_z": 13.025,
+  "triangles": 5196,
+  "seed": 502,
+  "model": "RES_TOWER_3x3_002.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 1001,
+  "shape": "setback",
+  "style_variant": "realistic_preview_v1",
+  "source_asset_id": "RES_TOWER_3x3_002"
+}

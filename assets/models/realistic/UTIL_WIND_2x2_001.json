@@ -1,0 +1,22 @@
+{
+  "id": "UTIL_WIND_2x2_001",
+  "kind": "utility",
+  "footprint": [
+    2,
+    2
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 4.875,
+  "min_z": 0.0,
+  "max_z": 4.875,
+  "triangles": 908,
+  "seed": 1501,
+  "model": "UTIL_WIND_2x2_001.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 1001,
+  "variant": "wind",
+  "style_variant": "realistic_preview_v1",
+  "source_asset_id": "UTIL_WIND_2x2_001"
+}

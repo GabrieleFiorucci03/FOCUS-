@@ -169,6 +169,12 @@ invece che indovinando. Nei conti della città, cliccando un servizio si accende
 in verde il territorio che copre e in rosso le case che restano fuori: il rosso
 dice che c'è un problema, il verde dice dove mettere il prossimo.
 
+**Il mondo è una scacchiera di zone**, e all'inizio ne è tua una sola: le altre
+si comprano con lo strumento *Espandi*, purché confinino con una che hai già, e
+il prezzo cresce a ogni zona presa. Fuori dalle tue zone non si costruisce e non
+si scava, ma si vede lo stesso — sotto un velo scuro e non opaco, perché la
+collina che potresti comprare devi poterla guardare.
+
 **E poi c'è il badile.** Alza, abbassa e livella spostano il suolo di mezzo
 metro per volta, a un credito a gradino e senza rimborso. Sotto una costruzione
 il terreno non si tocca — demolisci prima — e fra due celle vicine il salto non

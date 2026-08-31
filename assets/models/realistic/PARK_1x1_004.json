@@ -1,0 +1,22 @@
+{
+  "id": "PARK_1x1_004",
+  "kind": "park",
+  "footprint": [
+    1,
+    1
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 1.182,
+  "min_z": -0.004,
+  "max_z": 1.178,
+  "triangles": 2670,
+  "seed": 904,
+  "model": "PARK_1x1_004.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 1001,
+  "variant": "pocket",
+  "style_variant": "realistic_preview_v1",
+  "source_asset_id": "PARK_1x1_004"
+}

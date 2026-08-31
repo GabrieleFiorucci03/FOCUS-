@@ -1,0 +1,22 @@
+{
+  "id": "RES_HIGH_2x3_002",
+  "kind": "slab",
+  "footprint": [
+    2,
+    3
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 7.082,
+  "min_z": 0.0,
+  "max_z": 7.082,
+  "triangles": 29260,
+  "seed": 302,
+  "model": "RES_HIGH_2x3_002.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 1001,
+  "shape": "offset",
+  "style_variant": "realistic_preview_v1",
+  "source_asset_id": "RES_HIGH_2x3_002"
+}

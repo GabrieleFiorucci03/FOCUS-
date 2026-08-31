@@ -1048,49 +1048,278 @@ quell'area si vede.
 | Una casa in mano | nessuna area, perché non è un presidio |
 | Uscire dal cantiere | l'area sparisce con lui |
 
+## Un mondo più credibile, e più grande di quello che si vede
+
+L'ultima voce del piano, ed erano due lavori: come è fatto il mondo, e quanto
+ne è tuo.
+
+### Il paesaggio
+
+Il rilievo nasce da **tre rumori che fanno tre mestieri diversi**, invece che da
+uno solo smorzato verso il centro.
+
+- **La forma del continente** è rumore a bassa frequenza. Prima era una distanza
+  dal centro — un cerchio — e si vedeva: la costa era una curva di livello.
+  Adesso la discesa verso i bordi serve solo a garantire che il mare chiuda la
+  mappa, e dentro quel vincolo la costa fa promontori e insenature per conto
+  suo.
+- **Le colline** sono rumore frattale normale, che riempie l'entroterra di alti
+  e bassi morbidi.
+- **Le creste** sono rumore *ridged*, che invece di dossi tondi produce dorsali
+  che si diramano. Pesano come il quadrato della terra emersa: sulla costa non
+  se ne accorge nessuno, in cima cambiano tutto. È quello che distingue un
+  paesaggio da un mucchio di collinette.
+
+Poi passa **l'erosione termica**: dove il salto verso il vicino più basso supera
+il talus, la parete frana e il materiale si sposta di sotto. Non si lima, si
+sposta — che è la differenza fra erodere e smussare, e si vede: le valli si
+allargano verso il basso invece di restare incisioni a picco. Tre passate, su
+una copia che si applica alla fine di ciascuna, altrimenti l'ordine di scansione
+conterebbe e il versante a est verrebbe diverso da quello a ovest.
+
+E infine **piove**: un rumore suo, più largo di quello delle colline perché il
+clima cambia più lentamente del terreno, corretto dalla quota. L'umidità decide
+il bioma **prima** della quota, non dopo: se contasse solo sotto una certa
+altezza il mondo tornerebbe a essere colorato a fasce, che è esattamente quello
+che si voleva togliere. Un versante al riparo è secco che stia a cinque metri o
+a quaranta, e diventa **prateria** invece che prato.
+
+I numeri non sono stati scelti a occhio: una scena usa e getta stampa, per sei
+semi, quanta terra emerge, come si distribuiscono le quote e quanti biomi di
+ciascun tipo escono. La prima stesura faceva mondi al 27% di terra con una pila
+di celle appiattite contro il tetto delle quote; tre giri di taratura dopo, la
+terra è al 40% e le quote si spandono fra 4 e 8 senza saturare.
+
+### Le zone
+
+Il mondo è una **scacchiera di zone 32x32** — la vecchia misura del mondo
+intero, che adesso è il pezzo che si compra. Se ne possiede una all'inizio,
+quella al centro, e le altre si comprano con lo strumento **Espandi**.
+
+- **Si comprano solo le zone che confinano** con una già tua: serve a fare una
+  città sola invece di isole sparse.
+- **Il prezzo cresce a ogni zona presa** (120 crediti la prima, poi × 1,6):
+  allargarsi deve restare una scelta, non l'automatismo che si fa perché tanto
+  costa poco. Centoventi crediti sono cinque ore di concentrazione.
+- **Fuori dalle tue zone non si costruisce e non si scava**, e il rifiuto dice
+  perché e cosa fare.
+- **Quello che non è tuo si vede lo stesso**, sotto un velo scuro ma non opaco:
+  la collina che potresti comprare devi poterla vedere, è metà del motivo per
+  comprarla.
+
+**Un mondo grande e finito, non infinito.** Il piano diceva di generare il
+terreno da una funzione delle coordinate globali, così da poter aggiungere zone
+all'infinito. Si è fatta una cosa diversa e più semplice: il mondo intero — nove
+zone, 96x96 celle — si genera tutto insieme dal seme, come prima, e il giocatore
+ne possiede una parte. I confini fra zone combaciano perché non sono confini:
+è una griglia sola. E soprattutto l'erosione e i fiumi, che sono processi
+globali e non funzioni locali, continuano a girare su tutto il mondo senza
+margini di sovrapposizione né determinismo a blocchi — cioè senza la parte
+difficile. Nove volte l'area di prima sono abbastanza; se un giorno non lo
+saranno, la strada dell'infinito è ancora lì, e il costo di averla rimandata è
+zero.
+
+**Le partite vecchie restano quelle che erano.** Un salvataggio nato quando il
+mondo era una zona sola non ha nessuna zona scritta dentro: in quel caso sono
+sue tutte quelle che il suo mondo conteneva — cioè l'unica — e ci si continua a
+costruire come prima. Il terreno però si rigenera dal seme, e il seme adesso
+passa per un generatore diverso: **una città salvata prima di questa modifica si
+riapre su un paesaggio nuovo**. È il prezzo di non salvare il terreno, ed è lo
+stesso prezzo che si paga da sempre; solo che finora nessuno aveva cambiato il
+generatore.
+
+| Prova | Esito |
+|---|---|
+| Sei semi diversi | 40% di terra in media, quote spanse fra 4 e 8, prateria ovunque |
+| Partita nuova | mondo 3x3 zone da 32, una sola in mano, quella al centro |
+| Costruire in casa | si può; fuori dalle proprie zone no, e lo dice |
+| Il badile fuori zona | non lavora |
+| Zona accanto / propria / d'angolo / fuori mappa | comprabile solo la prima |
+| Comprare | scala i crediti, la aggiunge, e da lì in poi ci si costruisce |
+| La zona dopo | costa di più (192 contro 120) |
+| Senza crediti | non si compra |
+| Il velo | copre tutto quello che non è tuo |
+
+Guardati anche i frame veri: quattro mondi affiancati per vedere che
+l'algoritmo non è stato solo fortunato con un seme, e il mondo intero da lontano
+con due zone accese in mezzo a sette spente.
+
 ## Il piano per il prossimo giro
 
-### Un mondo più credibile, e più grande di quello che si vede
+### Il mondo infinito
 
-Due lavori che si tengono, e vanno fatti insieme perché il secondo vincola il
-primo.
+Oggi il mondo è una scacchiera di nove zone e finisce lì: comprate tutte, non
+c'è un decimo riquadro. La scelta era consapevole — genero tutto insieme dal
+seme, e i processi globali girano su tutto senza la parte difficile — ma il
+limite si tocca, e adesso si vuole toglierlo. **Il giocatore deve poter comprare
+zone finché ha crediti, in qualunque direzione, senza un bordo.**
 
-**Generazione più realistica.** Oggi il rilievo è rumore appianato, i fiumi si
-scavano a valle e le conche si allagano. Manca quello che rende un paesaggio
-riconoscibile: creste che si diramano invece di collinette sparse (rumore
-ridged, e ottave che si sommano), una passata di erosione che scavi le valli e
-depositi a valle, coste che alternino promontori e insenature invece di seguire
-una curva di livello, e biomi decisi da altitudine **e** umidità invece che
-dalla sola quota — così un versante al riparo è secco e quello esposto è verde.
+Il cuore della cosa è una sola: **il terreno smette di essere un array e diventa
+una funzione**. Oggi `CityTerrain` nasce con una `size` e riempie tre array
+paralleli; domani la quota di una cella deve dipendere solo dalle sue coordinate
+assolute e dal seme del mondo, e la zona a est deve combaciare con quella che
+c'è già perché entrambe rispondono alla stessa funzione, non perché qualcuno le
+ha cucite.
 
-**Il mondo si compra a zone.** Si comincia con una zona 32x32 e se ne comprano
-le adiacenti con i crediti, e la città cresce oltre il suo primo riquadro.
+#### Il problema vero: i processi globali
 
-Il vincolo da tenere presente dal primo minuto: **il terreno va generato da una
-funzione delle coordinate globali, non da un seme per una mappa di dimensione
-fissa.** Oggi `CityTerrain` nasce con una `size` e riempie un array; con le zone
-comprabili, la zona a est deve combaciare con quella che c'è già, e l'unico modo
-pulito è che la quota di una cella dipenda solo dalle sue coordinate assolute e
-dal seme del mondo. Il che vuol dire anche che l'erosione e i fiumi — che sono
-processi globali, non funzioni locali — vanno pensati su una griglia più grande
-di quella visibile, oppure resi deterministici a blocchi con un margine di
-sovrapposizione. È la decisione tecnica che regge tutte e due le cose, e va
-presa prima di scrivere la prima riga.
+Il rumore è già una funzione delle coordinate: quello si trasporta così com'è.
+Non lo sono le tre cose che rendono il mondo un paesaggio, e sono esattamente
+quelle che sono state aggiunte per ultime.
 
-Da decidere anche:
+- **L'erosione** guarda i vicini, e attraverso le passate guarda i vicini dei
+  vicini. Con tre passate su un intorno di quattro celle il suo raggio d'azione
+  è tre celle: una frana non si propaga più in là.
+- **I fiumi** partono da un punto alto e scendono a valle finché trovano il
+  mare. Un fiume può essere lungo trenta celle, e non c'è un tetto: il suo
+  raggio d'azione è quanto è lungo il fiume.
+- **La classificazione delle acque** oggi dice «è mare quello che si tocca
+  partendo dal bordo mappa». In un mondo senza bordo la frase non vuol dire
+  niente.
 
-- **Quanto costa una zona**, e se il prezzo cresce con quelle già comprate. In
-  minuti di concentrazione, come tutto il resto.
-- **Cosa si vede di quello che non è tuo.** Terreno spento oltre il confine, o
-  niente del tutto? Vedere la collina che potresti comprare è metà del motivo
-  per comprarla.
-- **Il salvataggio** deve ricordare quali zone sono tue: è l'unica cosa nuova
-  che finisce su disco, il terreno continua a rigenerarsi dal seme.
-- **I servizi e le zone si incontrano qui**: «ogni zona deve avere tutti i
-  servizi» diventa una condizione controllabile zona per zona, ed è anche il
-  modo naturale di dire al giocatore che cosa gli manca prima di comprare la
-  prossima.
+La risposta per le prime due è la stessa: **generare a blocchi con un margine di
+sovrapposizione**. Per produrre una zona si genera un riquadro più largo — la
+zona più `M` celle per lato — ci si fanno girare sopra i processi locali, e si
+tiene solo la parte centrale. Se `M` supera il raggio d'azione del processo, il
+risultato è identico qualunque zona si sia chiesta, e le cuciture non esistono
+perché non c'è niente da cucire. Costa: si genera più terreno di quello che si
+tiene, e la stessa cella viene calcolata più volte da zone diverse. È il prezzo,
+ed è accettabile finché `M` resta piccolo.
+
+Per l'erosione `M = 4` basta e avanza. Per i fiumi no, e qui va presa una
+decisione:
+
+1. **Fiumi su griglia grossa.** Si traccia il reticolo idrografico su una
+   griglia rada — una cella ogni otto, diciamo — che copre un'area grande a
+   piacere e costa poco perché è sedici volte più piccola. I fiumi diventano
+   allora un dato di consultazione, come il rumore: «per questa cella, passa un
+   fiume?» si risponde guardando la polilinea più vicina. È la strada che tiene
+   i fiumi lunghi senza generare mezzo mondo.
+2. **Fiumi troncati al margine.** Si accetta che un fiume possa interrompersi
+   dove finisce la finestra di generazione. Più semplice, e visibilmente
+   sbagliato: un fiume che finisce nel nulla si nota.
+3. **Niente fiumi fuori dalla prima zona.** Onesto ma triste.
+
+La prima è quella giusta, ed è anche l'unica che regge se un giorno si vorranno
+i bacini idrografici veri.
+
+Per il mare invece va cambiata la definizione, non l'implementazione: **è mare
+quello che sta sotto il livello del mare e appartiene a una distesa più larga di
+`N` celle; è lago quello che sta in una conca che si chiude dentro la finestra.**
+Si calcola dentro un riquadro limitato, non serve un flood fill globale, e
+recupera la stessa intuizione di adesso — il mare è grande, il lago è piccolo —
+senza appoggiarsi a un bordo che non c'è più.
+
+#### Cosa si rompe, in ordine di fastidio
+
+- **`CityGrid` non ammette coordinate negative** (`in_griglia` vuole `x >= 0`) e
+  ha una `size`. Serve o un'origine mobile — il mondo si estende attorno a un
+  punto che resta a zero — o coordinate con segno. La seconda è più pulita e
+  tocca più codice; la prima è un trucco che prima o poi si paga.
+- **La mesh del terreno è una sola per tutto il mondo.** A 96x96 già sono
+  novemila celle rifatte a ogni colpo di badile; con un mondo che cresce non
+  regge. Va spezzata **per zona**, e questo è un lavoro che conviene comunque,
+  anche restando finiti: rifare una zona invece del mondo intero rende
+  istantaneo quello che oggi non lo è.
+- **Il velo sulle zone non tue** oggi scorre tutte le celle del mondo. Con un
+  mondo infinito «tutte le celle» non esiste: va disegnato solo attorno a quello
+  che si possiede, un anello di zone comprabili e basta.
+- **La camera non ha limiti** già adesso, quindi lì non cambia niente — ma
+  diventa il modo con cui ci si perde. Serve un «torna alla città», o la
+  bussola.
+- **Il salvataggio** ha già la lista delle zone possedute e non salva il
+  terreno: quella parte è pronta, ed è il pezzo di lavoro che era stato fatto
+  bene in anticipo.
+
+#### Da decidere
+
+- **Il prezzo di una zona non può crescere all'infinito** com'è adesso (×1,6 a
+  ogni acquisto): alla ventesima zona costerebbe più di quanto si guadagni in un
+  anno. O si mette un tetto, o la crescita diventa lineare, o si paga in
+  proporzione a quanto si è già costruito invece che a quante zone si hanno.
+- **Che senso ha espandersi**, oltre allo spazio. Se una zona lontana è solo
+  altre celle uguali, comprarla è un numero che sale. Le zone dovrebbero avere
+  un carattere — un fiume, una baia, una montagna — e forse è lì che la
+  generazione a blocchi larghi si ripaga.
+- **Quante zone tenere vive.** Un mondo infinito non si tiene tutto in memoria:
+  serve decidere quando una zona lontana si può scaricare, e cosa succede alle
+  costruzioni che ci stanno sopra (nel salvataggio ci sono già, quindi
+  probabilmente niente).
+
+#### L'ordine di lavoro
+
+1. **Spezzare la mesh per zona.** Serve comunque, non rompe niente, e si misura
+   subito.
+2. **Il terreno come funzione**, con generazione a blocchi e margine, a mondo
+   ancora finito: si può confrontare cella per cella col generatore di adesso e
+   pretendere che dia lo stesso risultato. È il controllo che rende sicuro tutto
+   il resto.
+3. **I fiumi su griglia grossa**, che è il pezzo con più design dentro.
+4. **Le coordinate senza bordo**, e la compravendita di zone che non esistono
+   ancora.
+
+### Le strade si tracciano, non si posano una per una
+
+Oggi una strada si costruisce una cella per volta, scegliendo a mano il pezzo
+giusto: dritto, curva, T, incrocio, testata. Per un incrocio sono quattro clic e
+quattro scelte, e sbagliare pezzo si vede subito. Si vuole invece **tracciare un
+percorso** — premere in un punto, trascinare fino a un altro, rilasciare — e
+trovarcisi una strada già fatta.
+
+Il grosso del lavoro non è tracciare il percorso: è **scegliere i pezzi**.
+
+- **Ogni cella di strada guarda i suoi quattro vicini** e da lì esce il modello e
+  la rotazione: due vicini opposti fanno un dritto, due adiacenti una curva, tre
+  una T, quattro un incrocio, uno solo una testata. È una tabella di sedici casi
+  su una maschera di quattro bit, e va scritta una volta sola.
+- **Le strade che già ci sono cambiano forma.** Attaccandosi a un dritto, quel
+  dritto diventa una T: non basta posare le celle nuove, bisogna **ricalcolare
+  anche i vicini** di ogni cella toccata. È la parte che si dimentica e che si
+  nota subito.
+- **Il dislivello vuole le rampe.** Dove il percorso sale di un gradino non ci va
+  una strada piana ma una `sloped_road`, girata nel verso della salita; dove sale
+  di più, o si spiana o non si passa. Questa parte parla con le regole del
+  terreno che ci sono già, e va decisa insieme a loro.
+- **L'acqua vuole i ponti.** Un percorso che attraversa un fiume dovrebbe posare
+  un impalcato e le sue rampe, che è la composizione già verificata in Blender.
+  Vale la pena farlo al primo giro? Forse no: prima le strade su terra, poi
+  l'acqua.
+
+Da decidere:
+
+- **Che forma ha il percorso.** A mano libera, seguendo il cursore cella per
+  cella, è quello che fa il dito su una mappa; a **elle**, cioè due segmenti
+  ortogonali con un angolo solo, è quello che fanno i city builder, ed è più
+  facile da tirare dritto. Probabilmente serve tutt'e due, con l'elle di
+  default e la mano libera tenendo un tasto.
+- **Cosa succede a quello che c'è in mezzo.** Il percorso incrocia una casa: si
+  ferma prima, la aggira, o rifiuta? Fermarsi prima è il comportamento che non
+  fa danni e non sorprende — la strada arriva fin dove poteva.
+- **Il prezzo si vede mentre si traccia.** Il numero di celle per il prezzo di
+  una strada, aggiornato mentre si trascina, e il tracciato in rosso appena
+  sfonda i crediti: decidere dopo aver pagato è la cosa che si vuole togliere.
+- **Come si annulla.** L'Esc durante il trascinamento non posa niente. Dopo,
+  invece, è una demolizione come le altre — a meno che non si voglia un «disfai
+  l'ultima strada», che però è una cosa nuova per tutto il gioco e non solo per
+  le strade.
+
+Il pezzo riutilizzabile è la tabella dei sedici casi: la stessa che serve alle
+strade servirà, il giorno che si vorranno, ai ponti e ai muri. Vale la pena
+scriverla come una cosa a sé, che dalla maschera dei vicini restituisce id del
+modello e rotazione, e non come un `match` nascosto dentro il piazzatore.
 
 ## Prossimo passo
 
-Quello qui sopra. Le cinque fasi sono chiuse: il giro è completo e rifinito.
+Il mondo infinito, qui sopra. Le cinque fasi erano chiuse da un pezzo; quello
+che è venuto dopo — servizi, strada, conti, spostamento, abitanti, lavoro,
+felicità, aree, mondo e zone — è la città che chiede qualcosa a chi la
+costruisce.
+
+Restano anche due cose che non sono debiti ma scelte, e si decidono giocando:
+
+- **Il bilanciamento con sette servizi di zona.** Coprire 32x32 con sette aree è
+  parecchio; con nove zone lo è nove volte. Se la felicità si rivela un muro
+  invece che un obiettivo, i raggi e la soglia sono due numeri in
+  `economy.json`.
+- **Cosa succede a una città infelice**, oltre allo spopolamento: per ora la
+  felicità è un punteggio da far salire, non una tassa da pagare.

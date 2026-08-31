@@ -1,0 +1,22 @@
+{
+  "id": "IND_MID_3x3_003",
+  "kind": "factory",
+  "footprint": [
+    3,
+    3
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 3.532,
+  "min_z": 0.0,
+  "max_z": 3.532,
+  "triangles": 3008,
+  "seed": 803,
+  "model": "IND_MID_3x3_003.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 1001,
+  "variant": "logistics",
+  "style_variant": "realistic_preview_v1",
+  "source_asset_id": "IND_MID_3x3_003"
+}

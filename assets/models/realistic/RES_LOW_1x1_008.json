@@ -1,0 +1,22 @@
+{
+  "id": "RES_LOW_1x1_008",
+  "kind": "house",
+  "footprint": [
+    1,
+    1
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 1.438,
+  "min_z": -0.0,
+  "max_z": 1.438,
+  "triangles": 3132,
+  "seed": 108,
+  "model": "RES_LOW_1x1_008.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 1001,
+  "feature": "modern",
+  "style_variant": "realistic_preview_v1",
+  "source_asset_id": "RES_LOW_1x1_008"
+}

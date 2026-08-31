@@ -1,0 +1,28 @@
+{
+  "id": "ROAD_DIRT_SLOPE_1x2_DOWN_050",
+  "kind": "sloped_road",
+  "footprint": [
+    1,
+    2
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 0.78,
+  "min_z": -0.08,
+  "max_z": 0.7,
+  "triangles": 848,
+  "seed": 1134,
+  "model": "ROAD_DIRT_SLOPE_1x2_DOWN_050.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 1001,
+  "style": "dirt",
+  "direction": "down",
+  "rise": 0.5,
+  "connections": {
+    "north": 0.5,
+    "south": 0.0
+  },
+  "style_variant": "realistic_preview_v1",
+  "source_asset_id": "ROAD_DIRT_SLOPE_1x2_DOWN_050"
+}

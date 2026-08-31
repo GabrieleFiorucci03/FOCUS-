@@ -1,0 +1,27 @@
+{
+  "id": "BRG_LOCAL_DECK_1x1_STRAIGHT",
+  "kind": "bridge",
+  "footprint": [
+    1,
+    1
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 0.748,
+  "min_z": -0.34,
+  "max_z": 0.407,
+  "triangles": 1724,
+  "seed": 1703,
+  "model": "BRG_LOCAL_DECK_1x1_STRAIGHT.glb",
+  "front_axis": "-Y",
+  "origin_mode": "road_surface",
+  "generator_version": 1001,
+  "variant": "straight",
+  "style": "local",
+  "connections": {
+    "north": 0.0,
+    "south": 0.0
+  },
+  "style_variant": "realistic_preview_v1",
+  "source_asset_id": "BRG_LOCAL_DECK_1x1_STRAIGHT"
+}

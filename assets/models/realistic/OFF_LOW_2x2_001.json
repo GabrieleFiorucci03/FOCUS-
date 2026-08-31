@@ -1,0 +1,21 @@
+{
+  "id": "OFF_LOW_2x2_001",
+  "kind": "office",
+  "footprint": [
+    2,
+    2
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 3.637,
+  "min_z": -0.038,
+  "max_z": 3.6,
+  "triangles": 2220,
+  "seed": 701,
+  "model": "OFF_LOW_2x2_001.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 1001,
+  "style_variant": "realistic_preview_v1",
+  "source_asset_id": "OFF_LOW_2x2_001"
+}

@@ -1,0 +1,22 @@
+{
+  "id": "NAT_TREE_OAK_1x1_002",
+  "kind": "tree",
+  "footprint": [
+    1,
+    1
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 1.749,
+  "min_z": 0.0,
+  "max_z": 1.749,
+  "triangles": 1220,
+  "seed": 1206,
+  "model": "NAT_TREE_OAK_1x1_002.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 1001,
+  "variant": "oak",
+  "style_variant": "realistic_preview_v1",
+  "source_asset_id": "NAT_TREE_OAK_1x1_002"
+}

@@ -1,0 +1,22 @@
+{
+  "id": "COM_MID_2x2_005",
+  "kind": "shop",
+  "footprint": [
+    2,
+    2
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 1.633,
+  "min_z": 0.0,
+  "max_z": 1.633,
+  "triangles": 1648,
+  "seed": 605,
+  "model": "COM_MID_2x2_005.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 1001,
+  "variant": "market",
+  "style_variant": "realistic_preview_v1",
+  "source_asset_id": "COM_MID_2x2_005"
+}

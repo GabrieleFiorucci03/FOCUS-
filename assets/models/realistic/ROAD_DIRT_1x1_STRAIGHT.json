@@ -1,0 +1,23 @@
+{
+  "id": "ROAD_DIRT_1x1_STRAIGHT",
+  "kind": "road",
+  "footprint": [
+    1,
+    1
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 0.156,
+  "min_z": 0.0,
+  "max_z": 0.156,
+  "triangles": 1392,
+  "seed": 1111,
+  "model": "ROAD_DIRT_1x1_STRAIGHT.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 1001,
+  "variant": "straight",
+  "style": "dirt",
+  "style_variant": "realistic_preview_v1",
+  "source_asset_id": "ROAD_DIRT_1x1_STRAIGHT"
+}

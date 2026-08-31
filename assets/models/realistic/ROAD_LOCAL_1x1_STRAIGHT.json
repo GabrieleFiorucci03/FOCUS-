@@ -1,0 +1,22 @@
+{
+  "id": "ROAD_LOCAL_1x1_STRAIGHT",
+  "kind": "road",
+  "footprint": [
+    1,
+    1
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 0.137,
+  "min_z": 0.0,
+  "max_z": 0.137,
+  "triangles": 2376,
+  "seed": 1101,
+  "model": "ROAD_LOCAL_1x1_STRAIGHT.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 1001,
+  "variant": "straight",
+  "style_variant": "realistic_preview_v1",
+  "source_asset_id": "ROAD_LOCAL_1x1_STRAIGHT"
+}

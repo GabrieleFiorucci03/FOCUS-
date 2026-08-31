@@ -1,0 +1,22 @@
+{
+  "id": "AGR_BARN_2x2_001",
+  "kind": "agriculture",
+  "footprint": [
+    2,
+    2
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 2.05,
+  "min_z": -0.0,
+  "max_z": 2.05,
+  "triangles": 1754,
+  "seed": 1401,
+  "model": "AGR_BARN_2x2_001.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 1001,
+  "variant": "barn",
+  "style_variant": "realistic_preview_v1",
+  "source_asset_id": "AGR_BARN_2x2_001"
+}

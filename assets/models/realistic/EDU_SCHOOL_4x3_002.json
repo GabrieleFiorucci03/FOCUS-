@@ -1,0 +1,22 @@
+{
+  "id": "EDU_SCHOOL_4x3_002",
+  "kind": "school",
+  "footprint": [
+    4,
+    3
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 2.483,
+  "min_z": 0.0,
+  "max_z": 2.483,
+  "triangles": 10128,
+  "seed": 1302,
+  "model": "EDU_SCHOOL_4x3_002.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 1001,
+  "variant": "secondary",
+  "style_variant": "realistic_preview_v1",
+  "source_asset_id": "EDU_SCHOOL_4x3_002"
+}

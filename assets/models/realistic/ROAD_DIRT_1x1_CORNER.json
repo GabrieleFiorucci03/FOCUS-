@@ -1,0 +1,23 @@
+{
+  "id": "ROAD_DIRT_1x1_CORNER",
+  "kind": "road",
+  "footprint": [
+    1,
+    1
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 0.155,
+  "min_z": 0.0,
+  "max_z": 0.155,
+  "triangles": 1392,
+  "seed": 1112,
+  "model": "ROAD_DIRT_1x1_CORNER.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 1001,
+  "variant": "corner",
+  "style": "dirt",
+  "style_variant": "realistic_preview_v1",
+  "source_asset_id": "ROAD_DIRT_1x1_CORNER"
+}

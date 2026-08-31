@@ -1,0 +1,22 @@
+{
+  "id": "COM_LOW_1x1_003",
+  "kind": "shop",
+  "footprint": [
+    1,
+    1
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 1.382,
+  "min_z": 0.0,
+  "max_z": 1.382,
+  "triangles": 1780,
+  "seed": 603,
+  "model": "COM_LOW_1x1_003.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 1001,
+  "variant": "cafe",
+  "style_variant": "realistic_preview_v1",
+  "source_asset_id": "COM_LOW_1x1_003"
+}

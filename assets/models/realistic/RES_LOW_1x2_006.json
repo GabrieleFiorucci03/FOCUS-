@@ -1,0 +1,22 @@
+{
+  "id": "RES_LOW_1x2_006",
+  "kind": "house",
+  "footprint": [
+    1,
+    2
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 1.36,
+  "min_z": -0.0,
+  "max_z": 1.36,
+  "triangles": 2584,
+  "seed": 106,
+  "model": "RES_LOW_1x2_006.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 1001,
+  "feature": "garage",
+  "style_variant": "realistic_preview_v1",
+  "source_asset_id": "RES_LOW_1x2_006"
+}
