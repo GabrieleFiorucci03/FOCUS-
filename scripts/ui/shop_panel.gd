@@ -175,12 +175,17 @@ func _descrizione(id: String) -> String:
 	var f: Vector2i = v["footprint"]
 	var righe := PackedStringArray()
 	righe.append("%s · %dx%d celle · %d crediti" % [v["nome"], f.x, f.y, _catalogo.prezzo(id)])
+	var a_mano := true
 	match _catalogo.regola(id):
 		CityCatalog.Regola.PONTE:
-			righe.append("Va sull'acqua, agganciato a una riva o a un'altra campata.")
+			righe.append("Va su qualunque cella libera, un gradino sopra quello che scavalca.")
 		CityCatalog.Regola.RAMPA:
-			righe.append("Va dove c'è un gradino solo da salire, e non spiana niente.")
+			righe.append("Va su qualunque cella libera, e non spiana niente.")
 		_:
 			righe.append("Spiana il lotto al livello più basso che tocca.")
-	righe.append("Clic per posare · R ruota · Esc annulla")
+			a_mano = false
+	if a_mano:
+		righe.append("Clic per posare · R ruota · PagSu / PagGiù cambia quota · Esc annulla")
+	else:
+		righe.append("Clic per posare · R ruota · Esc annulla")
 	return "\n".join(righe)

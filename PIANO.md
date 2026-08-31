@@ -518,6 +518,80 @@ qualcuno.
   chi non si fida può compilarselo da sé in due comandi: è la risposta onesta,
   ed è anche il motivo per cui il codice è aperto.
 
+## Ripensamento su ponti e rampe
+
+Le regole di piazzamento di ponti e rampe erano scritte per proteggere una
+composizione: campata sull'acqua agganciata a una riva, rampa col piede in
+piano e un gradino esatto da salire, terreno sotto ponti e rampe congelato
+perché nessuno dei due si muove più dopo la posa. Alla prova dei fatti quella
+composizione non si difendeva da sola: chi prendeva una rampa in salita e la
+puntava verso l'alto se la vedeva rifiutare, e per farla accettare doveva
+girarla al contrario. Il verso giusto è quello che si vede — il fronte dei
+modelli guarda -Y in Blender, che l'export glTF porta a +Z in Godot, mentre la
+tabella dei lati traduceva "north" in -Z: il controllo cercava il gradino
+dalla parte sbagliata.
+
+Si poteva raddrizzare la tabella. Si è invece tolta la regola:
+
+- **Ponti e rampe si posano su qualunque cella libera**, asciutta o bagnata.
+  L'unico rifiuto che resta è quello che vale per tutti: qui c'è già qualcosa.
+  Nessun verso è vietato, quindi `R` decide come si vede il pezzo e basta.
+- **La quota non si chiede più al giocatore, si deduce.** La campata eredita
+  l'impalcato vicino, o sta un gradino sopra la sponda, e comunque mai sotto il
+  pelo dell'acqua né dentro la collina che scavalca. La rampa prende il livello
+  del terreno che ha sotto; dove terreno asciutto non ce n'è, va un gradino
+  sotto l'impalcato accanto, che è il punto a cui deve arrivare.
+- **Il terreno accanto a ponti e rampe torna modellabile.** Il divieto serviva a
+  non rompere un aggancio obbligatorio: senza più l'obbligo, era solo un no in
+  più. La cella *sotto* una costruzione resta intoccabile come prima.
+
+Con la regola è uscito il codice che la serviva: la tabella dei lati, il lato
+alto delle rampe, la quota calpestabile oltre il bordo e il vincolo del terreno
+vicino. Le rampe restano di un gradino, ma è un dato del modello, non un
+divieto.
+
+Tolti i rifiuti restava però un vincolo silenzioso: la quota. Dedurla è comodo
+finché indovina, e quando non indovina non c'è modo di dirglielo — una rampa
+resta incollata al terreno anche quando la si vuole in aria, a metà di un
+raccordo che il gioco non ha previsto. Quindi **`PagSu` e `PagGiù` spostano di
+un gradino la quota del pezzo che si ha in mano**, e la deduzione diventa il
+punto di partenza invece che l'unica risposta. Vale solo per ponti e rampe:
+chi spiana il lotto ha la sua quota nel lotto stesso, e alzarlo lo farebbe
+levitare. Lo scostamento si azzera quando si cambia oggetto, si tiene fra una
+posa e l'altra — una fila di campate alla stessa quota si fa così — e resta
+dentro i limiti del mondo.
+
+E la vista si sposta anche **con WASD o con le frecce**, `Shift` per correre.
+Il trascinamento col tasto destro c'era già, ma vuole una mano sul mouse che
+nel frattempo serve per puntare dove si costruisce. La velocità sta sullo zoom
+e non sui metri — una schermata al secondo, due e mezza correndo — così da
+vicino si va piano e da lontano in fretta, e la profondità porta la stessa
+correzione del trascinamento: la camera guarda il piano di sbieco, e senza
+dividere per il seno dell'inclinazione avanti e indietro andrebbero più piano
+che destra e sinistra. Non serve spegnerlo quando il menu sta davanti: la
+città ha già il `process_mode` disabilitato, e con lei la camera.
+
+| Prova | Esito |
+|---|---|
+| Rampa sull'asciutto, quattro rotazioni | valgono tutte, piede al livello del terreno |
+| Ponte sull'asciutto, quattro rotazioni | valgono tutte, impalcato un gradino sopra |
+| Rampa e ponte sull'acqua | posati; l'impalcato sta sopra il pelo dell'acqua |
+| Ponte accanto a una sponda | un gradino sopra la riva, come prima |
+| Rampa sull'acqua accanto a un impalcato | piede un gradino sotto l'impalcato |
+| Rampa su una cella occupata | rifiutata, e lo dice |
+| Alzare la cella accanto a un ponte | permesso |
+| Dieci modelli di rampa, tutta la mappa, quattro rotazioni | 40.960 posti provati, rifiutati solo quelli occupati o fuori mappa |
+| Rampa alzata a mano da -3 a +3 gradini | ci va, e ci resta anche dopo la posa |
+| Alzata oltre il tetto del mondo, o sotto zero | si ferma al limite |
+| Alzata su una casa | ignorata: chi spiana il lotto non si alza |
+| W, A, S, D e le frecce | opposti a due a due, perpendicolari fra loro |
+| W | va verso il fondo dello schermo, non di traverso |
+| Shift, e lo zoom da vicino | cambiano il passo, non la direzione |
+
+Guardati anche i frame veri: le rampe salgono dalla parte in cui le si gira, e
+il cavalcavia posato sull'asciutto si salda alle due rampe che gli arrivano
+sotto senza scalini.
+
 ## Prossimo passo
 
 Le cinque fasi sono chiuse: il giro è completo e rifinito. Quello che resta

@@ -3,7 +3,7 @@
 
 	"_commento_nomi": "Il nome di un oggetto parte dal nome del tipo. I campi descrittivi dell'asset (style, variant, service, shape, feature, direction) lo rifiniscono: se il valore compare in 'nomi' sostituisce il nome, se compare in 'qualificatori' gli si accoda. I valori che non compaiono da nessuna parte vengono ignorati, e i nomi che restano uguali si numerano da soli.",
 
-	"_commento_regole": "terra = si posa all'asciutto e spiana il lotto al livello piu' basso. ponte = si posa sull'acqua, non tocca il terreno e sta un gradino sopra la sponda. rampa = non spiana niente, sta in piano su un gradino e raccorda con quello sopra, che deve stare esattamente un livello piu' su.",
+	"_commento_regole": "terra = si posa all'asciutto e spiana il lotto al livello piu' basso. ponte = si posa su qualunque cella libera, non tocca il terreno e sta un gradino sopra la sponda a cui si aggancia (o sopra quello che scavalca, se sponde non ce ne sono). rampa = si posa su qualunque cella libera, non spiana niente e prende la quota del terreno che ha sotto; sull'acqua si mette un gradino sotto l'impalcato vicino. Ponti e rampe si girano con R: nessun verso e' vietato.",
 
 	"categorie": [
 		{ "id": "abitare", "nome": "Abitare" },

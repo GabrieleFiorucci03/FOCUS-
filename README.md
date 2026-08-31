@@ -79,16 +79,22 @@ Il negozio ha cinque scaffali e i prezzi in chiaro; quello che non ti puoi
 ancora permettere resta a schermo, spento, perché sapere quanto manca è metà del
 motivo per tornare a fare focus. Scegli, e l'oggetto ti segue col mouse: verde
 se il posto va bene, rosso se no, con i riquadri già alla quota a cui il lotto
-verrà spianato. `R` lo gira, un clic lo posa e scala i crediti. Demolire ne
+verrà spianato. `R` lo gira, un clic lo posa e scala i crediti. La vista si
+sposta con `WASD` o con le frecce — tenendo `Shift` si corre — `Q` ed `E` la
+girano di novanta gradi, il tasto destro la trascina e la rotella zooma. Demolire ne
 restituisce la metà; il lotto invece resta spianato, perché sbancare è una
 modifica al mondo e non un pezzo dell'edificio.
 
-**I ponti hanno una regola loro.** Una campata va solo sull'acqua e solo
-attaccata a una riva o a un'altra campata, e sta un gradino sopra la sponda —
-esattamente il dislivello che le rampe del kit colmano. La pila sotto non si
-compra: nasce da sola, scegliendo l'altezza sulla luce da coprire. E le rampe
-ne hanno una loro: vogliono il piede in piano e un gradino solo da salire,
-terreno o impalcato che sia, quindi la campata si posa prima delle sue rampe.
+**Ponti e rampe si posano dove vuoi**, sull'acqua come sull'asciutto: l'unica
+cella che rifiutano è quella dove c'è già qualcosa. Quello che decidono da soli
+è la quota. Una campata si aggancia alla campata vicina, se c'è, altrimenti sta
+un gradino sopra la sponda — esattamente il dislivello che le rampe del kit
+colmano — e comunque mai dentro quello che scavalca. Una rampa si posa sul
+terreno che ha sotto, e sull'acqua si mette un gradino sotto l'impalcato
+accanto, che è dove deve arrivare. Se non è la quota che vuoi, `PagSu` e
+`PagGiù` la spostano di un gradino per volta prima di posare: la deduzione è un
+suggerimento, non un vincolo. La pila sotto la campata non si compra: nasce da
+sola, scegliendo l'altezza sulla luce da coprire.
 
 **E poi c'è il badile.** Alza, abbassa e livella spostano il suolo di mezzo
 metro per volta, a un credito a gradino e senza rimborso. Sotto una costruzione

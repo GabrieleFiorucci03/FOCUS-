@@ -62,6 +62,8 @@ var _modo: Modo = Modo.NAVIGA
 ## Cosa si sta per costruire, e come.
 var _scelto: String = ""
 var _rotazione: int = 0
+## Di quanti gradini si è scostata a mano la quota del pezzo che si ha in mano.
+var _alzata: int = 0
 var _cella := CELLA_NULLA
 var _ancora := CELLA_NULLA
 var _esito: Dictionary = {}
@@ -138,6 +140,12 @@ func _unhandled_input(evento: InputEvent) -> void:
 			KEY_R:
 				# Q ed E girano la vista: il pezzo gira con un tasto suo.
 				_ruota_il_pezzo(-1 if tasto.shift_pressed else 1)
+				get_viewport().set_input_as_handled()
+			KEY_PAGEUP, KEY_KP_ADD:
+				_alza_il_pezzo(1)
+				get_viewport().set_input_as_handled()
+			KEY_PAGEDOWN, KEY_KP_SUBTRACT:
+				_alza_il_pezzo(-1)
 				get_viewport().set_input_as_handled()
 			KEY_ESCAPE:
 				_torna_a_navigare()
@@ -332,7 +340,11 @@ func _ancora_da(cella: Vector2i, footprint: Vector2i, rotazione: int) -> Vector2
 
 ## Se e dove si può posare quello che si è scelto, e a che quota finirebbe.
 ## Restituisce { valido, celle, livello, motivo }.
-func _valuta(id: String, ancora: Vector2i, rotazione: int) -> Dictionary:
+##
+## `alzata` è lo scostamento chiesto a mano, in gradini, e vale solo per ponti e
+## rampe: gli unici che non spianano il lotto sono anche gli unici che possono
+## stare a una quota diversa da quella del terreno che hanno sotto.
+func _valuta(id: String, ancora: Vector2i, rotazione: int, alzata: int = 0) -> Dictionary:
 	var voce := catalogo.voce(id)
 	if voce.is_empty():
 		return { "valido": false, "celle": [] as Array[Vector2i], "livello": 0,
@@ -354,38 +366,15 @@ func _valuta(id: String, ancora: Vector2i, rotazione: int) -> Dictionary:
 			esito["motivo"] = "Qui c'è già qualcosa."
 			return esito
 
+	# Ponti e rampe non hanno regole di terreno: dove la cella è libera si posano,
+	# e a girarli come si vuole ci pensa R. L'unica cosa che resta da decidere è
+	# la quota, che la si prende da quello che hanno intorno.
 	match voce["regola"]:
 		CityCatalog.Regola.PONTE:
-			for cella in celle:
-				if not terreno.e_acqua(cella):
-					esito["motivo"] = "Una campata va sull'acqua: a terra ci vuole una strada."
-					return esito
-			var livello := _livello_impalcato(celle)
-			if livello < 0:
-				esito["motivo"] = "Un ponte parte da una riva o da un'altra campata."
-				return esito
-			esito["livello"] = livello
+			esito["livello"] = _con_alzata(_livello_impalcato(celle), alzata)
 
 		CityCatalog.Regola.RAMPA:
-			for cella in celle:
-				if not terreno.costruibile(cella):
-					esito["motivo"] = "Una rampa si posa all'asciutto."
-					return esito
-			var piede := terreno.livello(celle[0])
-			for cella in celle:
-				if terreno.livello(cella) != piede:
-					esito["motivo"] = "Il piede della rampa vuole il terreno in piano."
-					return esito
-			var passo := CityCatalog.ruota_passo(voce["passo_alto"], rotazione)
-			var quota_alta := _quota_oltre(celle, passo)
-			if quota_alta < 0:
-				esito["motivo"] = "Di là non c'è niente a cui salire: girala con R."
-				return esito
-			var salita := int(voce["salita"])
-			if quota_alta != piede + salita:
-				esito["motivo"] = "Una rampa sale di un gradino solo: qui il salto è di %d." % (quota_alta - piede)
-				return esito
-			esito["livello"] = piede
+			esito["livello"] = _con_alzata(_livello_rampa(celle, int(voce["salita"])), alzata)
 
 		_:
 			for cella in celle:
@@ -398,38 +387,24 @@ func _valuta(id: String, ancora: Vector2i, rotazione: int) -> Dictionary:
 	return esito
 
 
-## A che quota si cammina su una cella: l'impalcato se c'è un ponte, il terreno
-## se è asciutto. -1 se lì c'è acqua libera o si esce dalla mappa.
-func _quota_calpestabile(cella: Vector2i) -> int:
-	if not griglia.in_griglia(cella):
-		return -1
-	var occupante := griglia.occupante(cella)
-	if not occupante.is_empty() and catalogo.regola(str(occupante["modello"])) == CityCatalog.Regola.PONTE:
-		return int(_costruzioni[occupante["id"]]["livello"])
-	if terreno.costruibile(cella):
-		return terreno.livello(cella)
-	return -1
+## La quota dedotta più lo scostamento chiesto a mano, tenuta dentro il mondo.
+## Zero è il fondo, e sopra il tetto del terreno non si va: più in su non ci
+## sarebbe più niente a cui appoggiarsi, nemmeno in teoria.
+static func _con_alzata(livello: int, alzata: int) -> int:
+	return clampi(livello + alzata, 0, CityTerrain.LIVELLO_MASSIMO)
 
 
-## La quota di quello che sta appena oltre il lato alto della rampa. Può essere
-## terreno o l'impalcato di un ponte: le rampe da ponte servono proprio a quello.
-## -1 se di là non c'è niente su cui salire, o se il bordo alto affaccia su due
-## quote diverse.
-func _quota_oltre(celle: Array[Vector2i], passo: Vector2i) -> int:
-	if passo == Vector2i.ZERO:
-		return -1
-	var estremo := -0x7FFFFFFF
+## Quanto è alto quello che una campata scavalca: il terreno dove è asciutto, il
+## pelo dell'acqua dove non lo è. Un impalcato non deve finire né dentro la
+## collina su cui lo si posa né sotto il fiume che attraversa.
+func _livello_scavalcato(celle: Array[Vector2i]) -> int:
+	var massimo := 0
 	for cella in celle:
-		estremo = maxi(estremo, cella.x * passo.x + cella.y * passo.y)
-	var quota := -1
-	for cella in celle:
-		if cella.x * passo.x + cella.y * passo.y != estremo:
+		if not griglia.in_griglia(cella):
 			continue
-		var q := _quota_calpestabile(cella + passo)
-		if q < 0 or (quota >= 0 and q != quota):
-			return -1
-		quota = q
-	return quota
+		var q := CityTerrain.LIVELLO_MARE if terreno.e_acqua(cella) else terreno.livello(cella)
+		massimo = maxi(massimo, q)
+	return massimo
 
 
 ## A che quota va una campata: un gradino sopra la riva a cui si aggancia.
@@ -440,8 +415,9 @@ func _quota_oltre(celle: Array[Vector2i], passo: Vector2i) -> int:
 ## campata attaccata a un'altra campata ne eredita la quota, altrimenti un fiume
 ## largo non si attraverserebbe mai restando in piano.
 ##
-## Restituisce -1 se non c'è niente a cui agganciarsi: un ponte in mezzo al mare
-## che non parte da nessuna parte non è un ponte.
+## Senza né sponde né campate accanto — un ponte in mezzo al mare, un cavalcavia
+## in cima a una collina — la campata non viene rifiutata: resta comunque un
+## gradino sopra quello che scavalca.
 func _livello_impalcato(celle: Array[Vector2i]) -> int:
 	var da_campata := -1
 	var da_riva := -1
@@ -458,7 +434,24 @@ func _livello_impalcato(celle: Array[Vector2i]) -> int:
 			elif terreno.costruibile(vicina):
 				var candidato := terreno.livello(vicina) + 1
 				da_riva = candidato if da_riva < 0 else mini(da_riva, candidato)
-	return da_campata if da_campata >= 0 else da_riva
+	var agganciato := da_campata if da_campata >= 0 else da_riva
+	return maxi(agganciato, _livello_scavalcato(celle) + 1)
+
+
+## A che quota si posa una rampa: sul terreno che ha sotto, la più bassa fra le
+## celle che occupa. Sull'acqua di terreno da calpestare non ce n'è, e allora il
+## piede va un gradino sotto l'impalcato che le sta accanto: è lì che la rampa
+## deve arrivare.
+func _livello_rampa(celle: Array[Vector2i], salita: int) -> int:
+	var asciutto := -1
+	for cella in celle:
+		if not terreno.costruibile(cella):
+			continue
+		var q := terreno.livello(cella)
+		asciutto = q if asciutto < 0 else mini(asciutto, q)
+	if asciutto >= 0:
+		return asciutto
+	return maxi(_livello_impalcato(celle) - salita, 0)
 
 
 # --- Modalità ---------------------------------------------------------------
@@ -468,6 +461,7 @@ func _on_voce_scelta(id: String) -> void:
 	_modo = Modo.PIAZZA
 	_scelto = id
 	_rotazione = 0
+	_alzata = 0
 	_crea_fantasma()
 	_cella = CELLA_NULLA
 	_messaggio("")
@@ -479,6 +473,7 @@ func _on_strumento_scelto(strumento: String) -> void:
 		_torna_a_navigare()
 		return
 	_scelto = ""
+	_alzata = 0
 	_libera_fantasma()
 	_cella = CELLA_NULLA
 	_quota_riferimento = -1
@@ -504,6 +499,7 @@ func _on_crediti_cambiati(crediti: int) -> void:
 func _torna_a_navigare() -> void:
 	_modo = Modo.NAVIGA
 	_scelto = ""
+	_alzata = 0
 	_quota_riferimento = -1
 	_cella = CELLA_NULLA
 	_esito = {}
@@ -518,6 +514,27 @@ func _ruota_il_pezzo(verso: int) -> void:
 	if _fantasma != null:
 		_fantasma.rotation.y = deg_to_rad(-90.0 * _rotazione)
 	_aggiorna_bersaglio()
+
+
+## Sposta di un gradino la quota a cui il pezzo si poserebbe.
+##
+## La quota che il gioco deduce da solo — la sponda, l'impalcato accanto, il
+## terreno sotto — è quella giusta quasi sempre, ma è un suggerimento e non un
+## vincolo: una rampa o una campata si mettono anche dove non le aspetta
+## nessuno. Chi spiana il lotto invece no, la sua quota è il lotto stesso.
+func _alza_il_pezzo(gradini: int) -> void:
+	if _scelto.is_empty() or catalogo.regola(_scelto) == CityCatalog.Regola.TERRA:
+		return
+	_alzata = clampi(_alzata + gradini, -CityTerrain.LIVELLO_MASSIMO, CityTerrain.LIVELLO_MASSIMO)
+	Sfx.suona("clic")
+	_aggiorna_bersaglio()
+	if _cella == CELLA_NULLA:
+		return
+	var metri := float(_esito.get("livello", 0)) * CityTerrain.PASSO_QUOTA
+	if _alzata == 0:
+		_messaggio("Quota %.1f m, come la trova." % metri)
+	else:
+		_messaggio("Quota %.1f m (%+d gradini a mano)." % [metri, _alzata])
 
 
 func _conferma() -> void:
@@ -625,10 +642,6 @@ func _valuta_terreno(cella: Vector2i) -> Dictionary:
 	if not griglia.occupante(cella).is_empty():
 		esito["motivo"] = "Sotto una costruzione il terreno non si tocca: demolisci prima."
 		return esito
-	var impegnato := _terreno_impegnato(cella)
-	if not impegnato.is_empty():
-		esito["motivo"] = impegnato
-		return esito
 	if not terreno.dislivello_accettabile(cella, nuovo):
 		esito["motivo"] = "Con una cella vicina il salto passerebbe i %d gradini." % CityTerrain.DISLIVELLO_MASSIMO
 		return esito
@@ -640,65 +653,6 @@ func _valuta_terreno(cella: Vector2i) -> Dictionary:
 
 	esito["valido"] = true
 	return esito
-
-
-## Se una costruzione vicina ha bisogno di questa cella cosi' com'e'.
-##
-## Proteggere la cella sotto un edificio non basta: ponti e rampe si agganciano
-## a quello che hanno accanto, e la loro quota viene decisa al piazzamento e poi
-## non si muove piu'. Alzare la sponda di un metro lascerebbe la campata a
-## mezz'aria, e la rampa che ci saliva punterebbe in mezzo al nulla — tutto
-## senza un messaggio, perche' il terreno da solo non sa cosa regge.
-##
-## Restituisce il motivo del rifiuto, oppure "" se la cella e' libera di
-## muoversi.
-func _terreno_impegnato(cella: Vector2i) -> String:
-	for direzione in CityTerrain.VICINI:
-		var vicina: Vector2i = cella + direzione
-		if not griglia.in_griglia(vicina):
-			continue
-		var occupante := griglia.occupante(vicina)
-		if occupante.is_empty():
-			continue
-		match catalogo.regola(str(occupante["modello"])):
-			CityCatalog.Regola.PONTE:
-				# La sponda di una campata sta esattamente un gradino sotto
-				# l'impalcato: se questa cella e' li', e' quella che lo regge.
-				var id_piazzamento := int(occupante["id"])
-				if not _costruzioni.has(id_piazzamento):
-					continue
-				var impalcato := int(_costruzioni[id_piazzamento]["livello"])
-				if terreno.costruibile(cella) and terreno.livello(cella) == impalcato - 1:
-					return "Di qui una campata prende la sponda: demolisci il ponte prima."
-			CityCatalog.Regola.RAMPA:
-				if _rampa_sale_verso(occupante, cella):
-					return "Una rampa sale proprio qui: demoliscila prima."
-			_:
-				continue
-	return ""
-
-
-## Se il lato alto di quella rampa affaccia proprio su questa cella.
-##
-## Stesso conto che fa _quota_oltre quando la rampa viene posata, guardato
-## dall'altra parte: li' si cerca la quota di la', qui si chiede se il "di la'"
-## e' questa cella.
-func _rampa_sale_verso(occupante: Dictionary, cella: Vector2i) -> bool:
-	var voce := catalogo.voce(str(occupante["modello"]))
-	if voce.is_empty():
-		return false
-	var rotazione := int(occupante["rotazione"])
-	var passo := CityCatalog.ruota_passo(voce["passo_alto"], rotazione)
-	if passo == Vector2i.ZERO:
-		return false
-	var celle := griglia.celle_occupate(occupante["ancora"], voce["footprint"], rotazione)
-	var estremo := -0x7FFFFFFF
-	for c in celle:
-		estremo = maxi(estremo, c.x * passo.x + c.y * passo.y)
-	for c in celle:
-		if c.x * passo.x + c.y * passo.y == estremo and c + passo == cella:
-			return true
-	return false
 
 
 func _modella_sotto_il_cursore() -> void:
@@ -760,7 +714,7 @@ func _aggiorna_bersaglio() -> void:
 func _mostra_bersaglio_piazzamento() -> void:
 	var voce := catalogo.voce(_scelto)
 	_ancora = _ancora_da(_cella, voce["footprint"], _rotazione)
-	_esito = _valuta(_scelto, _ancora, _rotazione)
+	_esito = _valuta(_scelto, _ancora, _rotazione, _alzata)
 
 	var valido: bool = _esito["valido"]
 	var quota := float(_esito["livello"]) * CityTerrain.PASSO_QUOTA
@@ -861,6 +815,8 @@ func _aggiorna_aiuto() -> void:
 func _suggerimento() -> String:
 	match _modo:
 		Modo.PIAZZA:
+			if not _scelto.is_empty() and catalogo.regola(_scelto) != CityCatalog.Regola.TERRA:
+				return "Clic per posare · R ruota · PagSu / PagGiù alza e abbassa · Esc annulla"
 			return "Clic per posare · R ruota (Shift+R al contrario) · Esc annulla"
 		Modo.DEMOLISCI:
 			return "Clic su una costruzione per demolirla · Esc annulla"
@@ -869,7 +825,7 @@ func _suggerimento() -> String:
 				return "Clic per prendere la quota da copiare · Esc annulla"
 			return "Clic per modellare il terreno · Esc annulla"
 		_:
-			return "Q / E ruota la vista · trascina col tasto destro · rotella per lo zoom"
+			return "WASD scorre (Shift corre) · Q / E ruota · trascina col destro · rotella zoom"
 
 
 func _riepilogo_biomi() -> String:

@@ -16,7 +16,7 @@
 class_name IsoCamera
 extends Node3D
 ## Camera ortografica isometrica: ruota a scatti di 90° sui quattro lati,
-## si sposta trascinando e zooma con la rotella.
+## si sposta con WASD o trascinando, e zooma con la rotella.
 ##
 ## La gerarchia è un braccio snodato: questo nodo è il punto guardato e gira
 ## sull'asse Y, il figlio "Braccio" inclina, la Camera3D sta in fondo al braccio.
@@ -34,6 +34,23 @@ const ZOOM_MAX := 90.0
 const ZOOM_INIZIALE := 34.0
 const ZOOM_PASSO := 1.12
 const DURATA_ROTAZIONE := 0.28
+
+## Quanto scorre la vista con la tastiera, in schermate al secondo. La velocità
+## sta sullo zoom e non sui metri: da vicino si va piano e da lontano in fretta,
+## così il movimento sullo schermo sembra sempre lo stesso.
+const SCORRIMENTO := 1.0
+## Con lo Shift si attraversa la mappa senza aspettare.
+const SCORRIMENTO_CORSA := 2.5
+
+## I tasti che spostano la vista, e da che parte la spostano nello spazio della
+## camera: -Z è verso il fondo dello schermo. Le frecce fanno le stesse cose,
+## per chi tiene la mano sulla destra della tastiera.
+const SCORRIMENTI := {
+	KEY_W: Vector2(0, -1), KEY_UP: Vector2(0, -1),
+	KEY_S: Vector2(0, 1), KEY_DOWN: Vector2(0, 1),
+	KEY_A: Vector2(-1, 0), KEY_LEFT: Vector2(-1, 0),
+	KEY_D: Vector2(1, 0), KEY_RIGHT: Vector2(1, 0),
+}
 ## Trascinando, il mondo segue il cursore. Metti false se preferisci il contrario.
 const TRASCINA_IL_MONDO := true
 
@@ -55,6 +72,28 @@ func _ready() -> void:
 	_camera.near = 0.1
 	_camera.far = 500.0
 	_camera.position = Vector3(0.0, 0.0, BRACCIO)
+
+
+## Scorrere con la tastiera è un movimento continuo, non un evento: si guarda
+## quali tasti sono giù a ogni frame. Quando il menu sta davanti alla città il
+## suo `process_mode` spegne tutto il sottoalbero, quindi qui non serve
+## chiedersi se la vista è quella buona: se questo _process gira, lo è.
+func _process(delta: float) -> void:
+	var direzione := Vector2.ZERO
+	for tasto in SCORRIMENTI:
+		if Input.is_physical_key_pressed(tasto):
+			direzione += SCORRIMENTI[tasto]
+	if direzione == Vector2.ZERO:
+		return
+	direzione = direzione.normalized()
+	var velocita := SCORRIMENTO_CORSA if Input.is_key_pressed(KEY_SHIFT) else SCORRIMENTO
+	var passo := _camera.size * velocita * delta
+	# Stessa correzione del trascinamento: la camera guarda il piano di sbieco,
+	# quindi un metro in profondità sullo schermo si vede accorciato. Senza,
+	# avanti e indietro andrebbero più piano che destra e sinistra.
+	var profondita := direzione.y * passo / sin(deg_to_rad(INCLINAZIONE))
+	var base := Basis(Vector3.UP, rotation.y)
+	global_position += base * Vector3(direzione.x * passo, 0.0, profondita)
 
 
 ## Ruota di 90°: verso 1 in senso orario, -1 antiorario.
