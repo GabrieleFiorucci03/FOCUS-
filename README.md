@@ -79,9 +79,12 @@ Il negozio sta dietro al pulsante col martello e la chiave inglese, in alto a
 sinistra (o il tasto `B`): apre una fascia in cima allo schermo con tutto il
 catalogo in fila, diviso nei cinque scaffali più gli attrezzi, che si scorre
 trascinandola col mouse — o con la rotella, o saltando allo scaffale dal suo
-nome. I prezzi sono in chiaro, e quello che non ti puoi ancora permettere resta
-a schermo, spento, perché sapere quanto manca è metà del motivo per tornare a
-fare focus. Chiusa la fascia, la città si vede intera.
+nome. Ogni scheda porta il ritratto del suo modello, girato come lo vedrai in
+città: sono scattati dal gioco all'avvio, uno per frame, quindi non c'è una
+cartella di immagini da tenere allineata ai modelli. I prezzi sono in chiaro, e
+quello che non ti puoi ancora permettere resta a schermo, spento, perché sapere
+quanto manca è metà del motivo per tornare a fare focus. Chiusa la fascia, la
+città si vede intera.
 
 Scegli, e l'oggetto ti segue col mouse: verde se il posto va bene, rosso se no,
 con i riquadri già alla quota a cui il lotto verrà spianato. `R` lo gira, un

@@ -26,6 +26,10 @@ extends RefCounted
 ## italiano, in che scaffale sta e con che regola si piazza.
 ## I prezzi stanno in `data/economy.json`, uno per tipo, e li legge Config.
 
+## Dove stanno i .glb che la pipeline ha generato. Li carica chi costruisce e
+## chi ne fa l'anteprima nel negozio, quindi il percorso sta qui, in mezzo.
+const CARTELLA_MODELLI := "res://assets/models/generated/"
+
 const CATALOGO_ASSET := "res://assets/models/generated/catalog.json"
 const CATALOGO_GIOCO := "res://data/catalog.json"
 

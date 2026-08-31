@@ -21,8 +21,6 @@ extends Node3D
 ## quote spianate — quelle sì, perché costruire muove il suolo e il seme da solo
 ## non se ne ricorderebbe.
 
-const CARTELLA_MODELLI := "res://assets/models/generated/"
-
 ## Le coordinate di griglia non sono mai negative, quindi questa vale "nessuna".
 const CELLA_NULLA := Vector2i(-1, -1)
 
@@ -287,7 +285,7 @@ func _costruisci(id: String, ancora: Vector2i, rotazione: int, livello: int,
 
 
 func _istanzia(voce: Dictionary, ancora: Vector2i, rotazione: int, livello: int) -> Node3D:
-	var scena := load(CARTELLA_MODELLI + str(voce["modello"])) as PackedScene
+	var scena := load(CityCatalog.CARTELLA_MODELLI + str(voce["modello"])) as PackedScene
 	if scena == null:
 		push_error("CityView: modello mancante per %s" % voce["id"])
 		return null
@@ -310,7 +308,7 @@ func _appoggia_la_campata(campata: Node3D, ancora: Vector2i, livello: int) -> vo
 	var id_pila := catalogo.sostegno_per_luce(luce)
 	if id_pila.is_empty():
 		return
-	var scena := load(CARTELLA_MODELLI + str(catalogo.voce(id_pila)["modello"])) as PackedScene
+	var scena := load(CityCatalog.CARTELLA_MODELLI + str(catalogo.voce(id_pila)["modello"])) as PackedScene
 	if scena == null:
 		return
 	var pila: Node3D = scena.instantiate()
@@ -784,7 +782,7 @@ func _mostra_bersaglio_terreno() -> void:
 func _crea_fantasma() -> void:
 	_libera_fantasma()
 	var voce := catalogo.voce(_scelto)
-	var scena := load(CARTELLA_MODELLI + str(voce["modello"])) as PackedScene
+	var scena := load(CityCatalog.CARTELLA_MODELLI + str(voce["modello"])) as PackedScene
 	if scena == null:
 		return
 	_fantasma = scena.instantiate()

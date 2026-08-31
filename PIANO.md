@@ -613,9 +613,26 @@ pulsante e una fascia.
   trascinare, però, quindi la rotella li scorre a scatti — sopra la fascia
   smette di zoomare la città, che tanto sta dietro — e in testa ci sono i nomi
   degli scaffali, che saltano al loro pezzo con un clic.
+- **Ogni scheda porta il ritratto del suo modello.** Un nome non basta a
+  distinguere «Ufficio» da «Ufficio a gradoni», e comprare alla cieca vuol dire
+  posare, guardare e demolire.
 - **La città si riprende lo schermo.** Chiusa la fascia non resta niente davanti
   al mondo, e le due righe di stato in basso, che stavano strette per non
   finire sotto il pannello, tornano larghe quanto la finestra.
+
+I ritratti sono scattati dal gioco, non da Blender. Una cartella di novanta PNG
+sarebbe una seconda copia della libreria da tenere allineata a mano, e si
+scorderebbe di aggiornarsi alla prima rigenerazione: è lo stesso motivo per cui
+il terreno si salva col seme e non con le quote. Lo studio è un `SubViewport`
+solo, grande una scheda, con un mondo tutto suo perché la città non ci entri
+dentro; i modelli ci passano uno per frame, si fanno inquadrare dal loro
+ingombro e lasciano una `ImageTexture` ferma. Novanta viewport vivi costerebbero
+come un secondo mondo 3D; uno riusato novanta volte costa due secondi e mezzo
+all'avvio, spesi mentre si guarda il menu — e il ciclo non aspetta il processo
+ma il disegno (`RenderingServer.frame_post_draw`), quindi va avanti anche con la
+città ferma dietro al menu, che è esattamente com'è fatto l'avvio. La telecamera
+dello studio ha l'inclinazione e l'imbardata di quella di gioco: nella fascia un
+modello ha già la faccia che avrà una volta posato.
 
 Il punto delicato è stato il trascinamento. Sotto il dito ci sono le schede, e
 sono loro a prendersi il clic: il gesto va quindi intercettato in `_input`, che
@@ -640,11 +657,16 @@ dall'occhio: trascinare sembrava funzionare benissimo.
 | Rotella sopra la fascia | scorre lo scaffale invece di zoomare |
 | Nome di uno scaffale | salta al suo pezzo di fila |
 | Mouse sopra la fascia | CityView non punta la cella che ci sta sotto |
+| I ritratti | 87 su 87, 96x96 px, e dentro c'è davvero un modello |
+| Con la città ferma dietro al menu | si scattano lo stesso, tutti |
+| Lo studio dopo l'ultimo scatto | sgombro: nessun modello resta dentro |
+| Il contenuto di una scheda | non ruba il mouse al pulsante che lo contiene |
+| Scheda troppo cara | si sbiadisce col suo ritratto dentro |
 
 Guardati anche i frame veri: il pulsante, la fascia e la barra delle modalità
-stanno insieme senza pestarsi, e i nomi lunghi («Strada sterrata in curva») ci
-stanno dentro — alla prima misura delle schede no, e si leggeva «Strada
-sterrata i».
+stanno insieme senza pestarsi, i ritratti si riconoscono uno per uno lungo tutti
+gli scaffali, e i nomi lunghi («Strada sterrata in curva») ci stanno dentro —
+alla prima misura delle schede no, e si leggeva «Strada sterrata i».
 
 ## Prossimo passo
 

@@ -34,7 +34,7 @@ anchor_right = 1.0
 offset_left = 16.0
 offset_top = 72.0
 offset_right = -16.0
-offset_bottom = 228.0
+offset_bottom = 262.0
 grow_horizontal = 2
 theme_override_styles/panel = ExtResource("2_fondo")
 
@@ -83,7 +83,7 @@ text = "×"
 
 [node name="Scorrimento" type="ScrollContainer" parent="Fascia/Margine/Colonna"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 74)
+custom_minimum_size = Vector2(0, 116)
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 3
