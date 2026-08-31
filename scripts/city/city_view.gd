@@ -53,7 +53,15 @@ const SERVIZI := [
 	{ "id": "strada", "nome": "Strada" },
 	{ "id": "corrente", "nome": "Corrente" },
 	{ "id": "acqua", "nome": "Acqua" },
+	{ "id": "lavoro", "nome": "Lavoro" },
 ]
+
+## I tre che un edificio deve avere per funzionare, e quindi per dare quello che
+## dà. Il lavoro non è fra questi di proposito: per sapere quanti posti ci sono
+## bisogna prima sapere quali uffici funzionano, e un ufficio non ha bisogno di
+## un impiego per darne. Contarlo insieme agli altri sarebbe una domanda che
+## gira su se stessa.
+const SERVIZI_ALLACCIAMENTO := ["strada", "corrente", "acqua"]
 
 enum Modo { NAVIGA, PIAZZA, DEMOLISCI, TERRENO, SPOSTA }
 
@@ -74,6 +82,7 @@ enum Attrezzo { ALZA, ABBASSA, LIVELLA }
 @onready var _interfaccia: CanvasLayer = $Interfaccia
 @onready var _barra: BarraCostruzioni = %Costruzioni
 @onready var _conti: PannelloCitta = %Conti
+@onready var _stato: PannelloStato = %Stato
 @onready var _aiuto: Label = %Aiuto
 @onready var _messaggio_label: Label = %Messaggio
 
@@ -472,8 +481,13 @@ func _copertura(servizio: String) -> Dictionary:
 	}
 	var asse := 0 if servizio == "corrente" else 1
 	var resta := 0
-	if servizio != "strada":
-		resta = _servizi_disponibili()[asse]
+	match servizio:
+		"strada":
+			pass
+		"lavoro":
+			resta = _posti_offerti()
+		_:
+			resta = _servizi_disponibili()[asse]
 
 	# In ordine di posa: gli id crescono, e ordinarli è ordinare la storia della
 	# città.
@@ -490,18 +504,28 @@ func _copertura(servizio: String) -> Dictionary:
 		)
 		var chiede := false
 		var servita := false
-		if servizio == "strada":
-			chiede = catalogo.vuole_la_strada(modello)
-			servita = chiede and _tocca_una_strada(celle)
-		else:
-			var quanto: int = -(voce["servizi"] as Vector2i)[asse]
+		# Quando quello che c'è non basta per tutti, si serve prima chi c'era
+		# già: si scorre in ordine di posa e si stacca da dove il conto sfonda.
+		# Arbitrario come ogni altra regola, ma stabile — riaprendo la partita
+		# restano fuori gli stessi — ed è quella che ci si aspetta, visto che è
+		# l'ultima cosa costruita ad aver fatto saltare il conto.
+		var quanto := 0
+		match servizio:
+			"strada":
+				chiede = catalogo.vuole_la_strada(modello)
+				servita = chiede and _tocca_una_strada(celle)
+			"lavoro":
+				# Quanti ne chiede è il numero di abitanti che l'edificio
+				# ospiterebbe, non quelli che ospita adesso: un palazzo rimasto
+				# senza lavoro si spopola, e se smettesse anche di chiederne i
+				# posti tornerebbero a bastare, il palazzo si ripopolerebbe, e
+				# via all'infinito. Quello che si spegne è quello che dà.
+				quanto = catalogo.abitanti(modello)
+			_:
+				quanto = -(voce["servizi"] as Vector2i)[asse]
+		if servizio != "strada":
 			chiede = quanto > 0
 			if chiede:
-				# Quando non basta per tutti, la rete serve prima quello che
-				# c'era già: si stacca da dove il conto sfonda. Arbitrario come
-				# ogni altra regola, ma stabile — riaprendo la partita restano
-				# al buio le stesse case — ed è quella che ci si aspetta, visto
-				# che è l'ultima cosa costruita ad aver fatto saltare il conto.
 				servita = quanto <= resta
 				if servita:
 					resta -= quanto
@@ -518,6 +542,36 @@ func _copertura(servizio: String) -> Dictionary:
 	return esito
 
 
+## Quanti posti di lavoro offre la città, contando solo gli edifici che
+## funzionano: un ufficio senz'acqua è un ufficio chiuso.
+func _posti_offerti() -> int:
+	var fuori := _in_difetto(SERVIZI_ALLACCIAMENTO)
+	var totale := 0
+	for piazzamento in griglia.piazzamenti():
+		if fuori.has(int(piazzamento["id"])):
+			continue
+		totale += catalogo.posti(str(piazzamento["modello"]))
+	return totale
+
+
+## Quanti posti di lavoro chiede la città: gli abitanti che ci starebbero, non
+## quelli che ci stanno. Vedi il commento dentro _copertura.
+func _posti_chiesti() -> int:
+	var totale := 0
+	for piazzamento in griglia.piazzamenti():
+		totale += catalogo.abitanti(str(piazzamento["modello"]))
+	return totale
+
+
+## Gli id dei piazzamenti a cui manca almeno uno dei servizi elencati.
+func _in_difetto(servizi: Array) -> Dictionary:
+	var fuori := {}
+	for servizio in servizi:
+		for id_piazzamento in _copertura(str(servizio))["scoperti"]:
+			fuori[id_piazzamento] = true
+	return fuori
+
+
 ## Rifà i numeri del pannello e, se un servizio è acceso, il colore sul mondo.
 func _aggiorna_i_conti() -> void:
 	var righe: Array[Dictionary] = []
@@ -531,6 +585,10 @@ func _aggiorna_i_conti() -> void:
 			"chiedono": conto["chiedono"], "scoperte": conto["scoperte"],
 		})
 	_segna_chi_e_in_difetto(in_difetto)
+	_stato.aggiorna(
+		_popolazione(in_difetto), _consumato, _servizi_disponibili(),
+		_posti_chiesti(), _posti_offerti()
+	)
 	_conti.mostra(righe, "%d costruzioni in città · %s." % [
 		griglia.piazzamenti().size(), _riepilogo_servizi()
 	])
@@ -612,6 +670,22 @@ func _segnale_sotto(punto: Vector2) -> bool:
 		if punto.distance_to(_camera.punto_schermo(segnale.global_position)) <= RAGGIO_SEGNALE:
 			return true
 	return false
+
+
+## Quanti abitanti ha la città.
+##
+## Chi ha il punto esclamativo non ne porta nessuno: un palazzo senz'acqua è un
+## palazzo vuoto, ed è la stessa regola per cui un impianto senza strada non
+## produce. Continua però a chiedere l'acqua di un palazzo pieno — quello che si
+## spegne di una costruzione in difetto è quello che dà, mai quello che chiede,
+## o il conto si mangerebbe la coda.
+func _popolazione(in_difetto: Dictionary) -> int:
+	var quanti := 0
+	for piazzamento in griglia.piazzamenti():
+		if in_difetto.has(int(piazzamento["id"])):
+			continue
+		quanti += catalogo.abitanti(str(piazzamento["modello"]))
+	return quanti
 
 
 func _on_servizio_scelto(servizio: String) -> void:
@@ -1303,7 +1377,9 @@ static func _tinge(nodo: Node, materiale: Material) -> void:
 
 
 func _mouse_sul_pannello() -> bool:
-	return _barra.sotto_il_mouse() or _conti.sotto_il_mouse()
+	if _barra.sotto_il_mouse() or _conti.sotto_il_mouse():
+		return true
+	return _stato.sotto_il_mouse()
 
 
 # --- Testi ------------------------------------------------------------------

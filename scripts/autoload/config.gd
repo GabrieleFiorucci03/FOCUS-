@@ -40,6 +40,12 @@ const DEFAULTS := {
 		"plants": { "wind": { "power": 72 }, "water": { "water": 72 } },
 		"per_cell": { "house": { "power": 1, "water": 1 } },
 	},
+	"population": {
+		"per_cell": { "house": 3 },
+	},
+	"jobs": {
+		"per_cell": { "shop": 4, "office": 8 },
+	},
 }
 
 ## Crediti guadagnati per un'ora piena di focus.
@@ -71,6 +77,12 @@ var terrain_cost_per_level: int = int(DEFAULTS["terrain_cost_per_level"])
 ## economy.json, che è anche il posto dove si ritocca.
 var services: Dictionary = (DEFAULTS["services"] as Dictionary).duplicate(true)
 
+## Quanti abitanti porta, a cella occupata, ogni tipo di edificio residenziale.
+var population: Dictionary = (DEFAULTS["population"] as Dictionary).duplicate(true)
+
+## Quanti posti di lavoro offre, a cella occupata, ogni tipo di edificio.
+var jobs: Dictionary = (DEFAULTS["jobs"] as Dictionary).duplicate(true)
+
 
 func _ready() -> void:
 	reload()
@@ -89,6 +101,8 @@ func reload() -> void:
 	terrain_cost_per_level = maxi(0, int(values["terrain_cost_per_level"]))
 	prices = values["prices"]
 	services = values["services"]
+	population = values["population"]
+	jobs = values["jobs"]
 
 
 ## Crediti (con decimali) maturati da un tempo di focus espresso in secondi.
@@ -134,6 +148,21 @@ func plant_output(kind: String, variant: String) -> Vector2i:
 func consumption_per_cell(kind: String) -> Vector2i:
 	var consumi: Dictionary = services.get("per_cell", {})
 	return _coppia(consumi.get(kind, {}))
+
+
+## Quanti abitanti porta, a cella occupata, un tipo di edificio. Zero per tutto
+## quello in cui non ci abita nessuno — che è tutto tranne le cinque tipologie
+## residenziali.
+func residents_per_cell(kind: String) -> int:
+	var densita: Dictionary = population.get("per_cell", {})
+	return int(densita.get(kind, 0))
+
+
+## Quanti posti di lavoro offre, a cella occupata, un tipo di edificio. Zero per
+## tutto quello in cui non lavora nessuno: case, strade, alberi, parchi.
+func jobs_per_cell(kind: String) -> int:
+	var posti: Dictionary = jobs.get("per_cell", {})
+	return int(posti.get(kind, 0))
 
 
 func _read_json() -> Dictionary:

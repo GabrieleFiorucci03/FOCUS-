@@ -143,6 +143,8 @@ func _costruisci_voci(asset: Dictionary, gioco: Dictionary) -> void:
 			"sostegno": float(voce_asset.get("support_height", 0.0)),
 			"salita": _salita(voce_asset),
 			"servizi": _servizi(voce_asset, kind, Vector2i(int(f[0]), int(f[1]))),
+			"abitanti": Config.residents_per_cell(kind) * maxi(1, int(f[0]) * int(f[1])),
+			"posti": Config.jobs_per_cell(kind) * maxi(1, int(f[0]) * int(f[1])),
 		}
 		ordine.append(id)
 
@@ -229,6 +231,24 @@ func _servizi(voce_asset: Dictionary, kind: String, footprint: Vector2i) -> Vect
 func servizi(id: String) -> Vector2i:
 	var v := voce(id)
 	return Vector2i.ZERO if v.is_empty() else v["servizi"] as Vector2i
+
+
+## Quanti abitanti porta un edificio quando funziona. Zero per tutto quello in
+## cui non ci abita nessuno.
+##
+## La densità sta sul tipo e l'ingombro fa il resto, come per i servizi e per la
+## stessa ragione: una torre 4x4 ospita sedici volte quello che ospita una cella
+## di torre, e nessuno deve scrivere novantuno numeri perché lo dica.
+func abitanti(id: String) -> int:
+	var v := voce(id)
+	return 0 if v.is_empty() else int(v["abitanti"])
+
+
+## Quanti posti di lavoro offre un edificio quando funziona. Zero per tutto
+## quello in cui non lavora nessuno.
+func posti(id: String) -> int:
+	var v := voce(id)
+	return 0 if v.is_empty() else int(v["posti"])
 
 
 ## Se un oggetto è una strada: quello su cui si cammina e si arriva. Le rampe e

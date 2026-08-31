@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3]
+[gd_scene load_steps=9 format=3]
 
 [ext_resource type="Script" path="res://scripts/city/city_view.gd" id="1_city"]
 [ext_resource type="Script" path="res://scripts/city/iso_camera.gd" id="2_cam"]
 [ext_resource type="PackedScene" path="res://scenes/ui/BarraCostruzioni.tscn" id="3_barra"]
 [ext_resource type="PackedScene" path="res://scenes/ui/PannelloCitta.tscn" id="4_conti"]
+[ext_resource type="PackedScene" path="res://scenes/ui/PannelloStato.tscn" id="5_stato"]
 
 [sub_resource type="ProceduralSkyMaterial" id="SkyMat_1"]
 sky_top_color = Color(0.352941, 0.505882, 0.678431, 1)
@@ -103,4 +104,7 @@ clip_text = true
 unique_name_in_owner = true
 
 [node name="Conti" parent="Interfaccia" instance=ExtResource("4_conti")]
+unique_name_in_owner = true
+
+[node name="Stato" parent="Interfaccia" instance=ExtResource("5_stato")]
 unique_name_in_owner = true

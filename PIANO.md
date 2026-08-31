@@ -839,61 +839,114 @@ prende in mano una costruzione e la riposa dove si vuole.
 | Il salvataggio dopo un ripensamento | una riga sola, dove era |
 | Riposarla lontano da una strada | rifiutata come un piazzamento qualsiasi |
 
+## Gli abitanti, e il pannello di stato
+
+Il primo dei tre attributi che rendono una città una città invece di un
+plastico. Ogni edificio residenziale porta con sé un numero di abitanti, e in
+un angolo dello schermo ci sono i tre numeri che dicono come sta la città.
+
+- **La densità sta sul tipo, l'ingombro fa il resto**, come per corrente e
+  acqua e per la stessa ragione: una casetta 1x1 fa 3 abitanti, una casa 1x2 ne
+  fa 6, una villa 2x2 ne fa 8, una palazzina 24, una stecca 40, una torre 4x4
+  ne fa 224. La scala è quella delle tipologie, non dei metri quadri — le celle
+  sono 2x2 m e nessun conto realistico ci starebbe dentro, mentre il rapporto
+  fra una villa e una torre è quello che si legge guardando.
+- **La densità conviene**, che è come dev'essere: coi prezzi di adesso un
+  abitante costa 3,3 crediti in una casa, 1,2 in una palazzina e 0,95 in una
+  torre. La villa costa più di quello che ospita ed è voluto — è un lusso, non
+  un affare. La stecca resta il pezzo peggio prezzato del listino, ma il
+  problema è il suo prezzo (96 crediti) e non il suo numero di abitanti.
+- **Un edificio col punto esclamativo non ospita nessuno.** È la regola già
+  scritta per gli impianti, applicata al primo attributo che le tocca: se è
+  grigio non entra in funzione, e un palazzo senz'acqua è un palazzo vuoto.
+  Continua però a chiedere l'acqua di un palazzo pieno — quello che si spegne è
+  quello che l'edificio dà, mai quello che chiede.
+- **Il pannello di stato non ha un pulsante e non si chiude**, perché non è una
+  cosa da andare a cercare: sono i tre numeri che dicono se quello che si sta per
+  costruire ci sta. Abitanti, corrente e acqua, ognuna con la sua barra piena in
+  proporzione e la percentuale usata; azzurra quando c'è margine, ambra sopra
+  l'85%, rossa quando è finita. I conti della città restano dietro al loro
+  pulsante: quelli rispondono a «che cosa non va», che è una domanda che ci si fa
+  ogni tanto, non a ogni clic.
+- **Senza impianti la percentuale non esiste.** Non è lo zero per cento, è una
+  divisione che non si può fare: la barra si riempie tutta di rosso e il testo
+  dice «8 / 0», che è la lettura giusta — tutto quello che c'è resta scoperto.
+
+| Prova | Esito |
+|---|---|
+| Casa 1x1, casa 1x2, torre 4x4 | 3, 6, 224: l'ingombro fa il conto |
+| Casa, villa, palazzina, torre | in quest'ordine, sempre più densi |
+| Strade, alberi, parchi, negozi, uffici, scuole, impianti | non ci abita nessuno |
+| Posare una casetta servita | la popolazione sale di 3 |
+| Toglierle la strada | non ospita più nessuno, ma l'acqua la chiede lo stesso |
+| Rimetterla | si ripopola |
+| Le barre | piene quanto l'usato sul disponibile, con la percentuale |
+| Mille e duecento | si legge «1.200» |
+
 ## Il piano per il prossimo giro
 
 Tre cose decise ma non ancora fatte, in quest'ordine perché l'ordine conta: la
-prima dà alla seconda qualcuno da servire, e la terza cambia la forma del mondo
-sotto tutte e due. Il prerequisito di tutte — ogni edificio attaccato a una
-strada — adesso c'è.
+prima dà agli abitanti qualcosa da fare, la seconda dà loro dei servizi, e la
+terza cambia la forma del mondo sotto tutte e due.
 
-### 1. La popolazione, e cosa vuol dire «funzionare»
+### 1. Il lavoro, e la felicità
 
-Oggi una costruzione ha un solo attributo: quanta corrente e quanta acqua dà o
-prende. Domani ne ha tre in più, e sono quelli che rendono una città una città
-invece di un plastico.
+Gli abitanti ci sono. Adesso gli serve un posto dove andare la mattina, e un
+numero che dica se la città in cui vivono è un buon posto.
 
-- **Ogni edificio residenziale porta un tot di abitanti.** Come per i servizi:
-  un numero per tipo, moltiplicato per le celle occupate, così una torre 4x4
-  ospita quello che ospitano sedici casette senza scrivere novantuno numeri.
-- **Ogni edificio commerciale e di lavoro dà impiego a un tot di abitanti.**
-  Negozi, uffici, fabbriche. Il conto da mostrare è il rapporto fra i due:
-  abitanti senza lavoro da una parte, posti vuoti dall'altra, ed è quello che dà
-  al giocatore la prossima cosa da costruire.
-- **Ogni edificio di servizio porta il suo servizio agli abitanti** che gli
-  stanno dentro il raggio — che è il punto 2 qui sotto, ed è il motivo per cui
-  i due punti vanno letti insieme: senza abitanti un'area di copertura copre dei
-  tetti, non della gente.
+**Ogni edificio commerciale e di lavoro dà un certo numero di posti**, con la
+stessa forma di tutto il resto — un numero per tipo, moltiplicato per le celle.
+Una proposta da verificare col simulatore prima di scriverla in `economy.json`:
 
-E la regola che li governa tutti e tre, che invece **c'è già** per corrente e
-acqua e va solo estesa: **un edificio col punto esclamativo non entra in
-funzione.** Se è grigio non ospita nessuno, non impiega nessuno e non porta il
-suo servizio a nessuno, esattamente come oggi un impianto senza strada non
-produce un ampere. Non è una punizione in più: è la stessa frase detta per ogni
-attributo che l'edificio ha, e vuol dire che la fila da rispettare è sempre
-quella — prima la strada, poi corrente e acqua, poi quello per cui l'hai
-costruito.
+| tipo | posti a cella | esempio | posti |
+|---|---|---|---|
+| negozio | 4 | 1x1 / 2x2 | 4 / 16 |
+| ufficio | 8 | 2x2 / 3x3 | 32 / 72 |
+| fabbrica | 6 | 2x2 / 3x3 | 24 / 54 |
+| azienda agricola | 3 | 2x2 / 3x2 | 12 / 18 |
+| presidio | 3 | 2x2 / 3x3 | 12 / 27 |
+| scuola | 2 | 3x3 / 4x3 | 18 / 24 |
+| campo sportivo | 1 | 2x1 / 3x2 | 2 / 6 |
 
-Un punto delicato che è già stato deciso una volta e va tenuto: **quello che si
-spegne è quello che l'edificio dà, non quello che chiede.** Una casa al buio la
-corrente la vuole lo stesso — è proprio quello che la tiene al buio. Toglierle
-anche il consumo libererebbe la corrente che la riaccenderebbe, che la farebbe
-consumare di nuovo, che la rispegnerebbe: una domanda senza risposta stabile.
-Vale per gli abitanti come per gli ampere: un palazzo scoperto non ospita
-nessuno, ma continua a chiedere l'acqua di un palazzo pieno.
+Con questi numeri un ufficio 2x2 (32 posti) regge una palazzina 2x2 (24
+abitanti) e avanza: la lettura è «un isolato di uffici per un isolato di case»,
+che è la proporzione che si vuole poter vedere a occhio guardando la città.
 
-Da decidere quando ci si mette mano:
+**I posti devono bastare per tutti.** Se gli abitanti sono più dei posti, gli
+edifici residenziali che restano senza prendono il punto esclamativo e si
+spopolano, come già succede a quelli senz'acqua. Il lavoro diventa il quarto
+servizio dell'elenco, accanto a strada, corrente e acqua, e non ha bisogno di
+niente di nuovo: pannello, evidenza sul mondo, velo scuro e `!` funzionano già
+per chiunque entri in quell'elenco.
 
-- **Gli abitanti arrivano subito o crescono?** Un numero che compare tutto
-  insieme alla posa è semplice e leggibile; una crescita nel tempo è più viva ma
-  vuole un orologio che gira anche quando l'app è chiusa, e questa è un'app in
-  cui il tempo che conta è quello di concentrazione. Si parte dal numero
-  immediato.
-- **Cosa succede se il lavoro non basta**, o se avanza. Per ora niente: sono due
-  numeri da guardare, non una penalità. Le penalità si aggiungono dopo aver
-  visto se il gioco ne ha bisogno.
-- **Dove si legge il conto.** I conti della città hanno già le righe dei
-  servizi: abitanti e posti di lavoro stanno lì, e il pannello diventa il posto
-  dove si guarda la città invece che l'elenco di quello che non va.
+**Attenzione a un cerchio che si morde la coda**, ed è la ragione per cui questo
+punto va letto insieme alla regola che c'è già. Se un palazzo che si spopola
+smettesse anche di *chiedere* lavoro, i posti tornerebbero a bastare, il palazzo
+si ripopolerebbe, i posti tornerebbero a mancare, e via così: una domanda senza
+risposta stabile. Vale qui quello che vale per la corrente — **quello che si
+spegne è quello che l'edificio dà, non quello che chiede**. Un palazzo senza
+lavoro ospita zero abitanti ma continua a chiedere i posti dei suoi abitanti
+nominali, e la fila resta ferma. L'assegnazione segue l'ordine di posa, come per
+la corrente: senza lavoro resta l'ultimo arrivato, che è anche quello che ha
+fatto saltare il conto.
+
+**La felicità è un indicatore solo**, e dice quanta parte degli abitanti ha
+tutto: un lavoro e tutti i servizi che la città sa offrire. Cento per cento vuol
+dire che non manca niente a nessuno.
+
+- **Si misura sugli abitanti, non sugli edifici.** Una torre scoperta pesa
+  duecento volte una casetta scoperta, ed è giusto così: è duecento volte più
+  gente scontenta.
+- **Ogni servizio pesa uguale.** Strada, corrente, acqua, lavoro e i cinque
+  presidi civici del punto 2: la felicità è la media di quanti abitanti sono
+  coperti da ciascuno. Pesi diversi per servizi diversi si possono aggiungere
+  dopo, quando si sarà capito quale manca sempre.
+- **Va nel pannello di stato**, sotto gli abitanti, con la sua barra: è il
+  numero che riassume tutti gli altri, e il posto dove si guarda come sta la
+  città è quello.
+- **Non è ancora una penalità.** È il punteggio da far salire, non una tassa da
+  pagare: le conseguenze si aggiungono dopo aver visto se il gioco ne ha
+  bisogno.
 
 ### 2. I servizi con un'area di azione
 

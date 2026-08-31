@@ -141,6 +141,13 @@ di un piazzamento nuovo — strada, acqua, corrente — ma non si ripaga, perch�
 l'hai già comprata una volta. Se chiudi l'app con qualcosa in mano la ritrovi
 dov'era: dal salvataggio esce solo quando l'hai riposata.
 
+**In un angolo c'è come sta la città**, sempre lì e senza un pulsante da
+premere: abitanti, corrente e acqua, ognuna con la sua barra piena in
+proporzione e la percentuale usata. Ogni edificio residenziale porta i suoi
+abitanti — 3 una casetta, 24 una palazzina, 224 una torre 4x4 — ma solo se
+funziona: un palazzo col punto esclamativo è un palazzo vuoto, anche se l'acqua
+continua a chiederla lo stesso.
+
 **E poi c'è il badile.** Alza, abbassa e livella spostano il suolo di mezzo
 metro per volta, a un credito a gradino e senza rimborso. Sotto una costruzione
 il terreno non si tocca — demolisci prima — e fra due celle vicine il salto non

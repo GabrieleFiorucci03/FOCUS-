@@ -1,0 +1,134 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/pannello_stato.gd" id="1_stato"]
+[ext_resource type="StyleBox" path="res://scenes/ui/pannello.tres" id="2_fondo"]
+
+[sub_resource type="StyleBoxFlat" id="Vuoto_1"]
+bg_color = Color(1, 1, 1, 0.12)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[node name="PannelloStato" type="Control"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_stato")
+
+[node name="Pannello" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -276.0
+offset_top = 274.0
+offset_right = -16.0
+offset_bottom = 464.0
+grow_horizontal = 0
+theme_override_styles/panel = ExtResource("2_fondo")
+
+[node name="Margine" type="MarginContainer" parent="Pannello"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 10
+
+[node name="Colonna" type="VBoxContainer" parent="Pannello/Margine"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="RigaAbitanti" type="HBoxContainer" parent="Pannello/Margine/Colonna"]
+layout_mode = 2
+
+[node name="Etichetta" type="Label" parent="Pannello/Margine/Colonna/RigaAbitanti"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 0.72)
+theme_override_font_sizes/font_size = 13
+text = "Abitanti"
+
+[node name="Abitanti" type="Label" parent="Pannello/Margine/Colonna/RigaAbitanti"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "0"
+
+[node name="Separatore" type="HSeparator" parent="Pannello/Margine/Colonna"]
+layout_mode = 2
+
+[node name="RigaCorrente" type="HBoxContainer" parent="Pannello/Margine/Colonna"]
+layout_mode = 2
+
+[node name="Etichetta" type="Label" parent="Pannello/Margine/Colonna/RigaCorrente"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 0.72)
+theme_override_font_sizes/font_size = 13
+text = "Corrente"
+
+[node name="CorrenteTesto" type="Label" parent="Pannello/Margine/Colonna/RigaCorrente"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "0 / 0"
+
+[node name="CorrenteBarra" type="ProgressBar" parent="Pannello/Margine/Colonna"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+theme_override_styles/background = SubResource("Vuoto_1")
+max_value = 1.0
+show_percentage = false
+
+[node name="RigaAcqua" type="HBoxContainer" parent="Pannello/Margine/Colonna"]
+layout_mode = 2
+
+[node name="Etichetta" type="Label" parent="Pannello/Margine/Colonna/RigaAcqua"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 0.72)
+theme_override_font_sizes/font_size = 13
+text = "Acqua"
+
+[node name="AcquaTesto" type="Label" parent="Pannello/Margine/Colonna/RigaAcqua"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "0 / 0"
+
+[node name="AcquaBarra" type="ProgressBar" parent="Pannello/Margine/Colonna"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+theme_override_styles/background = SubResource("Vuoto_1")
+max_value = 1.0
+show_percentage = false
+
+[node name="RigaLavoro" type="HBoxContainer" parent="Pannello/Margine/Colonna"]
+layout_mode = 2
+
+[node name="Etichetta" type="Label" parent="Pannello/Margine/Colonna/RigaLavoro"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 0.72)
+theme_override_font_sizes/font_size = 13
+text = "Lavoro"
+
+[node name="LavoroTesto" type="Label" parent="Pannello/Margine/Colonna/RigaLavoro"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "0 / 0"
+
+[node name="LavoroBarra" type="ProgressBar" parent="Pannello/Margine/Colonna"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+theme_override_styles/background = SubResource("Vuoto_1")
+max_value = 1.0
+show_percentage = false

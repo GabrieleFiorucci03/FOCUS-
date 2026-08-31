@@ -55,6 +55,32 @@
 		}
 	},
 
+	"_commento_popolazione": "Quanti abitanti porta un edificio residenziale, per cella occupata: la densita' della tipologia moltiplicata per quanto e' grande. Una casetta 1x1 fa 3 abitanti, una 1x2 ne fa 6; una villa 2x2 ne fa 8, una palazzina 2x2 ne fa 24, una stecca 2x3 ne fa 60 e una torre 4x4 ne fa 224. La scala e' quella delle tipologie, non dei metri quadri: le celle sono 2x2 m e nessun conto realistico ci starebbe dentro, mentre il rapporto fra una villa e una torre e' quello che conta e quello si legge. Un tipo non elencato non porta nessuno: negozi, uffici e servizi daranno lavoro, non abitanti, ed e' un altro numero che verra' dopo.",
+	"_commento_scala_popolazione": "Costo per abitante, coi prezzi di adesso: casa 3,3 crediti, villa 3,8, palazzina 1,2, stecca 2,4, torre 0,95. La densita' conviene, che e' come deve essere; la villa costa piu' di quello che ospita, ed e' voluto, e' un lusso. La stecca resta il pezzo peggio prezzato del listino, ma il problema e' il suo prezzo (96) e non il suo numero di abitanti.",
+	"population": {
+		"per_cell": {
+			"house": 3,
+			"villa": 2,
+			"apartment": 6,
+			"slab": 10,
+			"tower": 14
+		}
+	},
+
+	"_commento_lavoro": "Quanti posti di lavoro offre un edificio, per cella occupata. Vale la stessa forma degli abitanti: la densita' sta sul tipo, l'ingombro fa il resto. I posti devono bastare per tutti gli abitanti, e chi resta senza si spopola, quindi i numeri sono tarati sul terreno che occupano: un ufficio 2x2 fa 32 posti e regge una palazzina 2x2, che di abitanti ne fa 24. Un tipo non elencato non da' lavoro a nessuno.",
+	"_commento_scala_lavoro": "In superficie il rapporto e' circa uno a uno: un isolato di uffici per un isolato di case. Una torre 4x4 (224 abitanti) vuole tre uffici 3x3, che e' la ragione per cui una torre non si posa da sola. Il quartiere di riferimento del simulatore e' nato prima del lavoro e infatti non ne ha abbastanza: python tools/balance/simula_economia.py lo dice.",
+	"jobs": {
+		"per_cell": {
+			"shop": 4,
+			"office": 8,
+			"factory": 6,
+			"agriculture": 3,
+			"service": 3,
+			"school": 2,
+			"sport": 1
+		}
+	},
+
 	"_commento_rimborso": "Quanto torna indietro demolendo: 0.5 = meta' del prezzo, arrotondata per difetto.",
 	"refund_ratio": 0.5,
 
