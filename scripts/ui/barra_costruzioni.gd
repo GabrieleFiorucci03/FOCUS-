@@ -38,6 +38,7 @@ const TESTO_VUOTO := "Scegli qualcosa da costruire."
 ## Gli attrezzi, nell'ordine in cui compaiono. Costruire sta negli scaffali;
 ## qui c'è quello che si fa a una città che esiste già.
 const STRUMENTI := {
+	"sposta": "Sposta",
 	"alza": "Alza",
 	"abbassa": "Abbassa",
 	"livella": "Livella",
@@ -520,6 +521,8 @@ func _annulla_la_pressione() -> void:
 
 func _descrizione_strumento(id: String) -> String:
 	match id:
+		"sposta":
+			return "Clic su una costruzione per prenderla in mano, clic per riposarla dove vuoi. R la gira, PagSu e PagGiù le cambiano quota, Esc la rimette dov'era. Spostare non costa niente."
 		"demolisci":
 			return "Clic su una costruzione per demolirla: torna indietro il %d%% del prezzo, ma il terreno resta come l'hai spianato. Esc per smettere." % roundi(Config.refund_ratio * 100.0)
 		"livella":

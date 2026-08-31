@@ -32,6 +32,7 @@ const LAYER_TERRENO := 1
 const COLORE_VALIDO := Color(0.36, 0.84, 0.47, 0.55)
 const COLORE_INVALIDO := Color(0.90, 0.31, 0.26, 0.50)
 const COLORE_DEMOLIZIONE := Color(0.95, 0.47, 0.20, 0.45)
+const COLORE_SPOSTAMENTO := Color(0.36, 0.70, 0.95, 0.45)
 const COLORE_SCOPERTO := Color(0.92, 0.28, 0.24, 0.55)
 
 ## Quanto si scurisce una costruzione a cui manca qualcosa, e il rosso del punto
@@ -54,7 +55,7 @@ const SERVIZI := [
 	{ "id": "acqua", "nome": "Acqua" },
 ]
 
-enum Modo { NAVIGA, PIAZZA, DEMOLISCI, TERRENO }
+enum Modo { NAVIGA, PIAZZA, DEMOLISCI, TERRENO, SPOSTA }
 
 ## Gli attrezzi della modalità terreno.
 enum Attrezzo { ALZA, ABBASSA, LIVELLA }
@@ -86,6 +87,11 @@ var _scelto: String = ""
 var _rotazione: int = 0
 ## Di quanti gradini si è scostata a mano la quota del pezzo che si ha in mano.
 var _alzata: int = 0
+## La costruzione presa su per spostarla, e da dove viene: { modello, ancora,
+## rotazione, livello }. Vuoto quando non si ha niente in mano. Serve a
+## rimetterla dov'era se ci si ripensa, che è l'unica cosa che uno spostamento
+## deve garantire.
+var _in_mano: Dictionary = {}
 var _cella := CELLA_NULLA
 var _ancora := CELLA_NULLA
 var _esito: Dictionary = {}
@@ -99,10 +105,10 @@ var _attrezzo: Attrezzo = Attrezzo.ALZA
 ## La quota a cui livellare, presa col primo clic. -1 = ancora da scegliere.
 var _quota_riferimento: int = -1
 
-## Il bilancio dei servizi, x corrente e y acqua: quanto ne danno gli impianti
-## già posati e quanto ne prende tutto il resto. Non si salva niente di questo:
-## è la somma di quello che c'è in città, e si rifà da sola al caricamento.
-var _prodotto := Vector2i.ZERO
+## Quanta corrente e quanta acqua prende tutto quello che è stato posato, x e y.
+## Quanta ne arriva non sta qui: dipende da quali impianti funzionano, e la si
+## chiede a _prodotto() quando serve. Non si salva niente di questo: è la somma
+## di quello che c'è in città, e si rifà da sola al caricamento.
 var _consumato := Vector2i.ZERO
 ## Il servizio acceso sul mondo, o "" se non ce n'è nessuno.
 var _servizio_acceso: String = ""
@@ -203,7 +209,13 @@ func _unhandled_input(evento: InputEvent) -> void:
 				_alza_il_pezzo(-1)
 				get_viewport().set_input_as_handled()
 			KEY_ESCAPE:
-				_torna_a_navigare()
+				# Un passo indietro per volta: chi ha qualcosa in mano la rimette
+				# dov'era e resta a spostare, e solo il secondo Esc esce.
+				if _rimetti_dov_era():
+					_messaggio("Rimessa dov'era.")
+					_aggiorna_bersaglio()
+				else:
+					_torna_a_navigare()
 				get_viewport().set_input_as_handled()
 	elif evento is InputEventMouseButton:
 		var clic := evento as InputEventMouseButton
@@ -382,23 +394,50 @@ func _appoggia_la_campata(campata: Node3D, ancora: Vector2i, livello: int) -> vo
 
 # --- Servizi ----------------------------------------------------------------
 
-## Mette o toglie dal bilancio quello che una costruzione dà e quello che prende.
-## Chi dà non prende e viceversa, ma i due conti restano separati lo stesso: sul
-## pannello si legge "quanta se ne usa su quanta ce n'è", e per scriverlo
-## servono due numeri, non la loro differenza.
+## Mette o toglie dal conto dei consumi quello che una costruzione prende.
+##
+## Prende anche quando non è servita: una casa al buio la corrente la vuole
+## lo stesso, ed è quello che la tiene al buio. Toglierle il consumo perché è
+## scoperta libererebbe la corrente che la accenderebbe, che la farebbe
+## consumare di nuovo, che la rispegnerebbe — una domanda senza risposta
+## stabile. Quello che si spegne di una costruzione in difetto è quello che dà,
+## non quello che chiede.
 func _conta_i_servizi(voce: Dictionary, verso: int) -> void:
 	if voce.is_empty():
 		return
 	var servizi: Vector2i = voce["servizi"]
-	_prodotto += Vector2i(maxi(servizi.x, 0), maxi(servizi.y, 0)) * verso
 	_consumato += Vector2i(maxi(-servizi.x, 0), maxi(-servizi.y, 0)) * verso
 
 
-## Quanta corrente e quanta acqua la città ha in tutto: quella degli impianti,
-## più l'allacciamento di partenza se qualcuno gliene ha dato uno. Senza
-## impianti è zero, ed è giusto così: non c'è niente che possa servire nessuno.
+## Quanta corrente e quanta acqua mettono in comune gli impianti che funzionano.
+##
+## Un impianto senza strada non produce niente: sta lì, l'hai pagato, ma non
+## entra in funzione — che è esattamente quello che dice il punto esclamativo
+## che ha sopra. Non è un totale che si aggiorna mentre si costruisce ma una
+## somma che si rifà quando serve: basta demolire una strada tre celle più in là
+## per cambiarla, e un numero tenuto a mano si sarebbe scollato dal mondo alla
+## prima distrazione.
+func _prodotto() -> Vector2i:
+	var totale := Vector2i.ZERO
+	for piazzamento in griglia.piazzamenti():
+		var servizi := catalogo.servizi(str(piazzamento["modello"]))
+		if servizi.x <= 0 and servizi.y <= 0:
+			continue
+		var celle := griglia.celle_occupate(
+			piazzamento["ancora"], piazzamento["footprint"], piazzamento["rotazione"]
+		)
+		if not _tocca_una_strada(celle):
+			continue
+		totale += Vector2i(maxi(servizi.x, 0), maxi(servizi.y, 0))
+	return totale
+
+
+## Quanta corrente e quanta acqua la città ha in tutto: quella degli impianti che
+## funzionano, più l'allacciamento di partenza se qualcuno gliene ha dato uno.
+## Senza impianti è zero, ed è giusto così: non c'è niente che possa servire
+## nessuno.
 func _servizi_disponibili() -> Vector2i:
-	return Config.service_base() + _prodotto
+	return Config.service_base() + _prodotto()
 
 
 ## Se almeno una cella di un ingombro confina con una strada.
@@ -603,7 +642,7 @@ func _quote_di(celle: Array[Vector2i]) -> PackedFloat32Array:
 
 
 func _mostra_i_servizi() -> void:
-	_barra.aggiorna_servizi(_consumato, Config.service_base() + _prodotto)
+	_barra.aggiorna_servizi(_consumato, _servizi_disponibili())
 
 
 func _serve_livellare(celle: Array[Vector2i], livello: int) -> bool:
@@ -772,6 +811,7 @@ func _livello_rampa(celle: Array[Vector2i], salita: int) -> int:
 
 func _on_voce_scelta(id: String) -> void:
 	Sfx.suona("clic")
+	_rimetti_dov_era()
 	_modo = Modo.PIAZZA
 	_scelto = id
 	_rotazione = 0
@@ -783,6 +823,7 @@ func _on_voce_scelta(id: String) -> void:
 
 func _on_strumento_scelto(strumento: String) -> void:
 	Sfx.suona("clic")
+	_rimetti_dov_era()
 	if strumento.is_empty():
 		_torna_a_navigare()
 		return
@@ -792,6 +833,8 @@ func _on_strumento_scelto(strumento: String) -> void:
 	_cella = CELLA_NULLA
 	_quota_riferimento = -1
 	match strumento:
+		"sposta":
+			_modo = Modo.SPOSTA
 		"demolisci":
 			_modo = Modo.DEMOLISCI
 		"alza":
@@ -811,6 +854,7 @@ func _on_crediti_cambiati(crediti: int) -> void:
 
 
 func _torna_a_navigare() -> void:
+	_rimetti_dov_era()
 	_modo = Modo.NAVIGA
 	_scelto = ""
 	_alzata = 0
@@ -854,6 +898,9 @@ func _alza_il_pezzo(gradini: int) -> void:
 func _conferma() -> void:
 	if _cella == CELLA_NULLA:
 		return
+	if _modo == Modo.SPOSTA and _in_mano.is_empty():
+		_prendi_in_mano()
+		return
 	if _modo == Modo.DEMOLISCI:
 		_demolisci_sotto_il_cursore()
 		return
@@ -864,6 +911,12 @@ func _conferma() -> void:
 	if not bool(_esito.get("valido", false)):
 		Sfx.suona("errore")
 		_messaggio(str(_esito.get("motivo", "")))
+		return
+
+	# Quello che si ha in mano è già stato pagato quando lo si è comprato:
+	# spostarlo non si ripaga, altrimenti nessuno cambierebbe mai idea.
+	if not _in_mano.is_empty():
+		_riposa_quello_in_mano()
 		return
 
 	var prezzo := catalogo.prezzo(_scelto)
@@ -893,6 +946,108 @@ func _conferma() -> void:
 		catalogo.voce(_scelto)["nome"], prezzo, _coda_dei_servizi(_scelto)
 	])
 	_aggiorna_bersaglio()
+
+
+# --- Spostare ---------------------------------------------------------------
+
+## Stacca una costruzione dalla città e la mette in mano al cursore.
+##
+## Sparisce davvero dalla griglia e dal bilancio dei servizi: finché sta in mano
+## non c'è, e il posto che occupava è libero — che è quello che serve per poterla
+## rimettere dov'era spostata di una cella.
+##
+## Dal salvataggio invece no, non ancora: ne esce solo quando si è posata da
+## qualche altra parte. Così chiudere l'app con qualcosa in mano non la fa
+## sparire, la lascia dov'era, che è l'unica risposta accettabile a una domanda
+## che nessuno ha fatto. Quello che era stato spianato per lei resta spianato,
+## come dopo una demolizione: sbancare è una modifica al mondo, non un pezzo
+## dell'edificio.
+func _prendi_in_mano() -> void:
+	var occupante := griglia.occupante(_cella)
+	if occupante.is_empty():
+		Sfx.suona("errore")
+		_messaggio("Qui non c'è niente da spostare.")
+		return
+
+	var id_piazzamento := int(occupante["id"])
+	var costruzione: Dictionary = _costruzioni.get(id_piazzamento, {})
+	var modello := str(occupante["modello"])
+	_in_mano = {
+		"modello": modello,
+		"ancora": occupante["ancora"],
+		"rotazione": int(occupante["rotazione"]),
+		"livello": int(costruzione.get("livello", 0)),
+	}
+
+	if costruzione.has("nodo"):
+		(costruzione["nodo"] as Node3D).queue_free()
+	_costruzioni.erase(id_piazzamento)
+	griglia.rimuovi(_cella)
+	_conta_i_servizi(catalogo.voce(modello), -1)
+	_mostra_i_servizi()
+	_aggiorna_i_conti()
+
+	_scelto = modello
+	_rotazione = int(_in_mano["rotazione"])
+	_alzata = 0
+	_crea_fantasma()
+	if _fantasma != null:
+		_fantasma.rotation.y = deg_to_rad(-90.0 * _rotazione)
+
+	Sfx.suona("clic")
+	_messaggio("%s in mano: clic per riposarla, R la gira, Esc la rimette dov'era." % [
+		catalogo.voce(modello)["nome"]
+	])
+	_aggiorna_bersaglio()
+
+
+## Riposa dove punta il cursore quello che si ha in mano.
+func _riposa_quello_in_mano() -> void:
+	var livello := int(_esito["livello"])
+	if not _costruisci(_scelto, _ancora, _rotazione, livello):
+		Sfx.suona("errore")
+		_messaggio("Non si riesce a posarla qui.")
+		return
+	if catalogo.regola(_scelto) == CityCatalog.Regola.TERRA:
+		_segna_le_quote_del_lotto(_esito["celle"])
+	# Adesso sì: esce dalla vecchia casella del salvataggio ed entra nella nuova.
+	SaveManager.remove_tile(_in_mano["ancora"])
+	SaveManager.add_tile(_ancora, _scelto, _rotazione, livello)
+	SaveManager.save_game()
+
+	var nome: String = catalogo.voce(_scelto)["nome"]
+	_in_mano = {}
+	_scelto = ""
+	_alzata = 0
+	_libera_fantasma()
+	_mostra_i_servizi()
+	_aggiorna_i_conti()
+	Sfx.suona("posa")
+	_messaggio("%s spostata. Spostare non costa niente." % nome)
+	_aggiorna_bersaglio()
+
+
+## Rimette dov'era quello che si ha in mano, e restituisce se c'era qualcosa.
+##
+## La chiama l'Esc, e la chiama anche chi cambia strumento o esce dalla città:
+## una costruzione non deve poter sparire perché si è cliccato altrove.
+func _rimetti_dov_era() -> bool:
+	if _in_mano.is_empty():
+		return false
+	var modello := str(_in_mano["modello"])
+	var ancora: Vector2i = _in_mano["ancora"]
+	var rotazione := int(_in_mano["rotazione"])
+	var livello := int(_in_mano["livello"])
+	_in_mano = {}
+	# Nel salvataggio non ha mai smesso di esserci: qui si rimette solo in piedi.
+	if not _costruisci(modello, ancora, rotazione, livello):
+		push_error("CityView: %s non è tornata al suo posto in %s." % [modello, ancora])
+	_scelto = ""
+	_alzata = 0
+	_libera_fantasma()
+	_mostra_i_servizi()
+	_aggiorna_i_conti()
+	return true
 
 
 func _demolisci_sotto_il_cursore() -> void:
@@ -1026,7 +1181,9 @@ func _aggiorna_bersaglio() -> void:
 
 	match _modo:
 		Modo.DEMOLISCI:
-			_mostra_bersaglio_demolizione()
+			_mostra_bersaglio(COLORE_DEMOLIZIONE)
+		Modo.SPOSTA when _in_mano.is_empty():
+			_mostra_bersaglio(COLORE_SPOSTAMENTO)
 		Modo.TERRENO:
 			_mostra_bersaglio_terreno()
 		_:
@@ -1036,6 +1193,15 @@ func _aggiorna_bersaglio() -> void:
 
 func _mostra_bersaglio_piazzamento() -> void:
 	var voce := catalogo.voce(_scelto)
+	# A mani vuote non c'è niente da mostrare. Oggi non ci si arriva — chi non ha
+	# scelto niente non è in modalità di piazzamento — ma è la specie di cosa che
+	# smette di essere vera al primo modo nuovo, e il prezzo di questa riga è
+	# molto meno di quello di scoprirlo con un errore in mezzo alla città.
+	if voce.is_empty():
+		_selezione.mesh = null
+		if _fantasma != null:
+			_fantasma.visible = false
+		return
 	_ancora = _ancora_da(_cella, voce["footprint"], _rotazione)
 	_esito = _valuta(_scelto, _ancora, _rotazione, _alzata)
 
@@ -1053,7 +1219,9 @@ func _mostra_bersaglio_piazzamento() -> void:
 	)
 
 
-func _mostra_bersaglio_demolizione() -> void:
+## Il riquadro sulla costruzione sotto il cursore: la stessa domanda — quale di
+## queste — la fanno il demolitore e lo spostamento, e cambia solo il colore.
+func _mostra_bersaglio(colore: Color) -> void:
 	var occupante := griglia.occupante(_cella)
 	if occupante.is_empty():
 		var sola: Array[Vector2i] = [_cella]
@@ -1065,7 +1233,7 @@ func _mostra_bersaglio_demolizione() -> void:
 		occupante["ancora"], occupante["footprint"], occupante["rotazione"]
 	)
 	var quota := float(_costruzioni[occupante["id"]]["livello"]) * CityTerrain.PASSO_QUOTA
-	_selezione.mesh = TerrainMesh.costruisci_selezione(celle, quota + 0.02, COLORE_DEMOLIZIONE)
+	_selezione.mesh = TerrainMesh.costruisci_selezione(celle, quota + 0.02, colore)
 
 
 ## Il riquadro sta alla quota di arrivo, non a quella di adesso: si vede dove
@@ -1159,6 +1327,10 @@ func _suggerimento() -> String:
 			if not _scelto.is_empty() and catalogo.regola(_scelto) != CityCatalog.Regola.TERRA:
 				return "Clic per posare · R ruota · PagSu / PagGiù alza e abbassa · Esc annulla"
 			return "Clic per posare · R ruota (Shift+R al contrario) · Esc annulla"
+		Modo.SPOSTA:
+			if _in_mano.is_empty():
+				return "Clic su una costruzione per prenderla in mano · Esc annulla"
+			return "Clic per riposarla · R gira · PagSu / PagGiù cambia quota · Esc la rimette dov'era"
 		Modo.DEMOLISCI:
 			return "Clic su una costruzione per demolirla · Esc annulla"
 		Modo.TERRENO:

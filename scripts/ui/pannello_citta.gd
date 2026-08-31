@@ -16,15 +16,16 @@
 
 class_name PannelloCitta
 extends Control
-## I conti della città: quante costruzioni chiedono un servizio e quante ne
-## restano scoperte.
+## I conti della città: per ogni servizio, quante costruzioni ne restano
+## scoperte.
 ##
 ## Non è il pannello delle statistiche di focus (quello racconta le giornate di
 ## concentrazione): questo racconta la città, e sono due cose che si guardano in
-## momenti diversi. Cliccando un servizio lo si accende sul mondo — le
-## costruzioni che lo chiedono si colorano, verdi se ce l'hanno e rosse se no —
-## perché un numero dice quante sono ma non dove sono, e per rimediare bisogna
-## sapere dove.
+## momenti diversi. Ci sta scritto solo quello che non va — il totale di chi
+## chiede un servizio è il numero di una città che funziona, e in un pannello di
+## problemi è rumore. Cliccando un servizio si accendono sul mondo le costruzioni
+## che ne restano scoperte, perché un numero dice quante sono ma non dove sono,
+## e per rimediare bisogna sapere dove.
 ##
 ## Qui dentro non si conta niente: i conti li fa CityView, che è l'unica a
 ## sapere cosa c'è in città. Questo li mette in pagina.
@@ -114,7 +115,6 @@ func _crea_riga(id: String) -> Button:
 	bottone.custom_minimum_size = Vector2(0, 38)
 	bottone.alignment = HORIZONTAL_ALIGNMENT_LEFT
 	bottone.add_theme_font_size_override("font_size", 13)
-	bottone.tooltip_text = "Accende sul mondo le costruzioni che lo chiedono"
 	bottone.toggled.connect(_on_riga_commutata.bind(id))
 	_righe.add_child(bottone)
 	return bottone
@@ -122,10 +122,14 @@ func _crea_riga(id: String) -> Button:
 
 static func _scrivi_riga(bottone: Button, riga: Dictionary) -> void:
 	var scoperte := int(riga["scoperte"])
-	bottone.text = "%s · %d la chiedono · %s" % [
-		str(riga["nome"]), int(riga["chiedono"]),
+	# Sulla riga ci va solo quello che non va: quante lo chiedono e' il totale
+	# di una citta' che funziona, e in un pannello di problemi e' rumore. Resta
+	# nel suggerimento, per chi lo cerca.
+	bottone.text = "%s · %s" % [
+		str(riga["nome"]),
 		"tutte servite" if scoperte == 0 else "%d scoperte" % scoperte,
 	]
+	bottone.tooltip_text = "%d costruzioni chiedono questo servizio.\nClicca per accendere sul mondo quelle scoperte." % int(riga["chiedono"])
 	# Il rosso sta sulla riga che ha qualcosa che non va, non su tutte: se sono
 	# tutte rosse non se ne guarda nessuna.
 	bottone.add_theme_color_override("font_color",

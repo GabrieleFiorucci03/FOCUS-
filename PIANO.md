@@ -706,6 +706,18 @@ edificio vuole corrente e acqua, e qualcuno gliele deve dare.
 - **Demolire un impianto è permesso anche se lascia la città in rosso.** Le
   costruzioni che reggeva si spengono e lo dicono. Vietarlo avrebbe reso
   impossibile spostare una pala.
+- **Una costruzione col punto esclamativo non entra in funzione.** Un impianto
+  senza strada non produce un ampere: sta lì, l'hai pagato, ma non conta. È la
+  stessa cosa che il suo punto esclamativo dice già a chi guarda, detta al
+  bilancio. Per questo la corrente disponibile non è un totale tenuto a mano ma
+  una somma che si rifà quando serve: basta demolire una strada tre celle più in
+  là per cambiarla, e un numero aggiornato a mano si sarebbe scollato dal mondo
+  alla prima distrazione.
+- **Quello che si spegne è quello che dà, non quello che chiede.** Una casa al
+  buio la corrente la vuole lo stesso, ed è proprio quello che la tiene al buio.
+  Toglierle anche il consumo libererebbe la corrente che la riaccenderebbe, che
+  la farebbe consumare di nuovo, che la rispegnerebbe: una domanda senza
+  risposta stabile.
 - **Del bilancio non si salva niente.** È la somma di quello che c'è in città e
   si rifà da sola al caricamento — stesso principio del terreno, che si salva
   col seme e non con le quote. Una città salvata prima di questa modifica si
@@ -731,6 +743,9 @@ quartieri successivi non costano un credito di infrastruttura.
 | Toccare il punto esclamativo | si aprono i conti della città |
 | Posare pala e torre | velo e punto esclamativo spariscono |
 | Posare una pala | il tetto della corrente sale di 90 |
+| Togliere la strada da sotto una pala | smette di produrre, e chi alimentava si spegne |
+| La casa che si spegne | continua a chiedere la sua corrente, e il conto non oscilla |
+| Rimettere quella strada | la pala riprende e la casa si riaccende |
 | La fascia | scrive «Corrente 78/110», e cambia colore vicino al limite |
 
 ## La strada, e i conti della città
@@ -738,12 +753,14 @@ quartieri successivi non costano un credito di infrastruttura.
 Due cose che vengono dalla stessa domanda: come fa il giocatore a sapere che
 cosa non va nella sua città.
 
-- **Chi consuma servizi vuole una strada accanto.** La lista non è un elenco a
-  parte: è la stessa di chi si allaccia a corrente e acqua, letta dallo stesso
-  posto. Una lista sola non può contraddirne un'altra, e la regola si dice in
-  una riga — quello che si allaccia ai servizi si allaccia anche alla strada,
-  quello che non si allaccia a niente (alberi, parchi, le infrastrutture stesse)
-  nasce dove capita.
+- **Chi ha a che fare coi servizi vuole una strada accanto**, che li prenda o
+  che li dia. La lista non è un elenco a parte: è quella di corrente e acqua,
+  letta dallo stesso posto, e una lista sola non può contraddirne un'altra. Ci
+  stanno dentro anche gli impianti, che non consumano niente ma a cui qualcuno
+  deve pur arrivare per tirarli su e per ripararli: una centrale in mezzo ai
+  campi senza uno straccio di strada è la stessa cosa assurda di una casa.
+  Restano liberi solo quelli che con i servizi non c'entrano — strade, ponti,
+  rampe, alberi, parchi.
 - **Adiacenza, non raggiungibilità.** Confinare con una strada è un controllo
   locale che costa nulla; pretendere che quella strada sia collegata a tutto il
   resto vorrebbe dire visitare il grafo stradale a ogni movimento del mouse, e
@@ -786,13 +803,99 @@ si voleva che comparissero.
 | Clic su un servizio | sul mondo si accendono solo le scoperte |
 | Richiudere il pannello | si spegne anche il colore sul mondo |
 
+## Spostare quello che c'è già
+
+Demolire e ricostruire costava metà prezzo e faceva perdere il posto; per
+girare una casa di novanta gradi era un prezzo assurdo. Lo strumento *Sposta*
+prende in mano una costruzione e la riposa dove si vuole.
+
+- **Non si ripaga.** L'edificio è già stato comprato una volta, e far pagare il
+  ripensamento vuol dire che nessuno cambia mai idea — cioè che la città resta
+  com'è venuta la prima volta.
+- **Valgono tutte le regole di un piazzamento nuovo**, perché è un piazzamento
+  nuovo: strada accanto, celle libere, terreno asciutto, quota. Il codice è
+  letteralmente lo stesso `_valuta`, e non una seconda copia delle regole
+  destinata a divergere al primo ritocco.
+- **In mano non c'è.** Presa su, sparisce dalla griglia e dal bilancio dei
+  servizi: il posto che occupava è libero, il che è quello che serve per poterla
+  rimettere dov'era spostata di una cella sola.
+- **Dal salvataggio invece esce solo quando si è posata.** È venuto fuori da un
+  frame vero, non dai controlli: prendere in mano una costruzione e chiudere
+  l'app la faceva sparire per sempre. Adesso finché sta in mano il salvataggio
+  la tiene dov'era, e chiudere l'app la lascia lì.
+- **Esc è un passo indietro per volta**: il primo rimette a posto quello che si
+  ha in mano e lascia lo strumento in mano, il secondo esce. Anche cambiare
+  strumento, scegliere un altro oggetto o uscire dalla città la rimettono a
+  posto: una costruzione non può sparire perché si è cliccato altrove.
+
+| Prova | Esito |
+|---|---|
+| Clic su una costruzione | presa in mano, e la sua cella è libera |
+| Mentre è in mano | fuori dalla griglia e dal bilancio, dentro il salvataggio |
+| Riposarla altrove | griglia, bilancio e salvataggio tornano a tornare |
+| Spostare | non costa e non rimborsa un credito |
+| Esc con qualcosa in mano | torna dov'era, con la rotazione che aveva |
+| Cambiare strumento o uscire | la rimette a posto invece di perderla |
+| Il salvataggio dopo un ripensamento | una riga sola, dove era |
+| Riposarla lontano da una strada | rifiutata come un piazzamento qualsiasi |
+
 ## Il piano per il prossimo giro
 
-Due cose decise ma non ancora fatte. La prima aveva un prerequisito — ogni
-edificio attaccato a una strada — che adesso c'è; la seconda cambia la forma del
-mondo sotto tutte e due.
+Tre cose decise ma non ancora fatte, in quest'ordine perché l'ordine conta: la
+prima dà alla seconda qualcuno da servire, e la terza cambia la forma del mondo
+sotto tutte e due. Il prerequisito di tutte — ogni edificio attaccato a una
+strada — adesso c'è.
 
-### 1. I servizi con un'area di azione
+### 1. La popolazione, e cosa vuol dire «funzionare»
+
+Oggi una costruzione ha un solo attributo: quanta corrente e quanta acqua dà o
+prende. Domani ne ha tre in più, e sono quelli che rendono una città una città
+invece di un plastico.
+
+- **Ogni edificio residenziale porta un tot di abitanti.** Come per i servizi:
+  un numero per tipo, moltiplicato per le celle occupate, così una torre 4x4
+  ospita quello che ospitano sedici casette senza scrivere novantuno numeri.
+- **Ogni edificio commerciale e di lavoro dà impiego a un tot di abitanti.**
+  Negozi, uffici, fabbriche. Il conto da mostrare è il rapporto fra i due:
+  abitanti senza lavoro da una parte, posti vuoti dall'altra, ed è quello che dà
+  al giocatore la prossima cosa da costruire.
+- **Ogni edificio di servizio porta il suo servizio agli abitanti** che gli
+  stanno dentro il raggio — che è il punto 2 qui sotto, ed è il motivo per cui
+  i due punti vanno letti insieme: senza abitanti un'area di copertura copre dei
+  tetti, non della gente.
+
+E la regola che li governa tutti e tre, che invece **c'è già** per corrente e
+acqua e va solo estesa: **un edificio col punto esclamativo non entra in
+funzione.** Se è grigio non ospita nessuno, non impiega nessuno e non porta il
+suo servizio a nessuno, esattamente come oggi un impianto senza strada non
+produce un ampere. Non è una punizione in più: è la stessa frase detta per ogni
+attributo che l'edificio ha, e vuol dire che la fila da rispettare è sempre
+quella — prima la strada, poi corrente e acqua, poi quello per cui l'hai
+costruito.
+
+Un punto delicato che è già stato deciso una volta e va tenuto: **quello che si
+spegne è quello che l'edificio dà, non quello che chiede.** Una casa al buio la
+corrente la vuole lo stesso — è proprio quello che la tiene al buio. Toglierle
+anche il consumo libererebbe la corrente che la riaccenderebbe, che la farebbe
+consumare di nuovo, che la rispegnerebbe: una domanda senza risposta stabile.
+Vale per gli abitanti come per gli ampere: un palazzo scoperto non ospita
+nessuno, ma continua a chiedere l'acqua di un palazzo pieno.
+
+Da decidere quando ci si mette mano:
+
+- **Gli abitanti arrivano subito o crescono?** Un numero che compare tutto
+  insieme alla posa è semplice e leggibile; una crescita nel tempo è più viva ma
+  vuole un orologio che gira anche quando l'app è chiusa, e questa è un'app in
+  cui il tempo che conta è quello di concentrazione. Si parte dal numero
+  immediato.
+- **Cosa succede se il lavoro non basta**, o se avanza. Per ora niente: sono due
+  numeri da guardare, non una penalità. Le penalità si aggiungono dopo aver
+  visto se il gioco ne ha bisogno.
+- **Dove si legge il conto.** I conti della città hanno già le righe dei
+  servizi: abitanti e posti di lavoro stanno lì, e il pannello diventa il posto
+  dove si guarda la città invece che l'elenco di quello che non va.
+
+### 2. I servizi con un'area di azione
 
 Polizia, presidio sanitario, pompieri, scuola elementare e scuola superiore:
 cinque servizi, ognuno con **un raggio d'azione attorno a sé**. Un'abitazione
@@ -824,7 +927,7 @@ Da decidere:
   strade. La città è a celle quadrate: si parte dal cerchio, che è quello che ci
   si aspetta guardando.
 
-### 2. Un mondo più credibile, e più grande di quello che si vede
+### 3. Un mondo più credibile, e più grande di quello che si vede
 
 Due lavori che si tengono, e vanno fatti insieme perché il secondo vincola il
 primo.
@@ -867,5 +970,5 @@ Da decidere anche:
 
 ## Prossimo passo
 
-Le due cose qui sopra, in quell'ordine. Le cinque fasi sono chiuse: il giro è
+Le tre cose qui sopra, in quell'ordine. Le cinque fasi sono chiuse: il giro è
 completo e rifinito.

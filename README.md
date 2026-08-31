@@ -119,11 +119,12 @@ non una casa che non puoi posare. La fascia delle costruzioni tiene comunque il
 conto in testa (`Corrente 78/90`), ambra quando sta per finire e rosso quando è
 finita.
 
-**Chi consuma servizi vuole anche una strada.** Almeno una cella dell'ingombro
-deve confinare con una strada, una rampa o l'impalcato di un ponte: una casa in
-mezzo al niente non la raggiunge nessuno. Alberi, parchi e le infrastrutture
-stesse nascono dove capita — è la stessa lista di chi si allaccia a corrente e
-acqua, non un elenco a parte.
+**Chi ha a che fare coi servizi vuole anche una strada**, che li prenda o che
+li dia: le case come le pale eoliche e i serbatoi idrici. Almeno una cella
+dell'ingombro deve confinare con una strada, una rampa o l'impalcato di un
+ponte, perché a una centrale in mezzo ai campi non ci arriva nessuno né per
+tirarla su né per ripararla. Alberi, parchi e le strade stesse nascono dove
+capita — è la stessa lista dei servizi, non un elenco a parte.
 
 **I conti della città** stanno dietro al secondo pulsante in alto a sinistra (o
 il tasto `C`): per ogni servizio, quante costruzioni lo chiedono e quante ne
@@ -132,6 +133,13 @@ rosso chi no — perché un numero dice quante sono ma non dove sono, e per
 rimediare bisogna sapere dove. Quando la corrente non basta per tutti la rete
 serve prima quello che c'era già: resta al buio l'ultimo arrivato, che è anche
 quello che ha fatto saltare il conto.
+
+**Cambiare idea non costa.** Lo strumento *Sposta* prende in mano una
+costruzione già posata e te la lascia riportare dove vuoi: `R` la gira,
+`PagSu` e `PagGiù` le cambiano quota, `Esc` la rimette dov'era. Vale ogni regola
+di un piazzamento nuovo — strada, acqua, corrente — ma non si ripaga, perché
+l'hai già comprata una volta. Se chiudi l'app con qualcosa in mano la ritrovi
+dov'era: dal salvataggio esce solo quando l'hai riposata.
 
 **E poi c'è il badile.** Alza, abbassa e livella spostano il suolo di mezzo
 metro per volta, a un credito a gradino e senza rimborso. Sotto una costruzione

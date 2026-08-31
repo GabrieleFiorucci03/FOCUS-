@@ -242,13 +242,14 @@ func e_strada(id: String) -> bool:
 
 ## Se un oggetto ha bisogno di una strada accanto.
 ##
-## È la stessa lista di chi consuma corrente e acqua, e non un elenco a parte:
-## quello che si allaccia ai servizi si allaccia anche alla strada, e quello che
-## non si allaccia a niente — alberi, parchi, le infrastrutture stesse — nasce
-## dove capita. Una lista sola non può contraddirne un'altra.
+## Non è un elenco a parte: è chiunque abbia a che fare con corrente e acqua, che
+## le prenda o che le dia. Una pala eolica non consuma niente ma qualcuno ci deve
+## pur arrivare per tirarla su e per ripararla, e una centrale in mezzo ai campi
+## senza uno straccio di strada è la stessa cosa assurda di una casa. Restano
+## liberi solo quelli che con i servizi non c'entrano — strade, ponti, rampe,
+## alberi, parchi — e una lista sola non può contraddirne un'altra.
 func vuole_la_strada(id: String) -> bool:
-	var s := servizi(id)
-	return s.x < 0 or s.y < 0
+	return servizi(id) != Vector2i.ZERO
 
 
 ## Di quanti gradini sale una rampa. Tutte quelle del kit salgono di 0,5 m, che
