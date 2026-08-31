@@ -96,6 +96,10 @@
 		}
 	},
 
+	"_commento_zone": "Il mondo e' una scacchiera di zone 32x32: se ne possiede una all'inizio e le altre si comprano, purche' confinino con una gia' tua. 'zone_price' e' il prezzo della prima; 'zone_price_growth' quanto cresce a ogni zona gia' comprata, cosi' allargarsi resta una scelta e non un automatismo. 120 crediti sono cinque ore di concentrazione: una zona nuova e' un traguardo, non un acquisto di passaggio.",
+	"zone_price": 120,
+	"zone_price_growth": 1.6,
+
 	"_commento_rimborso": "Quanto torna indietro demolendo: 0.5 = meta' del prezzo, arrotondata per difetto.",
 	"refund_ratio": 0.5,
 

@@ -24,7 +24,10 @@ extends RefCounted
 ##
 ## Del terreno non si salva niente se non il seme: si rigenera identico.
 
-enum Bioma { MARE, LAGO, FIUME, SPIAGGIA, PIANURA, COLLINA }
+## PRATERIA è la pianura al riparo, dove piove meno: si costruisce come sulla
+## pianura, ma non è verde, e serve a far vedere che il clima non dipende solo
+## da quanto si è in alto.
+enum Bioma { MARE, LAGO, FIUME, SPIAGGIA, PIANURA, COLLINA, PRATERIA }
 
 ## Altezza di un gradino, in metri. Una cella è 2 x 2 m (vedi CityGrid).
 const PASSO_QUOTA := 0.5
@@ -43,6 +46,16 @@ const AMPIEZZA_MASSIMA_LAGO := 14
 ## più un paesaggio ma una scacchiera di torri.
 const DISLIVELLO_MASSIMO := 4
 
+## Il salto oltre il quale una parete frana. L'erosione termica fa quello che fa
+## la gravità in mille anni: sbriciola gli strapiombi e appoggia il materiale
+## sotto, e da un mosaico di scalini vengono fuori dei versanti.
+const TALUS := 2
+const PASSATE_EROSIONE := 3
+
+## Sotto questa umidità la pianura è prateria invece che prato. Non è una soglia
+## fisica: è dove il verde comincia a sembrare fuori posto.
+const UMIDITA_SECCA := 0.46
+
 ## Segna una cella su cui il flood fill può dire la sua senza consultare nessuno.
 const SENZA_ETICHETTA := 255
 
@@ -56,6 +69,10 @@ var livelli: PackedInt32Array
 var biomi: PackedByteArray
 ## Quota in metri del pelo dell'acqua, cella per cella. Zero sulla terraferma.
 var quota_acqua: PackedFloat32Array
+## Quanto piove su ogni cella, da 0 a 1. Non si salva e non si mostra: serve
+## solo a decidere il bioma insieme alla quota, ed è il motivo per cui due
+## pianure alla stessa altezza possono essere una verde e una secca.
+var umidita: PackedFloat32Array
 
 ## Com'era il terreno appena uscito dal seme, prima che ci costruissero sopra.
 ## Serve a dire quali celle sono state modellate davvero: sono quelle, e solo
@@ -220,9 +237,13 @@ func _genera() -> void:
 	biomi.resize(celle)
 	quota_acqua = PackedFloat32Array()
 	quota_acqua.resize(celle)
+	umidita = PackedFloat32Array()
+	umidita.resize(celle)
 
 	_rilievo()
+	_erosione()
 	_appiana_asperita()
+	_pioggia()
 	_classifica_acque()
 	_scava_fiumi()
 	_assegna_biomi_terrestri()
@@ -251,26 +272,117 @@ func _aggiorna_etichette() -> void:
 		_etichetta_naturale[i] = b if da_ricordare else SENZA_ETICHETTA
 
 
-## Rumore frattale smorzato verso i bordi, così la terra sta al centro e il mare
-## circonda la mappa invece di essere tagliato di netto dal bordo.
+## Il rilievo, da tre rumori che fanno tre mestieri diversi.
+##
+## Il primo disegna la **forma del continente**: dove finisce la terra e comincia
+## il mare. Prima era un cerchio — una distanza dal centro — e si vedeva: la
+## costa era una curva di livello. Adesso è del rumore a bassa frequenza,
+## moltiplicato per una discesa verso i bordi che serve solo a garantire che il
+## mare chiuda la mappa: dentro quel vincolo la costa fa promontori e insenature
+## per conto suo.
+##
+## Il secondo fa le **colline**: rumore frattale normale, morbido, che riempie
+## l'entroterra di alti e bassi.
+##
+## Il terzo fa le **creste**: rumore ridged, che invece di colline tonde produce
+## dorsali che si diramano. Pesa quanto è alta la cella — in riva al mare non se
+## ne accorge nessuno, in cima cambia tutto — ed è quello che distingue un
+## paesaggio da un mucchio di dossi.
 func _rilievo() -> void:
-	var rumore := FastNoiseLite.new()
-	rumore.seed = seme
-	rumore.noise_type = FastNoiseLite.TYPE_SIMPLEX_SMOOTH
-	rumore.frequency = 0.045
-	rumore.fractal_octaves = 4
-	rumore.fractal_lacunarity = 2.1
+	var continente := FastNoiseLite.new()
+	continente.seed = seme
+	continente.noise_type = FastNoiseLite.TYPE_SIMPLEX_SMOOTH
+	continente.frequency = 0.028
+	continente.fractal_octaves = 3
+
+	var colline := FastNoiseLite.new()
+	colline.seed = seme + 977
+	colline.noise_type = FastNoiseLite.TYPE_SIMPLEX_SMOOTH
+	colline.frequency = 0.055
+	colline.fractal_octaves = 4
+	colline.fractal_lacunarity = 2.1
+
+	var creste := FastNoiseLite.new()
+	creste.seed = seme + 4231
+	creste.noise_type = FastNoiseLite.TYPE_SIMPLEX_SMOOTH
+	creste.frequency = 0.07
+	creste.fractal_type = FastNoiseLite.FRACTAL_RIDGED
+	creste.fractal_octaves = 4
+	creste.fractal_lacunarity = 2.3
 
 	var centro := Vector2(float(size.x - 1) * 0.5, float(size.y - 1) * 0.5)
 	var raggio := minf(centro.x, centro.y)
 
 	for z in size.y:
 		for x in size.x:
+			var punto := Vector2(float(x), float(z))
+			# La terra c'è dove il rumore del continente sta sopra la sua
+			# soglia, e sfuma dove ci sta appena sopra: è quello che fa le
+			# spiagge larghe e le scogliere strette.
+			var massa := (continente.get_noise_2dv(punto) + 1.0) * 0.5
+			var distanza := punto.distance_to(centro) / maxf(1.0, raggio)
+			massa *= clampf(1.0 - pow(distanza * 0.95, 4.0), 0.0, 1.0)
+			var terra := clampf((massa - 0.22) / 0.32, 0.0, 1.0)
+
+			var dolce := (colline.get_noise_2dv(punto) + 1.0) * 0.5
+			var acuto := (creste.get_noise_2dv(punto) + 1.0) * 0.5
+			# Il fondale parte da 0,20 e la terra sale da lì: la costa cade dove
+			# la somma passa il livello del mare, e non su una curva di livello.
+			# Le creste contano dove si è già in alto — pesano come il quadrato
+			# della terra emersa — così le spiagge restano dolci e l'interno no.
+			var h := 0.20 + terra * (0.36 + 0.28 * dolce) + terra * terra * 0.20 * acuto
+			livelli[z * size.x + x] = int(round(clampf(h, 0.0, 1.0) * float(LIVELLO_MASSIMO)))
+
+
+## L'erosione termica: quello che la gravità fa in mille anni.
+##
+## Dove il salto verso il vicino più basso supera il talus, la parete frana: la
+## cella scende di un gradino e quella sotto sale di uno, se le resta spazio. Il
+## materiale non sparisce, si sposta — che è poi la differenza fra erodere e
+## limare, e si vede: le valli si allargano verso il basso invece di restare
+## incisioni a picco.
+##
+## Si lavora su una copia e si applica alla fine di ogni passata, altrimenti
+## l'ordine di scansione conterebbe e il versante a est verrebbe diverso da
+## quello a ovest.
+func _erosione() -> void:
+	for _passata in PASSATE_EROSIONE:
+		var dopo := livelli.duplicate()
+		for z in size.y:
+			for x in size.x:
+				var cella := Vector2i(x, z)
+				var mia := livelli[indice(cella)]
+				var giu := cella
+				var minimo := mia
+				for passo in VICINI:
+					var vicino := cella + passo
+					if dentro(vicino) and livelli[indice(vicino)] < minimo:
+						minimo = livelli[indice(vicino)]
+						giu = vicino
+				if mia - minimo <= TALUS:
+					continue
+				dopo[indice(cella)] = dopo[indice(cella)] - 1
+				dopo[indice(giu)] = mini(dopo[indice(giu)] + 1, LIVELLO_MASSIMO)
+		livelli = dopo
+
+
+## Quanto piove, cella per cella.
+##
+## Un rumore suo, più largo di quello delle colline perché il clima cambia più
+## lentamente del terreno, corretto dalla quota: in alto piove di più, che è il
+## motivo per cui le creste restano verdi e le conche interne no.
+func _pioggia() -> void:
+	var rumore := FastNoiseLite.new()
+	rumore.seed = seme + 6421
+	rumore.noise_type = FastNoiseLite.TYPE_SIMPLEX_SMOOTH
+	rumore.frequency = 0.048
+	rumore.fractal_octaves = 2
+	for z in size.y:
+		for x in size.x:
+			var i := z * size.x + x
 			var n := (rumore.get_noise_2d(float(x), float(z)) + 1.0) * 0.5
-			var distanza := Vector2(float(x), float(z)).distance_to(centro) / maxf(1.0, raggio)
-			var smorzamento := clampf(1.0 - pow(distanza * 0.78, 3.0), 0.0, 1.0)
-			var h := clampf(n * 1.55 * smorzamento, 0.0, 1.0)
-			livelli[z * size.x + x] = int(round(h * float(LIVELLO_MASSIMO)))
+			var alto := float(livelli[i]) / float(LIVELLO_MASSIMO)
+			umidita[i] = clampf(n * 0.82 + alto * 0.22, 0.0, 1.0)
 
 
 ## Toglie le guglie da una cella sola: se una cella non è alla stessa quota di
@@ -451,10 +563,16 @@ func _assegna_biomi_terrestri() -> void:
 			continue
 		if livelli[i] <= LIMITE_SPIAGGIA:
 			biomi[i] = Bioma.SPIAGGIA
-		elif livelli[i] <= LIMITE_PIANURA:
-			biomi[i] = Bioma.PIANURA
-		else:
+		elif i < umidita.size() and umidita[i] < UMIDITA_SECCA:
+			# L'umidità viene prima della quota, e non dopo: se contasse solo
+			# sotto una certa altezza il mondo tornerebbe a essere colorato a
+			# fasce, che è esattamente quello che si voleva togliere. Un versante
+			# al riparo è secco che stia a cinque metri o a quaranta.
+			biomi[i] = Bioma.PRATERIA
+		elif livelli[i] > LIMITE_PIANURA:
 			biomi[i] = Bioma.COLLINA
+		else:
+			biomi[i] = Bioma.PIANURA
 
 
 ## Mare e laghi stanno tutti alla stessa quota; un fiume invece scende a gradini

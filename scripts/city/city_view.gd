@@ -33,6 +33,9 @@ const COLORE_VALIDO := Color(0.36, 0.84, 0.47, 0.55)
 const COLORE_INVALIDO := Color(0.90, 0.31, 0.26, 0.50)
 const COLORE_DEMOLIZIONE := Color(0.95, 0.47, 0.20, 0.45)
 const COLORE_SPOSTAMENTO := Color(0.36, 0.70, 0.95, 0.45)
+## Il velo sulle zone che non sono tue. Scuro ma non opaco: la collina che
+## potresti comprare devi poterla vedere, è metà del motivo per comprarla.
+const VELO_ALTROVE := Color(0.04, 0.05, 0.09, 0.42)
 const COLORE_SCOPERTO := Color(0.92, 0.28, 0.24, 0.55)
 ## Il territorio che un servizio di zona raggiunge, e l'area di quello che si ha
 ## in mano. Tenui: sono un velo sopra il mondo, non un nuovo pavimento.
@@ -86,7 +89,7 @@ const SERVIZI_ZONA := [
 ## conta solo quando scende sotto la soglia.
 const SERVIZI_VITALI := ["strada", "corrente", "acqua", "lavoro"]
 
-enum Modo { NAVIGA, PIAZZA, DEMOLISCI, TERRENO, SPOSTA }
+enum Modo { NAVIGA, PIAZZA, DEMOLISCI, TERRENO, SPOSTA, ZONA }
 
 ## Gli attrezzi della modalità terreno.
 enum Attrezzo { ALZA, ABBASSA, LIVELLA }
@@ -97,6 +100,7 @@ enum Attrezzo { ALZA, ABBASSA, LIVELLA }
 @onready var _reticolo: MeshInstance3D = $Griglia
 @onready var _selezione: MeshInstance3D = $Selezione
 @onready var _evidenza: MeshInstance3D = $Evidenza
+@onready var _zone: MeshInstance3D = $Zone
 @onready var _edifici: Node3D = $Edifici
 @onready var _segnali: Node3D = $Segnali
 @onready var _anteprima: Node3D = $Anteprima
@@ -179,6 +183,7 @@ func _ready() -> void:
 
 	var costruiti := _ricostruisci_dal_salvataggio()
 	_costruisci_mesh()
+	_ridisegna_le_zone()
 	_mostra_i_servizi()
 	_aggiorna_i_conti()
 
@@ -470,6 +475,103 @@ func _prodotto() -> Vector2i:
 ## nessuno.
 func _servizi_disponibili() -> Vector2i:
 	return Config.service_base() + _prodotto()
+
+
+# --- Zone -------------------------------------------------------------------
+
+## La zona a cui appartiene una cella.
+func _zona_di(cella: Vector2i) -> Vector2i:
+	return Vector2i(cella.x / SaveManager.LATO_ZONA, cella.y / SaveManager.LATO_ZONA)
+
+
+## Se tutte le celle di un ingombro stanno in terra tua.
+func _tutte_in_casa(celle: Array[Vector2i]) -> bool:
+	for cella in celle:
+		if not SaveManager.owns_zone(_zona_di(cella)):
+			return false
+	return true
+
+
+## Se una zona si può comprare: non è già tua, esiste, e confina con una che lo
+## è. Il confine serve a fare una città sola invece di isole sparse.
+func _comprabile(zona: Vector2i) -> bool:
+	var lato := SaveManager.world_zones_per_side()
+	if zona.x < 0 or zona.y < 0 or zona.x >= lato or zona.y >= lato:
+		return false
+	if SaveManager.owns_zone(zona):
+		return false
+	for direzione in CityTerrain.VICINI:
+		if SaveManager.owns_zone(zona + direzione):
+			return true
+	return false
+
+
+## Il velo sulle zone che non sono tue, rifatto quando ne compri una.
+##
+## Una mesh sola per tutte le celle di fuori: sono migliaia, ma cambiano una
+## volta ogni acquisto, e tenerle in un pezzo solo costa meno che un nodo per
+## zona da accendere e spegnere.
+func _ridisegna_le_zone() -> void:
+	var fuori: Array[Vector2i] = []
+	var quote := PackedFloat32Array()
+	for x in griglia.size.x:
+		for y in griglia.size.y:
+			var cella := Vector2i(x, y)
+			if SaveManager.owns_zone(_zona_di(cella)):
+				continue
+			fuori.append(cella)
+			quote.append(terreno.quota(cella) + 0.04)
+	_zone.mesh = TerrainMesh.costruisci_gruppi([
+		{ "celle": fuori, "colore": VELO_ALTROVE, "quote": quote },
+	])
+
+
+## Compra la zona sotto il cursore, se si può e se ci sono i crediti.
+func _compra_la_zona() -> void:
+	var zona := _zona_di(_cella)
+	if SaveManager.owns_zone(zona):
+		Sfx.suona("errore")
+		_messaggio("Questa zona è già tua.")
+		return
+	if not _comprabile(zona):
+		Sfx.suona("errore")
+		_messaggio("Si comprano solo le zone che confinano con quelle che hai già.")
+		return
+	var prezzo := Config.zone_cost(SaveManager.world_zones().size())
+	if not SaveManager.try_spend(prezzo):
+		Sfx.suona("errore")
+		_messaggio("La zona costa %d crediti, ne hai %d. Torna a fare focus." % [
+			prezzo, SaveManager.credits
+		])
+		return
+	SaveManager.add_zone(zona)
+	SaveManager.save_game()
+	_ridisegna_le_zone()
+	Sfx.suona("posa")
+	_messaggio("Zona comprata: -%d crediti. Adesso ne hai %d." % [
+		prezzo, SaveManager.world_zones().size()
+	])
+	_aggiorna_bersaglio()
+
+
+## Il riquadro su tutta la zona sotto il cursore: verde se si può comprare,
+## rossa se no. Si guarda una zona per volta, quindi si colora quella.
+func _mostra_bersaglio_zona() -> void:
+	var zona := _zona_di(_cella)
+	var celle: Array[Vector2i] = []
+	var quote := PackedFloat32Array()
+	var lato := SaveManager.LATO_ZONA
+	for dx in lato:
+		for dy in lato:
+			var cella := Vector2i(zona.x * lato + dx, zona.y * lato + dy)
+			if not griglia.in_griglia(cella):
+				continue
+			celle.append(cella)
+			quote.append(terreno.quota(cella) + 0.05)
+	var colore := COLORE_VALIDO if _comprabile(zona) else COLORE_INVALIDO
+	_selezione.mesh = TerrainMesh.costruisci_gruppi([
+		{ "celle": celle, "colore": colore, "quote": quote },
+	])
 
 
 ## Se almeno una cella di un ingombro confina con una strada.
@@ -978,6 +1080,10 @@ func _valuta(id: String, ancora: Vector2i, rotazione: int, alzata: int = 0) -> D
 			esito["motivo"] = "Qui c'è già qualcosa."
 			return esito
 
+	if not _tutte_in_casa(celle):
+		esito["motivo"] = "Questa terra non è tua: comprala prima, con lo strumento Espandi."
+		return esito
+
 	if catalogo.vuole_la_strada(id) and not _tocca_una_strada(celle):
 		esito["motivo"] = "Ci vuole una strada attaccata: qui non ci arriva nessuno."
 		return esito
@@ -1096,6 +1202,8 @@ func _on_strumento_scelto(strumento: String) -> void:
 	_cella = CELLA_NULLA
 	_quota_riferimento = -1
 	match strumento:
+		"espandi":
+			_modo = Modo.ZONA
 		"sposta":
 			_modo = Modo.SPOSTA
 		"demolisci":
@@ -1161,6 +1269,9 @@ func _alza_il_pezzo(gradini: int) -> void:
 
 func _conferma() -> void:
 	if _cella == CELLA_NULLA:
+		return
+	if _modo == Modo.ZONA:
+		_compra_la_zona()
 		return
 	if _modo == Modo.SPOSTA and _in_mano.is_empty():
 		_prendi_in_mano()
@@ -1384,6 +1495,10 @@ func _valuta_terreno(cella: Vector2i) -> Dictionary:
 	if not griglia.occupante(cella).is_empty():
 		esito["motivo"] = "Sotto una costruzione il terreno non si tocca: demolisci prima."
 		return esito
+	var sola: Array[Vector2i] = [cella]
+	if not _tutte_in_casa(sola):
+		esito["motivo"] = "Questa terra non è tua: comprala prima, con lo strumento Espandi."
+		return esito
 	if not terreno.dislivello_accettabile(cella, nuovo):
 		esito["motivo"] = "Con una cella vicina il salto passerebbe i %d gradini." % CityTerrain.DISLIVELLO_MASSIMO
 		return esito
@@ -1423,6 +1538,7 @@ func _modella_sotto_il_cursore() -> void:
 	terreno.imposta_livello(_cella, int(esito["livello"]))
 	terreno.riclassifica()
 	_costruisci_mesh()
+	_ridisegna_le_zone()
 	_registra_quota(_cella)
 	SaveManager.save_game()
 
@@ -1444,6 +1560,8 @@ func _aggiorna_bersaglio() -> void:
 		return
 
 	match _modo:
+		Modo.ZONA:
+			_mostra_bersaglio_zona()
 		Modo.DEMOLISCI:
 			_mostra_bersaglio(COLORE_DEMOLIZIONE)
 		Modo.SPOSTA when _in_mano.is_empty():
@@ -1598,6 +1716,8 @@ func _suggerimento() -> String:
 			if _in_mano.is_empty():
 				return "Clic su una costruzione per prenderla in mano · Esc annulla"
 			return "Clic per riposarla · R gira · PagSu / PagGiù cambia quota · Esc la rimette dov'era"
+		Modo.ZONA:
+			return "Clic su una zona spenta che confina con la tua per comprarla (%d crediti) · Esc annulla" % Config.zone_cost(SaveManager.world_zones().size())
 		Modo.DEMOLISCI:
 			return "Clic su una costruzione per demolirla · Esc annulla"
 		Modo.TERRENO:
@@ -1641,7 +1761,7 @@ func _riepilogo_biomi() -> String:
 	for i in terreno.biomi.size():
 		var b: int = terreno.biomi[i]
 		conteggio[b] = int(conteggio.get(b, 0)) + 1
-	var nomi := ["mare", "lago", "fiume", "spiaggia", "pianura", "collina"]
+	var nomi := ["mare", "lago", "fiume", "spiaggia", "pianura", "collina", "prateria"]
 	var pezzi: Array[String] = []
 	for b in range(nomi.size()):
 		if conteggio.has(b):

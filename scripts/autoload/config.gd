@@ -46,6 +46,8 @@ const DEFAULTS := {
 	"jobs": {
 		"per_cell": { "shop": 4, "office": 8 },
 	},
+	"zone_price": 120,
+	"zone_price_growth": 1.6,
 	"happiness": {
 		"abandon_below": 0.5,
 		"radius": {
@@ -77,6 +79,10 @@ var refund_ratio: float = float(DEFAULTS["refund_ratio"])
 ## Quanto costa alzare o abbassare una cella di un gradino. Non si rimborsa:
 ## rimettere il terreno com'era è un lavoro come scavarlo.
 var terrain_cost_per_level: int = int(DEFAULTS["terrain_cost_per_level"])
+
+## Quanto costa la prima zona in più, e di quanto rincara ogni volta.
+var zone_price: int = int(DEFAULTS["zone_price"])
+var zone_price_growth: float = float(DEFAULTS["zone_price_growth"])
 
 
 ## Corrente e acqua: l'allacciamento di partenza, quanto dà ogni impianto e
@@ -110,6 +116,8 @@ func reload() -> void:
 	price_default = int(values["price_default"])
 	refund_ratio = clampf(float(values["refund_ratio"]), 0.0, 1.0)
 	terrain_cost_per_level = maxi(0, int(values["terrain_cost_per_level"]))
+	zone_price = maxi(0, int(values["zone_price"]))
+	zone_price_growth = maxf(1.0, float(values["zone_price_growth"]))
 	prices = values["prices"]
 	services = values["services"]
 	population = values["population"]
@@ -180,6 +188,15 @@ func jobs_per_cell(kind: String) -> int:
 ## Il raggio base di un servizio di zona, in celle. Chi lo usa ci somma il lato
 ## più lungo dell'edificio meno uno: un ospedale 3x3 arriva più lontano di una
 ## clinica 2x2, e non serve un numero per modello per dirlo.
+## Quanto costa la prossima zona, sapendo quante se ne hanno già.
+##
+## Cresce con quelle possedute: allargarsi deve restare una scelta, non
+## l'automatismo che si fa perché tanto costa poco. La prima in più è la
+## seconda del mondo, quindi l'esponente parte da quante ce n'erano meno una.
+func zone_cost(gia_possedute: int) -> int:
+	return int(round(float(zone_price) * pow(zone_price_growth, maxi(0, gia_possedute - 1))))
+
+
 func service_radius(zona: String) -> float:
 	var raggi: Dictionary = happiness.get("radius", {})
 	return float(raggi.get(zona, 0.0))

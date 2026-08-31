@@ -47,6 +47,8 @@ collision_mask = 0
 
 [node name="Evidenza" type="MeshInstance3D" parent="."]
 
+[node name="Zone" type="MeshInstance3D" parent="."]
+
 [node name="Edifici" type="Node3D" parent="."]
 
 [node name="Segnali" type="Node3D" parent="."]

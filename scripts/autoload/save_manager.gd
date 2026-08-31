@@ -28,7 +28,13 @@ signal settings_changed()
 
 const SAVE_PATH := "user://focus_save.json"
 const SAVE_VERSION := 1
-const DEFAULT_WORLD_SIZE := 32
+## Il mondo è una scacchiera di zone quadrate: se ne possiede una all'inizio e
+## si comprano le altre. La misura di una zona è la vecchia misura del mondo —
+## una città intera ci stava dentro — e adesso è il pezzo che si compra.
+const LATO_ZONA := 32
+## Quante zone per lato ha il mondo intero.
+const ZONE_PER_LATO := 3
+const DEFAULT_WORLD_SIZE := LATO_ZONA * ZONE_PER_LATO
 
 var data: Dictionary = {}
 
@@ -77,6 +83,7 @@ static func new_save() -> Dictionary:
 		"world": {
 			"seed": randi(),
 			"size": [DEFAULT_WORLD_SIZE, DEFAULT_WORLD_SIZE],
+			"zones": [[ZONE_PER_LATO / 2, ZONE_PER_LATO / 2]],
 			"tiles": [],
 			"terrain_edits": [],
 		},
@@ -318,6 +325,47 @@ func world_size() -> Vector2i:
 	var world: Dictionary = data.get("world", {})
 	var size: Array = world.get("size", [DEFAULT_WORLD_SIZE, DEFAULT_WORLD_SIZE])
 	return Vector2i(int(size[0]), int(size[1]))
+
+
+## Quante zone ha il mondo per lato, dedotte dalla sua misura: una partita
+## vecchia, nata quando il mondo era una zona sola, resta una zona sola.
+func world_zones_per_side() -> int:
+	return maxi(1, world_size().x / LATO_ZONA)
+
+
+## Le zone che il giocatore possiede, come coordinate di zona.
+##
+## Una partita salvata prima che le zone esistessero non ne ha nessuna scritta:
+## in quel caso sono sue tutte quelle che il suo mondo conteneva, perché ci
+## costruiva sopra liberamente e togliergliele adesso sarebbe un dispetto.
+func world_zones() -> Array:
+	var world: Dictionary = data.get("world", {})
+	if not world.has("zones"):
+		var tutte: Array = []
+		for zx in world_zones_per_side():
+			for zy in world_zones_per_side():
+				tutte.append([zx, zy])
+		return tutte
+	return world.get("zones", [])
+
+
+func owns_zone(zona: Vector2i) -> bool:
+	for posseduta in world_zones():
+		if int(posseduta[0]) == zona.x and int(posseduta[1]) == zona.y:
+			return true
+	return false
+
+
+## Aggiunge una zona a quelle possedute. Restituisce false se era già sua.
+func add_zone(zona: Vector2i) -> bool:
+	if owns_zone(zona):
+		return false
+	var world: Dictionary = data.get("world", {})
+	var zone: Array = world_zones()
+	zone.append([zona.x, zona.y])
+	world["zones"] = zone
+	data["world"] = world
+	return true
 
 
 ## Le celle costruite, così come stanno su disco: pos come array [x, z], tipo,

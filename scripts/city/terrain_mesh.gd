@@ -32,6 +32,7 @@ const COLORI := {
 	CityTerrain.Bioma.SPIAGGIA: Color(0.816, 0.741, 0.545),
 	CityTerrain.Bioma.PIANURA: Color(0.353, 0.510, 0.271),
 	CityTerrain.Bioma.COLLINA: Color(0.259, 0.396, 0.220),
+	CityTerrain.Bioma.PRATERIA: Color(0.612, 0.596, 0.353),
 }
 
 ## Terra battuta esposta sul fianco dei gradini.
