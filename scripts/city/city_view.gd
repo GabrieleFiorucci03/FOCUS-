@@ -32,8 +32,16 @@ const LAYER_TERRENO := 1
 const COLORE_VALIDO := Color(0.36, 0.84, 0.47, 0.55)
 const COLORE_INVALIDO := Color(0.90, 0.31, 0.26, 0.50)
 const COLORE_DEMOLIZIONE := Color(0.95, 0.47, 0.20, 0.45)
-const COLORE_SERVITO := Color(0.30, 0.78, 0.42, 0.50)
 const COLORE_SCOPERTO := Color(0.92, 0.28, 0.24, 0.55)
+
+## Quanto si scurisce una costruzione a cui manca qualcosa, e il rosso del punto
+## esclamativo che le sta sopra.
+const VELO_SCOPERTO := Color(0.03, 0.02, 0.06, 0.75)
+const COLORE_SEGNALE := Color(0.95, 0.26, 0.22)
+## Quanto lontano dal centro di un punto esclamativo vale ancora come averlo
+## preso. Un cartello piccolo su uno schermo grande vuole un bersaglio più largo
+## di quello che si vede, altrimenti si clicca tre volte prima di beccarlo.
+const RAGGIO_SEGNALE := 22.0
 
 ## I servizi di cui la città tiene il conto, nell'ordine in cui si leggono. Le
 ## chiavi sono quelle che il pannello rimanda indietro quando se ne clicca uno.
@@ -58,6 +66,7 @@ enum Attrezzo { ALZA, ABBASSA, LIVELLA }
 @onready var _selezione: MeshInstance3D = $Selezione
 @onready var _evidenza: MeshInstance3D = $Evidenza
 @onready var _edifici: Node3D = $Edifici
+@onready var _segnali: Node3D = $Segnali
 @onready var _anteprima: Node3D = $Anteprima
 @onready var _camera: IsoCamera = $Camera
 @onready var _sole: DirectionalLight3D = $Sole
@@ -97,6 +106,10 @@ var _prodotto := Vector2i.ZERO
 var _consumato := Vector2i.ZERO
 ## Il servizio acceso sul mondo, o "" se non ce n'è nessuno.
 var _servizio_acceso: String = ""
+## id del piazzamento -> il punto esclamativo che gli sta sopra. Ci sta solo chi
+## ha qualcosa che non va, quindi è anche l'elenco di chi è in difetto.
+var _segnali_per_id: Dictionary = {}
+var _velo: StandardMaterial3D
 
 var _messaggio_corrente: String = ""
 var _materiale_valido: StandardMaterial3D
@@ -113,6 +126,7 @@ func _ready() -> void:
 	_sole.rotation_degrees = Vector3(-52.0, -125.0, 0.0)
 	_materiale_valido = _materiale_fantasma(COLORE_VALIDO)
 	_materiale_invalido = _materiale_fantasma(COLORE_INVALIDO)
+	_velo = _materiale_velo()
 
 	catalogo = CityCatalog.new()
 	griglia = CityGrid.new(SaveManager.world_size())
@@ -158,6 +172,17 @@ func _unhandled_input(evento: InputEvent) -> void:
 	if evento is InputEventKey and _tasto_del_negozio(evento as InputEventKey):
 		get_viewport().set_input_as_handled()
 		return
+
+	# Un punto esclamativo si clicca in qualunque modo si sia, e vince sul
+	# piazzamento: chi lo tocca sta chiedendo cosa non va, non sta costruendo.
+	if evento is InputEventMouseButton:
+		var tocco := evento as InputEventMouseButton
+		if tocco.pressed and tocco.button_index == MOUSE_BUTTON_LEFT \
+				and not _mouse_sul_pannello() and _segnale_sotto(tocco.position):
+			_conti.apri()
+			_aggiorna_i_conti()
+			get_viewport().set_input_as_handled()
+			return
 
 	if _modo == Modo.NAVIGA:
 		return
@@ -369,28 +394,11 @@ func _conta_i_servizi(voce: Dictionary, verso: int) -> void:
 	_consumato += Vector2i(maxi(-servizi.x, 0), maxi(-servizi.y, 0)) * verso
 
 
-## Quanta corrente e quanta acqua la città può ancora impegnare. Va sotto zero
-## demolendo un impianto che reggeva qualcosa: demolire non si vieta, si vieta
-## solo di costruire altro finché non si rimedia.
-func _servizi_liberi() -> Vector2i:
-	return Config.service_base() + _prodotto - _consumato
-
-
-## Perché la città non regge anche questo, o "" se lo regge.
-##
-## Un impianto non finisce mai qui dentro: dà e non prende, e quello che serve
-## per uscire da un buco non può essere la prima cosa che il buco impedisce.
-func _servizi_mancanti(servizi: Vector2i) -> String:
-	var liberi := _servizi_liberi()
-	if liberi.x + servizi.x < 0:
-		return "Manca la corrente: ne chiede %d e ne resta %d. Ci vuole una pala eolica." % [
-			-servizi.x, maxi(liberi.x, 0)
-		]
-	if liberi.y + servizi.y < 0:
-		return "Manca l'acqua: ne chiede %d e ne resta %d. Ci vuole una torre idrica." % [
-			-servizi.y, maxi(liberi.y, 0)
-		]
-	return ""
+## Quanta corrente e quanta acqua la città ha in tutto: quella degli impianti,
+## più l'allacciamento di partenza se qualcuno gliene ha dato uno. Senza
+## impianti è zero, ed è giusto così: non c'è niente che possa servire nessuno.
+func _servizi_disponibili() -> Vector2i:
+	return Config.service_base() + _prodotto
 
 
 ## Se almeno una cella di un ingombro confina con una strada.
@@ -413,17 +421,20 @@ func _tocca_una_strada(celle: Array[Vector2i]) -> bool:
 
 
 ## Chi chiede un servizio e chi non ce l'ha. Restituisce
-## { chiedono, scoperte, servite, mancanti }, dove le due liste sono le celle da
-## colorare sul mondo.
+## { chiedono, scoperte, mancanti, scoperti }: `scoperti` sono gli id dei
+## piazzamenti in difetto, `mancanti` le loro celle da accendere
+## sul mondo. Solo quelle: le costruzioni a posto sono la maggioranza, e
+## colorarle tutte di verde vorrebbe dire nascondere le tre che contano dentro
+## una città intera dipinta.
 func _copertura(servizio: String) -> Dictionary:
 	var esito := {
 		"chiedono": 0, "scoperte": 0,
-		"servite": [] as Array[Vector2i], "mancanti": [] as Array[Vector2i],
+		"mancanti": [] as Array[Vector2i], "scoperti": [] as Array[int],
 	}
 	var asse := 0 if servizio == "corrente" else 1
 	var resta := 0
 	if servizio != "strada":
-		resta = (Config.service_base() + _prodotto)[asse]
+		resta = _servizi_disponibili()[asse]
 
 	# In ordine di posa: gli id crescono, e ordinarli è ordinare la storia della
 	# città.
@@ -458,28 +469,110 @@ func _copertura(servizio: String) -> Dictionary:
 		if not chiede:
 			continue
 		esito["chiedono"] = int(esito["chiedono"]) + 1
-		if not servita:
-			esito["scoperte"] = int(esito["scoperte"]) + 1
-		var dove: Array[Vector2i] = esito["servite"] if servita else esito["mancanti"]
+		if servita:
+			continue
+		esito["scoperte"] = int(esito["scoperte"]) + 1
+		(esito["scoperti"] as Array[int]).append(int(piazzamento["id"]))
+		var mancanti: Array[Vector2i] = esito["mancanti"]
 		for cella in celle:
-			dove.append(cella)
+			mancanti.append(cella)
 	return esito
 
 
 ## Rifà i numeri del pannello e, se un servizio è acceso, il colore sul mondo.
 func _aggiorna_i_conti() -> void:
 	var righe: Array[Dictionary] = []
+	var in_difetto := {}
 	for servizio in SERVIZI:
 		var conto := _copertura(str(servizio["id"]))
+		for id_piazzamento in conto["scoperti"]:
+			in_difetto[id_piazzamento] = true
 		righe.append({
 			"id": servizio["id"], "nome": servizio["nome"],
 			"chiedono": conto["chiedono"], "scoperte": conto["scoperte"],
 		})
+	_segna_chi_e_in_difetto(in_difetto)
 	_conti.mostra(righe, "%d costruzioni in città · %s." % [
 		griglia.piazzamenti().size(), _riepilogo_servizi()
 	])
 	if not _servizio_acceso.is_empty():
 		_dipingi_il_servizio(_servizio_acceso)
+
+
+## Mette il velo scuro e il punto esclamativo sopra chi ha qualcosa che non va,
+## e li toglie a chi non ce l'ha più.
+##
+## Il velo è un `material_overlay`: disegna sopra il modello e lascia sotto
+## quello che c'era, quindi la casa resta la sua casa, solo in ombra, e per
+## rimetterla a posto basta togliere il velo — non c'è nessun materiale
+## originale da ricordarsi.
+func _segna_chi_e_in_difetto(in_difetto: Dictionary) -> void:
+	for segnale in _segnali.get_children():
+		_segnali.remove_child(segnale)
+		segnale.queue_free()
+	_segnali_per_id.clear()
+
+	for piazzamento in griglia.piazzamenti():
+		var id_piazzamento := int(piazzamento["id"])
+		var costruzione: Dictionary = _costruzioni.get(id_piazzamento, {})
+		if not costruzione.has("nodo"):
+			continue
+		var scoperta: bool = in_difetto.has(id_piazzamento)
+		_stendi_il_velo(costruzione["nodo"], _velo if scoperta else null)
+		if scoperta:
+			_segnali_per_id[id_piazzamento] = _crea_segnale(piazzamento, int(costruzione["livello"]))
+
+
+static func _stendi_il_velo(nodo: Node, materiale: Material) -> void:
+	if nodo is GeometryInstance3D:
+		(nodo as GeometryInstance3D).material_overlay = materiale
+	for figlio in nodo.get_children():
+		_stendi_il_velo(figlio, materiale)
+
+
+## Il punto esclamativo che galleggia sopra una costruzione in difetto.
+##
+## Sta sempre rivolto alla camera e sempre della stessa misura sullo schermo:
+## è un cartello, non un oggetto della città, e deve restare leggibile sia con
+## la vista girata sia da lontano. Passa davanti a tutto (`no_depth_test`)
+## perché un avviso nascosto dietro il tetto che avvisa non avvisa nessuno.
+func _crea_segnale(piazzamento: Dictionary, livello: int) -> Label3D:
+	var voce := catalogo.voce(str(piazzamento["modello"]))
+	var segnale := Label3D.new()
+	segnale.text = "!"
+	segnale.font_size = 128
+	segnale.outline_size = 34
+	segnale.modulate = COLORE_SEGNALE
+	segnale.outline_modulate = Color(0.05, 0.03, 0.06, 0.95)
+	segnale.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+	segnale.no_depth_test = true
+	segnale.fixed_size = true
+	segnale.pixel_size = 0.0006
+	segnale.render_priority = 2
+	segnale.outline_render_priority = 1
+	segnale.position = griglia.posizione_mondo(
+		piazzamento["ancora"], piazzamento["footprint"], piazzamento["rotazione"]
+	)
+	segnale.position.y = float(livello) * CityTerrain.PASSO_QUOTA \
+		+ float(voce.get("altezza", 1.0)) + 0.8
+	_segnali.add_child(segnale)
+	return segnale
+
+
+## Se un clic ha preso un punto esclamativo.
+##
+## Non passa dalla fisica: i segnali sono cartelli piatti sempre rivolti alla
+## camera, e chiedere dove finiscono sullo schermo costa meno che dare a
+## ciascuno un corpo da colpire — e non rischia di rubare il raggio al terreno,
+## che è l'unica cosa che il mouse deve poter puntare.
+func _segnale_sotto(punto: Vector2) -> bool:
+	for id_piazzamento in _segnali_per_id:
+		var segnale: Label3D = _segnali_per_id[id_piazzamento]
+		if not is_instance_valid(segnale) or _camera.dietro(segnale.global_position):
+			continue
+		if punto.distance_to(_camera.punto_schermo(segnale.global_position)) <= RAGGIO_SEGNALE:
+			return true
+	return false
 
 
 func _on_servizio_scelto(servizio: String) -> void:
@@ -491,21 +584,15 @@ func _on_servizio_scelto(servizio: String) -> void:
 	_dipingi_il_servizio(servizio)
 
 
-## Accende sul mondo chi chiede un servizio: verde se ce l'ha, rosso se no.
-## Ogni cella alla sua quota, perché le costruzioni non stanno tutte allo stesso
-## piano e un colore a quota unica finirebbe sottoterra o per aria.
+## Accende sul mondo chi chiede un servizio e non ce l'ha. Ogni cella alla sua
+## quota, perché le costruzioni non stanno tutte allo stesso piano e un colore a
+## quota unica finirebbe sottoterra o per aria.
 func _dipingi_il_servizio(servizio: String) -> void:
 	var conto := _copertura(servizio)
-	_evidenza.mesh = TerrainMesh.costruisci_gruppi([
-		{
-			"celle": conto["servite"], "colore": COLORE_SERVITO,
-			"quote": _quote_di(conto["servite"]),
-		},
-		{
-			"celle": conto["mancanti"], "colore": COLORE_SCOPERTO,
-			"quote": _quote_di(conto["mancanti"]),
-		},
-	])
+	_evidenza.mesh = TerrainMesh.costruisci_gruppi([{
+		"celle": conto["mancanti"], "colore": COLORE_SCOPERTO,
+		"quote": _quote_di(conto["mancanti"]),
+	}])
 
 
 func _quote_di(celle: Array[Vector2i]) -> PackedFloat32Array:
@@ -588,11 +675,6 @@ func _valuta(id: String, ancora: Vector2i, rotazione: int, alzata: int = 0) -> D
 		if not griglia.occupante(cella).is_empty():
 			esito["motivo"] = "Qui c'è già qualcosa."
 			return esito
-
-	var senza := _servizi_mancanti(voce["servizi"])
-	if not senza.is_empty():
-		esito["motivo"] = senza
-		return esito
 
 	if catalogo.vuole_la_strada(id) and not _tocca_una_strada(celle):
 		esito["motivo"] = "Ci vuole una strada attaccata: qui non ci arriva nessuno."
@@ -807,8 +889,9 @@ func _conferma() -> void:
 	_aggiorna_i_conti()
 	# Il bilancio si dice solo a chi lo ha appena mosso: dopo un albero sarebbe
 	# rumore, dopo una palazzina è la cosa che si vuole sapere.
-	var coda := "" if catalogo.servizi(_scelto) == Vector2i.ZERO else " · " + _riepilogo_servizi()
-	_messaggio("%s: -%d crediti.%s" % [catalogo.voce(_scelto)["nome"], prezzo, coda])
+	_messaggio("%s: -%d crediti.%s" % [
+		catalogo.voce(_scelto)["nome"], prezzo, _coda_dei_servizi(_scelto)
+	])
 	_aggiorna_bersaglio()
 
 
@@ -1016,6 +1099,24 @@ func _libera_fantasma() -> void:
 		_fantasma = null
 
 
+## Il velo che si stende sopra una costruzione a cui manca qualcosa.
+##
+## Non e' il materiale del fantasma: quello sostituisce i colori del modello per
+## dire "qui ci starebbe", questo ci si posa sopra per dire "questa non
+## funziona", e sotto deve restare riconoscibile la casa che e'. Senza luce di
+## proposito, altrimenti il sole lo schiarirebbe proprio dove batte, cioe' dove
+## si guarda.
+static func _materiale_velo() -> StandardMaterial3D:
+	var materiale := StandardMaterial3D.new()
+	materiale.albedo_color = VELO_SCOPERTO
+	materiale.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	materiale.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	materiale.grow = true
+	materiale.grow_amount = 0.02
+	materiale.render_priority = 1
+	return materiale
+
+
 static func _materiale_fantasma(colore: Color) -> StandardMaterial3D:
 	var materiale := StandardMaterial3D.new()
 	materiale.albedo_color = colore
@@ -1069,10 +1170,31 @@ func _suggerimento() -> String:
 
 
 func _riepilogo_servizi() -> String:
-	var disponibili := Config.service_base() + _prodotto
+	var disponibili := _servizi_disponibili()
 	return "corrente %d/%d, acqua %d/%d" % [
 		_consumato.x, disponibili.x, _consumato.y, disponibili.y
 	]
+
+
+## Quello che si aggiunge al messaggio dopo aver posato qualcosa.
+##
+## Chi non tocca i servizi non se ne merita una parola: dopo un albero il
+## bilancio sarebbe rumore. Chi li tocca ne merita una sola, e se è appena
+## rimasto al buio quella parola dev'essere questa e non un rapporto di due
+## frazioni — è l'ultimo arrivato, quindi è lui quello scoperto.
+func _coda_dei_servizi(id: String) -> String:
+	var servizi := catalogo.servizi(id)
+	if servizi == Vector2i.ZERO:
+		return ""
+	var avanzo := _servizi_disponibili() - _consumato
+	var al_buio := PackedStringArray()
+	if servizi.x < 0 and avanzo.x < 0:
+		al_buio.append("corrente")
+	if servizi.y < 0 and avanzo.y < 0:
+		al_buio.append("acqua")
+	if al_buio.is_empty():
+		return " · " + _riepilogo_servizi()
+	return " Ma resta senza %s: guarda i conti con C." % " e senza ".join(al_buio)
 
 
 func _riepilogo_biomi() -> String:

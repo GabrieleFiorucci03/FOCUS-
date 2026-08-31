@@ -30,10 +30,10 @@
 		"tower": 120
 	},
 
-	"_commento_servizi": "Corrente e acqua. Ogni edificio ne prende un tanto a cella occupata, cosi' un palazzo 3x3 pesa nove volte una casetta senza doverlo scrivere modello per modello; strade, ponti, alberi e parchi non ne prendono. Gli impianti ne danno un tanto ciascuno, fisso: una pala eolica e' una pala eolica, che stia stretta o larga. 'base' e' l'allacciamento che la citta' ha gia' addosso: serve perche' la prima casa non possa costare anche una centrale.",
-	"_commento_scala_servizi": "Numeri scelti su un primo quartiere plausibile (14 strade, 10 alberi, 6 case, 2 parchi, 2 negozi, 2 palazzine, 1 scuola): chiede 35 di corrente e 35 di acqua. L'allacciamento ne regge 20, cioe' una prima quindicina di case: la spinta a bilanciare arriva quando si comincia a mettere su qualcosa di piu' grosso, non alla prima casetta. Da li' un impianto per servizio (90 ciascuno) copre quel quartiere e i due successivi, quindi i 108 crediti dei due impianti si pagano una volta sola e poi si diluiscono. Per rifare i conti: python tools/balance/simula_economia.py",
+	"_commento_servizi": "Corrente e acqua. Ogni edificio ne prende un tanto a cella occupata, cosi' un palazzo 3x3 pesa nove volte una casetta senza doverlo scrivere modello per modello; strade, ponti, alberi e parchi non ne prendono. Gli impianti ne danno un tanto ciascuno, fisso: una pala eolica e' una pala eolica, che stia stretta o larga. 'base' e' quanto la citta' ha addosso senza aver costruito niente: sta a zero, perche' senza impianti non deve risultare servito nulla. Alzarlo vuol dire regalare un allacciamento di partenza.",
+	"_commento_scala_servizi": "Numeri scelti su un primo quartiere plausibile (14 strade, 10 alberi, 6 case, 2 parchi, 2 negozi, 2 palazzine, 1 scuola): chiede 35 di corrente e 35 di acqua. Senza impianti non e' servito niente: si costruisce lo stesso, ma le costruzioni restano al buio finche' non arriva la pala o la torre. Un impianto per servizio (90 ciascuno) copre quel quartiere e i due successivi, quindi i 108 crediti dei due impianti si pagano una volta sola e poi si diluiscono. Per rifare i conti: python tools/balance/simula_economia.py",
 	"services": {
-		"base": { "power": 20, "water": 20 },
+		"base": { "power": 0, "water": 0 },
 		"plants": {
 			"wind": { "power": 90 },
 			"solar": { "power": 90 },

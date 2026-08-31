@@ -108,14 +108,16 @@ sola, scegliendo l'altezza sulla luce da coprire.
 **La città chiede corrente e acqua.** Ogni edificio ne prende un tanto per
 cella occupata — una torre 4x4 pesa sedici volte una casetta 1x1 — mentre pale
 eoliche, impianti solari e serbatoi idrici ne mettono in comune. Strade, ponti,
-alberi e parchi non si allacciano a niente. La fascia delle costruzioni tiene il
-conto in testa (`Corrente 78/110`), che diventa ambra quando sta per finire e
-rosso quando è finita, e sotto il limite non ti lascia posare: prima l'impianto,
-poi il quartiere. La città parte con un allacciamento suo, abbastanza per una
-quindicina di case, così la prima sessione da venticinque minuti compra ancora
-una casa e non una centrale. Gli impianti invece si posano sempre, anche a
-bilancio esaurito: quello che serve per uscire da un buco non può essere la
-prima cosa che il buco impedisce.
+alberi e parchi non si allacciano a niente, e senza impianti non è servito
+niente: la città non nasce con la corrente addosso.
+
+Costruire senza però si può. Quello che resta scoperto **si vede**: gli va
+addosso un velo scuro e gli galleggia sopra un punto esclamativo rosso, e
+toccandolo si aprono i conti della città. Bilanciare è la cosa da inseguire, non
+un divieto che ti ferma la mano — le case al buio sono un problema da risolvere,
+non una casa che non puoi posare. La fascia delle costruzioni tiene comunque il
+conto in testa (`Corrente 78/90`), ambra quando sta per finire e rosso quando è
+finita.
 
 **Chi consuma servizi vuole anche una strada.** Almeno una cella dell'ingombro
 deve confinare con una strada, una rampa o l'impalcato di un ponte: una casa in

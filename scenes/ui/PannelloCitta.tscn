@@ -68,7 +68,7 @@ text = "×"
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 0.5)
 theme_override_font_sizes/font_size = 11
-text = "Clicca un servizio per accenderlo sul mondo: verde chi ce l'ha, rosso chi no."
+text = "Clicca un servizio per accendere sul mondo le costruzioni che ne restano scoperte."
 autowrap_mode = 3
 
 [node name="Righe" type="VBoxContainer" parent="Pannello/Margine/Colonna"]

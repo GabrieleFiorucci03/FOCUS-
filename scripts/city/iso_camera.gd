@@ -125,6 +125,18 @@ func direzione_raggio(punto_schermo: Vector2) -> Vector3:
 	return _camera.project_ray_normal(punto_schermo)
 
 
+## Dove finisce sullo schermo un punto del mondo. Serve a chi disegna cartelli
+## in mezzo alla scena e poi vuole sapere se il mouse li ha presi.
+func punto_schermo(mondo: Vector3) -> Vector2:
+	return _camera.unproject_position(mondo)
+
+
+## Se un punto sta dietro alla camera: lì unproject_position restituisce
+## coordinate che sembrano buone e non lo sono.
+func dietro(mondo: Vector3) -> bool:
+	return _camera.is_position_behind(mondo)
+
+
 func zoom() -> float:
 	return _camera.size
 

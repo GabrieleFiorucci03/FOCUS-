@@ -48,6 +48,8 @@ collision_mask = 0
 
 [node name="Edifici" type="Node3D" parent="."]
 
+[node name="Segnali" type="Node3D" parent="."]
+
 [node name="Anteprima" type="Node3D" parent="."]
 
 [node name="Camera" type="Node3D" parent="."]

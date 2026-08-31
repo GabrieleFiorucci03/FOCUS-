@@ -687,17 +687,25 @@ edificio vuole corrente e acqua, e qualcuno gliele deve dare.
 - **Strade, ponti, rampe, alberi e parchi non si allacciano a niente.** La regola
   così si dice in una riga: gli edifici consumano, le infrastrutture e il verde
   no.
-- **La città parte con un allacciamento suo**, 20 e 20. Senza, la prima casa
-  costerebbe anche una centrale, e salterebbe la promessa che regge tutta
-  l'economia: la prima sessione da venticinque minuti compra una casa. Venti
-  bastano per una quindicina di casette, cioè la spinta a bilanciare arriva
-  quando si comincia a mettere su qualcosa di più grosso.
-- **Sotto il limite non si posa**, e il rifiuto dice quanto manca e cosa
-  costruire. Ma **un impianto non si rifiuta mai**: quello che serve per uscire
-  da un buco non può essere la prima cosa che il buco impedisce.
-- **Demolire un impianto è permesso anche se lascia la città in rosso.** Il
-  bilancio va sotto zero, la fascia lo dice in rosso e non si costruisce altro
-  finché non si rimedia. Vietarlo avrebbe reso impossibile spostare una pala.
+- **Senza impianti non è servito niente.** La città non parte con la corrente
+  addosso: zero e zero. C'era un allacciamento di partenza, 20 e 20, messo lì
+  perché la prima casa non costasse anche una centrale — ma faceva risultare
+  servita mezza città senza che ci fosse una sola pala eolica, ed è un conto
+  che mente. Il numero è rimasto in `economy.json`, a zero: chi vuole regalarsi
+  un allacciamento lo alza e basta.
+- **Senza corrente si costruisce lo stesso, ma resta al buio.** È l'altra metà
+  della decisione di sopra, e senza di lei la prima sarebbe stata un muro:
+  a bilancio zero non si sarebbe potuta posare nemmeno la prima casa. Bilanciare
+  diventa la cosa da inseguire invece del divieto che ti ferma la mano — lo
+  stesso criterio scritto nel piano per i cinque presidi civici, applicato anche
+  qui per non avere due regole diverse per la stessa idea.
+- **Quello che resta scoperto si vede.** Un velo scuro addosso alla costruzione
+  e un punto esclamativo rosso che le galleggia sopra, e toccandolo si aprono i
+  conti. Un divieto si spiega da solo perché ti ferma; un problema che ti lascia
+  costruire va detto, o non lo scopre nessuno.
+- **Demolire un impianto è permesso anche se lascia la città in rosso.** Le
+  costruzioni che reggeva si spengono e lo dicono. Vietarlo avrebbe reso
+  impossibile spostare una pala.
 - **Del bilancio non si salva niente.** È la somma di quello che c'è in città e
   si rifà da sola al caricamento — stesso principio del terreno, che si salva
   col seme e non con le quote. Una città salvata prima di questa modifica si
@@ -718,10 +726,10 @@ quartieri successivi non costano un credito di infrastruttura.
 | Pala eolica, serbatoio idrico | danno 90 dell'uno e niente dell'altro |
 | Strade, rampe, ponti, alberi, parchi | non chiedono niente |
 | Posare una casa | il bilancio scende di uno e uno |
-| Città al limite, poi una casa | rifiutata, e dice quale servizio manca |
-| Città al limite, poi una strada | si posa: non chiede niente |
-| Città al limite, poi un impianto | si posa: è la via d'uscita |
-| Finita solo l'acqua | il rifiuto parla di acqua, non di corrente |
+| Città senza impianti | si costruisce, e resta tutto scoperto |
+| Una costruzione scoperta | velo scuro addosso e punto esclamativo sopra |
+| Toccare il punto esclamativo | si aprono i conti della città |
+| Posare pala e torre | velo e punto esclamativo spariscono |
 | Posare una pala | il tetto della corrente sale di 90 |
 | La fascia | scrive «Corrente 78/110», e cambia colore vicino al limite |
 
@@ -746,9 +754,11 @@ cosa non va nella sua città.
   servizio, quante costruzioni lo chiedono e quante ne restano scoperte. Non è
   il pannello delle statistiche di focus — quello racconta le giornate di
   concentrazione, questo racconta la città, e si guardano in momenti diversi.
-- **Cliccando un servizio si accende sul mondo**, verde chi ce l'ha e rosso chi
-  no. Un numero dice quante sono, non dove sono, e per rimediare bisogna sapere
-  dove. Un servizio per volta: due colori sovrapposti non direbbero niente.
+- **Cliccando un servizio si accende sul mondo** chi ne resta scoperto, e solo
+  chi ne resta scoperto. Un numero dice quante sono, non dove sono, e per
+  rimediare bisogna sapere dove; colorare di verde anche quelle a posto — che
+  sono la maggioranza — vorrebbe dire nascondere le tre che contano dentro una
+  città intera dipinta. Un servizio per volta.
 - **Quando un servizio non basta per tutti, la rete serve prima quello che
   c'era già.** Si scorrono le costruzioni nell'ordine in cui sono state posate e
   si stacca da dove il conto sfonda. È una regola arbitraria come ogni altra, ma
@@ -773,7 +783,7 @@ si voleva che comparissero.
 | Due letture di seguito | stessi scoperti: il conto è stabile |
 | Chi resta al buio | l'ultimo arrivato, non il primo |
 | Corrente in abbondanza | nessuno scoperto |
-| Clic su un servizio | il mondo si colora, due superfici in due colori |
+| Clic su un servizio | sul mondo si accendono solo le scoperte |
 | Richiudere il pannello | si spegne anche il colore sul mondo |
 
 ## Il piano per il prossimo giro
