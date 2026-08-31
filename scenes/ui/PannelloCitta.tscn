@@ -1,0 +1,85 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/pannello_citta.gd" id="1_conti"]
+[ext_resource type="StyleBox" path="res://scenes/ui/pannello.tres" id="2_fondo"]
+[ext_resource type="Texture2D" path="res://assets/ui/statistiche.svg" id="3_icona"]
+
+[node name="PannelloCitta" type="Control"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_conti")
+
+[node name="Statistiche" type="Button" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 42)
+anchors_preset = 0
+offset_left = 74.0
+offset_top = 22.0
+offset_right = 124.0
+offset_bottom = 64.0
+tooltip_text = "Conti della città (C)"
+toggle_mode = true
+icon = ExtResource("3_icona")
+expand_icon = true
+
+[node name="Pannello" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 0
+offset_left = 16.0
+offset_top = 274.0
+offset_right = 372.0
+offset_bottom = 486.0
+theme_override_styles/panel = ExtResource("2_fondo")
+
+[node name="Margine" type="MarginContainer" parent="Pannello"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 10
+
+[node name="Colonna" type="VBoxContainer" parent="Pannello/Margine"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Intestazione" type="HBoxContainer" parent="Pannello/Margine/Colonna"]
+layout_mode = 2
+
+[node name="Titolo" type="Label" parent="Pannello/Margine/Colonna/Intestazione"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+text = "Conti della città"
+
+[node name="Chiudi" type="Button" parent="Pannello/Margine/Colonna/Intestazione"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+tooltip_text = "Chiudi (C o Esc)"
+theme_override_font_sizes/font_size = 18
+text = "×"
+
+[node name="Spiega" type="Label" parent="Pannello/Margine/Colonna"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.5)
+theme_override_font_sizes/font_size = 11
+text = "Clicca un servizio per accenderlo sul mondo: verde chi ce l'ha, rosso chi no."
+autowrap_mode = 3
+
+[node name="Righe" type="VBoxContainer" parent="Pannello/Margine/Colonna"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 4
+
+[node name="Riepilogo" type="Label" parent="Pannello/Margine/Colonna"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.72)
+theme_override_font_sizes/font_size = 12
+autowrap_mode = 3

@@ -32,6 +32,19 @@ const LAYER_TERRENO := 1
 const COLORE_VALIDO := Color(0.36, 0.84, 0.47, 0.55)
 const COLORE_INVALIDO := Color(0.90, 0.31, 0.26, 0.50)
 const COLORE_DEMOLIZIONE := Color(0.95, 0.47, 0.20, 0.45)
+const COLORE_SERVITO := Color(0.30, 0.78, 0.42, 0.50)
+const COLORE_SCOPERTO := Color(0.92, 0.28, 0.24, 0.55)
+
+## I servizi di cui la città tiene il conto, nell'ordine in cui si leggono. Le
+## chiavi sono quelle che il pannello rimanda indietro quando se ne clicca uno.
+## I cinque presidi civici (polizia, sanità, pompieri, le due scuole) non sono
+## qui perché non hanno ancora un'area di azione: quando ce l'avranno entrano in
+## questo elenco, e il resto funziona già.
+const SERVIZI := [
+	{ "id": "strada", "nome": "Strada" },
+	{ "id": "corrente", "nome": "Corrente" },
+	{ "id": "acqua", "nome": "Acqua" },
+]
 
 enum Modo { NAVIGA, PIAZZA, DEMOLISCI, TERRENO }
 
@@ -43,12 +56,14 @@ enum Attrezzo { ALZA, ABBASSA, LIVELLA }
 @onready var _acqua_mesh: MeshInstance3D = $Acqua
 @onready var _reticolo: MeshInstance3D = $Griglia
 @onready var _selezione: MeshInstance3D = $Selezione
+@onready var _evidenza: MeshInstance3D = $Evidenza
 @onready var _edifici: Node3D = $Edifici
 @onready var _anteprima: Node3D = $Anteprima
 @onready var _camera: IsoCamera = $Camera
 @onready var _sole: DirectionalLight3D = $Sole
 @onready var _interfaccia: CanvasLayer = $Interfaccia
 @onready var _barra: BarraCostruzioni = %Costruzioni
+@onready var _conti: PannelloCitta = %Conti
 @onready var _aiuto: Label = %Aiuto
 @onready var _messaggio_label: Label = %Messaggio
 
@@ -80,6 +95,8 @@ var _quota_riferimento: int = -1
 ## è la somma di quello che c'è in città, e si rifà da sola al caricamento.
 var _prodotto := Vector2i.ZERO
 var _consumato := Vector2i.ZERO
+## Il servizio acceso sul mondo, o "" se non ce n'è nessuno.
+var _servizio_acceso: String = ""
 
 var _messaggio_corrente: String = ""
 var _materiale_valido: StandardMaterial3D
@@ -103,6 +120,7 @@ func _ready() -> void:
 
 	_barra.voce_scelta.connect(_on_voce_scelta)
 	_barra.strumento_scelto.connect(_on_strumento_scelto)
+	_conti.servizio_scelto.connect(_on_servizio_scelto)
 	SaveManager.credits_changed.connect(_on_crediti_cambiati)
 	_barra.mostra_catalogo(catalogo)
 	_barra.aggiorna_saldo(SaveManager.credits)
@@ -110,6 +128,7 @@ func _ready() -> void:
 	var costruiti := _ricostruisci_dal_salvataggio()
 	_costruisci_mesh()
 	_mostra_i_servizi()
+	_aggiorna_i_conti()
 
 	var centro_griglia := Vector2i(griglia.size.x / 2, griglia.size.y / 2)
 	var centro := griglia.centro_cella(centro_griglia)
@@ -172,9 +191,10 @@ func _aggiorna_interfaccia() -> void:
 	_interfaccia.visible = is_visible_in_tree()
 
 
-## B apre e chiude la fascia delle costruzioni; l'Esc la chiude, ma solo quando
-## non c'è niente in mano da posare — in cantiere l'Esc lascia prima l'attrezzo,
-## e solo al giro dopo tocca al negozio. Restituisce se il tasto era per noi.
+## B apre e chiude la fascia delle costruzioni, C i conti della città; l'Esc
+## chiude quello che è aperto, ma solo quando non c'è niente in mano da posare —
+## in cantiere l'Esc lascia prima l'attrezzo, e solo al giro dopo tocca ai
+## pannelli. Restituisce se il tasto era per noi.
 func _tasto_del_negozio(tasto: InputEventKey) -> bool:
 	if not tasto.pressed or tasto.echo:
 		return false
@@ -182,8 +202,18 @@ func _tasto_del_negozio(tasto: InputEventKey) -> bool:
 		KEY_B:
 			_barra.alterna()
 			return true
+		KEY_C:
+			_conti.alterna()
+			if _conti.aperto():
+				_aggiorna_i_conti()
+			return true
 		KEY_ESCAPE:
-			if _modo == Modo.NAVIGA and _barra.aperta():
+			if _modo != Modo.NAVIGA:
+				return false
+			if _conti.aperto():
+				_conti.chiudi()
+				return true
+			if _barra.aperta():
 				_barra.chiudi()
 				return true
 	return false
@@ -363,6 +393,128 @@ func _servizi_mancanti(servizi: Vector2i) -> String:
 	return ""
 
 
+## Se almeno una cella di un ingombro confina con una strada.
+##
+## Adiacenza e non raggiungibilità: chiedere che quella strada sia collegata a
+## tutto il resto vorrebbe dire visitare il grafo stradale a ogni movimento del
+## mouse, e soprattutto che tagliarne una in mezzo scollegherebbe mezza città in
+## un colpo. Confinare basta a impedire la casa in mezzo al niente, che è la
+## cosa che si voleva impedire.
+func _tocca_una_strada(celle: Array[Vector2i]) -> bool:
+	for cella in celle:
+		for direzione in CityTerrain.VICINI:
+			var vicina: Vector2i = cella + direzione
+			if celle.has(vicina) or not griglia.in_griglia(vicina):
+				continue
+			var occupante := griglia.occupante(vicina)
+			if not occupante.is_empty() and catalogo.e_strada(str(occupante["modello"])):
+				return true
+	return false
+
+
+## Chi chiede un servizio e chi non ce l'ha. Restituisce
+## { chiedono, scoperte, servite, mancanti }, dove le due liste sono le celle da
+## colorare sul mondo.
+func _copertura(servizio: String) -> Dictionary:
+	var esito := {
+		"chiedono": 0, "scoperte": 0,
+		"servite": [] as Array[Vector2i], "mancanti": [] as Array[Vector2i],
+	}
+	var asse := 0 if servizio == "corrente" else 1
+	var resta := 0
+	if servizio != "strada":
+		resta = (Config.service_base() + _prodotto)[asse]
+
+	# In ordine di posa: gli id crescono, e ordinarli è ordinare la storia della
+	# città.
+	var elenco := griglia.piazzamenti()
+	elenco.sort_custom(func(a, b): return int(a["id"]) < int(b["id"]))
+
+	for piazzamento in elenco:
+		var modello := str(piazzamento["modello"])
+		var voce := catalogo.voce(modello)
+		if voce.is_empty():
+			continue
+		var celle := griglia.celle_occupate(
+			piazzamento["ancora"], piazzamento["footprint"], piazzamento["rotazione"]
+		)
+		var chiede := false
+		var servita := false
+		if servizio == "strada":
+			chiede = catalogo.vuole_la_strada(modello)
+			servita = chiede and _tocca_una_strada(celle)
+		else:
+			var quanto: int = -(voce["servizi"] as Vector2i)[asse]
+			chiede = quanto > 0
+			if chiede:
+				# Quando non basta per tutti, la rete serve prima quello che
+				# c'era già: si stacca da dove il conto sfonda. Arbitrario come
+				# ogni altra regola, ma stabile — riaprendo la partita restano
+				# al buio le stesse case — ed è quella che ci si aspetta, visto
+				# che è l'ultima cosa costruita ad aver fatto saltare il conto.
+				servita = quanto <= resta
+				if servita:
+					resta -= quanto
+		if not chiede:
+			continue
+		esito["chiedono"] = int(esito["chiedono"]) + 1
+		if not servita:
+			esito["scoperte"] = int(esito["scoperte"]) + 1
+		var dove: Array[Vector2i] = esito["servite"] if servita else esito["mancanti"]
+		for cella in celle:
+			dove.append(cella)
+	return esito
+
+
+## Rifà i numeri del pannello e, se un servizio è acceso, il colore sul mondo.
+func _aggiorna_i_conti() -> void:
+	var righe: Array[Dictionary] = []
+	for servizio in SERVIZI:
+		var conto := _copertura(str(servizio["id"]))
+		righe.append({
+			"id": servizio["id"], "nome": servizio["nome"],
+			"chiedono": conto["chiedono"], "scoperte": conto["scoperte"],
+		})
+	_conti.mostra(righe, "%d costruzioni in città · %s." % [
+		griglia.piazzamenti().size(), _riepilogo_servizi()
+	])
+	if not _servizio_acceso.is_empty():
+		_dipingi_il_servizio(_servizio_acceso)
+
+
+func _on_servizio_scelto(servizio: String) -> void:
+	_servizio_acceso = servizio
+	if servizio.is_empty():
+		_evidenza.mesh = null
+		return
+	Sfx.suona("clic")
+	_dipingi_il_servizio(servizio)
+
+
+## Accende sul mondo chi chiede un servizio: verde se ce l'ha, rosso se no.
+## Ogni cella alla sua quota, perché le costruzioni non stanno tutte allo stesso
+## piano e un colore a quota unica finirebbe sottoterra o per aria.
+func _dipingi_il_servizio(servizio: String) -> void:
+	var conto := _copertura(servizio)
+	_evidenza.mesh = TerrainMesh.costruisci_gruppi([
+		{
+			"celle": conto["servite"], "colore": COLORE_SERVITO,
+			"quote": _quote_di(conto["servite"]),
+		},
+		{
+			"celle": conto["mancanti"], "colore": COLORE_SCOPERTO,
+			"quote": _quote_di(conto["mancanti"]),
+		},
+	])
+
+
+func _quote_di(celle: Array[Vector2i]) -> PackedFloat32Array:
+	var quote := PackedFloat32Array()
+	for cella in celle:
+		quote.append(terreno.quota(cella) + 0.03)
+	return quote
+
+
 func _mostra_i_servizi() -> void:
 	_barra.aggiorna_servizi(_consumato, Config.service_base() + _prodotto)
 
@@ -440,6 +592,10 @@ func _valuta(id: String, ancora: Vector2i, rotazione: int, alzata: int = 0) -> D
 	var senza := _servizi_mancanti(voce["servizi"])
 	if not senza.is_empty():
 		esito["motivo"] = senza
+		return esito
+
+	if catalogo.vuole_la_strada(id) and not _tocca_una_strada(celle):
+		esito["motivo"] = "Ci vuole una strada attaccata: qui non ci arriva nessuno."
 		return esito
 
 	# Ponti e rampe non hanno regole di terreno: dove la cella è libera si posano,
@@ -648,6 +804,7 @@ func _conferma() -> void:
 	SaveManager.add_tile(_ancora, _scelto, _rotazione, livello)
 	Sfx.suona("posa")
 	_mostra_i_servizi()
+	_aggiorna_i_conti()
 	# Il bilancio si dice solo a chi lo ha appena mosso: dopo un albero sarebbe
 	# rumore, dopo una palazzina è la cosa che si vuole sapere.
 	var coda := "" if catalogo.servizi(_scelto) == Vector2i.ZERO else " · " + _riepilogo_servizi()
@@ -674,6 +831,7 @@ func _demolisci_sotto_il_cursore() -> void:
 	griglia.rimuovi(_cella)
 	_conta_i_servizi(catalogo.voce(id_modello), -1)
 	_mostra_i_servizi()
+	_aggiorna_i_conti()
 
 	# Il lotto resta spianato: sbancare è una modifica al mondo, non un pezzo
 	# dell'edificio, e il terreno non deve rimbalzare su e giù ogni volta che si
@@ -876,7 +1034,7 @@ static func _tinge(nodo: Node, materiale: Material) -> void:
 
 
 func _mouse_sul_pannello() -> bool:
-	return _barra.sotto_il_mouse()
+	return _barra.sotto_il_mouse() or _conti.sotto_il_mouse()
 
 
 # --- Testi ------------------------------------------------------------------
@@ -907,7 +1065,7 @@ func _suggerimento() -> String:
 				return "Clic per prendere la quota da copiare · Esc annulla"
 			return "Clic per modellare il terreno · Esc annulla"
 		_:
-			return "WASD scorre (Shift corre) · Q / E ruota · rotella zoom · B apre le costruzioni"
+			return "WASD scorre (Shift corre) · Q / E ruota · rotella zoom · B costruisci · C conti"
 
 
 func _riepilogo_servizi() -> String:

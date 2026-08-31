@@ -231,6 +231,26 @@ func servizi(id: String) -> Vector2i:
 	return Vector2i.ZERO if v.is_empty() else v["servizi"] as Vector2i
 
 
+## Se un oggetto è una strada: quello su cui si cammina e si arriva. Le rampe e
+## gli impalcati dei ponti lo sono quanto l'asfalto — servono a passarci.
+func e_strada(id: String) -> bool:
+	var v := voce(id)
+	if v.is_empty():
+		return false
+	return str(v["kind"]) in ["road", "sloped_road", "bridge"]
+
+
+## Se un oggetto ha bisogno di una strada accanto.
+##
+## È la stessa lista di chi consuma corrente e acqua, e non un elenco a parte:
+## quello che si allaccia ai servizi si allaccia anche alla strada, e quello che
+## non si allaccia a niente — alberi, parchi, le infrastrutture stesse — nasce
+## dove capita. Una lista sola non può contraddirne un'altra.
+func vuole_la_strada(id: String) -> bool:
+	var s := servizi(id)
+	return s.x < 0 or s.y < 0
+
+
 ## Di quanti gradini sale una rampa. Tutte quelle del kit salgono di 0,5 m, che
 ## è un gradino esatto: serve a sapere dove arriva una rampa posata sull'acqua,
 ## dove non c'è terreno su cui appoggiarle il piede.

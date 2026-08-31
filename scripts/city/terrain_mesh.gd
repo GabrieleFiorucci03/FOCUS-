@@ -176,33 +176,52 @@ static func costruisci_reticolo(terreno: CityTerrain) -> Mesh:
 ## terreno che sta per essere scavato coprirebbe proprio il riquadro che spiega
 ## cosa succederà.
 static func costruisci_selezione(celle: Array[Vector2i], quota: float, colore: Color) -> Mesh:
+	var quote := PackedFloat32Array()
+	quote.resize(celle.size())
+	quote.fill(quota)
+	return costruisci_gruppi([{ "celle": celle, "quote": quote, "colore": colore }])
+
+
+## Celle colorate a gruppi, ognuno col suo colore, in una mesh sola.
+##
+## Un gruppo è { celle: Array[Vector2i], quote: PackedFloat32Array, colore }, e
+## le quote stanno in parallelo alle celle e non una per tutte: evidenziando le
+## costruzioni di mezza città ognuna sta alla propria, e una quota sola le
+## seppellirebbe o le farebbe volare. Una mesh sola perché sono la stessa
+## informazione detta in due colori — chi ha il servizio e chi no.
+static func costruisci_gruppi(gruppi: Array) -> Mesh:
 	var mesh := ImmediateMesh.new()
-	if celle.is_empty():
-		return mesh
-
-	var materiale := StandardMaterial3D.new()
-	materiale.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-	materiale.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	materiale.no_depth_test = true
-	materiale.cull_mode = BaseMaterial3D.CULL_DISABLED
-	materiale.albedo_color = colore
-	materiale.render_priority = 1
-
 	var cella := CityGrid.CELL_SIZE
 	var mezza := cella * 0.5
-	mesh.surface_begin(Mesh.PRIMITIVE_TRIANGLES, materiale)
-	for coord in celle:
-		var x0 := float(coord.x) * cella - mezza
-		var x1 := float(coord.x) * cella + mezza
-		var z0 := float(coord.y) * cella - mezza
-		var z1 := float(coord.y) * cella + mezza
-		var a := Vector3(x0, quota, z0)
-		var b := Vector3(x0, quota, z1)
-		var c := Vector3(x1, quota, z1)
-		var d := Vector3(x1, quota, z0)
-		for vertice in [a, b, c, a, c, d]:
-			mesh.surface_add_vertex(vertice)
-	mesh.surface_end()
+	for gruppo in gruppi:
+		var celle: Array = gruppo["celle"]
+		if celle.is_empty():
+			continue
+		var quote: PackedFloat32Array = gruppo["quote"]
+
+		var materiale := StandardMaterial3D.new()
+		materiale.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+		materiale.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+		materiale.no_depth_test = true
+		materiale.cull_mode = BaseMaterial3D.CULL_DISABLED
+		materiale.albedo_color = gruppo["colore"]
+		materiale.render_priority = 1
+
+		mesh.surface_begin(Mesh.PRIMITIVE_TRIANGLES, materiale)
+		for i in celle.size():
+			var coord: Vector2i = celle[i]
+			var quota := quote[i]
+			var x0 := float(coord.x) * cella - mezza
+			var x1 := float(coord.x) * cella + mezza
+			var z0 := float(coord.y) * cella - mezza
+			var z1 := float(coord.y) * cella + mezza
+			var a := Vector3(x0, quota, z0)
+			var b := Vector3(x0, quota, z1)
+			var c := Vector3(x1, quota, z1)
+			var d := Vector3(x1, quota, z0)
+			for vertice in [a, b, c, a, c, d]:
+				mesh.surface_add_vertex(vertice)
+		mesh.surface_end()
 	return mesh
 
 

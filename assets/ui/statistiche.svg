@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" width="96" height="96" fill="none">
+  <!-- Tre colonne e la linea di base: il pulsante che apre i conti della citta'. -->
+  <g stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="5">
+    <path d="M6 34 L34 34"/>
+    <path d="M11 28 L11 20"/>
+    <path d="M20 28 L20 11"/>
+    <path d="M29 28 L29 16"/>
+  </g>
+</svg>

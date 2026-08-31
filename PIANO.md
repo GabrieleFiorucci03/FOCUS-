@@ -725,34 +725,64 @@ quartieri successivi non costano un credito di infrastruttura.
 | Posare una pala | il tetto della corrente sale di 90 |
 | La fascia | scrive «Corrente 78/110», e cambia colore vicino al limite |
 
+## La strada, e i conti della città
+
+Due cose che vengono dalla stessa domanda: come fa il giocatore a sapere che
+cosa non va nella sua città.
+
+- **Chi consuma servizi vuole una strada accanto.** La lista non è un elenco a
+  parte: è la stessa di chi si allaccia a corrente e acqua, letta dallo stesso
+  posto. Una lista sola non può contraddirne un'altra, e la regola si dice in
+  una riga — quello che si allaccia ai servizi si allaccia anche alla strada,
+  quello che non si allaccia a niente (alberi, parchi, le infrastrutture stesse)
+  nasce dove capita.
+- **Adiacenza, non raggiungibilità.** Confinare con una strada è un controllo
+  locale che costa nulla; pretendere che quella strada sia collegata a tutto il
+  resto vorrebbe dire visitare il grafo stradale a ogni movimento del mouse, e
+  soprattutto che tagliarne una in mezzo scollegherebbe mezza città in un colpo.
+  Confinare basta a impedire la casa in mezzo al niente, che è la cosa che si
+  voleva impedire. La rete resta una raffinatura possibile, non il primo passo.
+- **I conti della città** sono un pannello a parte, col suo pulsante: per ogni
+  servizio, quante costruzioni lo chiedono e quante ne restano scoperte. Non è
+  il pannello delle statistiche di focus — quello racconta le giornate di
+  concentrazione, questo racconta la città, e si guardano in momenti diversi.
+- **Cliccando un servizio si accende sul mondo**, verde chi ce l'ha e rosso chi
+  no. Un numero dice quante sono, non dove sono, e per rimediare bisogna sapere
+  dove. Un servizio per volta: due colori sovrapposti non direbbero niente.
+- **Quando un servizio non basta per tutti, la rete serve prima quello che
+  c'era già.** Si scorrono le costruzioni nell'ordine in cui sono state posate e
+  si stacca da dove il conto sfonda. È una regola arbitraria come ogni altra, ma
+  è stabile — riaprendo la partita restano al buio le stesse case — ed è quella
+  che ci si aspetta, perché è l'ultima cosa costruita ad aver fatto saltare il
+  conto.
+- **L'elenco dei servizi è una costante sola** in `CityView`. I cinque presidi
+  civici non ci sono perché non hanno ancora un'area di azione: quando ce
+  l'avranno entrano lì, e il pannello, l'evidenza e i conti funzionano già.
+
+Le città salvate prima di questa modifica si riaprono intere, e le loro case
+senza strada compaiono nel pannello come scoperte: è esattamente il posto dove
+si voleva che comparissero.
+
+| Prova | Esito |
+|---|---|
+| Casa in mezzo al niente | rifiutata, e dice che ci vuole una strada |
+| Albero e prima strada in mezzo al niente | si posano: non chiedono strada |
+| Casa attaccata alla strada, e casa a quattro celle | la prima sì, la seconda no |
+| Rampe e impalcati | valgono come strada quanto l'asfalto |
+| Corrente ridotta sotto il fabbisogno | qualcuno resta al buio, ma non tutti |
+| Due letture di seguito | stessi scoperti: il conto è stabile |
+| Chi resta al buio | l'ultimo arrivato, non il primo |
+| Corrente in abbondanza | nessuno scoperto |
+| Clic su un servizio | il mondo si colora, due superfici in due colori |
+| Richiudere il pannello | si spegne anche il colore sul mondo |
+
 ## Il piano per il prossimo giro
 
-Tre cose decise ma non ancora fatte. Sono scritte qui perché l'ordine conta: la
-prima è un prerequisito della seconda, e la terza cambia la forma del mondo
-sotto tutte e due.
+Due cose decise ma non ancora fatte. La prima aveva un prerequisito — ogni
+edificio attaccato a una strada — che adesso c'è; la seconda cambia la forma del
+mondo sotto tutte e due.
 
-### 1. Ogni edificio attaccato a una strada
-
-Un edificio senza strada non è servito da niente, e oggi se ne può posare uno in
-mezzo al nulla. La regola: **almeno una cella dell'ingombro deve confinare con
-una strada** — una cella di tipo `road`, o l'impalcato di un ponte, che è una
-strada anche lui.
-
-Da decidere quando ci si mette mano:
-
-- **Adiacenza o rete?** Confinare con una strada è un controllo locale, costa
-  nulla e si spiega in una riga. Pretendere che quella strada sia collegata a
-  tutto il resto vuol dire una visita del grafo stradale a ogni piazzamento, e
-  soprattutto vuol dire che tagliare una strada in mezzo può «scollegare» mezza
-  città di colpo. Si comincia dall'adiacenza; la rete è una raffinatura, non il
-  primo passo.
-- **Vale per tutti?** No: alberi, parchi e le infrastrutture stesse restano
-  liberi, come per corrente e acqua. La lista è già quella — chi consuma
-  servizi, si allaccia anche alla strada.
-- **Le città già salvate.** Come per i servizi: si riaprono intere, e il vincolo
-  vale solo da lì in avanti. Non si demolisce niente per punizione.
-
-### 2. I servizi con un'area di azione
+### 1. I servizi con un'area di azione
 
 Polizia, presidio sanitario, pompieri, scuola elementare e scuola superiore:
 cinque servizi, ognuno con **un raggio d'azione attorno a sé**. Un'abitazione
@@ -784,7 +814,7 @@ Da decidere:
   strade. La città è a celle quadrate: si parte dal cerchio, che è quello che ci
   si aspetta guardando.
 
-### 3. Un mondo più credibile, e più grande di quello che si vede
+### 2. Un mondo più credibile, e più grande di quello che si vede
 
 Due lavori che si tengono, e vanno fatti insieme perché il secondo vincola il
 primo.
@@ -827,5 +857,5 @@ Da decidere anche:
 
 ## Prossimo passo
 
-Le tre cose qui sopra, in quell'ordine. Le cinque fasi sono chiuse: il giro è
+Le due cose qui sopra, in quell'ordine. Le cinque fasi sono chiuse: il giro è
 completo e rifinito.

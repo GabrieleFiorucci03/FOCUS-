@@ -117,6 +117,20 @@ una casa e non una centrale. Gli impianti invece si posano sempre, anche a
 bilancio esaurito: quello che serve per uscire da un buco non può essere la
 prima cosa che il buco impedisce.
 
+**Chi consuma servizi vuole anche una strada.** Almeno una cella dell'ingombro
+deve confinare con una strada, una rampa o l'impalcato di un ponte: una casa in
+mezzo al niente non la raggiunge nessuno. Alberi, parchi e le infrastrutture
+stesse nascono dove capita — è la stessa lista di chi si allaccia a corrente e
+acqua, non un elenco a parte.
+
+**I conti della città** stanno dietro al secondo pulsante in alto a sinistra (o
+il tasto `C`): per ogni servizio, quante costruzioni lo chiedono e quante ne
+restano scoperte. Cliccandone uno si accende sul mondo — verde chi ce l'ha,
+rosso chi no — perché un numero dice quante sono ma non dove sono, e per
+rimediare bisogna sapere dove. Quando la corrente non basta per tutti la rete
+serve prima quello che c'era già: resta al buio l'ultimo arrivato, che è anche
+quello che ha fatto saltare il conto.
+
 **E poi c'è il badile.** Alza, abbassa e livella spostano il suolo di mezzo
 metro per volta, a un credito a gradino e senza rimborso. Sotto una costruzione
 il terreno non si tocca — demolisci prima — e fra due celle vicine il salto non

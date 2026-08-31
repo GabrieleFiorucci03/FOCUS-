@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3]
+[gd_scene load_steps=8 format=3]
 
 [ext_resource type="Script" path="res://scripts/city/city_view.gd" id="1_city"]
 [ext_resource type="Script" path="res://scripts/city/iso_camera.gd" id="2_cam"]
 [ext_resource type="PackedScene" path="res://scenes/ui/BarraCostruzioni.tscn" id="3_barra"]
+[ext_resource type="PackedScene" path="res://scenes/ui/PannelloCitta.tscn" id="4_conti"]
 
 [sub_resource type="ProceduralSkyMaterial" id="SkyMat_1"]
 sky_top_color = Color(0.352941, 0.505882, 0.678431, 1)
@@ -42,6 +43,8 @@ collision_mask = 0
 [node name="Griglia" type="MeshInstance3D" parent="."]
 
 [node name="Selezione" type="MeshInstance3D" parent="."]
+
+[node name="Evidenza" type="MeshInstance3D" parent="."]
 
 [node name="Edifici" type="Node3D" parent="."]
 
@@ -95,4 +98,7 @@ horizontal_alignment = 1
 clip_text = true
 
 [node name="Costruzioni" parent="Interfaccia" instance=ExtResource("3_barra")]
+unique_name_in_owner = true
+
+[node name="Conti" parent="Interfaccia" instance=ExtResource("4_conti")]
 unique_name_in_owner = true
