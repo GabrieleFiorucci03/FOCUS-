@@ -30,6 +30,31 @@
 		"tower": 120
 	},
 
+	"_commento_servizi": "Corrente e acqua. Ogni edificio ne prende un tanto a cella occupata, cosi' un palazzo 3x3 pesa nove volte una casetta senza doverlo scrivere modello per modello; strade, ponti, alberi e parchi non ne prendono. Gli impianti ne danno un tanto ciascuno, fisso: una pala eolica e' una pala eolica, che stia stretta o larga. 'base' e' l'allacciamento che la citta' ha gia' addosso: serve perche' la prima casa non possa costare anche una centrale.",
+	"_commento_scala_servizi": "Numeri scelti su un primo quartiere plausibile (14 strade, 10 alberi, 6 case, 2 parchi, 2 negozi, 2 palazzine, 1 scuola): chiede 35 di corrente e 35 di acqua. L'allacciamento ne regge 20, cioe' una prima quindicina di case: la spinta a bilanciare arriva quando si comincia a mettere su qualcosa di piu' grosso, non alla prima casetta. Da li' un impianto per servizio (90 ciascuno) copre quel quartiere e i due successivi, quindi i 108 crediti dei due impianti si pagano una volta sola e poi si diluiscono. Per rifare i conti: python tools/balance/simula_economia.py",
+	"services": {
+		"base": { "power": 20, "water": 20 },
+		"plants": {
+			"wind": { "power": 90 },
+			"solar": { "power": 90 },
+			"water": { "water": 90 }
+		},
+		"per_cell": {
+			"house": { "power": 1, "water": 1 },
+			"villa": { "power": 1, "water": 2 },
+			"apartment": { "power": 2, "water": 2 },
+			"slab": { "power": 2, "water": 2 },
+			"tower": { "power": 2, "water": 2 },
+			"shop": { "power": 1, "water": 1 },
+			"office": { "power": 2, "water": 1 },
+			"factory": { "power": 2, "water": 2 },
+			"agriculture": { "power": 1, "water": 2 },
+			"school": { "power": 1, "water": 1 },
+			"service": { "power": 1, "water": 1 },
+			"sport": { "power": 1, "water": 2 }
+		}
+	},
+
 	"_commento_rimborso": "Quanto torna indietro demolendo: 0.5 = meta' del prezzo, arrotondata per difetto.",
 	"refund_ratio": 0.5,
 

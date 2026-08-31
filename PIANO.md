@@ -668,9 +668,164 @@ stanno insieme senza pestarsi, i ritratti si riconoscono uno per uno lungo tutti
 gli scaffali, e i nomi lunghi («Strada sterrata in curva») ci stanno dentro —
 alla prima misura delle schede no, e si leggeva «Strada sterrata i».
 
+## Corrente e acqua
+
+La città non chiedeva niente: si posava, si pagava, finiva lì. Adesso ogni
+edificio vuole corrente e acqua, e qualcuno gliele deve dare.
+
+- **Si paga a cella occupata, non a modello.** Il tipo dice quanto pesa un metro
+  quadro, l'ingombro dice quanti: una torre 4x4 chiede sedici volte una casetta
+  1x1 senza che nessuno debba scrivere novantuno numeri, ed è la stessa ragione
+  per cui i prezzi stanno sul tipo. «Gli edifici più grandi chiedono di più»
+  esce da sé dalla forma dei dati, invece di essere una regola in più.
+- **Gli impianti danno un numero fisso, ciascuno il suo.** Una pala eolica è una
+  pala eolica, che stia stretta o larga: 90 di corrente, come l'impianto solare;
+  il serbatoio idrico 90 di acqua. Solare ed eolico danno lo stesso perché
+  costano lo stesso — un impianto peggiore allo stesso prezzo sarebbe una
+  trappola, non una scelta, e a distinguerli basta che uno occupi 3x2 e l'altro
+  2x2.
+- **Strade, ponti, rampe, alberi e parchi non si allacciano a niente.** La regola
+  così si dice in una riga: gli edifici consumano, le infrastrutture e il verde
+  no.
+- **La città parte con un allacciamento suo**, 20 e 20. Senza, la prima casa
+  costerebbe anche una centrale, e salterebbe la promessa che regge tutta
+  l'economia: la prima sessione da venticinque minuti compra una casa. Venti
+  bastano per una quindicina di casette, cioè la spinta a bilanciare arriva
+  quando si comincia a mettere su qualcosa di più grosso.
+- **Sotto il limite non si posa**, e il rifiuto dice quanto manca e cosa
+  costruire. Ma **un impianto non si rifiuta mai**: quello che serve per uscire
+  da un buco non può essere la prima cosa che il buco impedisce.
+- **Demolire un impianto è permesso anche se lascia la città in rosso.** Il
+  bilancio va sotto zero, la fascia lo dice in rosso e non si costruisce altro
+  finché non si rimedia. Vietarlo avrebbe reso impossibile spostare una pala.
+- **Del bilancio non si salva niente.** È la somma di quello che c'è in città e
+  si rifà da sola al caricamento — stesso principio del terreno, che si salva
+  col seme e non con le quote. Una città salvata prima di questa modifica si
+  riapre intera e va semplicemente in rosso: non si demolisce niente per
+  punizione, solo non si cresce finché non arriva un impianto.
+
+I numeri stanno in `data/economy.json` come tutti gli altri, e `python
+tools/balance/simula_economia.py` adesso li fa vedere insieme ai prezzi: quanto
+chiede il quartiere di riferimento, quanti impianti servono e quanto pesano in
+percentuale. Sul quartiere di riferimento (37 pezzi, 310 crediti) sono 41 e 41,
+cioè un impianto per servizio: 108 crediti, il 35% in più. È il gradino più alto
+della curva e si sale una volta sola — quei due impianti ne reggono 110, e i due
+quartieri successivi non costano un credito di infrastruttura.
+
+| Prova | Esito |
+|---|---|
+| Casa 1x1, casa 1x2, torre 4x4 | 1+1, 2+2, 32+32: l'ingombro fa il conto |
+| Pala eolica, serbatoio idrico | danno 90 dell'uno e niente dell'altro |
+| Strade, rampe, ponti, alberi, parchi | non chiedono niente |
+| Posare una casa | il bilancio scende di uno e uno |
+| Città al limite, poi una casa | rifiutata, e dice quale servizio manca |
+| Città al limite, poi una strada | si posa: non chiede niente |
+| Città al limite, poi un impianto | si posa: è la via d'uscita |
+| Finita solo l'acqua | il rifiuto parla di acqua, non di corrente |
+| Posare una pala | il tetto della corrente sale di 90 |
+| La fascia | scrive «Corrente 78/110», e cambia colore vicino al limite |
+
+## Il piano per il prossimo giro
+
+Tre cose decise ma non ancora fatte. Sono scritte qui perché l'ordine conta: la
+prima è un prerequisito della seconda, e la terza cambia la forma del mondo
+sotto tutte e due.
+
+### 1. Ogni edificio attaccato a una strada
+
+Un edificio senza strada non è servito da niente, e oggi se ne può posare uno in
+mezzo al nulla. La regola: **almeno una cella dell'ingombro deve confinare con
+una strada** — una cella di tipo `road`, o l'impalcato di un ponte, che è una
+strada anche lui.
+
+Da decidere quando ci si mette mano:
+
+- **Adiacenza o rete?** Confinare con una strada è un controllo locale, costa
+  nulla e si spiega in una riga. Pretendere che quella strada sia collegata a
+  tutto il resto vuol dire una visita del grafo stradale a ogni piazzamento, e
+  soprattutto vuol dire che tagliare una strada in mezzo può «scollegare» mezza
+  città di colpo. Si comincia dall'adiacenza; la rete è una raffinatura, non il
+  primo passo.
+- **Vale per tutti?** No: alberi, parchi e le infrastrutture stesse restano
+  liberi, come per corrente e acqua. La lista è già quella — chi consuma
+  servizi, si allaccia anche alla strada.
+- **Le città già salvate.** Come per i servizi: si riaprono intere, e il vincolo
+  vale solo da lì in avanti. Non si demolisce niente per punizione.
+
+### 2. I servizi con un'area di azione
+
+Polizia, presidio sanitario, pompieri, scuola elementare e scuola superiore:
+cinque servizi, ognuno con **un raggio d'azione attorno a sé**. Un'abitazione
+dentro il raggio è servita da quel servizio; l'obiettivo del giocatore è farle
+diventare tutte servite da tutti e cinque. Le aree si sovrappongono liberamente
+— anzi devono, perché coprire un territorio 32x32 con dei cerchi richiede di
+sprecarne i bordi.
+
+Da decidere:
+
+- **È un obiettivo, non un divieto.** Corrente e acqua bloccano il piazzamento
+  perché sono un allacciamento: o c'è o non c'è. La copertura dei servizi è
+  un'altra cosa — è la cosa da inseguire, e trasformarla in un rifiuto
+  significherebbe non poter posare una casa finché non c'è già la scuola.
+  Un'abitazione scoperta si posa, e si vede che è scoperta.
+- **Come si vede.** Serve una modalità di vista che colori il territorio per
+  copertura, un servizio per volta, e l'area del servizio che si ha in mano
+  disegnata attorno all'anteprima mentre lo si posiziona — altrimenti si piazza
+  a occhio e si scopre l'errore dopo aver pagato.
+- **Il raggio, in celle, sta in `economy.json`** accanto ai consumi: un numero
+  per tipo di servizio, ritoccabile senza toccare il codice, e la scuola
+  superiore ne avrà uno più largo dell'elementare perché serve un bacino più
+  grande.
+- **Il conto da mostrare.** «Quante abitazioni sono servite da tutti e cinque» è
+  la riga che riassume la città, e va messa dove si vede: la fascia ha già
+  corrente e acqua, questo le sta accanto.
+- **Distanza a cerchio o a scacchiera?** Il raggio in linea d'aria fa aree
+  tonde, più naturali da guardare; la distanza di Manhattan fa rombi e segue le
+  strade. La città è a celle quadrate: si parte dal cerchio, che è quello che ci
+  si aspetta guardando.
+
+### 3. Un mondo più credibile, e più grande di quello che si vede
+
+Due lavori che si tengono, e vanno fatti insieme perché il secondo vincola il
+primo.
+
+**Generazione più realistica.** Oggi il rilievo è rumore appianato, i fiumi si
+scavano a valle e le conche si allagano. Manca quello che rende un paesaggio
+riconoscibile: creste che si diramano invece di collinette sparse (rumore
+ridged, e ottave che si sommano), una passata di erosione che scavi le valli e
+depositi a valle, coste che alternino promontori e insenature invece di seguire
+una curva di livello, e biomi decisi da altitudine **e** umidità invece che
+dalla sola quota — così un versante al riparo è secco e quello esposto è verde.
+
+**Il mondo si compra a zone.** Si comincia con una zona 32x32 e se ne comprano
+le adiacenti con i crediti, e la città cresce oltre il suo primo riquadro.
+
+Il vincolo da tenere presente dal primo minuto: **il terreno va generato da una
+funzione delle coordinate globali, non da un seme per una mappa di dimensione
+fissa.** Oggi `CityTerrain` nasce con una `size` e riempie un array; con le zone
+comprabili, la zona a est deve combaciare con quella che c'è già, e l'unico modo
+pulito è che la quota di una cella dipenda solo dalle sue coordinate assolute e
+dal seme del mondo. Il che vuol dire anche che l'erosione e i fiumi — che sono
+processi globali, non funzioni locali — vanno pensati su una griglia più grande
+di quella visibile, oppure resi deterministici a blocchi con un margine di
+sovrapposizione. È la decisione tecnica che regge tutte e due le cose, e va
+presa prima di scrivere la prima riga.
+
+Da decidere anche:
+
+- **Quanto costa una zona**, e se il prezzo cresce con quelle già comprate. In
+  minuti di concentrazione, come tutto il resto.
+- **Cosa si vede di quello che non è tuo.** Terreno spento oltre il confine, o
+  niente del tutto? Vedere la collina che potresti comprare è metà del motivo
+  per comprarla.
+- **Il salvataggio** deve ricordare quali zone sono tue: è l'unica cosa nuova
+  che finisce su disco, il terreno continua a rigenerarsi dal seme.
+- **I servizi e le zone si incontrano qui**: «ogni zona deve avere tutti i
+  servizi» diventa una condizione controllabile zona per zona, ed è anche il
+  modo naturale di dire al giocatore che cosa gli manca prima di comprare la
+  prossima.
+
 ## Prossimo passo
 
-Le cinque fasi sono chiuse: il giro è completo e rifinito. Quello che resta
-sono scelte, non debiti — la mesh del terreno a blocchi se la mappa dovrà
-crescere, e il bilanciamento da riguardare dopo averci vissuto qualche
-settimana, che è l'unica prova che il simulatore non sa fare.
+Le tre cose qui sopra, in quell'ordine. Le cinque fasi sono chiuse: il giro è
+completo e rifinito.

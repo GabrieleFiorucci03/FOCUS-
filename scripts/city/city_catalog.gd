@@ -142,6 +142,7 @@ func _costruisci_voci(asset: Dictionary, gioco: Dictionary) -> void:
 			"variante": str(voce_asset.get("variant", "")),
 			"sostegno": float(voce_asset.get("support_height", 0.0)),
 			"salita": _salita(voce_asset),
+			"servizi": _servizi(voce_asset, kind, Vector2i(int(f[0]), int(f[1]))),
 		}
 		ordine.append(id)
 
@@ -207,6 +208,27 @@ static func _componi_nome(voce_asset: Dictionary, tipo: Dictionary) -> String:
 	if coda.is_empty():
 		return nome
 	return nome + " " + " ".join(coda)
+
+
+## Che cosa fa un oggetto ai servizi della città: x la corrente, y l'acqua,
+## positivo se ne mette in comune e negativo se ne prende.
+##
+## Un impianto dà il suo numero fisso: una pala eolica è una pala eolica, che
+## stia stretta o larga. Tutto il resto prende a cella occupata, così un palazzo
+## 3x3 pesa nove volte una casetta 1x1 senza che nessuno debba scriverlo
+## novantuno volte, ed è anche il motivo per cui non serve un numero per
+## modello: il tipo dice quanto pesa un metro quadro, l'ingombro dice quanti.
+func _servizi(voce_asset: Dictionary, kind: String, footprint: Vector2i) -> Vector2i:
+	var impianto := Config.plant_output(kind, str(voce_asset.get("variant", "")))
+	if impianto != Vector2i.ZERO:
+		return impianto
+	return -Config.consumption_per_cell(kind) * maxi(1, footprint.x * footprint.y)
+
+
+## Quanto un oggetto dà (positivo) o prende (negativo) di corrente e acqua.
+func servizi(id: String) -> Vector2i:
+	var v := voce(id)
+	return Vector2i.ZERO if v.is_empty() else v["servizi"] as Vector2i
 
 
 ## Di quanti gradini sale una rampa. Tutte quelle del kit salgono di 0,5 m, che

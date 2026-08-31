@@ -75,6 +75,12 @@ var _attrezzo: Attrezzo = Attrezzo.ALZA
 ## La quota a cui livellare, presa col primo clic. -1 = ancora da scegliere.
 var _quota_riferimento: int = -1
 
+## Il bilancio dei servizi, x corrente e y acqua: quanto ne danno gli impianti
+## già posati e quanto ne prende tutto il resto. Non si salva niente di questo:
+## è la somma di quello che c'è in città, e si rifà da sola al caricamento.
+var _prodotto := Vector2i.ZERO
+var _consumato := Vector2i.ZERO
+
 var _messaggio_corrente: String = ""
 var _materiale_valido: StandardMaterial3D
 var _materiale_invalido: StandardMaterial3D
@@ -103,6 +109,7 @@ func _ready() -> void:
 
 	var costruiti := _ricostruisci_dal_salvataggio()
 	_costruisci_mesh()
+	_mostra_i_servizi()
 
 	var centro_griglia := Vector2i(griglia.size.x / 2, griglia.size.y / 2)
 	var centro := griglia.centro_cella(centro_griglia)
@@ -281,6 +288,7 @@ func _costruisci(id: String, ancora: Vector2i, rotazione: int, livello: int,
 		return false
 	var id_piazzamento := griglia.piazza(ancora, footprint, rotazione, id)
 	_costruzioni[id_piazzamento] = { "nodo": nodo, "livello": livello }
+	_conta_i_servizi(voce, 1)
 	return true
 
 
@@ -315,6 +323,48 @@ func _appoggia_la_campata(campata: Node3D, ancora: Vector2i, livello: int) -> vo
 	pila.position = Vector3(0.0, -luce, 0.0)
 	_spegni_collisioni(pila)
 	campata.add_child(pila)
+
+
+# --- Servizi ----------------------------------------------------------------
+
+## Mette o toglie dal bilancio quello che una costruzione dà e quello che prende.
+## Chi dà non prende e viceversa, ma i due conti restano separati lo stesso: sul
+## pannello si legge "quanta se ne usa su quanta ce n'è", e per scriverlo
+## servono due numeri, non la loro differenza.
+func _conta_i_servizi(voce: Dictionary, verso: int) -> void:
+	if voce.is_empty():
+		return
+	var servizi: Vector2i = voce["servizi"]
+	_prodotto += Vector2i(maxi(servizi.x, 0), maxi(servizi.y, 0)) * verso
+	_consumato += Vector2i(maxi(-servizi.x, 0), maxi(-servizi.y, 0)) * verso
+
+
+## Quanta corrente e quanta acqua la città può ancora impegnare. Va sotto zero
+## demolendo un impianto che reggeva qualcosa: demolire non si vieta, si vieta
+## solo di costruire altro finché non si rimedia.
+func _servizi_liberi() -> Vector2i:
+	return Config.service_base() + _prodotto - _consumato
+
+
+## Perché la città non regge anche questo, o "" se lo regge.
+##
+## Un impianto non finisce mai qui dentro: dà e non prende, e quello che serve
+## per uscire da un buco non può essere la prima cosa che il buco impedisce.
+func _servizi_mancanti(servizi: Vector2i) -> String:
+	var liberi := _servizi_liberi()
+	if liberi.x + servizi.x < 0:
+		return "Manca la corrente: ne chiede %d e ne resta %d. Ci vuole una pala eolica." % [
+			-servizi.x, maxi(liberi.x, 0)
+		]
+	if liberi.y + servizi.y < 0:
+		return "Manca l'acqua: ne chiede %d e ne resta %d. Ci vuole una torre idrica." % [
+			-servizi.y, maxi(liberi.y, 0)
+		]
+	return ""
+
+
+func _mostra_i_servizi() -> void:
+	_barra.aggiorna_servizi(_consumato, Config.service_base() + _prodotto)
 
 
 func _serve_livellare(celle: Array[Vector2i], livello: int) -> bool:
@@ -386,6 +436,11 @@ func _valuta(id: String, ancora: Vector2i, rotazione: int, alzata: int = 0) -> D
 		if not griglia.occupante(cella).is_empty():
 			esito["motivo"] = "Qui c'è già qualcosa."
 			return esito
+
+	var senza := _servizi_mancanti(voce["servizi"])
+	if not senza.is_empty():
+		esito["motivo"] = senza
+		return esito
 
 	# Ponti e rampe non hanno regole di terreno: dove la cella è libera si posano,
 	# e a girarli come si vuole ci pensa R. L'unica cosa che resta da decidere è
@@ -592,7 +647,11 @@ func _conferma() -> void:
 		_segna_le_quote_del_lotto(_esito["celle"])
 	SaveManager.add_tile(_ancora, _scelto, _rotazione, livello)
 	Sfx.suona("posa")
-	_messaggio("%s: -%d crediti." % [catalogo.voce(_scelto)["nome"], prezzo])
+	_mostra_i_servizi()
+	# Il bilancio si dice solo a chi lo ha appena mosso: dopo un albero sarebbe
+	# rumore, dopo una palazzina è la cosa che si vuole sapere.
+	var coda := "" if catalogo.servizi(_scelto) == Vector2i.ZERO else " · " + _riepilogo_servizi()
+	_messaggio("%s: -%d crediti.%s" % [catalogo.voce(_scelto)["nome"], prezzo, coda])
 	_aggiorna_bersaglio()
 
 
@@ -613,6 +672,8 @@ func _demolisci_sotto_il_cursore() -> void:
 		(costruzione["nodo"] as Node3D).queue_free()
 	_costruzioni.erase(id_piazzamento)
 	griglia.rimuovi(_cella)
+	_conta_i_servizi(catalogo.voce(id_modello), -1)
+	_mostra_i_servizi()
 
 	# Il lotto resta spianato: sbancare è una modifica al mondo, non un pezzo
 	# dell'edificio, e il terreno non deve rimbalzare su e giù ogni volta che si
@@ -847,6 +908,13 @@ func _suggerimento() -> String:
 			return "Clic per modellare il terreno · Esc annulla"
 		_:
 			return "WASD scorre (Shift corre) · Q / E ruota · rotella zoom · B apre le costruzioni"
+
+
+func _riepilogo_servizi() -> String:
+	var disponibili := Config.service_base() + _prodotto
+	return "corrente %d/%d, acqua %d/%d" % [
+		_consumato.x, disponibili.x, _consumato.y, disponibili.y
+	]
 
 
 func _riepilogo_biomi() -> String:

@@ -105,6 +105,18 @@ accanto, che è dove deve arrivare. Se non è la quota che vuoi, `PagSu` e
 suggerimento, non un vincolo. La pila sotto la campata non si compra: nasce da
 sola, scegliendo l'altezza sulla luce da coprire.
 
+**La città chiede corrente e acqua.** Ogni edificio ne prende un tanto per
+cella occupata — una torre 4x4 pesa sedici volte una casetta 1x1 — mentre pale
+eoliche, impianti solari e serbatoi idrici ne mettono in comune. Strade, ponti,
+alberi e parchi non si allacciano a niente. La fascia delle costruzioni tiene il
+conto in testa (`Corrente 78/110`), che diventa ambra quando sta per finire e
+rosso quando è finita, e sotto il limite non ti lascia posare: prima l'impianto,
+poi il quartiere. La città parte con un allacciamento suo, abbastanza per una
+quindicina di case, così la prima sessione da venticinque minuti compra ancora
+una casa e non una centrale. Gli impianti invece si posano sempre, anche a
+bilancio esaurito: quello che serve per uscire da un buco non può essere la
+prima cosa che il buco impedisce.
+
 **E poi c'è il badile.** Alza, abbassa e livella spostano il suolo di mezzo
 metro per volta, a un credito a gradino e senza rimborso. Sotto una costruzione
 il terreno non si tocca — demolisci prima — e fra due celle vicine il salto non

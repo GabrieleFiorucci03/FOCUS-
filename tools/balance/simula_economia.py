@@ -60,6 +60,29 @@ QUARTIERE = {
 }
 
 
+def celle_per_tipo(catalogo):
+    """L'ingombro medio di un `kind`, in celle: i servizi si pagano a cella."""
+    somma, quanti = {}, {}
+    for voce in catalogo.get("assets", catalogo.get("voci", [])):
+        k = voce.get("kind", "?")
+        f = voce.get("footprint", [1, 1])
+        somma[k] = somma.get(k, 0) + f[0] * f[1]
+        quanti[k] = quanti.get(k, 0) + 1
+    return {k: somma[k] / quanti[k] for k in somma}
+
+
+def servizi_del_quartiere(economia, catalogo):
+    """Quanta corrente e quanta acqua chiede il quartiere di riferimento."""
+    per_cella = economia["services"]["per_cell"]
+    celle = celle_per_tipo(catalogo)
+    corrente = acqua = 0.0
+    for tipo, quanti in QUARTIERE.items():
+        costo = per_cella.get(tipo, {})
+        corrente += costo.get("power", 0) * celle.get(tipo, 1) * quanti
+        acqua += costo.get("water", 0) * celle.get(tipo, 1) * quanti
+    return corrente, acqua
+
+
 def carica(percorso):
     if not percorso.exists():
         sys.exit("manca %s" % percorso)
@@ -136,6 +159,30 @@ def main():
              ("%.0f cr" % (al_giorno * 7), 11),
              ("%.0f cr" % (al_giorno * 30), 8))
 
+    servizi = economia.get("services")
+    if servizi:
+        base = servizi["base"]
+        celle = celle_per_tipo(catalogo)
+        print()
+        print("SERVIZI: allacciamento di partenza %d corrente, %d acqua"
+              % (base.get("power", 0), base.get("water", 0)))
+        riga(("impianto", 16), ("da'", 10), ("prezzo", 9), ("tempo", 10))
+        for nome, resa in servizi["plants"].items():
+            riga((nome, 16),
+                 ("%d %s" % (resa.get("power") or resa.get("water"),
+                             "corrente" if resa.get("power") else "acqua"), 10),
+                 ("%d cr" % prezzi.get("utility", predefinito), 9),
+                 (tempo(ore(prezzi.get("utility", predefinito), per_ora)), 10))
+        print()
+        riga(("chi consuma", 16), ("a cella", 14), ("celle medie", 13), ("in media", 14))
+        for tipo, costo in sorted(servizi["per_cell"].items(),
+                                  key=lambda kv: -(kv[1].get("power", 0) + kv[1].get("water", 0))):
+            c = celle.get(tipo, 1)
+            riga((tipo, 16),
+                 ("%d + %d" % (costo.get("power", 0), costo.get("water", 0)), 14),
+                 ("%.1f" % c, 13),
+                 ("%.0f + %.0f" % (costo.get("power", 0) * c, costo.get("water", 0) * c), 14))
+
     costo = sum(prezzi.get(t, predefinito) * n for t, n in QUARTIERE.items())
     pezzi = sum(QUARTIERE.values())
     print()
@@ -145,6 +192,24 @@ def main():
     for nome, minuti in PROFILI:
         giorni = costo / (minuti / 60.0 * per_ora)
         print("    %-22s %.0f giorni" % (nome, giorni))
+
+    if servizi:
+        corrente, acqua = servizi_del_quartiere(economia, catalogo)
+        resa = servizi["plants"]
+        da_corrente = max((r.get("power", 0) for r in resa.values()), default=0)
+        da_acqua = max((r.get("water", 0) for r in resa.values()), default=0)
+        base = servizi["base"]
+        impianti = 0
+        for chiesta, allacciata, resa_una in (
+                (corrente, base.get("power", 0), da_corrente),
+                (acqua, base.get("water", 0), da_acqua)):
+            manca = max(0.0, chiesta - allacciata)
+            impianti += 0 if manca <= 0 else int(-(-manca // resa_una))
+        extra = impianti * prezzi.get("utility", predefinito)
+        print("  chiede %.0f di corrente e %.0f di acqua: %d impianti, %d crediti in piu' (%+.0f%%)"
+              % (corrente, acqua, impianti, extra, 100.0 * extra / costo))
+        print("    tutto compreso %d crediti, cioe %s di concentrazione"
+              % (costo + extra, tempo(ore(costo + extra, per_ora))))
     print()
 
 

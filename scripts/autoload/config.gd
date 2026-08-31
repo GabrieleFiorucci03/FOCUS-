@@ -35,6 +35,11 @@ const DEFAULTS := {
 		"house": 8,
 		"apartment": 25,
 	},
+	"services": {
+		"base": { "power": 12, "water": 12 },
+		"plants": { "wind": { "power": 72 }, "water": { "water": 72 } },
+		"per_cell": { "house": { "power": 1, "water": 1 } },
+	},
 }
 
 ## Crediti guadagnati per un'ora piena di focus.
@@ -61,6 +66,12 @@ var refund_ratio: float = float(DEFAULTS["refund_ratio"])
 var terrain_cost_per_level: int = int(DEFAULTS["terrain_cost_per_level"])
 
 
+## Corrente e acqua: l'allacciamento di partenza, quanto dà ogni impianto e
+## quanto prende a cella ogni tipo di edificio. La forma la descrive
+## economy.json, che è anche il posto dove si ritocca.
+var services: Dictionary = (DEFAULTS["services"] as Dictionary).duplicate(true)
+
+
 func _ready() -> void:
 	reload()
 
@@ -77,6 +88,7 @@ func reload() -> void:
 	refund_ratio = clampf(float(values["refund_ratio"]), 0.0, 1.0)
 	terrain_cost_per_level = maxi(0, int(values["terrain_cost_per_level"]))
 	prices = values["prices"]
+	services = values["services"]
 
 
 ## Crediti (con decimali) maturati da un tempo di focus espresso in secondi.
@@ -93,6 +105,35 @@ func price_for_kind(kind: String) -> int:
 ## difetto: costruire e demolire non deve mai far guadagnare crediti.
 func refund_for_price(price: int) -> int:
 	return int(floor(float(price) * refund_ratio))
+
+
+## Corrente e acqua stanno sempre insieme, quindi viaggiano in un Vector2i:
+## x è la corrente, y è l'acqua. Sommare due bilanci diventa un'addizione sola.
+static func _coppia(dati: Dictionary) -> Vector2i:
+	return Vector2i(int(dati.get("power", 0)), int(dati.get("water", 0)))
+
+
+## L'allacciamento che la città ha già addosso, senza aver costruito niente.
+## Senza, la prima casa costerebbe anche una centrale, e la prima sessione da
+## venticinque minuti non basterebbe più a posare niente.
+func service_base() -> Vector2i:
+	return _coppia(services.get("base", {}))
+
+
+## Quanto mette in comune un impianto. Zero per tutto quello che non lo è: gli
+## impianti sono i soli a dare, e sono riconosciuti dalla variante del modello.
+func plant_output(kind: String, variant: String) -> Vector2i:
+	if kind != "utility":
+		return Vector2i.ZERO
+	var impianti: Dictionary = services.get("plants", {})
+	return _coppia(impianti.get(variant, {}))
+
+
+## Quanto prende, a cella occupata, un tipo di edificio. Zero per quello che non
+## è un edificio: strade, ponti, alberi e parchi non si allacciano a niente.
+func consumption_per_cell(kind: String) -> Vector2i:
+	var consumi: Dictionary = services.get("per_cell", {})
+	return _coppia(consumi.get(kind, {}))
 
 
 func _read_json() -> Dictionary:

@@ -62,6 +62,8 @@ const IMBARDATA_STUDIO := 45.0
 @onready var _pulsante: Button = %Attrezzi
 @onready var _fascia: PanelContainer = %Fascia
 @onready var _saldo: Label = %Saldo
+@onready var _corrente: Label = %Corrente
+@onready var _acqua: Label = %Acqua
 @onready var _scaffali: HBoxContainer = %Scaffali
 @onready var _fila: HBoxContainer = %Fila
 @onready var _scorrimento: ScrollContainer = %Scorrimento
@@ -203,8 +205,11 @@ func _crea_scheda(id: String) -> Button:
 	scheda.custom_minimum_size = Vector2(118, 92)
 	scheda.toggle_mode = true
 	scheda.button_group = _gruppo
-	scheda.tooltip_text = "%s · %d crediti · ingombro %dx%d celle" % [
-		v["nome"], _catalogo.prezzo(id), f.x, f.y
+	var servizi := _frase_servizi(id)
+	scheda.tooltip_text = "%s · %d crediti · ingombro %dx%d celle%s" % [
+		v["nome"], _catalogo.prezzo(id), f.x, f.y,
+		"" if servizi.is_empty() else "
+" + servizi.capitalize()
 	]
 	scheda.toggled.connect(_on_scheda_commutata.bind(id))
 
@@ -282,6 +287,23 @@ func _aggiorna_disponibilita() -> void:
 		scheda.disabled = troppo_caro
 		# Un pulsante spento si sbiadisce da solo, quello che ci sta dentro no.
 		(scheda.get_child(0) as Control).modulate.a = 0.35 if troppo_caro else 1.0
+
+
+## Quanta corrente e quanta acqua la città sta usando, su quanta ne ha. Il
+## colore fa da semaforo: da lontano si vede che sta per finire senza leggere.
+func aggiorna_servizi(usati: Vector2i, disponibili: Vector2i) -> void:
+	_scrivi_servizio(_corrente, "Corrente", usati.x, disponibili.x)
+	_scrivi_servizio(_acqua, "Acqua", usati.y, disponibili.y)
+
+
+static func _scrivi_servizio(dove: Label, nome: String, usati: int, disponibili: int) -> void:
+	dove.text = "%s %d/%d" % [nome, usati, disponibili]
+	var colore := Color(1, 1, 1, 0.72)
+	if usati > disponibili:
+		colore = Color(0.90, 0.38, 0.33)
+	elif usati > disponibili * 0.85:
+		colore = Color(0.95, 0.72, 0.32)
+	dove.add_theme_color_override("font_color", colore)
 
 
 ## Riporta la barra a riposo. La chiama CityView quando si esce da una
@@ -508,11 +530,33 @@ func _descrizione_strumento(id: String) -> String:
 			]
 
 
+## Che cosa fa un oggetto ai servizi, detto a parole. "" per chi non li tocca:
+## a una strada o a un albero non si allaccia niente, e dirlo sarebbe rumore.
+func _frase_servizi(id: String) -> String:
+	var servizi := _catalogo.servizi(id)
+	if servizi == Vector2i.ZERO:
+		return ""
+	var voci := PackedStringArray()
+	if servizi.x > 0:
+		voci.append("%d di corrente" % servizi.x)
+	elif servizi.x < 0:
+		voci.append("%d di corrente" % -servizi.x)
+	if servizi.y > 0:
+		voci.append("%d di acqua" % servizi.y)
+	elif servizi.y < 0:
+		voci.append("%d di acqua" % -servizi.y)
+	var verbo := "dà" if servizi.x > 0 or servizi.y > 0 else "chiede"
+	return verbo + " " + " e ".join(voci)
+
+
 func _descrizione(id: String) -> String:
 	var v := _catalogo.voce(id)
 	var f: Vector2i = v["footprint"]
 	var pezzi := PackedStringArray()
 	pezzi.append("%s · %dx%d celle · %d crediti" % [v["nome"], f.x, f.y, _catalogo.prezzo(id)])
+	var servizi := _frase_servizi(id)
+	if not servizi.is_empty():
+		pezzi.append(servizi)
 	match _catalogo.regola(id):
 		CityCatalog.Regola.PONTE, CityCatalog.Regola.RAMPA:
 			pezzi.append("va su qualunque cella libera, e non spiana niente")
