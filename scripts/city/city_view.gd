@@ -50,7 +50,7 @@ enum Attrezzo { ALZA, ABBASSA, LIVELLA }
 @onready var _camera: IsoCamera = $Camera
 @onready var _sole: DirectionalLight3D = $Sole
 @onready var _interfaccia: CanvasLayer = $Interfaccia
-@onready var _negozio: ShopPanel = %Negozio
+@onready var _barra: BarraCostruzioni = %Costruzioni
 @onready var _aiuto: Label = %Aiuto
 @onready var _messaggio_label: Label = %Messaggio
 
@@ -97,11 +97,11 @@ func _ready() -> void:
 	griglia = CityGrid.new(SaveManager.world_size())
 	terreno = CityTerrain.new(griglia.size, SaveManager.world_seed())
 
-	_negozio.voce_scelta.connect(_on_voce_scelta)
-	_negozio.strumento_scelto.connect(_on_strumento_scelto)
+	_barra.voce_scelta.connect(_on_voce_scelta)
+	_barra.strumento_scelto.connect(_on_strumento_scelto)
 	SaveManager.credits_changed.connect(_on_crediti_cambiati)
-	_negozio.mostra_catalogo(catalogo)
-	_negozio.aggiorna_saldo(SaveManager.credits)
+	_barra.mostra_catalogo(catalogo)
+	_barra.aggiorna_saldo(SaveManager.credits)
 
 	var costruiti := _ricostruisci_dal_salvataggio()
 	_costruisci_mesh()
@@ -129,6 +129,12 @@ func _process(_delta: float) -> void:
 
 
 func _unhandled_input(evento: InputEvent) -> void:
+	# Il negozio si apre e si chiude sempre, anche a mani vuote: è il modo di
+	# entrare in cantiere, non una cosa che si fa mentre già ci si sta dentro.
+	if evento is InputEventKey and _tasto_del_negozio(evento as InputEventKey):
+		get_viewport().set_input_as_handled()
+		return
+
 	if _modo == Modo.NAVIGA:
 		return
 
@@ -159,6 +165,23 @@ func _unhandled_input(evento: InputEvent) -> void:
 
 func _aggiorna_interfaccia() -> void:
 	_interfaccia.visible = is_visible_in_tree()
+
+
+## B apre e chiude la fascia delle costruzioni; l'Esc la chiude, ma solo quando
+## non c'è niente in mano da posare — in cantiere l'Esc lascia prima l'attrezzo,
+## e solo al giro dopo tocca al negozio. Restituisce se il tasto era per noi.
+func _tasto_del_negozio(tasto: InputEventKey) -> bool:
+	if not tasto.pressed or tasto.echo:
+		return false
+	match tasto.physical_keycode:
+		KEY_B:
+			_barra.alterna()
+			return true
+		KEY_ESCAPE:
+			if _modo == Modo.NAVIGA and _barra.aperta():
+				_barra.chiudi()
+				return true
+	return false
 
 
 # --- Costruzione del mondo --------------------------------------------------
@@ -493,7 +516,7 @@ func _on_strumento_scelto(strumento: String) -> void:
 
 
 func _on_crediti_cambiati(crediti: int) -> void:
-	_negozio.aggiorna_saldo(crediti)
+	_barra.aggiorna_saldo(crediti)
 
 
 func _torna_a_navigare() -> void:
@@ -505,7 +528,7 @@ func _torna_a_navigare() -> void:
 	_esito = {}
 	_libera_fantasma()
 	_selezione.mesh = null
-	_negozio.deseleziona()
+	_barra.deseleziona()
 	_aggiorna_aiuto()
 
 
@@ -794,7 +817,7 @@ static func _tinge(nodo: Node, materiale: Material) -> void:
 
 
 func _mouse_sul_pannello() -> bool:
-	return _negozio.get_global_rect().has_point(get_viewport().get_mouse_position())
+	return _barra.sotto_il_mouse()
 
 
 # --- Testi ------------------------------------------------------------------
@@ -825,7 +848,7 @@ func _suggerimento() -> String:
 				return "Clic per prendere la quota da copiare · Esc annulla"
 			return "Clic per modellare il terreno · Esc annulla"
 		_:
-			return "WASD scorre (Shift corre) · Q / E ruota · trascina col destro · rotella zoom"
+			return "WASD scorre (Shift corre) · Q / E ruota · rotella zoom · B apre le costruzioni"
 
 
 func _riepilogo_biomi() -> String:

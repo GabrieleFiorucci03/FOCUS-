@@ -592,6 +592,60 @@ Guardati anche i frame veri: le rampe salgono dalla parte in cui le si gira, e
 il cavalcavia posato sull'asciutto si salda alle due rampe che gli arrivano
 sotto senza scalini.
 
+## Il negozio diventa una fascia
+
+Il negozio era una colonna alta quanto lo schermo, appoggiata a destra: si
+mangiava un quarto della città sempre, anche quando non si stava costruendo, e
+in cambio mostrava venti voci per volta dentro un `ItemList`. Adesso è un
+pulsante e una fascia.
+
+- **Il pulsante col martello e la chiave inglese**, in alto a sinistra, apre e
+  chiude. L'icona è un SVG di quattro tratti (`assets/ui/costruzioni.svg`):
+  disegnata a trentacinque pixel di lato, dove qualsiasi dettaglio in più
+  sarebbe fango. Ci arriva anche il tasto `B`, e l'Esc la richiude — ma solo a
+  mani vuote, perché in cantiere l'Esc lascia prima l'attrezzo.
+- **La fascia sta in cima e tiene tutto il catalogo di fila**, ottantasette
+  schede e i quattro attrezzi in coda, divise negli scaffali di sempre col nome
+  sopra ciascun gruppo. Il nome scorre insieme alle sue schede, così si sa
+  sempre dentro cosa si sta guardando: non sono schede di categorie che si
+  escludono, è un catalogo unico che si attraversa.
+- **Si scorre trascinandola col mouse.** Tredicimila pixel di fila sono tanti da
+  trascinare, però, quindi la rotella li scorre a scatti — sopra la fascia
+  smette di zoomare la città, che tanto sta dietro — e in testa ci sono i nomi
+  degli scaffali, che saltano al loro pezzo con un clic.
+- **La città si riprende lo schermo.** Chiusa la fascia non resta niente davanti
+  al mondo, e le due righe di stato in basso, che stavano strette per non
+  finire sotto il pannello, tornano larghe quanto la finestra.
+
+Il punto delicato è stato il trascinamento. Sotto il dito ci sono le schede, e
+sono loro a prendersi il clic: il gesto va quindi intercettato in `_input`, che
+arriva prima della GUI, lasciandolo scendere finché è un clic e trattenendolo
+appena diventa un trascinamento. Trattenere il rilascio però non basta, e il
+primo tentativo comprava una casa a ogni scorrimento: un pulsante decide di
+essere stato premuto guardando se il mouse era dentro quando è stato premuto,
+non dove arriva il rilascio. Quello che serve è fargli uscire il mouse dai bordi
+prima — la stessa strada di un dito che scivola via — e da lì in poi il
+rilascio non lo riguarda più. È uscito dai controlli automatici, non
+dall'occhio: trascinare sembrava funzionare benissimo.
+
+| Prova | Esito |
+|---|---|
+| All'avvio | fascia chiusa, e il pulsante la apre |
+| Gli scaffali | cinque più gli strumenti, in fila e in testa |
+| Le schede | ottantasette, una per ogni voce in vendita |
+| Senza crediti | restano a schermo, spente; coi crediti si riaccendono |
+| Clic su una scheda | la sceglie, e il dettaglio la descrive |
+| Trascinamento di 140 px | la fila scorre di 140 px |
+| Lo stesso trascinamento | non compra niente, e non lascia schede accese |
+| Rotella sopra la fascia | scorre lo scaffale invece di zoomare |
+| Nome di uno scaffale | salta al suo pezzo di fila |
+| Mouse sopra la fascia | CityView non punta la cella che ci sta sotto |
+
+Guardati anche i frame veri: il pulsante, la fascia e la barra delle modalità
+stanno insieme senza pestarsi, e i nomi lunghi («Strada sterrata in curva») ci
+stanno dentro — alla prima misura delle schede no, e si leggeva «Strada
+sterrata i».
+
 ## Prossimo passo
 
 Le cinque fasi sono chiuse: il giro è completo e rifinito. Quello che resta

@@ -75,15 +75,21 @@ ortografica ruota a scatti di 90° sui quattro lati. Del terreno non si salva
 niente se non il seme — si rigenera identico. Il timer continua a scorrere
 mentre sei qui.
 
-Il negozio ha cinque scaffali e i prezzi in chiaro; quello che non ti puoi
-ancora permettere resta a schermo, spento, perché sapere quanto manca è metà del
-motivo per tornare a fare focus. Scegli, e l'oggetto ti segue col mouse: verde
-se il posto va bene, rosso se no, con i riquadri già alla quota a cui il lotto
-verrà spianato. `R` lo gira, un clic lo posa e scala i crediti. La vista si
-sposta con `WASD` o con le frecce — tenendo `Shift` si corre — `Q` ed `E` la
-girano di novanta gradi, il tasto destro la trascina e la rotella zooma. Demolire ne
-restituisce la metà; il lotto invece resta spianato, perché sbancare è una
-modifica al mondo e non un pezzo dell'edificio.
+Il negozio sta dietro al pulsante col martello e la chiave inglese, in alto a
+sinistra (o il tasto `B`): apre una fascia in cima allo schermo con tutto il
+catalogo in fila, diviso nei cinque scaffali più gli attrezzi, che si scorre
+trascinandola col mouse — o con la rotella, o saltando allo scaffale dal suo
+nome. I prezzi sono in chiaro, e quello che non ti puoi ancora permettere resta
+a schermo, spento, perché sapere quanto manca è metà del motivo per tornare a
+fare focus. Chiusa la fascia, la città si vede intera.
+
+Scegli, e l'oggetto ti segue col mouse: verde se il posto va bene, rosso se no,
+con i riquadri già alla quota a cui il lotto verrà spianato. `R` lo gira, un
+clic lo posa e scala i crediti. La vista si sposta con `WASD` o con le frecce
+— tenendo `Shift` si corre — `Q` ed `E` la girano di novanta gradi, il tasto
+destro la trascina e la rotella zooma. Demolire restituisce metà del prezzo; il
+lotto invece resta spianato, perché sbancare è una modifica al mondo e non un
+pezzo dell'edificio.
 
 **Ponti e rampe si posano dove vuoi**, sull'acqua come sull'asciutto: l'unica
 cella che rifiutano è quella dove c'è già qualcosa. Quello che decidono da soli

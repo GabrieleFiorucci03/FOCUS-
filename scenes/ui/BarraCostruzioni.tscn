@@ -1,0 +1,103 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/barra_costruzioni.gd" id="1_barra"]
+[ext_resource type="StyleBox" path="res://scenes/ui/pannello.tres" id="2_fondo"]
+[ext_resource type="Texture2D" path="res://assets/ui/costruzioni.svg" id="3_icona"]
+
+[node name="BarraCostruzioni" type="Control"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_barra")
+
+[node name="Attrezzi" type="Button" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 42)
+anchors_preset = 0
+offset_left = 16.0
+offset_top = 22.0
+offset_right = 66.0
+offset_bottom = 64.0
+tooltip_text = "Costruzioni (B)"
+toggle_mode = true
+icon = ExtResource("3_icona")
+expand_icon = true
+
+[node name="Fascia" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 16.0
+offset_top = 72.0
+offset_right = -16.0
+offset_bottom = 228.0
+grow_horizontal = 2
+theme_override_styles/panel = ExtResource("2_fondo")
+
+[node name="Margine" type="MarginContainer" parent="Fascia"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 10
+
+[node name="Colonna" type="VBoxContainer" parent="Fascia/Margine"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Intestazione" type="HBoxContainer" parent="Fascia/Margine/Colonna"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Titolo" type="Label" parent="Fascia/Margine/Colonna/Intestazione"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Costruzioni"
+
+[node name="Saldo" type="Label" parent="Fascia/Margine/Colonna/Intestazione"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.905882, 0.85098, 0.505882, 1)
+text = "0 crediti"
+
+[node name="Divisorio" type="VSeparator" parent="Fascia/Margine/Colonna/Intestazione"]
+layout_mode = 2
+
+[node name="Scaffali" type="HBoxContainer" parent="Fascia/Margine/Colonna/Intestazione"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 2
+
+[node name="Chiudi" type="Button" parent="Fascia/Margine/Colonna/Intestazione"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+tooltip_text = "Chiudi la fascia (B o Esc)"
+theme_override_font_sizes/font_size = 18
+text = "×"
+
+[node name="Scorrimento" type="ScrollContainer" parent="Fascia/Margine/Colonna"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 74)
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 0
+
+[node name="Fila" type="HBoxContainer" parent="Fascia/Margine/Colonna/Scorrimento"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Dettaglio" type="Label" parent="Fascia/Margine/Colonna"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.72)
+theme_override_font_sizes/font_size = 12
+text = "Scegli qualcosa da costruire."
+clip_text = true
