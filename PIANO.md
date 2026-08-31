@@ -883,70 +883,118 @@ un angolo dello schermo ci sono i tre numeri che dicono come sta la città.
 | Le barre | piene quanto l'usato sul disponibile, con la percentuale |
 | Mille e duecento | si legge «1.200» |
 
+## Il lavoro
+
+Il secondo attributo. Ogni edificio commerciale, di lavoro o di servizio offre
+un certo numero di posti, e gli abitanti li vogliono tutti.
+
+- **La densità sta sul tipo, l'ingombro fa il resto**, come per abitanti e
+  servizi: negozio 4 posti a cella, ufficio 8, fabbrica 6, azienda agricola e
+  presidio 3, scuola 2, campo sportivo 1. Un negozio 1x1 fa 4 posti, un ufficio
+  2x2 ne fa 32, una fabbrica 3x3 ne fa 54.
+- **In superficie il rapporto è circa uno a uno**: un ufficio 2x2 (32 posti)
+  regge una palazzina 2x2 (24 abitanti) e avanza. La lettura è «un isolato di
+  uffici per un isolato di case», che è la proporzione che si vuole poter vedere
+  a occhio guardando la città. Una torre 4x4 (224 abitanti) vuole tre uffici
+  3x3: è la ragione per cui una torre non si posa da sola.
+- **Il lavoro è il quarto servizio dell'elenco**, accanto a strada, corrente e
+  acqua. Non ha avuto bisogno di niente di nuovo: pannello dei conti, evidenza
+  sul mondo, velo scuro e punto esclamativo funzionano già per chiunque entri in
+  quell'elenco, ed è esattamente il motivo per cui quell'elenco è una costante
+  sola.
+- **Chi resta senza lavoro si spopola**, come chi resta senz'acqua. La fila
+  segue l'ordine di posa: senza posto resta l'ultimo arrivato, che è anche
+  quello che ha fatto saltare il conto.
+- **La domanda è quella nominale, non quella viva.** Un palazzo rimasto senza
+  lavoro ospita zero abitanti, ma continua a chiedere i posti dei suoi abitanti
+  nominali. Se smettesse anche di chiederli, i posti tornerebbero a bastare, il
+  palazzo si ripopolerebbe, i posti tornerebbero a mancare, e via all'infinito:
+  una domanda senza risposta stabile. È la stessa regola della corrente, e vale
+  la pena scriverla una volta per tutte — **quello che si spegne di una
+  costruzione in difetto è quello che dà, mai quello che chiede.**
+- **Un ufficio senz'acqua è un ufficio chiuso**, e non offre un posto. Per
+  contare i posti bisogna quindi sapere prima quali edifici funzionano, e per
+  questo il lavoro si conta dopo gli altri tre: `SERVIZI_ALLACCIAMENTO` esiste
+  per dire quali sono «gli altri tre» in un posto solo. Un ufficio non ha
+  bisogno di un impiego per darne, quindi il giro si chiude.
+- **Il pannello di stato ha la sua riga**, con quanti posti si chiedono su
+  quanti ce ne sono. Sopra la capienza la percentuale smette di servire —
+  «2392%» non si legge — e al suo posto va quanto ne manca, che è il numero con
+  cui si decide cosa costruire.
+
+| Prova | Esito |
+|---|---|
+| Negozio 1x1, ufficio 2x2 | 4 e 32 posti |
+| Case, ville, torri, strade, alberi, parchi | non danno lavoro a nessuno |
+| Posare un negozio | quattro posti in più |
+| Posare una casa | tre posti chiesti in più |
+| Posare una torre da 224 abitanti | i posti non bastano più |
+| Chi resta senza | la torre, l'ultima arrivata: `!` e zero abitanti |
+| Rileggere il conto due volte | stesso risultato: niente altalena |
+| Togliere la strada a un negozio | smette di dare lavoro |
+| Il pannello | «287 / 12 · ne mancano 275» |
+
 ## Il piano per il prossimo giro
 
 Tre cose decise ma non ancora fatte, in quest'ordine perché l'ordine conta: la
-prima dà agli abitanti qualcosa da fare, la seconda dà loro dei servizi, e la
-terza cambia la forma del mondo sotto tutte e due.
+prima dà un senso alla seconda, e la terza cambia la forma del mondo sotto tutte
+e due.
 
-### 1. Il lavoro, e la felicità
+### 1. La felicità, e gli edifici che si abbandonano
 
-Gli abitanti ci sono. Adesso gli serve un posto dove andare la mattina, e un
-numero che dica se la città in cui vivono è un buon posto.
+Adesso che gli abitanti hanno una casa e un lavoro, manca il numero che dice se
+il posto in cui vivono è un buon posto — e la conseguenza di quel numero.
 
-**Ogni edificio commerciale e di lavoro dà un certo numero di posti**, con la
-stessa forma di tutto il resto — un numero per tipo, moltiplicato per le celle.
-Una proposta da verificare col simulatore prima di scriverla in `economy.json`:
+**La felicità è di ogni edificio**, non della città: è la quota dei servizi
+di zona che gli arrivano. Cento per cento vuol dire che l'edificio è dentro
+l'area di azione di tutti e cinque: **pompieri, polizia, ospedale, un'area verde
+e un'area sportiva**. Ognuno vale un quinto.
 
-| tipo | posti a cella | esempio | posti |
-|---|---|---|---|
-| negozio | 4 | 1x1 / 2x2 | 4 / 16 |
-| ufficio | 8 | 2x2 / 3x3 | 32 / 72 |
-| fabbrica | 6 | 2x2 / 3x3 | 24 / 54 |
-| azienda agricola | 3 | 2x2 / 3x2 | 12 / 18 |
-| presidio | 3 | 2x2 / 3x3 | 12 / 27 |
-| scuola | 2 | 3x3 / 4x3 | 18 / 24 |
-| campo sportivo | 1 | 2x1 / 3x2 | 2 / 6 |
+**Sotto il 50% l'edificio viene abbandonato**: due presidi su cinque non bastano
+a tenerci la gente. Un edificio abbandonato è un edificio spopolato — zero
+abitanti, zero posti di lavoro se ne dava — e si vede come si vedono già gli
+altri: velo scuro e punto esclamativo, che a quel punto è la stessa cosa detta
+per un motivo in più.
 
-Con questi numeri un ufficio 2x2 (32 posti) regge una palazzina 2x2 (24
-abitanti) e avanza: la lettura è «un isolato di uffici per un isolato di case»,
-che è la proporzione che si vuole poter vedere a occhio guardando la città.
+**Alcune cose spopolano subito, senza passare dalla felicità**, e sono quelle
+che oggi mettono già il punto esclamativo:
 
-**I posti devono bastare per tutti.** Se gli abitanti sono più dei posti, gli
-edifici residenziali che restano senza prendono il punto esclamativo e si
-spopolano, come già succede a quelli senz'acqua. Il lavoro diventa il quarto
-servizio dell'elenco, accanto a strada, corrente e acqua, e non ha bisogno di
-niente di nuovo: pannello, evidenza sul mondo, velo scuro e `!` funzionano già
-per chiunque entri in quell'elenco.
+- **Senza strada su nessuno dei quattro lati.** Costruire già lo vieta; il caso
+  nuovo è la strada demolita *dopo*, che oggi mette il `!` e toglie abitanti —
+  cioè fa già quello che serve. Va solo detto con le parole giuste
+  nell'interfaccia: non «manca un servizio» ma «abbandonato».
+- **Senza elettricità o senza acqua.** Anche questo c'è già.
 
-**Attenzione a un cerchio che si morde la coda**, ed è la ragione per cui questo
-punto va letto insieme alla regola che c'è già. Se un palazzo che si spopola
-smettesse anche di *chiedere* lavoro, i posti tornerebbero a bastare, il palazzo
-si ripopolerebbe, i posti tornerebbero a mancare, e via così: una domanda senza
-risposta stabile. Vale qui quello che vale per la corrente — **quello che si
-spegne è quello che l'edificio dà, non quello che chiede**. Un palazzo senza
-lavoro ospita zero abitanti ma continua a chiedere i posti dei suoi abitanti
-nominali, e la fila resta ferma. L'assegnazione segue l'ordine di posa, come per
-la corrente: senza lavoro resta l'ultimo arrivato, che è anche quello che ha
-fatto saltare il conto.
+La differenza fra le due famiglie va tenuta chiara, perché è quella che rende il
+gioco leggibile: **strada, corrente, acqua e lavoro sono allacciamenti** — o ci
+sono o non ci sono, e senza si spopola subito. **I cinque presidi di zona sono
+felicità** — si contano a frazione, e si spopola solo sotto metà. Nel pannello
+dei conti stanno tutti insieme, ma la riga della felicità è una sola e dice una
+percentuale, non un sì o un no.
 
-**La felicità è un indicatore solo**, e dice quanta parte degli abitanti ha
-tutto: un lavoro e tutti i servizi che la città sa offrire. Cento per cento vuol
-dire che non manca niente a nessuno.
+Da decidere quando ci si mette mano:
 
-- **Si misura sugli abitanti, non sugli edifici.** Una torre scoperta pesa
-  duecento volte una casetta scoperta, ed è giusto così: è duecento volte più
-  gente scontenta.
-- **Ogni servizio pesa uguale.** Strada, corrente, acqua, lavoro e i cinque
-  presidi civici del punto 2: la felicità è la media di quanti abitanti sono
-  coperti da ciascuno. Pesi diversi per servizi diversi si possono aggiungere
-  dopo, quando si sarà capito quale manca sempre.
-- **Va nel pannello di stato**, sotto gli abitanti, con la sua barra: è il
-  numero che riassume tutti gli altri, e il posto dove si guarda come sta la
-  città è quello.
-- **Non è ancora una penalità.** È il punteggio da far salire, non una tassa da
-  pagare: le conseguenze si aggiungono dopo aver visto se il gioco ne ha
-  bisogno.
+- **La lista dei cinque va riconciliata con quella scritta prima.** Nel primo
+  giro di piano i servizi di zona erano polizia, presidio sanitario, pompieri,
+  scuola elementare e scuola superiore; adesso sono polizia, pompieri, ospedale,
+  verde e sport. Le scuole sono uscite e il verde è entrato. Le due liste vanno
+  fatte diventare una, e la domanda vera è se le scuole siano un sesto servizio
+  o se restino fuori: nel catalogo ci sono, e un edificio scolastico che non
+  serve a niente sarebbe una stonatura.
+- **Il raggio di ciascuno**, in celle, in `economy.json` accanto agli altri
+  numeri. Un parco 1x1 non può coprire quanto un ospedale 3x3: il raggio va
+  legato all'ingombro o scritto per variante, non uno solo per tutti.
+- **Come si vede prima di pagare.** L'area del servizio che si ha in mano,
+  disegnata attorno all'anteprima mentre lo si posiziona; e una vista che colori
+  il territorio per copertura, un servizio per volta. Senza, si piazza a occhio
+  e si scopre l'errore dopo.
+- **La felicità media della città** va nel pannello di stato, sotto gli
+  abitanti, con la sua barra: è il numero che riassume tutti gli altri. Va
+  pesata sugli abitanti e non sugli edifici — una torre scontenta pesa duecento
+  volte una casetta scontenta, perché è duecento volte più gente.
+- **Un abbandono si racconta.** Quando una città che stava in piedi comincia a
+  spopolarsi, il giocatore deve capire perché senza aprire tre pannelli: la riga
+  di stato in basso è il posto giusto per dirlo la prima volta che succede.
 
 ### 2. I servizi con un'area di azione
 

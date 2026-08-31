@@ -148,6 +148,12 @@ abitanti — 3 una casetta, 24 una palazzina, 224 una torre 4x4 — ma solo se
 funziona: un palazzo col punto esclamativo è un palazzo vuoto, anche se l'acqua
 continua a chiederla lo stesso.
 
+**E gli abitanti vogliono un lavoro.** Negozi, uffici, fabbriche e presidi
+offrono posti — un ufficio 2x2 ne fa 32, quanti ne servono a una palazzina 2x2 e
+avanza — e i posti devono bastare per tutti: chi resta senza si spopola come chi
+resta senz'acqua, e la fila la fa l'ordine in cui hai costruito. Un ufficio
+senza strada o senz'acqua è un ufficio chiuso, e non offre niente a nessuno.
+
 **E poi c'è il badile.** Alza, abbassa e livella spostano il suolo di mezzo
 metro per volta, a un credito a gradino e senza rimborso. Sotto una costruzione
 il terreno non si tocca — demolisci prima — e fra due celle vicine il salto non

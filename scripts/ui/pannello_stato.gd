@@ -70,16 +70,18 @@ static func _con_i_punti(numero: int) -> String:
 ## Una riga di servizio: quanta se ne usa su quanta ce n'è, e la barra piena in
 ## proporzione.
 ##
-## Senza impianti il totale è zero e la percentuale non esiste — non è lo zero
-## per cento, è una divisione che non si può fare. In quel caso la barra si
-## riempie tutta di rosso, che è la lettura giusta: tutto quello che c'è resta
-## scoperto.
+## Finché ce n'è abbastanza si legge la percentuale usata, che è quello che dice
+## quanto margine resta. Quando invece non basta la percentuale smette di
+## servire — «2392%» non si legge, si guarda e basta — e al suo posto va quanto
+## ne manca, che è il numero con cui si decide cosa costruire. Vale anche per il
+## totale a zero, che non è lo zero per cento ma una divisione che non si può
+## fare.
 static func _scrivi(testo: Label, barra: ProgressBar, usati: int, disponibili: int) -> void:
 	barra.max_value = maxi(disponibili, 1)
 	barra.value = clampi(usati, 0, barra.max_value)
 	var quota := 1.0 if disponibili <= 0 else float(usati) / float(disponibili)
-	if disponibili <= 0:
-		testo.text = "%d / 0" % usati
+	if usati > disponibili:
+		testo.text = "%d / %d · ne mancano %d" % [usati, disponibili, usati - disponibili]
 	else:
 		testo.text = "%d / %d · %d%%" % [usati, disponibili, roundi(quota * 100.0)]
 
