@@ -10,7 +10,7 @@
   "height_meters": 11.021,
   "min_z": 0.0,
   "max_z": 11.021,
-  "triangles": 4656,
+  "triangles": 4332,
   "seed": 501,
   "model": "RES_TOWER_3x3_001.glb",
   "front_axis": "-Y",

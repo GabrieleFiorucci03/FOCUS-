@@ -10,7 +10,7 @@
   "height_meters": 2.483,
   "min_z": 0.0,
   "max_z": 2.483,
-  "triangles": 10128,
+  "triangles": 9572,
   "seed": 1302,
   "model": "EDU_SCHOOL_4x3_002.glb",
   "front_axis": "-Y",

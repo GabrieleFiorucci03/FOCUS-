@@ -10,7 +10,7 @@
   "height_meters": 3.6,
   "min_z": 0.0,
   "max_z": 3.6,
-  "triangles": 8156,
+  "triangles": 7600,
   "seed": 1004,
   "model": "CIV_POLICE_3x2_002.glb",
   "front_axis": "-Y",

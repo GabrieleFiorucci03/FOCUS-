@@ -10,7 +10,7 @@
   "height_meters": 2.56,
   "min_z": 0.0,
   "max_z": 2.56,
-  "triangles": 12344,
+  "triangles": 11788,
   "seed": 1003,
   "model": "CIV_HEALTH_3x3_001.glb",
   "front_axis": "-Y",

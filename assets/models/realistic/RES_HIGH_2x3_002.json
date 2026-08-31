@@ -10,7 +10,7 @@
   "height_meters": 7.082,
   "min_z": 0.0,
   "max_z": 7.082,
-  "triangles": 29260,
+  "triangles": 28936,
   "seed": 302,
   "model": "RES_HIGH_2x3_002.glb",
   "front_axis": "-Y",

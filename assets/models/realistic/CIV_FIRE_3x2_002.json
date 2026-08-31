@@ -10,7 +10,7 @@
   "height_meters": 1.9,
   "min_z": 0.0,
   "max_z": 1.9,
-  "triangles": 6512,
+  "triangles": 5956,
   "seed": 1005,
   "model": "CIV_FIRE_3x2_002.glb",
   "front_axis": "-Y",

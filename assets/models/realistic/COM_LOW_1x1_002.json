@@ -10,7 +10,7 @@
   "height_meters": 1.382,
   "min_z": 0.0,
   "max_z": 1.382,
-  "triangles": 1540,
+  "triangles": 1216,
   "seed": 602,
   "model": "COM_LOW_1x1_002.glb",
   "front_axis": "-Y",

@@ -89,7 +89,12 @@ BUILDING_KINDS = {
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Genera il kit realistico FOCUS!")
-    parser.add_argument("--asset", choices=sorted(ASSET_BY_ID), help="Genera un solo ID")
+    parser.add_argument(
+        "--asset",
+        action="append",
+        choices=sorted(ASSET_BY_ID),
+        help="Genera uno o piu ID; l'opzione puo essere ripetuta",
+    )
     parser.add_argument(
         "--output",
         type=Path,
@@ -308,22 +313,119 @@ def _add_rooftop_details(spec: dict, rng: random.Random) -> None:
         return
 
     z = upper.z
-    unit_w = min(0.44, width * 0.16)
-    unit_d = min(0.38, depth * 0.16)
-    x = max(lower.x + unit_w, min(upper.x - unit_w, width * 0.12))
-    y = max(lower.y + unit_d, min(upper.y - unit_d, depth * 0.08))
-    box("HVACUnit", (unit_w, unit_d, 0.22), (x, y, z + 0.11), "concrete", 0.018)
-    for offset in (-0.10, 0.10):
-        box("HVACVent", (unit_w * 0.76, 0.012, 0.022), (x, y - unit_d * 0.51, z + 0.10 + offset), "black", 0.002)
-    cylinder("RoofVent", 0.055, 0.34, (x - unit_w * 0.85, y, z + 0.17), "navy", 12)
-    cylinder("RoofVentCap", 0.085, 0.045, (x - unit_w * 0.85, y, z + 0.35), "black", 12)
+    detail_margin = min(0.44, width * 0.16)
+    detail_depth = min(0.38, depth * 0.16)
+    x = max(lower.x + detail_margin, min(upper.x - detail_margin, width * 0.12))
+    y = max(lower.y + detail_depth, min(upper.y - detail_depth, depth * 0.08))
+
+    # Il vecchio parallelepipedo HVAC, molto chiaro e privo di basamento,
+    # sembrava un cubo sospeso. Manteniamo solo uno sfiato compatto appoggiato
+    # direttamente alla quota del tetto.
+    cylinder("RoofVent", 0.055, 0.34, (x, y, z + 0.17), "navy", 12)
+    cylinder("RoofVentCap", 0.085, 0.045, (x, y, z + 0.35), "black", 12)
 
     if spec["kind"] in {"tower", "office", "service"}:
         mast_h = min(0.9, max(0.45, (upper.z - lower.z) * 0.08))
-        cylinder("AntennaMast", 0.025, mast_h, (x + unit_w, y, z + mast_h * 0.5), "black", 12)
+        cylinder("AntennaMast", 0.025, mast_h, (x + detail_margin, y, z + mast_h * 0.5), "black", 12)
         for dz in (0.32, 0.52):
             if dz < mast_h:
-                box("AntennaBar", (0.24, 0.025, 0.025), (x + unit_w, y, z + dz), "black", 0.003)
+                box("AntennaBar", (0.24, 0.025, 0.025), (x + detail_margin, y, z + dz), "black", 0.003)
+
+
+def _fix_agriculture_geometry(spec: dict) -> None:
+    """Allinea le coperture agricole alla rispettiva struttura."""
+    if spec.get("variant") != "barn":
+        return
+    barn = bpy.data.objects.get("Barn")
+    roof = bpy.data.objects.get("BarnRoof")
+    if barn is None or roof is None:
+        return
+    roof.location.x = barn.location.x
+    roof.location.y = barn.location.y
+
+
+def _remove_ambiguous_roof_units() -> None:
+    """Rimuove i volumi tecnici che sembrano cubi bianchi sospesi."""
+    for obj in list(bpy.context.scene.objects):
+        if obj.name.lower().split(".", 1)[0] == "roofunit":
+            bpy.data.objects.remove(obj, do_unlink=True)
+
+
+def _object_bounds(obj) -> tuple[Vector, Vector]:
+    points = [obj.matrix_world @ Vector(corner) for corner in obj.bound_box]
+    return (
+        Vector((min(p.x for p in points), min(p.y for p in points), min(p.z for p in points))),
+        Vector((max(p.x for p in points), max(p.y for p in points), max(p.z for p in points))),
+    )
+
+
+def _pipe_between(name: str, start, end, radius: float, color: str):
+    start_v = Vector(start)
+    end_v = Vector(end)
+    direction = end_v - start_v
+    bpy.ops.mesh.primitive_cylinder_add(
+        vertices=16,
+        radius=radius,
+        depth=direction.length,
+        location=(start_v + end_v) * 0.5,
+    )
+    obj = bpy.context.active_object
+    obj.name = name
+    obj.rotation_mode = "QUATERNION"
+    obj.rotation_quaternion = direction.to_track_quat("Z", "Y")
+    return assign_material(obj, color)
+
+
+def _add_roof_drainage() -> None:
+    """Aggiunge grondaia, pluviale e terminale senza anelli decorativi."""
+    roof_names = {"roof", "flatroof", "wingroof", "serviceroof", "schoolroof"}
+    candidates = []
+    for obj in bpy.context.scene.objects:
+        if obj.type != "MESH":
+            continue
+        base_name = obj.name.lower().split(".", 1)[0]
+        if base_name not in roof_names:
+            continue
+        lower, upper = _object_bounds(obj)
+        candidates.append((lower, upper))
+    if not candidates:
+        return
+
+    # Il tetto principale e quello con la linea di gronda piu alta: in questo
+    # modo le ali basse di ville e scuole non spostano il pluviale principale.
+    lower, upper = max(candidates, key=lambda bounds_pair: bounds_pair[0].z)
+    eave_z = lower.z + 0.025
+    gutter_y = lower.y - 0.012
+    gutter_x = (lower.x + upper.x) * 0.5
+    gutter_length = max(0.40, upper.x - lower.x - 0.05)
+    pipe_x = upper.x - 0.075
+    pipe_top = eave_z + 0.018
+    pipe_bottom = 0.13
+    color = "concrete"
+
+    cylinder(
+        "RoofGutter",
+        0.018,
+        gutter_length,
+        (gutter_x, gutter_y, eave_z),
+        color,
+        16,
+        (0, math.pi / 2, 0),
+    )
+    _pipe_between(
+        "Downpipe",
+        (pipe_x, gutter_y, pipe_bottom),
+        (pipe_x, gutter_y, pipe_top),
+        0.016,
+        color,
+    )
+    _pipe_between(
+        "DownpipeOutlet",
+        (pipe_x, gutter_y, pipe_bottom),
+        (pipe_x, gutter_y - 0.11, 0.07),
+        0.018,
+        color,
+    )
 
 
 def _add_building_details(spec: dict, rng: random.Random) -> None:
@@ -341,12 +443,10 @@ def _add_building_details(spec: dict, rng: random.Random) -> None:
     if spec["kind"] not in {"house", "villa", "agriculture"} or spec.get("roof") == "flat":
         _add_rooftop_details(spec, rng)
 
-    # Pluviale visibile su un angolo della facciata.
+    # Sistema di raccolta acqua coerente: grondaia collegata, pluviale sottile
+    # e terminale inclinato. Nessun toro completo, che sembrerebbe un anello.
     if spec["kind"] in {"house", "villa", "apartment", "school", "service"}:
-        x = min(upper.x - 0.08, footprint[0] * GRID_UNIT_METERS * 0.5 - 0.16)
-        drain_h = min(upper.z * 0.82, 2.4)
-        cylinder("Downpipe", 0.025, drain_h, (x, front_y + 0.04, drain_h * 0.5), "navy", 12)
-        torus("DownpipeElbow", 0.055, 0.018, (x, front_y - 0.005, 0.08), "navy", (math.pi / 2, 0, 0))
+        _add_roof_drainage()
 
     if spec["kind"] in {"factory", "agriculture"}:
         # Nervature verticali per dare scala alle grandi superfici industriali.
@@ -484,6 +584,9 @@ def _add_sport_details(spec: dict, rng: random.Random) -> None:
 
 def add_realistic_details(spec: dict, rng: random.Random) -> None:
     kind = spec["kind"]
+    _remove_ambiguous_roof_units()
+    if kind == "agriculture":
+        _fix_agriculture_geometry(spec)
     if kind in BUILDING_KINDS:
         _add_building_details(spec, rng)
     if kind == "tree":
@@ -517,7 +620,7 @@ def generate_asset(spec: dict, output_dir: Path) -> dict:
 def main() -> None:
     args = parse_args()
     output_dir = args.output.resolve()
-    selected = [ASSET_BY_ID[args.asset]] if args.asset else ASSETS
+    selected = [ASSET_BY_ID[asset_id] for asset_id in args.asset] if args.asset else ASSETS
     install_realistic_primitives()
 
     catalog = []
@@ -525,7 +628,15 @@ def main() -> None:
         print(f"[FOCUS REAL] {index}/{len(selected)} Generazione {spec['id']}")
         catalog.append(generate_asset(spec, output_dir))
 
-    with (output_dir / "catalog.json").open("w", encoding="utf-8") as handle:
+    catalog_path = output_dir / "catalog.json"
+    if args.asset and catalog_path.exists():
+        with catalog_path.open("r", encoding="utf-8") as handle:
+            existing_catalog = json.load(handle).get("assets", [])
+        by_id = {item["id"]: item for item in existing_catalog}
+        by_id.update({item["id"]: item for item in catalog})
+        catalog = [by_id[spec["id"]] for spec in ASSETS if spec["id"] in by_id]
+
+    with catalog_path.open("w", encoding="utf-8") as handle:
         json.dump(
             {
                 "generator_version": GENERATOR_VERSION,
