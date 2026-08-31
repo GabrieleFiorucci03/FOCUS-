@@ -81,6 +81,21 @@
 		}
 	},
 
+	"_commento_felicita": "I sette servizi di zona che fanno la felicita' di un'abitazione: polizia, pompieri, ospedale, verde, sport, scuola elementare e scuola superiore. Ognuno vale un settimo, e un'abitazione che ne riceve meno di 'abandon_below' viene abbandonata. 'radius' e' il raggio base in celle, a cui si somma il lato piu' lungo dell'edificio meno uno: un ospedale 3x3 arriva a 11 celle, un parco tascabile 1x1 a 6. La scuola elementare ha un raggio piu' corto della superiore, che serve un bacino piu' largo. Sono raggi in linea d'aria, cioe' cerchi.",
+	"_commento_scala_felicita": "Con questi raggi un presidio copre circa 300 celle su 1024, quindi ne bastano quattro ben distribuiti per tipo; i parchi coprono meno ma costano 10 crediti l'uno. La soglia a meta' vuol dire che quattro servizi su sette tengono in piedi un quartiere: si puo' crescere prima e rifinire dopo, invece di dover avere tutto subito.",
+	"happiness": {
+		"abandon_below": 0.5,
+		"radius": {
+			"polizia": 9,
+			"pompieri": 9,
+			"ospedale": 9,
+			"verde": 6,
+			"sport": 8,
+			"elementare": 7,
+			"superiore": 10
+		}
+	},
+
 	"_commento_rimborso": "Quanto torna indietro demolendo: 0.5 = meta' del prezzo, arrotondata per difetto.",
 	"refund_ratio": 0.5,
 

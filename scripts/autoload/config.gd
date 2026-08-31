@@ -46,6 +46,13 @@ const DEFAULTS := {
 	"jobs": {
 		"per_cell": { "shop": 4, "office": 8 },
 	},
+	"happiness": {
+		"abandon_below": 0.5,
+		"radius": {
+			"polizia": 9, "pompieri": 9, "ospedale": 9,
+			"verde": 6, "sport": 8, "elementare": 7, "superiore": 10,
+		},
+	},
 }
 
 ## Crediti guadagnati per un'ora piena di focus.
@@ -83,6 +90,10 @@ var population: Dictionary = (DEFAULTS["population"] as Dictionary).duplicate(tr
 ## Quanti posti di lavoro offre, a cella occupata, ogni tipo di edificio.
 var jobs: Dictionary = (DEFAULTS["jobs"] as Dictionary).duplicate(true)
 
+## I raggi dei servizi di zona e la soglia sotto la quale un'abitazione viene
+## abbandonata.
+var happiness: Dictionary = (DEFAULTS["happiness"] as Dictionary).duplicate(true)
+
 
 func _ready() -> void:
 	reload()
@@ -103,6 +114,7 @@ func reload() -> void:
 	services = values["services"]
 	population = values["population"]
 	jobs = values["jobs"]
+	happiness = values["happiness"]
 
 
 ## Crediti (con decimali) maturati da un tempo di focus espresso in secondi.
@@ -163,6 +175,19 @@ func residents_per_cell(kind: String) -> int:
 func jobs_per_cell(kind: String) -> int:
 	var posti: Dictionary = jobs.get("per_cell", {})
 	return int(posti.get(kind, 0))
+
+
+## Il raggio base di un servizio di zona, in celle. Chi lo usa ci somma il lato
+## più lungo dell'edificio meno uno: un ospedale 3x3 arriva più lontano di una
+## clinica 2x2, e non serve un numero per modello per dirlo.
+func service_radius(zona: String) -> float:
+	var raggi: Dictionary = happiness.get("radius", {})
+	return float(raggi.get(zona, 0.0))
+
+
+## Sotto questa quota di servizi di zona un'abitazione viene abbandonata.
+func abandon_below() -> float:
+	return clampf(float(happiness.get("abandon_below", 0.5)), 0.0, 1.0)
 
 
 func _read_json() -> Dictionary:

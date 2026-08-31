@@ -112,9 +112,11 @@ func _crea_riga(id: String) -> Button:
 	var bottone := Button.new()
 	bottone.toggle_mode = true
 	bottone.button_group = _gruppo
-	bottone.custom_minimum_size = Vector2(0, 38)
+	# Righe basse: da quattro che erano sono diventate nove, e nove righe alte
+	# non ci stavano piu' sotto la fascia senza arrivare a toccare il fondo.
+	bottone.custom_minimum_size = Vector2(0, 26)
 	bottone.alignment = HORIZONTAL_ALIGNMENT_LEFT
-	bottone.add_theme_font_size_override("font_size", 13)
+	bottone.add_theme_font_size_override("font_size", 12)
 	bottone.toggled.connect(_on_riga_commutata.bind(id))
 	_righe.add_child(bottone)
 	return bottone

@@ -154,6 +154,21 @@ avanza — e i posti devono bastare per tutti: chi resta senza si spopola come c
 resta senz'acqua, e la fila la fa l'ordine in cui hai costruito. Un ufficio
 senza strada o senz'acqua è un ufficio chiuso, e non offre niente a nessuno.
 
+**E poi c'è la felicità.** Sette servizi di zona — polizia, pompieri, ospedale,
+verde, sport, scuola elementare e scuola superiore — hanno un'area attorno a sé,
+tanto più larga quanto più grande è l'edificio. Un'abitazione dentro l'area riceve quel servizio, e la sua
+felicità è la frazione dei cinque che le arrivano: **sotto metà la gente se ne
+va** e la casa resta lì vuota, col suo punto esclamativo. È una regola diversa
+da quelle di prima, e la differenza conta: strada, corrente, acqua e lavoro sono
+allacciamenti, o ci sono o non ci sono; i sette presidi si contano a frazione, e
+quattro su sette bastano a tenere in piedi un quartiere.
+
+**E le aree si vedono.** Mentre tieni in mano un presidio, il terreno che
+raggiungerebbe è disegnato attorno all'anteprima, così scegli il posto guardando
+invece che indovinando. Nei conti della città, cliccando un servizio si accende
+in verde il territorio che copre e in rosso le case che restano fuori: il rosso
+dice che c'è un problema, il verde dice dove mettere il prossimo.
+
 **E poi c'è il badile.** Alza, abbassa e livella spostano il suolo di mezzo
 metro per volta, a un credito a gradino e senza rimborso. Sotto una costruzione
 il terreno non si tocca — demolisci prima — e fra due celle vicine il salto non

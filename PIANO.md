@@ -934,101 +934,123 @@ un certo numero di posti, e gli abitanti li vogliono tutti.
 | Togliere la strada a un negozio | smette di dare lavoro |
 | Il pannello | «287 / 12 · ne mancano 275» |
 
+## La felicità, e gli edifici che si abbandonano
+
+Il terzo attributo, e il primo che non è un sì o un no. Cinque servizi di zona —
+**polizia, pompieri, ospedale, verde e sport** — ognuno con un'area di azione
+attorno a sé; un'abitazione dentro l'area riceve quel servizio, e la sua
+felicità è la frazione dei cinque che le arrivano. **Sotto il 50% l'abitazione
+viene abbandonata**: la gente se ne va, il velo scuro e il punto esclamativo
+compaiono come per chi resta senz'acqua.
+
+- **Due famiglie di bisogni, e vanno tenute distinte** perché è quello che rende
+  il gioco leggibile. **Strada, corrente, acqua e lavoro sono allacciamenti**: o
+  ci sono o non ci sono, e senza si spegne subito. **I cinque presidi sono
+  felicità**: si contano a frazione, nessuno da solo spegne niente, e si cede
+  sotto metà. In `CityView` sono due costanti — `SERVIZI_VITALI` e
+  `SERVIZI_ZONA` — e la differenza sta scritta lì, non sparsa fra i controlli.
+- **Il raggio cresce con l'edificio.** Un numero base per servizio in
+  `economy.json` (9 celle per i tre presidi civici, 8 per lo sport, 6 per il
+  verde) più il lato più lungo dell'edificio meno uno: un ospedale 3x3 arriva a
+  11 celle, una clinica 2x2 a 10, un parco tascabile 1x1 a 6. Un numero per
+  modello non serve — l'ingombro lo dice già.
+- **Cerchi, non rombi.** Il raggio è in linea d'aria: le aree tonde sono quello
+  che ci si aspetta guardando, e la distanza di Manhattan avrebbe fatto rombi
+  che nessuno associa a «quanto lontano arriva un'ambulanza».
+- **La soglia a metà è generosa di proposito.** Tre servizi su cinque tengono in
+  piedi un quartiere: si può crescere prima e rifinire dopo, invece di dover
+  avere tutto subito. È un numero in `economy.json`, `abandon_below`.
+- **La felicità è delle abitazioni, non di tutti.** Chiedere a una pala eolica
+  se ha il parco sotto casa non vuol dire niente. Ma soprattutto: se anche i
+  presidi potessero essere abbandonati per infelicità, l'infelicità di ciascuno
+  dipenderebbe dai vicini e quella dei vicini da lui, e alla domanda non ci
+  sarebbe una risposta sola. Un quartiere si spegnerebbe a catena senza che
+  nessuno possa dire da dove è cominciato.
+- **Un presidio allacciato serve la zona, contento o no.** È l'altra metà della
+  stessa precauzione: la copertura dipende dagli allacciamenti, mai dalla
+  felicità. Un presidio senza strada o senz'acqua invece è chiuso, e la sua area
+  sparisce insieme a lui.
+- **La felicità della città è la media pesata sugli abitanti**, non sugli
+  edifici: una torre scontenta pesa duecento volte una casetta scontenta, perché
+  è duecento volte più gente. Sta nel pannello di stato con la sua barra, e il
+  colore va al contrario delle altre — qui il pieno è la cosa buona, e il rosso
+  comincia alla soglia dell'abbandono.
+- **I conti della città hanno nove righe**, una per servizio, e le cinque di
+  zona dicono quante abitazioni restano fuori. Cliccandone una si accende sul
+  mondo chi ne è scoperto: è così che si decide dove mettere il prossimo
+  presidio. In fondo, quante costruzioni sono abbandonate — è la riga che spiega
+  un «Abitanti 0» senza far aprire nient'altro.
+
+Le scuole sono entrate subito dopo: i servizi di zona sono diventati sette, e
+per arrivare al cento per cento servono sia l'elementare sia la superiore. La
+sezione qui sotto racconta com'è andata.
+
+| Prova | Esito |
+|---|---|
+| Chi porta cosa | polizia, pompieri, ospedale dai presidi; verde dai parchi; sport dai campi |
+| Case e scuole | non portano nessun servizio di zona |
+| Abitazione senza presidi | felicità 0%, abbandonata, col punto esclamativo |
+| Un presidio per volta | 20%, 40%, 60%: un quinto ciascuno |
+| A tre su cinque | sopra la soglia: la casa si ripopola e il `!` sparisce |
+| Demolire un presidio | si torna al 40% e la casa viene riabbandonata |
+| Togliere la strada a un presidio | la sua area sparisce del tutto |
+| Il pannello | felicità in percentuale, e le nove righe dei servizi |
+
+## Le aree, e come si vedono
+
+I sette servizi di zona — **polizia, pompieri, ospedale, verde, sport, scuola
+elementare e scuola superiore** — hanno un'area di azione attorno a sé, e adesso
+quell'area si vede.
+
+- **Come si calcola.** Un cerchio attorno al centro del presidio, di raggio
+  letto da `economy.json` più il lato più lungo dell'edificio meno uno: un
+  ospedale 3x3 arriva a 11 celle, una clinica 2x2 a 10, un parco tascabile 1x1 a
+  6. Un'abitazione è coperta se **almeno una delle sue celle** cade dentro il
+  cerchio di **almeno un** presidio di quel tipo. In linea d'aria e non a
+  scacchiera: le aree tonde sono quello che ci si aspetta guardando, e la
+  distanza di Manhattan avrebbe fatto rombi che nessuno associa a «quanto
+  lontano arriva un'ambulanza».
+- **Le due scuole contano separate.** Servono bacini diversi — 7 celle base
+  l'elementare, 10 la superiore — e averne una sola non è come averle tutte e
+  due: per arrivare al cento per cento servono entrambe.
+- **Un settimo ciascuno.** Con sette servizi la soglia di abbandono a metà vuol
+  dire che ne bastano quattro: si può crescere prima e rifinire dopo.
+- **Cliccando un servizio nei conti** si accendono due strati sul mondo: in
+  verde tenue il **territorio** che quel servizio raggiunge, in rosso le
+  **abitazioni** che restano fuori. Sono due domande diverse e servono
+  entrambe — il rosso dice che c'è un problema, il verde dice dove mettere il
+  prossimo presidio. Gli allacciamenti (strada, corrente, acqua, lavoro) un
+  territorio non ce l'hanno, e per loro resta solo il rosso.
+- **Mentre si posiziona un presidio si vede la sua area**, disegnata sul terreno
+  attorno all'anteprima e aggiornata a ogni cella. È la stessa area che varrà
+  dopo averlo posato, calcolata dalla stessa funzione: un'anteprima che promette
+  un cerchio diverso da quello vero sarebbe peggio di nessuna anteprima.
+- **Uno strato solo, e una regola su chi lo occupa.** L'area in mano e il
+  servizio acceso nei conti si contenderebbero lo stesso velo: vince quello che
+  si ha in mano, perché è la domanda del momento — «se lo metto qui, dove
+  arriva?» — e appena lo si posa ricompare l'altro. La decisione sta in una
+  funzione sola, `_ridipingi_evidenza`, invece che sparsa fra i posti che
+  ridisegnano.
+- **L'elenco dei servizi scorre.** Da tre che erano sono diventati undici: le
+  righe dei conti stanno dentro un contenitore che scorre, così il pannello ha
+  un'altezza fissa qualunque cosa succeda all'elenco.
+
+| Prova | Esito |
+|---|---|
+| I servizi di zona | sette, con le due scuole separate |
+| Una scuola | continua a dare lavoro e non abitanti |
+| Il bacino della superiore | più largo di quello dell'elementare |
+| Posare un'elementare | la felicità di una casa vicina sale di un settimo |
+| L'area di una scuola | 154 celle; la casa dentro, una a venti celle fuori |
+| Accendere un servizio di zona | due strati: territorio coperto e case scoperte |
+| Accendere un allacciamento | un solo strato: non ha territorio |
+| Un presidio in mano | si vede la sua area, identica a quella che avrà |
+| Una casa in mano | nessuna area, perché non è un presidio |
+| Uscire dal cantiere | l'area sparisce con lui |
+
 ## Il piano per il prossimo giro
 
-Tre cose decise ma non ancora fatte, in quest'ordine perché l'ordine conta: la
-prima dà un senso alla seconda, e la terza cambia la forma del mondo sotto tutte
-e due.
-
-### 1. La felicità, e gli edifici che si abbandonano
-
-Adesso che gli abitanti hanno una casa e un lavoro, manca il numero che dice se
-il posto in cui vivono è un buon posto — e la conseguenza di quel numero.
-
-**La felicità è di ogni edificio**, non della città: è la quota dei servizi
-di zona che gli arrivano. Cento per cento vuol dire che l'edificio è dentro
-l'area di azione di tutti e cinque: **pompieri, polizia, ospedale, un'area verde
-e un'area sportiva**. Ognuno vale un quinto.
-
-**Sotto il 50% l'edificio viene abbandonato**: due presidi su cinque non bastano
-a tenerci la gente. Un edificio abbandonato è un edificio spopolato — zero
-abitanti, zero posti di lavoro se ne dava — e si vede come si vedono già gli
-altri: velo scuro e punto esclamativo, che a quel punto è la stessa cosa detta
-per un motivo in più.
-
-**Alcune cose spopolano subito, senza passare dalla felicità**, e sono quelle
-che oggi mettono già il punto esclamativo:
-
-- **Senza strada su nessuno dei quattro lati.** Costruire già lo vieta; il caso
-  nuovo è la strada demolita *dopo*, che oggi mette il `!` e toglie abitanti —
-  cioè fa già quello che serve. Va solo detto con le parole giuste
-  nell'interfaccia: non «manca un servizio» ma «abbandonato».
-- **Senza elettricità o senza acqua.** Anche questo c'è già.
-
-La differenza fra le due famiglie va tenuta chiara, perché è quella che rende il
-gioco leggibile: **strada, corrente, acqua e lavoro sono allacciamenti** — o ci
-sono o non ci sono, e senza si spopola subito. **I cinque presidi di zona sono
-felicità** — si contano a frazione, e si spopola solo sotto metà. Nel pannello
-dei conti stanno tutti insieme, ma la riga della felicità è una sola e dice una
-percentuale, non un sì o un no.
-
-Da decidere quando ci si mette mano:
-
-- **La lista dei cinque va riconciliata con quella scritta prima.** Nel primo
-  giro di piano i servizi di zona erano polizia, presidio sanitario, pompieri,
-  scuola elementare e scuola superiore; adesso sono polizia, pompieri, ospedale,
-  verde e sport. Le scuole sono uscite e il verde è entrato. Le due liste vanno
-  fatte diventare una, e la domanda vera è se le scuole siano un sesto servizio
-  o se restino fuori: nel catalogo ci sono, e un edificio scolastico che non
-  serve a niente sarebbe una stonatura.
-- **Il raggio di ciascuno**, in celle, in `economy.json` accanto agli altri
-  numeri. Un parco 1x1 non può coprire quanto un ospedale 3x3: il raggio va
-  legato all'ingombro o scritto per variante, non uno solo per tutti.
-- **Come si vede prima di pagare.** L'area del servizio che si ha in mano,
-  disegnata attorno all'anteprima mentre lo si posiziona; e una vista che colori
-  il territorio per copertura, un servizio per volta. Senza, si piazza a occhio
-  e si scopre l'errore dopo.
-- **La felicità media della città** va nel pannello di stato, sotto gli
-  abitanti, con la sua barra: è il numero che riassume tutti gli altri. Va
-  pesata sugli abitanti e non sugli edifici — una torre scontenta pesa duecento
-  volte una casetta scontenta, perché è duecento volte più gente.
-- **Un abbandono si racconta.** Quando una città che stava in piedi comincia a
-  spopolarsi, il giocatore deve capire perché senza aprire tre pannelli: la riga
-  di stato in basso è il posto giusto per dirlo la prima volta che succede.
-
-### 2. I servizi con un'area di azione
-
-Polizia, presidio sanitario, pompieri, scuola elementare e scuola superiore:
-cinque servizi, ognuno con **un raggio d'azione attorno a sé**. Un'abitazione
-dentro il raggio è servita da quel servizio; l'obiettivo del giocatore è farle
-diventare tutte servite da tutti e cinque. Le aree si sovrappongono liberamente
-— anzi devono, perché coprire un territorio 32x32 con dei cerchi richiede di
-sprecarne i bordi.
-
-Da decidere:
-
-- **È un obiettivo, non un divieto.** Corrente e acqua bloccano il piazzamento
-  perché sono un allacciamento: o c'è o non c'è. La copertura dei servizi è
-  un'altra cosa — è la cosa da inseguire, e trasformarla in un rifiuto
-  significherebbe non poter posare una casa finché non c'è già la scuola.
-  Un'abitazione scoperta si posa, e si vede che è scoperta.
-- **Come si vede.** Serve una modalità di vista che colori il territorio per
-  copertura, un servizio per volta, e l'area del servizio che si ha in mano
-  disegnata attorno all'anteprima mentre lo si posiziona — altrimenti si piazza
-  a occhio e si scopre l'errore dopo aver pagato.
-- **Il raggio, in celle, sta in `economy.json`** accanto ai consumi: un numero
-  per tipo di servizio, ritoccabile senza toccare il codice, e la scuola
-  superiore ne avrà uno più largo dell'elementare perché serve un bacino più
-  grande.
-- **Il conto da mostrare.** «Quante abitazioni sono servite da tutti e cinque» è
-  la riga che riassume la città, e va messa dove si vede: la fascia ha già
-  corrente e acqua, questo le sta accanto.
-- **Distanza a cerchio o a scacchiera?** Il raggio in linea d'aria fa aree
-  tonde, più naturali da guardare; la distanza di Manhattan fa rombi e segue le
-  strade. La città è a celle quadrate: si parte dal cerchio, che è quello che ci
-  si aspetta guardando.
-
-### 3. Un mondo più credibile, e più grande di quello che si vede
+### Un mondo più credibile, e più grande di quello che si vede
 
 Due lavori che si tengono, e vanno fatti insieme perché il secondo vincola il
 primo.
@@ -1071,5 +1093,4 @@ Da decidere anche:
 
 ## Prossimo passo
 
-Le tre cose qui sopra, in quell'ordine. Le cinque fasi sono chiuse: il giro è
-completo e rifinito.
+Quello qui sopra. Le cinque fasi sono chiuse: il giro è completo e rifinito.

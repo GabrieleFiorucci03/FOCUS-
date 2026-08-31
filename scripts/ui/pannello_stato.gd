@@ -43,17 +43,36 @@ const COLORE_ROSSO := Color(0.90, 0.31, 0.26)
 @onready var _acqua_barra: ProgressBar = %AcquaBarra
 @onready var _lavoro_testo: Label = %LavoroTesto
 @onready var _lavoro_barra: ProgressBar = %LavoroBarra
+@onready var _felicita_testo: Label = %FelicitaTesto
+@onready var _felicita_barra: ProgressBar = %FelicitaBarra
 
 
 ## `usati` e `disponibili` sono coppie: x la corrente, y l'acqua. Il lavoro
 ## viaggia a parte perché i suoi due numeri non sono una coppia dello stesso
 ## genere: uno è quanta gente cerca un posto, l'altro quanti posti ci sono.
 func aggiorna(abitanti: int, usati: Vector2i, disponibili: Vector2i,
-		posti_chiesti: int, posti_offerti: int) -> void:
+		posti_chiesti: int, posti_offerti: int, felicita: float) -> void:
 	_abitanti.text = _con_i_punti(abitanti)
 	_scrivi(_corrente_testo, _corrente_barra, usati.x, disponibili.x)
 	_scrivi(_acqua_testo, _acqua_barra, usati.y, disponibili.y)
 	_scrivi(_lavoro_testo, _lavoro_barra, posti_chiesti, posti_offerti)
+	_scrivi_felicita(felicita)
+
+
+## La felicità non ha un "su quanto": è già una quota. Il colore va al contrario
+## degli altri — qui il pieno è la cosa buona — e il rosso comincia alla soglia
+## dell'abbandono, così vuol dire "di qui in giù la gente se ne va".
+func _scrivi_felicita(quota: float) -> void:
+	_felicita_barra.max_value = 100.0
+	_felicita_barra.value = clampf(quota * 100.0, 0.0, 100.0)
+	_felicita_testo.text = "%d%%" % roundi(quota * 100.0)
+	var colore := COLORE_CALMO
+	if quota < Config.abandon_below():
+		colore = COLORE_ROSSO
+	elif quota < 0.8:
+		colore = COLORE_AMBRA
+	_felicita_testo.add_theme_color_override("font_color", colore)
+	_felicita_barra.add_theme_stylebox_override("fill", _riempimento(colore))
 
 
 ## Mille e duecento si legge "1.200": a quattro cifre attaccate l'occhio deve
@@ -91,13 +110,17 @@ static func _scrivi(testo: Label, barra: ProgressBar, usati: int, disponibili: i
 	elif quota >= SOGLIA_AMBRA:
 		colore = COLORE_AMBRA
 	testo.add_theme_color_override("font_color", colore)
-	var riempimento := StyleBoxFlat.new()
-	riempimento.bg_color = colore
-	riempimento.corner_radius_top_left = 3
-	riempimento.corner_radius_top_right = 3
-	riempimento.corner_radius_bottom_left = 3
-	riempimento.corner_radius_bottom_right = 3
-	barra.add_theme_stylebox_override("fill", riempimento)
+	barra.add_theme_stylebox_override("fill", _riempimento(colore))
+
+
+static func _riempimento(colore: Color) -> StyleBoxFlat:
+	var stile := StyleBoxFlat.new()
+	stile.bg_color = colore
+	stile.corner_radius_top_left = 3
+	stile.corner_radius_top_right = 3
+	stile.corner_radius_bottom_left = 3
+	stile.corner_radius_bottom_right = 3
+	return stile
 
 
 ## Se il mouse sta sopra il pannello. CityView lo chiede prima di puntare una

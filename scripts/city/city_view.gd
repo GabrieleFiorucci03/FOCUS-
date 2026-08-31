@@ -34,6 +34,10 @@ const COLORE_INVALIDO := Color(0.90, 0.31, 0.26, 0.50)
 const COLORE_DEMOLIZIONE := Color(0.95, 0.47, 0.20, 0.45)
 const COLORE_SPOSTAMENTO := Color(0.36, 0.70, 0.95, 0.45)
 const COLORE_SCOPERTO := Color(0.92, 0.28, 0.24, 0.55)
+## Il territorio che un servizio di zona raggiunge, e l'area di quello che si ha
+## in mano. Tenui: sono un velo sopra il mondo, non un nuovo pavimento.
+const COLORE_AREA := Color(0.30, 0.78, 0.52, 0.22)
+const COLORE_AREA_IN_MANO := Color(0.42, 0.76, 0.98, 0.26)
 
 ## Quanto si scurisce una costruzione a cui manca qualcosa, e il rosso del punto
 ## esclamativo che le sta sopra.
@@ -54,14 +58,33 @@ const SERVIZI := [
 	{ "id": "corrente", "nome": "Corrente" },
 	{ "id": "acqua", "nome": "Acqua" },
 	{ "id": "lavoro", "nome": "Lavoro" },
+	{ "id": "polizia", "nome": "Polizia" },
+	{ "id": "pompieri", "nome": "Pompieri" },
+	{ "id": "ospedale", "nome": "Ospedale" },
+	{ "id": "verde", "nome": "Verde" },
+	{ "id": "sport", "nome": "Sport" },
+	{ "id": "elementare", "nome": "Elementare" },
+	{ "id": "superiore", "nome": "Superiore" },
 ]
 
-## I tre che un edificio deve avere per funzionare, e quindi per dare quello che
-## dà. Il lavoro non è fra questi di proposito: per sapere quanti posti ci sono
-## bisogna prima sapere quali uffici funzionano, e un ufficio non ha bisogno di
-## un impiego per darne. Contarlo insieme agli altri sarebbe una domanda che
-## gira su se stessa.
-const SERVIZI_ALLACCIAMENTO := ["strada", "corrente", "acqua"]
+## Gli allacciamenti: o ci sono o non ci sono. Il lavoro non è fra questi di
+## proposito — per sapere quanti posti ci sono bisogna prima sapere quali uffici
+## sono allacciati, e un ufficio non ha bisogno di un impiego per darne.
+## Contarlo insieme sarebbe una domanda che gira su se stessa.
+const SERVIZI_RETE := ["strada", "corrente", "acqua"]
+
+## I servizi di zona: ognuno vale una frazione uguale della felicità di
+## un'abitazione, e nessuno da solo basta a spegnerla. Le due scuole contano
+## separate perché servono bacini diversi, e averne una sola non è come averle
+## tutte e due.
+const SERVIZI_ZONA := [
+	"polizia", "pompieri", "ospedale", "verde", "sport", "elementare", "superiore",
+]
+
+## Quello che spegne un edificio appena manca: gli allacciamenti e il lavoro.
+## La felicità non è qui perché non è un sì o un no — si somma a frazione e
+## conta solo quando scende sotto la soglia.
+const SERVIZI_VITALI := ["strada", "corrente", "acqua", "lavoro"]
 
 enum Modo { NAVIGA, PIAZZA, DEMOLISCI, TERRENO, SPOSTA }
 
@@ -481,13 +504,13 @@ func _copertura(servizio: String) -> Dictionary:
 	}
 	var asse := 0 if servizio == "corrente" else 1
 	var resta := 0
-	match servizio:
-		"strada":
-			pass
-		"lavoro":
-			resta = _posti_offerti()
-		_:
-			resta = _servizi_disponibili()[asse]
+	var zona := {}
+	if SERVIZI_ZONA.has(servizio):
+		zona = _celle_coperte(servizio)
+	elif servizio == "lavoro":
+		resta = _posti_offerti()
+	elif servizio != "strada":
+		resta = _servizi_disponibili()[asse]
 
 	# In ordine di posa: gli id crescono, e ordinarli è ordinare la storia della
 	# città.
@@ -509,21 +532,22 @@ func _copertura(servizio: String) -> Dictionary:
 		# Arbitrario come ogni altra regola, ma stabile — riaprendo la partita
 		# restano fuori gli stessi — ed è quella che ci si aspetta, visto che è
 		# l'ultima cosa costruita ad aver fatto saltare il conto.
-		var quanto := 0
-		match servizio:
-			"strada":
-				chiede = catalogo.vuole_la_strada(modello)
-				servita = chiede and _tocca_una_strada(celle)
-			"lavoro":
-				# Quanti ne chiede è il numero di abitanti che l'edificio
-				# ospiterebbe, non quelli che ospita adesso: un palazzo rimasto
-				# senza lavoro si spopola, e se smettesse anche di chiederne i
-				# posti tornerebbero a bastare, il palazzo si ripopolerebbe, e
-				# via all'infinito. Quello che si spegne è quello che dà.
-				quanto = catalogo.abitanti(modello)
-			_:
-				quanto = -(voce["servizi"] as Vector2i)[asse]
-		if servizio != "strada":
+		if servizio == "strada":
+			chiede = catalogo.vuole_la_strada(modello)
+			servita = chiede and _tocca_una_strada(celle)
+		elif SERVIZI_ZONA.has(servizio):
+			# Un servizio di zona riguarda chi ci abita: a un ufficio o a un
+			# impianto non cambia niente avere il parco sotto casa.
+			chiede = catalogo.abitanti(modello) > 0
+			servita = chiede and _dentro_la_zona(celle, zona)
+		else:
+			# Quanti ne chiede il lavoro è il numero di abitanti che l'edificio
+			# ospiterebbe, non quelli che ospita adesso: un palazzo rimasto
+			# senza lavoro si spopola, e se smettesse anche di chiederne i posti
+			# tornerebbero a bastare, il palazzo si ripopolerebbe, e via
+			# all'infinito. Quello che si spegne è quello che dà.
+			var quanto: int = catalogo.abitanti(modello) if servizio == "lavoro" \
+				else -(voce["servizi"] as Vector2i)[asse]
 			chiede = quanto > 0
 			if chiede:
 				servita = quanto <= resta
@@ -542,10 +566,118 @@ func _copertura(servizio: String) -> Dictionary:
 	return esito
 
 
+## Le celle che un servizio di zona raggiunge.
+##
+## Un cerchio attorno al centro di ogni presidio, di raggio letto da
+## economy.json più il lato più lungo dell'edificio meno uno: un ospedale 3x3
+## arriva più lontano di una clinica 2x2 senza che serva un numero per modello.
+## In linea d'aria e non a scacchiera, perché le aree tonde sono quello che ci
+## si aspetta guardando.
+##
+## Contano solo i presidi allacciati — uno senz'acqua è chiuso — ma non conta la
+## loro felicità. Se un presidio infelice smettesse di proteggere, la sua
+## infelicità dipenderebbe dai presidi vicini e la loro da lui, e alla domanda
+## non ci sarebbe una risposta sola: un presidio allacciato serve la zona,
+## contento o no.
+func _celle_coperte(zona: String) -> Dictionary:
+	var coperte := {}
+	var fuori := _in_difetto(SERVIZI_RETE)
+	for piazzamento in griglia.piazzamenti():
+		if catalogo.zona(str(piazzamento["modello"])) != zona:
+			continue
+		if fuori.has(int(piazzamento["id"])):
+			continue
+		for cella in _area_di(zona, piazzamento["ancora"],
+				piazzamento["footprint"], int(piazzamento["rotazione"])):
+			coperte[cella] = true
+	return coperte
+
+
+## Le celle che raggiungerebbe un presidio di quella zona messo lì.
+##
+## Sta a parte da _celle_coperte perché serve anche prima di posare: è l'area
+## che si vede attorno all'anteprima mentre si sceglie il posto, e dev'essere la
+## stessa che varrà dopo — un'anteprima che promette un cerchio diverso da
+## quello vero è peggio di nessuna anteprima.
+func _area_di(zona: String, ancora: Vector2i, footprint: Vector2i, rotazione: int) -> Array[Vector2i]:
+	var area: Array[Vector2i] = []
+	if zona.is_empty():
+		return area
+	var f := CityGrid.footprint_ruotato(footprint, rotazione)
+	var raggio := Config.service_radius(zona) + float(maxi(f.x, f.y) - 1)
+	var centro := Vector2(ancora) + Vector2(f - Vector2i.ONE) * 0.5
+	var passo := ceili(raggio) + 1
+	for dx in range(-passo, passo + 1):
+		for dy in range(-passo, passo + 1):
+			var cella := Vector2i(roundi(centro.x) + dx, roundi(centro.y) + dy)
+			if griglia.in_griglia(cella) and Vector2(cella).distance_to(centro) <= raggio:
+				area.append(cella)
+	return area
+
+
+static func _dentro_la_zona(celle: Array[Vector2i], coperte: Dictionary) -> bool:
+	for cella in celle:
+		if coperte.has(cella):
+			return true
+	return false
+
+
+## Quanti dei cinque servizi di zona arrivano a ogni abitazione, come frazione
+## da 0 a 1. Restituisce id del piazzamento -> felicità.
+##
+## Solo le abitazioni: la felicità è di chi ci vive, e chiedere a una pala eolica
+## se ha il parco sotto casa non vuol dire niente. È anche quello che tiene il
+## conto semplice — se anche i presidi potessero essere abbandonati per
+## infelicità, un quartiere si spegnerebbe a catena e nessuno saprebbe dire da
+## dove è cominciato.
+func _felicita_per_edificio() -> Dictionary:
+	var zone := {}
+	for zona in SERVIZI_ZONA:
+		zone[zona] = _celle_coperte(str(zona))
+	var quanto := {}
+	for piazzamento in griglia.piazzamenti():
+		if catalogo.abitanti(str(piazzamento["modello"])) <= 0:
+			continue
+		var celle := griglia.celle_occupate(
+			piazzamento["ancora"], piazzamento["footprint"], piazzamento["rotazione"]
+		)
+		var coperti := 0
+		for zona in SERVIZI_ZONA:
+			if _dentro_la_zona(celle, zone[zona]):
+				coperti += 1
+		quanto[int(piazzamento["id"])] = float(coperti) / float(SERVIZI_ZONA.size())
+	return quanto
+
+
+## Le abitazioni che hanno troppo pochi servizi di zona per tenerci la gente.
+func _abbandonate(felicita: Dictionary) -> Dictionary:
+	var fuori := {}
+	var soglia := Config.abandon_below()
+	for id_piazzamento in felicita:
+		if float(felicita[id_piazzamento]) < soglia:
+			fuori[id_piazzamento] = true
+	return fuori
+
+
+## La felicità della città: la media di quella delle sue abitazioni, pesata sugli
+## abitanti che ci starebbero. Una torre scontenta pesa duecento volte una
+## casetta scontenta, perché è duecento volte più gente.
+func _felicita_media(felicita: Dictionary) -> float:
+	var somma := 0.0
+	var teste := 0
+	for piazzamento in griglia.piazzamenti():
+		var quanti := catalogo.abitanti(str(piazzamento["modello"]))
+		if quanti <= 0:
+			continue
+		somma += float(felicita.get(int(piazzamento["id"]), 0.0)) * float(quanti)
+		teste += quanti
+	return 0.0 if teste == 0 else somma / float(teste)
+
+
 ## Quanti posti di lavoro offre la città, contando solo gli edifici che
 ## funzionano: un ufficio senz'acqua è un ufficio chiuso.
 func _posti_offerti() -> int:
-	var fuori := _in_difetto(SERVIZI_ALLACCIAMENTO)
+	var fuori := _in_difetto(SERVIZI_RETE)
 	var totale := 0
 	for piazzamento in griglia.piazzamenti():
 		if fuori.has(int(piazzamento["id"])):
@@ -577,23 +709,35 @@ func _aggiorna_i_conti() -> void:
 	var righe: Array[Dictionary] = []
 	var in_difetto := {}
 	for servizio in SERVIZI:
-		var conto := _copertura(str(servizio["id"]))
-		for id_piazzamento in conto["scoperti"]:
-			in_difetto[id_piazzamento] = true
+		var id_servizio := str(servizio["id"])
+		var conto := _copertura(id_servizio)
+		# Un servizio di zona che manca non spegne niente da solo: pesa un
+		# quinto sulla felicità, ed è la felicità a decidere. La riga nel
+		# pannello c'è lo stesso, perché serve a sapere dove mettere il prossimo.
+		if SERVIZI_VITALI.has(id_servizio):
+			for id_piazzamento in conto["scoperti"]:
+				in_difetto[id_piazzamento] = true
 		righe.append({
 			"id": servizio["id"], "nome": servizio["nome"],
 			"chiedono": conto["chiedono"], "scoperte": conto["scoperte"],
 		})
+
+	var felicita := _felicita_per_edificio()
+	var abbandonate := _abbandonate(felicita)
+	for id_piazzamento in abbandonate:
+		in_difetto[id_piazzamento] = true
+
 	_segna_chi_e_in_difetto(in_difetto)
 	_stato.aggiorna(
 		_popolazione(in_difetto), _consumato, _servizi_disponibili(),
-		_posti_chiesti(), _posti_offerti()
+		_posti_chiesti(), _posti_offerti(), _felicita_media(felicita)
 	)
-	_conti.mostra(righe, "%d costruzioni in città · %s." % [
-		griglia.piazzamenti().size(), _riepilogo_servizi()
+	# Quante ne sono state abbandonate è la riga che spiega un "Abitanti 0" senza
+	# far aprire nient'altro: le case ci sono, è la gente che se n'è andata.
+	_conti.mostra(righe, "%d costruzioni · %d abbandonate · %s." % [
+		griglia.piazzamenti().size(), abbandonate.size(), _riepilogo_servizi()
 	])
-	if not _servizio_acceso.is_empty():
-		_dipingi_il_servizio(_servizio_acceso)
+	_ridipingi_evidenza()
 
 
 ## Mette il velo scuro e il punto esclamativo sopra chi ha qualcosa che non va,
@@ -690,22 +834,67 @@ func _popolazione(in_difetto: Dictionary) -> int:
 
 func _on_servizio_scelto(servizio: String) -> void:
 	_servizio_acceso = servizio
-	if servizio.is_empty():
+	if not servizio.is_empty():
+		Sfx.suona("clic")
+	_ridipingi_evidenza()
+
+
+## Che cosa si vede colorato sul terreno, in un posto solo.
+##
+## Due cose si contendono lo stesso strato e non possono starci insieme senza
+## confondersi: l'area di quello che si ha in mano e il servizio acceso nei
+## conti. Vince quello che si ha in mano, perché è la domanda del momento —
+## «se lo metto qui, dove arriva?» — e appena lo si posa o lo si lascia
+## ricompare l'altro.
+func _ridipingi_evidenza() -> void:
+	var in_mano := _area_in_mano()
+	if not in_mano.is_empty():
+		_evidenza.mesh = TerrainMesh.costruisci_gruppi([{
+			"celle": in_mano, "colore": COLORE_AREA_IN_MANO, "quote": _quote_di(in_mano),
+		}])
+		return
+	if _servizio_acceso.is_empty():
 		_evidenza.mesh = null
 		return
-	Sfx.suona("clic")
-	_dipingi_il_servizio(servizio)
+	_dipingi_il_servizio(_servizio_acceso)
 
 
-## Accende sul mondo chi chiede un servizio e non ce l'ha. Ogni cella alla sua
-## quota, perché le costruzioni non stanno tutte allo stesso piano e un colore a
-## quota unica finirebbe sottoterra o per aria.
+## L'area del presidio che si sta posizionando, o niente se quello che si ha in
+## mano non è un presidio.
+func _area_in_mano() -> Array[Vector2i]:
+	var vuoto: Array[Vector2i] = []
+	if _modo != Modo.PIAZZA and _modo != Modo.SPOSTA:
+		return vuoto
+	if _scelto.is_empty() or _cella == CELLA_NULLA:
+		return vuoto
+	var zona := catalogo.zona(_scelto)
+	if zona.is_empty():
+		return vuoto
+	return _area_di(zona, _ancora, catalogo.voce(_scelto)["footprint"], _rotazione)
+
+
+## Accende sul mondo un servizio: in verde tenue il territorio che raggiunge, in
+## rosso le abitazioni che restano fuori.
+##
+## Il territorio è la metà che mancava: sapere quali case sono scoperte dice che
+## c'è un problema, vedere dove arriva l'area dice dove mettere il prossimo
+## presidio. Gli allacciamenti — strada, corrente, acqua, lavoro — un territorio
+## non ce l'hanno, e per loro resta solo il rosso.
 func _dipingi_il_servizio(servizio: String) -> void:
 	var conto := _copertura(servizio)
-	_evidenza.mesh = TerrainMesh.costruisci_gruppi([{
+	var gruppi: Array = []
+	if SERVIZI_ZONA.has(servizio):
+		var coperte: Array[Vector2i] = []
+		for cella in _celle_coperte(servizio):
+			coperte.append(cella)
+		gruppi.append({
+			"celle": coperte, "colore": COLORE_AREA, "quote": _quote_di(coperte),
+		})
+	gruppi.append({
 		"celle": conto["mancanti"], "colore": COLORE_SCOPERTO,
 		"quote": _quote_di(conto["mancanti"]),
-	}])
+	})
+	_evidenza.mesh = TerrainMesh.costruisci_gruppi(gruppi)
 
 
 func _quote_di(celle: Array[Vector2i]) -> PackedFloat32Array:
@@ -930,6 +1119,7 @@ func _on_crediti_cambiati(crediti: int) -> void:
 func _torna_a_navigare() -> void:
 	_rimetti_dov_era()
 	_modo = Modo.NAVIGA
+	_ridipingi_evidenza()
 	_scelto = ""
 	_alzata = 0
 	_quota_riferimento = -1
@@ -1291,6 +1481,7 @@ func _mostra_bersaglio_piazzamento() -> void:
 	_selezione.mesh = TerrainMesh.costruisci_selezione(
 		_esito["celle"], quota + 0.02, COLORE_VALIDO if valido else COLORE_INVALIDO
 	)
+	_ridipingi_evidenza()
 
 
 ## Il riquadro sulla costruzione sotto il cursore: la stessa domanda — quale di

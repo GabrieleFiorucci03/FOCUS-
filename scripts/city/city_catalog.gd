@@ -145,6 +145,7 @@ func _costruisci_voci(asset: Dictionary, gioco: Dictionary) -> void:
 			"servizi": _servizi(voce_asset, kind, Vector2i(int(f[0]), int(f[1]))),
 			"abitanti": Config.residents_per_cell(kind) * maxi(1, int(f[0]) * int(f[1])),
 			"posti": Config.jobs_per_cell(kind) * maxi(1, int(f[0]) * int(f[1])),
+			"zona": _zona_di(voce_asset, kind),
 		}
 		ordine.append(id)
 
@@ -249,6 +250,38 @@ func abitanti(id: String) -> int:
 func posti(id: String) -> int:
 	var v := voce(id)
 	return 0 if v.is_empty() else int(v["posti"])
+
+
+## Quale servizio di zona porta un edificio, o "" se non ne porta nessuno.
+func zona(id: String) -> String:
+	var v := voce(id)
+	return "" if v.is_empty() else str(v["zona"])
+
+
+## Chi porta cosa. Questa è struttura, non bilanciamento: dice quale famiglia di
+## asset fa da presidio per quale servizio, e cambia solo se cambia la libreria.
+## I raggi e la soglia, che invece si ritoccano, stanno in economy.json.
+static func _zona_di(voce_asset: Dictionary, kind: String) -> String:
+	match kind:
+		"park":
+			return "verde"
+		"sport":
+			return "sport"
+		"school":
+			match str(voce_asset.get("variant", "")):
+				"primary":
+					return "elementare"
+				"secondary":
+					return "superiore"
+		"service":
+			match str(voce_asset.get("service", "")):
+				"police":
+					return "polizia"
+				"fire":
+					return "pompieri"
+				"health":
+					return "ospedale"
+	return ""
 
 
 ## Se un oggetto è una strada: quello su cui si cammina e si arriva. Le rampe e
