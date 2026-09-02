@@ -1224,10 +1224,10 @@ smette di essere il confine del mondo per tornare a essere solo una riva.
 
 #### Cosa si rompe, in ordine di fastidio
 
-- **`CityGrid` non ammette coordinate negative** (`in_griglia` vuole `x >= 0`) e
-  ha una `size`. Serve o un'origine mobile — il mondo si estende attorno a un
-  punto che resta a zero — o coordinate con segno. La seconda è più pulita e
-  tocca più codice; la prima è un trucco che prima o poi si paga.
+- **`CityGrid` non ammetteva coordinate negative** (`in_griglia` voleva
+  `x >= 0`) e aveva una `size` — **chiuso**: ha perso tutte e due. Si è scelto
+  le coordinate con segno e non l'origine mobile, perché la seconda è un trucco
+  che prima o poi si paga.
 - **La mesh del terreno era una sola per tutto il mondo** — **chiuso**: adesso
   è una per zona, e una modifica rifà solo le zone che ha cambiato. Vedi «Una
   mesh per zona», in fondo.
@@ -1235,19 +1235,20 @@ smette di essere il confine del mondo per tornare a essere solo una riva.
   infinito «tutte le celle» non esiste — **chiuso**: adesso si disegna solo
   quello che è tuo e l'anello di zone comprabili, velo compreso. Vedi «Si vede
   solo quello che si può prendere», più sotto.
-- **La camera non ha limiti** già adesso, quindi lì non cambia niente — ma
-  diventa il modo con cui ci si perde. Serve un «torna alla città», o la
-  bussola.
-- **Il salvataggio** ha già la lista delle zone possedute e non salva il
-  terreno: quella parte è pronta, ed è il pezzo di lavoro che era stato fatto
-  bene in anticipo.
+- **La camera non ha limiti** già adesso, quindi lì non cambiava niente — ma è
+  diventata il modo con cui ci si perde — **chiuso**: `H` riporta la camera
+  sulla città.
+- **Il salvataggio** aveva già la lista delle zone possedute e non salvava il
+  terreno: quella parte era pronta, ed è stato il pezzo di lavoro fatto bene in
+  anticipo. Gli è caduta solo la `size`, che adesso non vuol dire niente.
 
 #### Da decidere
 
-- **Il prezzo di una zona non può crescere all'infinito** com'è adesso (×1,6 a
-  ogni acquisto): alla ventesima zona costerebbe più di quanto si guadagni in un
-  anno. O si mette un tetto, o la crescita diventa lineare, o si paga in
-  proporzione a quanto si è già costruito invece che a quante zone si hanno.
+- ~~**Il prezzo di una zona non può crescere all'infinito**~~ — **deciso**: un
+  tetto. Dopo otto acquisti il rincaro si ferma, e una zona costa 5154 crediti
+  per sempre — una settimana buona di concentrazione. Le altre due strade
+  (crescita lineare, prezzo legato a quanto si è costruito) restano scrivibili
+  in `economy.json` il giorno che il tetto si rivelasse sbagliato.
 - **Che senso ha espandersi**, oltre allo spazio. Se una zona lontana è solo
   altre celle uguali, comprarla è un numero che sale. Le zone dovrebbero avere
   un carattere — un fiume, una baia, una montagna — e forse è lì che la
@@ -1260,15 +1261,17 @@ smette di essere il confine del mondo per tornare a essere solo una riva.
 #### L'ordine di lavoro
 
 1. ~~**Spezzare la mesh per zona.**~~ Fatto. Serviva comunque, non ha rotto
-   niente, e si è misurato: cinque volte più svelto oggi, e non peggiora se il
-   mondo cresce.
-2. **Il terreno come funzione**, con generazione a blocchi e margine, a mondo
-   ancora finito: si può confrontare cella per cella col generatore di adesso e
-   pretendere che dia lo stesso risultato. È il controllo che rende sicuro tutto
-   il resto.
-3. **I fiumi su griglia grossa**, che è il pezzo con più design dentro.
-4. **Le coordinate senza bordo**, e la compravendita di zone che non esistono
-   ancora.
+   niente, e si è misurato: cinque volte più svelto, e non peggiora se il mondo
+   cresce.
+2. ~~**Il terreno come funzione**~~, con generazione a blocchi e margine, a
+   mondo ancora finito. Fatto, e il confronto cella per cella col generatore in
+   un pezzo solo è passato: zero differenze.
+3. ~~**I fiumi su griglia grossa**~~, che era il pezzo con più design dentro.
+   Fatto, con una sorpresa: serviva anche il riempimento delle depressioni.
+4. ~~**Le coordinate senza bordo**~~, e la compravendita di zone che non
+   esistono ancora. Fatto.
+
+Tutto e quattro. Vedi «Il mondo non finisce più», in fondo.
 
 ### Le strade si tracciano, non si posano una per una
 
@@ -1574,10 +1577,93 @@ cache, e un blocco che nasce dopo ne trova già pronte quelle che gli servono.
 
 Resta il terzo passo: le coordinate, che hanno ancora un bordo.
 
+## Il mondo non finisce più
+
+Terzo e ultimo passo. **Il mondo non ha una misura.** Non c'è una `size` da
+nessuna parte, le coordinate possono essere negative, e si comprano zone finché
+ci sono crediti, in qualunque direzione.
+
+Il cuore è in `CityTerrain`: **i tre array paralleli grandi quanto il mondo sono
+diventati un dizionario di blocchi da 32x32**, e un blocco nasce la prima volta
+che qualcuno gli chiede una cella. Non c'è più un `indice(cella)`, perché non
+c'è più un array su cui indicizzare: c'è `blocco_di(cella)`, che è una divisione
+**col segno** — la cella -1 sta nel blocco -1, non nel blocco 0, ed è la riga
+che, sbagliata, piegherebbe il mondo attorno all'origine.
+
+Quello che è caduto insieme al bordo:
+
+- **`CityGrid.size` e `in_griglia()`.** Non c'era più niente da chiedere: non
+  esiste un fuori. Gli otto posti che chiedevano «questa cella è nel mondo?»
+  non lo chiedono più, e il rifiuto «Fuori dal mondo» è sparito dal
+  piazzamento — che si costruisca solo in casa propria lo diceva già un'altra
+  regola, e continua a dirlo.
+- **La maschera di visibilità per cella.** Era un byte per cella su un array
+  grande quanto il mondo. Adesso è **un insieme di zone**, ed è anche più
+  onesto: la visibilità non è mai stata una faccenda di celle, si compra e si
+  vede per zone. Sparisce anche il giro su tutte le zone del mondo per
+  costruirla: si parte da quelle tue e ci si allarga di uno, perché una zona
+  comprabile è per definizione vicina a una tua.
+- **`_riepilogo_biomi()` contava i biomi del mondo.** Adesso conta quelli del
+  terreno che è tuo: contare quelli del mondo non vorrebbe più dire niente.
+
+E quello che è nato:
+
+- **Da dove si comincia.** Non più «la zona di mezzo», perché di mezzo non c'è
+  niente. Si gira **a spirale attorno all'origine** finché non si trova una zona
+  con almeno il 55 % di terra; se in centosessanta non se ne trova, si prende la
+  migliore vista. Su cinque semi di prova la spirale si ferma entro due passi,
+  con fra il 70 % e il 94 % di terra.
+- **Il tasto `H`.** In un mondo senza bordo scorrere non finisce, e la città
+  sparisce alle spalle senza lasciare un segno. Finché il mondo era nove zone ci
+  si ritrovava da soli.
+- **Il tetto al prezzo delle zone**, di cui sopra.
+
+### Cosa costa tenere in vita un mondo infinito
+
+Meno di quanto sembri, ed è il regalo del ritaglio fatto per primo: **un blocco
+nasce solo se qualcuno lo guarda**, e a guardarlo è solo chi disegna. Misurato
+su una partita nuova in cui si comprano sei zone di fila verso ovest, fino a
+coordinate negative:
+
+| zone possedute | zone visibili | nodi disegnati | blocchi in memoria |
+|---|---|---|---|
+| 1 | 5 | 5 | 5 |
+| 4 | 14 | 14 | 14 |
+| 7 | 23 | 23 | 23 |
+
+I blocchi in memoria sono **esattamente** le zone che si vedono: nessuno nasce
+per sbaglio, e scorrere la camera per il mondo non ne fa nascere uno, perché
+scorrere non legge il terreno. La domanda del piano — «quante zone tenere
+vive» — per adesso non si pone: ne restano vive quante ne possiedi più un
+anello, e sono le stesse che stai guardando. Si porrà il giorno che si vorranno
+tenere accese anche le zone lontane.
+
+### Le verifiche
+
+- **Coordinate qualunque.** La cella (100000, -250000) risponde come la cella
+  (0, 0): blocco (3125, -7813), livello 7, collina.
+- **La divisione col segno**, su celle scelte per farla sbagliare: -1, -32, -33.
+- **Lo stesso posto letto in ordini diversi.** Due terreni con lo stesso seme,
+  uno dei quali ha prima toccato mezzo mondo altrove, danno le stesse 1024 celle
+  della zona (-3, 2). Zero differenze: leggere il mondo non lo cambia.
+- **Il raggio del mouse in territorio negativo**: trova la cella (-80, 16) nel
+  corpo «Zona -3 0».
+- E, sotto tutto, la verifica dei due passi prima continua a girare: generare a
+  blocchi di misure diverse dà sempre lo stesso mondo.
+
 ## Prossimo passo
 
-Il mondo infinito, qui sopra: il primo passo dell'ordine di lavoro è fatto, e
-resta il terreno come funzione. Le cinque fasi erano chiuse da un pezzo; quello
+**Le strade che si tracciano invece di posarle una per una**, qui sopra: è
+l'unica cosa rimasta che si veda giocando il giorno stesso, e la tabella dei
+sedici casi non dipende da niente di quello che il mondo infinito ha cambiato.
+
+Del mondo infinito restano aperte due domande, e nessuna delle due è un debito:
+**che carattere dare a una zona lontana**, perché comprarla non sia solo un
+numero che sale — un fiume, una baia, una montagna — e **quante zone tenere
+vive** il giorno che si vorranno accese anche quelle lontane, che per adesso non
+si pone.
+
+Le cinque fasi erano chiuse da un pezzo; quello
 che è venuto dopo — servizi, strada, conti, spostamento, abitanti, lavoro,
 felicità, aree, mondo e zone — è la città che chiede qualcosa a chi la
 costruisce.
@@ -1585,8 +1671,8 @@ costruisce.
 Restano anche due cose che non sono debiti ma scelte, e si decidono giocando:
 
 - **Il bilanciamento con sette servizi di zona.** Coprire 32x32 con sette aree è
-  parecchio; con nove zone lo è nove volte. Se la felicità si rivela un muro
-  invece che un obiettivo, i raggi e la soglia sono due numeri in
+  parecchio; con un mondo senza fine lo è senza fine. Se la felicità si rivela
+  un muro invece che un obiettivo, i raggi e la soglia sono due numeri in
   `economy.json`.
 - **Cosa succede a una città infelice**, oltre allo spopolamento: per ora la
   felicità è un punteggio da far salire, non una tassa da pagare.

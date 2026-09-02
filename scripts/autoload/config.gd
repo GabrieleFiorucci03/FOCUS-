@@ -48,6 +48,7 @@ const DEFAULTS := {
 	},
 	"zone_price": 120,
 	"zone_price_growth": 1.6,
+	"zone_price_cap_at": 8,
 	"happiness": {
 		"abandon_below": 0.5,
 		"radius": {
@@ -80,9 +81,11 @@ var refund_ratio: float = float(DEFAULTS["refund_ratio"])
 ## rimettere il terreno com'era è un lavoro come scavarlo.
 var terrain_cost_per_level: int = int(DEFAULTS["terrain_cost_per_level"])
 
-## Quanto costa la prima zona in più, e di quanto rincara ogni volta.
+## Quanto costa la prima zona in più, di quanto rincara ogni volta, e dopo
+## quante il rincaro si ferma.
 var zone_price: int = int(DEFAULTS["zone_price"])
 var zone_price_growth: float = float(DEFAULTS["zone_price_growth"])
+var zone_price_cap_at: int = int(DEFAULTS["zone_price_cap_at"])
 
 
 ## Corrente e acqua: l'allacciamento di partenza, quanto dà ogni impianto e
@@ -118,6 +121,7 @@ func reload() -> void:
 	terrain_cost_per_level = maxi(0, int(values["terrain_cost_per_level"]))
 	zone_price = maxi(0, int(values["zone_price"]))
 	zone_price_growth = maxf(1.0, float(values["zone_price_growth"]))
+	zone_price_cap_at = maxi(1, int(values["zone_price_cap_at"]))
 	prices = values["prices"]
 	services = values["services"]
 	population = values["population"]
@@ -193,8 +197,16 @@ func jobs_per_cell(kind: String) -> int:
 ## Cresce con quelle possedute: allargarsi deve restare una scelta, non
 ## l'automatismo che si fa perché tanto costa poco. La prima in più è la
 ## seconda del mondo, quindi l'esponente parte da quante ce n'erano meno una.
+##
+## **Ma smette di crescere.** Finché le zone erano nove, moltiplicare per 1,6 a
+## ogni acquisto era una curva che finiva prima di diventare assurda; in un mondo
+## senza bordo non finisce, e alla ventesima zona una zona costerebbe più di
+## quanto si guadagni in un anno di concentrazione. Dopo `zone_price_cap_at` il
+## prezzo si ferma: da lì in poi allargarsi costa tanto, sempre uguale, e resta
+## una cosa che si sceglie invece di una cosa che si smette di poter fare.
 func zone_cost(gia_possedute: int) -> int:
-	return int(round(float(zone_price) * pow(zone_price_growth, maxi(0, gia_possedute - 1))))
+	var scatti := clampi(gia_possedute - 1, 0, zone_price_cap_at)
+	return int(round(float(zone_price) * pow(zone_price_growth, scatti)))
 
 
 func service_radius(zona: String) -> float:

@@ -123,67 +123,101 @@ const VICINI: Array[Vector2i] = [
 	Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1),
 ]
 
-var size: Vector2i
+## Un pezzo di mondo già nato: BLOCCO x BLOCCO celle, con tutto quello che serve
+## a disegnarle e a ricordarsi com'erano prima che ci si costruisse sopra.
+class Blocco:
+	var livelli := PackedInt32Array()
+	var biomi := PackedByteArray()
+	## Quota in metri del pelo dell'acqua. Zero sulla terraferma.
+	var pelo := PackedFloat32Array()
+	## Quanto piove su ogni cella, da 0 a 1. Non si salva e non si mostra:
+	## serve solo a decidere il bioma insieme alla quota, ed è il motivo per cui
+	## due pianure alla stessa altezza possono essere una verde e una secca.
+	var umidita := PackedFloat32Array()
+	## Com'era il terreno appena uscito dal seme. Serve a dire quali celle sono
+	## state modellate davvero: sono quelle, e solo quelle, che vanno scritte
+	## nel salvataggio.
+	var naturale := PackedInt32Array()
+	## L'acqua che la sola quota non saprebbe rimettere al suo posto: i fiumi,
+	## che scorrono anche sopra il livello dell'acqua, e i laghi di collina.
+	var etichetta := PackedByteArray()
+
+
 var seme: int
-var livelli: PackedInt32Array
-var biomi: PackedByteArray
-## Quota in metri del pelo dell'acqua, cella per cella. Zero sulla terraferma.
-var quota_acqua: PackedFloat32Array
-## Quanto piove su ogni cella, da 0 a 1. Non si salva e non si mostra: serve
-## solo a decidere il bioma insieme alla quota, ed è il motivo per cui due
-## pianure alla stessa altezza possono essere una verde e una secca.
-var umidita: PackedFloat32Array
 
-## Com'era il terreno appena uscito dal seme, prima che ci costruissero sopra.
-## Serve a dire quali celle sono state modellate davvero: sono quelle, e solo
-## quelle, che vanno scritte nel salvataggio.
-var _naturale: PackedInt32Array = PackedInt32Array()
+## Coordinate del blocco -> Blocco. **Qui sta tutto il mondo che esiste**, ed è
+## quello che qualcuno ha guardato: un blocco nasce la prima volta che gli si
+## chiede una cella, e da lì in poi resta.
+##
+## È la differenza fra un mondo grande e un mondo senza bordo. Non c'è una
+## `size`, non c'è un array da allocare, e la cella (-4000, 91) è una domanda
+## sensata quanto la cella (0, 0).
+var _blocchi: Dictionary = {}
 
-## Le tessere del reticolo idrografico gia' calcolate: chiave -> { nodo -> nodo
-## a valle }. Si tengono perche' un blocco ne interroga sempre le stesse due o
-## tre, e calcolarne una costa un ordinamento di qualche migliaio di nodi.
+## Le tessere del reticolo idrografico già calcolate: chiave -> { a_valle,
+## conche }. Si tengono perché un blocco ne interroga sempre le stesse due o
+## tre, e calcolarne una costa un riempimento e un ordinamento di qualche
+## migliaio di nodi.
 var _tessere_fiumi: Dictionary = {}
 
-## L'acqua che il flood fill non saprebbe rimettere al suo posto: i fiumi, che
-## scorrono anche sopra il livello dell'acqua, e i laghi rimasti in collina.
-##
-## Le conche sotto il livello dell'acqua non stanno qui apposta: quelle si
-## rideducono ogni volta da sole, ed è esattamente ciò che fa funzionare
-## l'innalzamento di un fondale.
-var _etichetta_naturale: PackedByteArray = PackedByteArray()
 
-
-func _init(dimensione: Vector2i, seme_iniziale: int) -> void:
-	size = dimensione
+func _init(seme_iniziale: int) -> void:
 	seme = seme_iniziale
-	_genera()
 
 
 # --- Interrogazioni ---------------------------------------------------------
 
-func dentro(cella: Vector2i) -> bool:
-	return cella.x >= 0 and cella.y >= 0 and cella.x < size.x and cella.y < size.y
+## Le coordinate del blocco che contiene una cella.
+##
+## Divisione col segno, non troncata: la cella -1 sta nel blocco -1, non nel
+## blocco 0. È la riga che fa funzionare le coordinate negative, e sbagliarla
+## piegherebbe il mondo attorno all'origine.
+static func blocco_di(cella: Vector2i) -> Vector2i:
+	return Vector2i(
+		floori(float(cella.x) / float(BLOCCO)),
+		floori(float(cella.y) / float(BLOCCO)))
 
 
-func indice(cella: Vector2i) -> int:
-	return cella.y * size.x + cella.x
+## Dove sta una cella dentro il suo blocco.
+static func _posto(cella: Vector2i) -> int:
+	return posmod(cella.y, BLOCCO) * BLOCCO + posmod(cella.x, BLOCCO)
+
+
+## Il blocco che contiene una cella, generandolo se è la prima volta che
+## qualcuno lo guarda. Da qui passa ogni lettura del terreno: chiedere una cella
+## di un posto mai visto lo fa nascere, e la risposta è la stessa che sarebbe
+## arrivata chiedendolo in qualunque altro momento.
+func _blocco(cella: Vector2i) -> Blocco:
+	var coord := blocco_di(cella)
+	if _blocchi.has(coord):
+		return _blocchi[coord]
+	var pezzo := Blocco.new()
+	_blocchi[coord] = pezzo
+	_genera_blocco(coord, pezzo)
+	return pezzo
+
+
+## Quanti blocchi sono nati finora. Non è il mondo: è quanto se n'è guardato.
+func blocchi_vivi() -> int:
+	return _blocchi.size()
 
 
 func livello(cella: Vector2i) -> int:
-	if not dentro(cella):
-		return 0
-	return livelli[indice(cella)]
+	return _blocco(cella).livelli[_posto(cella)]
 
 
 func bioma(cella: Vector2i) -> Bioma:
-	if not dentro(cella):
-		return Bioma.LAGO
-	return biomi[indice(cella)] as Bioma
+	return _blocco(cella).biomi[_posto(cella)] as Bioma
 
 
 ## Quota in metri della faccia superiore della cella.
 func quota(cella: Vector2i) -> float:
 	return float(livello(cella)) * PASSO_QUOTA
+
+
+## Quota in metri del pelo dell'acqua sopra una cella, zero sull'asciutto.
+func pelo_acqua(cella: Vector2i) -> float:
+	return _blocco(cella).pelo[_posto(cella)]
 
 
 func e_acqua(cella: Vector2i) -> bool:
@@ -192,16 +226,16 @@ func e_acqua(cella: Vector2i) -> bool:
 
 
 func costruibile(cella: Vector2i) -> bool:
-	return dentro(cella) and not e_acqua(cella)
+	return not e_acqua(cella)
 
 
-## Un lotto va bene se è tutto asciutto, dentro i bordi e a una quota sola.
+## Se tutte le celle di un lotto stanno alla stessa quota.
 func lotto_piano(celle: Array[Vector2i]) -> bool:
 	if celle.is_empty():
 		return false
-	var riferimento := livello(celle[0])
+	var primo := livello(celle[0])
 	for cella in celle:
-		if not costruibile(cella) or livello(cella) != riferimento:
+		if livello(cella) != primo:
 			return false
 	return true
 
@@ -216,50 +250,57 @@ func lotto_piano(celle: Array[Vector2i]) -> bool:
 func livello_piu_basso(celle: Array[Vector2i]) -> int:
 	var minimo := LIVELLO_MASSIMO
 	for cella in celle:
-		if dentro(cella):
-			minimo = mini(minimo, livello(cella))
+		minimo = mini(minimo, livello(cella))
 	return maxi(minimo, LIVELLO_ACQUA + 1)
 
 
-## Porta una cella a una quota, senza rifare biomi e acque: chi la chiama
-## chiude con riclassifica(), così una modifica di venti celle rifà i conti una
-## volta sola invece di venti.
+## Porta una cella a una quota, senza rifare bioma e acqua: chi la chiama chiude
+## con riclassifica(), così una modifica di venti celle rifà i conti una volta
+## sola invece di venti.
 func imposta_livello(cella: Vector2i, livello_nuovo: int) -> void:
-	if not dentro(cella):
-		return
-	livelli[indice(cella)] = clampi(livello_nuovo, 0, LIVELLO_MASSIMO)
+	_blocco(cella).livelli[_posto(cella)] = clampi(livello_nuovo, 0, LIVELLO_MASSIMO)
 
 
-## Rifà biomi e acque su tutta la mappa a partire dalle quote di adesso.
+## Rifà bioma e pelo dell'acqua di una cella a partire dalla sua quota di
+## adesso.
 ##
 ## Una cella tornata alla quota del seme si riprende la propria etichetta: un
 ## fiume ridiventa fiume. Una cella modellata invece la perde, e cosa diventa lo
 ## decide la sola quota — che è quello che rende gratis due casi: la conca
 ## scavata sotto il livello dell'acqua si riempie, e il fondale alzato sopra il
-## pelo dell'acqua diventa un'isola.
+## pelo diventa un'isola.
 ##
-## Da quando il mare non esiste più non c'è nemmeno il terzo caso, il canale che
-## collegava una conca alla costa: la conca era già acqua allo stesso pelo prima
-## di essere collegata, e scavare il canale adesso non cambia un'etichetta ma
-## unisce due specchi d'acqua che stavano già alla stessa altezza. Si vede
-## uguale, e costa un flood fill su tutta la mappa in meno.
+## Da quando il mare non esiste più questa è una domanda che si fa **una cella
+## per volta**: non c'è più nessun flood fill da far girare su tutta la mappa, e
+## in un mondo senza bordo «tutta la mappa» non vorrebbe nemmeno dire niente.
+func riclassifica_cella(cella: Vector2i) -> void:
+	var pezzo := _blocco(cella)
+	var i := _posto(cella)
+	var quota_intera := pezzo.livelli[i]
+	var etichetta := pezzo.etichetta[i] if quota_intera == pezzo.naturale[i] else SENZA_ETICHETTA
+	if etichetta != SENZA_ETICHETTA:
+		pezzo.biomi[i] = etichetta
+	elif quota_intera <= LIVELLO_ACQUA:
+		pezzo.biomi[i] = Bioma.LAGO
+	else:
+		pezzo.biomi[i] = _bioma_di_terra(quota_intera, pezzo.umidita[i])
+	pezzo.pelo[i] = _pelo_di(pezzo.biomi[i] as Bioma, quota_intera)
+
+
+## Rifà bioma e acqua di tutte le celle nate finora.
 func riclassifica() -> void:
-	for i in livelli.size():
-		var etichetta := _etichetta_naturale[i] if livelli[i] == _naturale[i] else SENZA_ETICHETTA
-		if etichetta != SENZA_ETICHETTA:
-			biomi[i] = etichetta
-		else:
-			biomi[i] = Bioma.LAGO if livelli[i] <= LIVELLO_ACQUA else Bioma.PIANURA
-	_assegna_biomi_terrestri()
-	_calcola_quote_acqua()
+	for coord in _blocchi:
+		var base: Vector2i = (coord as Vector2i) * BLOCCO
+		for z in BLOCCO:
+			for x in BLOCCO:
+				riclassifica_cella(base + Vector2i(x, z))
 
 
 ## Se portare una cella a quella quota lascerebbe un salto troppo alto con
 ## qualche vicina. I dirupi ci stanno, i grattacieli di terra no.
 func dislivello_accettabile(cella: Vector2i, livello_nuovo: int) -> bool:
 	for passo in VICINI:
-		var vicina := cella + passo
-		if dentro(vicina) and absi(livello_nuovo - livello(vicina)) > DISLIVELLO_MASSIMO:
+		if absi(livello_nuovo - livello(cella + passo)) > DISLIVELLO_MASSIMO:
 			return false
 	return true
 
@@ -275,143 +316,112 @@ func spiana(celle: Array[Vector2i], livello_scelto: int = -1) -> int:
 	if scelto < 0:
 		var quote: Array[int] = []
 		for cella in celle:
-			if dentro(cella):
-				quote.append(livello(cella))
-		if quote.is_empty():
-			return 0
+			quote.append(livello(cella))
 		quote.sort()
 		scelto = quote[quote.size() / 2]
 	scelto = maxi(scelto, LIVELLO_ACQUA + 1)
 	for cella in celle:
 		imposta_livello(cella, scelto)
-	riclassifica()
+	for cella in celle:
+		_rifai_attorno(cella)
 	return scelto
 
 
-## Una fotografia di quello che del terreno si vede: quote, biomi e pelo
-## dell'acqua. Confrontarne due dice quali celle vanno ridisegnate.
-##
-## Serve perché una modifica non si ferma dove la si fa: riclassifica() rifa i
-## conti su tutta la mappa, e un canale scavato qui può spostare una riva
-## dall'altra parte del mondo. Le celle toccate a mano non sono l'elenco di
-## quelle cambiate.
-func fotografia() -> Dictionary:
-	return {
-		"livelli": livelli.duplicate(),
-		"biomi": biomi.duplicate(),
-		"quota_acqua": quota_acqua.duplicate(),
-	}
-
-
-## Le celle che si vedono diverse da come stavano nella fotografia.
-func celle_cambiate(prima: Dictionary) -> Array[Vector2i]:
-	var cambiate: Array[Vector2i] = []
-	if prima.is_empty():
-		return cambiate
-	var quote: PackedInt32Array = prima["livelli"]
-	var etichette: PackedByteArray = prima["biomi"]
-	var acque: PackedFloat32Array = prima["quota_acqua"]
-	if quote.size() != livelli.size():
-		return cambiate
-	for i in livelli.size():
-		if livelli[i] == quote[i] and biomi[i] == etichette[i] 				and is_equal_approx(quota_acqua[i], acque[i]):
-			continue
-		cambiate.append(Vector2i(i % size.x, i / size.x))
-	return cambiate
+## Rifà la classificazione di una cella e delle sue vicine. Le vicine perché
+## niente di quello che si vede dipende da loro — la classificazione è per
+## cella — ma chiamarle costa poco e mette al riparo dal giorno in cui
+## qualcosa tornerà a guardare il vicinato.
+func _rifai_attorno(cella: Vector2i) -> void:
+	riclassifica_cella(cella)
+	for passo in VICINI:
+		riclassifica_cella(cella + passo)
 
 
 ## La quota che il seme aveva dato a questa cella, prima che ci si costruisse.
 ## Confrontarla con quella di adesso dice se la cella è stata spianata.
 func livello_naturale(cella: Vector2i) -> int:
-	if not dentro(cella):
-		return 0
-	return _naturale[indice(cella)]
+	return _blocco(cella).naturale[_posto(cella)]
+
+
+## Una fotografia di quello che del terreno si vede, blocco per blocco.
+## Confrontarne due dice quali celle vanno ridisegnate.
+func fotografia() -> Dictionary:
+	var scatto := {}
+	for coord in _blocchi:
+		var pezzo: Blocco = _blocchi[coord]
+		scatto[coord] = [pezzo.livelli.duplicate(), pezzo.biomi.duplicate()]
+	return scatto
+
+
+## Le celle che si vedono diverse da come stavano nella fotografia. Un blocco
+## nato dopo lo scatto conta tutto come cambiato: prima non c'era.
+func celle_cambiate(prima: Dictionary) -> Array[Vector2i]:
+	var cambiate: Array[Vector2i] = []
+	for coord in _blocchi:
+		var pezzo: Blocco = _blocchi[coord]
+		var base: Vector2i = (coord as Vector2i) * BLOCCO
+		if not prima.has(coord):
+			for z in BLOCCO:
+				for x in BLOCCO:
+					cambiate.append(base + Vector2i(x, z))
+			continue
+		var scatto: Array = prima[coord]
+		var quote: PackedInt32Array = scatto[0]
+		var etichette: PackedByteArray = scatto[1]
+		for i in pezzo.livelli.size():
+			if pezzo.livelli[i] == quote[i] and pezzo.biomi[i] == etichette[i]:
+				continue
+			cambiate.append(base + Vector2i(i % BLOCCO, i / BLOCCO))
+	return cambiate
 
 
 ## Quanta terra emersa c'è in un riquadro, da 0 a 1, guardando il solo rilievo:
-## niente erosione, niente fiumi, nessun array del mondo. L'erosione sposta i
+## niente erosione, niente fiumi, nessun blocco generato. L'erosione sposta i
 ## gradini ma non fa emergere un continente, quindi per la domanda «qui c'è da
 ## costruire?» il rilievo grezzo basta e costa mille volte meno.
 ##
-## Serve a scegliere dove far cominciare una città. Da quando l'oceano è un
-## rumore a grande scala invece di una discesa verso i bordi, un punto qualunque
-## può capitare in mezzo all'acqua, e piazzarci la prima zona vorrebbe dire dare
-## al giocatore una partita da buttare.
-static func frazione_di_terra(seme: int, riquadro: Rect2i) -> float:
-	var quote := _rilievo(seme, riquadro)
-	if quote.is_empty():
-		return 0.0
+## `passo` dice ogni quante celle guardare: per scegliere dove far cominciare
+## una città si passano in rassegna centinaia di zone, e una cella ogni quattro
+## dà la stessa risposta a un sedicesimo del prezzo.
+static func frazione_di_terra(seme: int, riquadro: Rect2i, passo: int = 1) -> float:
+	var rumori := _rumori(seme)
 	var asciutte := 0
-	for q in quote:
-		if q > LIVELLO_ACQUA:
-			asciutte += 1
-	return float(asciutte) / float(quote.size())
+	var guardate := 0
+	for z in range(0, riquadro.size.y, passo):
+		for x in range(0, riquadro.size.x, passo):
+			var punto := Vector2(
+				float(riquadro.position.x + x), float(riquadro.position.y + z))
+			guardate += 1
+			if _altezza(rumori, punto) > ALTEZZA_ACQUA:
+				asciutte += 1
+	return 0.0 if guardate == 0 else float(asciutte) / float(guardate)
 
 
 # --- Generazione ------------------------------------------------------------
 
-func _genera() -> void:
-	var celle := size.x * size.y
-	livelli = PackedInt32Array()
-	livelli.resize(celle)
-	biomi = PackedByteArray()
-	biomi.resize(celle)
-	quota_acqua = PackedFloat32Array()
-	quota_acqua.resize(celle)
-	umidita = PackedFloat32Array()
-	umidita.resize(celle)
-
-	# Il mondo nasce un blocco per volta, ognuno col suo margine, anche se qui
-	# sarebbe ancora possibile farlo tutto insieme: è il modo in cui dovrà
-	# nascere quando i blocchi arriveranno uno alla volta, e farlo già adesso
-	# vuol dire che la strada è quella verificata e non quella immaginata.
-	for bz in range(0, size.y, BLOCCO):
-		for bx in range(0, size.x, BLOCCO):
-			_genera_blocco(Rect2i(bx, bz,
-				mini(BLOCCO, size.x - bx), mini(BLOCCO, size.y - bz)))
-	_assegna_biomi_terrestri()
-	_calcola_quote_acqua()
-
-	_naturale = livelli.duplicate()
-	_aggiorna_etichette()
-
-	# La classificazione ha l'ultima parola anche qui, non solo dopo. Fiumi e
-	# laghi vengono scavati a valle della prima, e le quote che si muovono
-	# scavandoli cambiano cosa sta sotto il pelo dell'acqua. Passare di qui
-	# adesso fa sì che il mondo appena nato sia già quello che si otterrebbe
-	# riclassificandolo: senza, il primo colpo di badile andrebbe a cambiare
-	# qualche cella lontana da dove si è scavato.
-	riclassifica()
-	_aggiorna_etichette()
+## Il bioma di una cella asciutta, dalla quota e da quanto ci piove.
+static func _bioma_di_terra(quota_intera: int, pioggia: float) -> Bioma:
+	if quota_intera <= LIMITE_SPIAGGIA:
+		return Bioma.SPIAGGIA
+	# L'umidità viene prima della quota, e non dopo: se contasse solo sotto una
+	# certa altezza il mondo tornerebbe a essere colorato a fasce, che è
+	# esattamente quello che si voleva togliere. Un versante al riparo è secco
+	# che stia a cinque metri o a quaranta.
+	if pioggia < UMIDITA_SECCA:
+		return Bioma.PRATERIA
+	return Bioma.COLLINA if quota_intera > LIMITE_PIANURA else Bioma.PIANURA
 
 
-## Fotografa l'acqua che il flood fill non saprebbe rimettere al suo posto.
-func _aggiorna_etichette() -> void:
-	_etichetta_naturale = PackedByteArray()
-	_etichetta_naturale.resize(livelli.size())
-	for i in livelli.size():
-		var b := biomi[i]
-		var da_ricordare := b == Bioma.FIUME or (b == Bioma.LAGO and livelli[i] > LIVELLO_ACQUA)
-		_etichetta_naturale[i] = b if da_ricordare else SENZA_ETICHETTA
+## Il pelo dell'acqua sopra una cella. L'acqua bassa sta tutta alla stessa
+## quota; un fiume invece scende a gradini seguendo il proprio letto, col pelo
+## poco sopra il fondo.
+static func _pelo_di(quale: Bioma, quota_intera: int) -> float:
+	if quale != Bioma.LAGO and quale != Bioma.FIUME:
+		return 0.0
+	var bassa := float(LIVELLO_ACQUA) * PASSO_QUOTA
+	return maxf(bassa, float(quota_intera) * PASSO_QUOTA + PASSO_QUOTA * 0.55)
 
 
-## Il rilievo, da tre rumori che fanno tre mestieri diversi.
-##
-## Il primo disegna la **forma del continente**: dove finisce la terra e comincia
-## l'acqua. Prima era un cerchio — una distanza dal centro — e si vedeva: la
-## costa era una curva di livello. Adesso è del rumore a bassa frequenza,
-## moltiplicato per una discesa verso i bordi che serve solo a garantire che
-## l'acqua chiuda la mappa: dentro quel vincolo la costa fa promontori e
-## insenature per conto suo. Quella discesa è l'ultima cosa che guarda il bordo
-## della mappa, e il giorno del mondo infinito dovrà andarsene anche lei.
-##
-## Il secondo fa le **colline**: rumore frattale normale, morbido, che riempie
-## l'entroterra di alti e bassi.
-##
-## Il terzo fa le **creste**: rumore ridged, che invece di colline tonde produce
-## dorsali che si diramano. Pesa quanto è alta la cella — in riva all'acqua non se
-## ne accorge nessuno, in cima cambia tutto — ed è quello che distingue un
-## paesaggio da un mucchio di dossi.
 ## I quattro rumori del rilievo, costruiti una volta sola.
 static func _rumori(seme: int) -> Array:
 	var oceano := FastNoiseLite.new()
@@ -591,7 +601,17 @@ static func _pioggia(seme: int, quote: PackedInt32Array, finestra: Rect2i) -> Pa
 ## calcolate una volta per ogni blocco che le guarda. È il prezzo del non dover
 ## cucire niente — perché non c'è niente da cucire: due blocchi vicini vedono la
 ## stessa cella e le danno lo stesso valore, avendo fatto lo stesso conto.
-func _genera_blocco(riquadro: Rect2i) -> void:
+func _genera_blocco(coord: Vector2i, pezzo: Blocco) -> void:
+	var riquadro := Rect2i(coord * BLOCCO, Vector2i(BLOCCO, BLOCCO))
+	var celle := BLOCCO * BLOCCO
+	pezzo.livelli.resize(celle)
+	pezzo.biomi.resize(celle)
+	pezzo.pelo.resize(celle)
+	pezzo.umidita.resize(celle)
+	pezzo.etichetta.resize(celle)
+
+	pezzo.naturale.resize(celle)
+
 	var margine := Vector2i(MARGINE, MARGINE)
 	var finestra := Rect2i(riquadro.position - margine, riquadro.size + margine * 2)
 	var quote := _rilievo(seme, finestra)
@@ -624,24 +644,35 @@ func _genera_blocco(riquadro: Rect2i) -> void:
 	for conca in reticolo["conche"]:
 		_allaga(conca, quote, finestra, laghi)
 
-	for z in riquadro.size.y:
-		for x in riquadro.size.x:
+	for z in BLOCCO:
+		for x in BLOCCO:
 			var cella := riquadro.position + Vector2i(x, z)
-			if not dentro(cella):
-				continue
 			var locale := cella - finestra.position
 			var j := locale.y * finestra.size.x + locale.x
-			var i := indice(cella)
-			umidita[i] = pioggia[j]
+			var i := z * BLOCCO + x
+			var pioggia_qui := pioggia[j]
+			pezzo.umidita[i] = pioggia_qui
+
+			var quale := Bioma.LAGO
+			var quota_intera: int = quote[j]
 			if laghi.has(cella):
-				livelli[i] = laghi[cella]
-				biomi[i] = Bioma.LAGO
-			elif corsi.has(cella) and quote[j] > LIVELLO_ACQUA:
-				livelli[i] = quote[j]
-				biomi[i] = Bioma.FIUME
-			else:
-				livelli[i] = quote[j]
-				biomi[i] = Bioma.LAGO if quote[j] <= LIVELLO_ACQUA else Bioma.PIANURA
+				quota_intera = laghi[cella]
+			elif corsi.has(cella) and quota_intera > LIVELLO_ACQUA:
+				quale = Bioma.FIUME
+			elif quota_intera > LIVELLO_ACQUA:
+				quale = _bioma_di_terra(quota_intera, pioggia_qui)
+
+			pezzo.livelli[i] = quota_intera
+			pezzo.biomi[i] = quale
+			pezzo.pelo[i] = _pelo_di(quale, quota_intera)
+			pezzo.naturale[i] = quota_intera
+			# Si ricorda solo l'acqua che la sola quota non saprebbe rimettere
+			# al suo posto: i fiumi, che scorrono anche sopra il livello
+			# dell'acqua, e i laghi rimasti in collina. Le conche sotto quel
+			# livello no: quelle si rideducono da sole, ed è esattamente ciò che
+			# fa funzionare l'innalzamento di un fondale.
+			var da_ricordare := quale == Bioma.FIUME 				or (quale == Bioma.LAGO and quota_intera > LIVELLO_ACQUA)
+			pezzo.etichetta[i] = quale if da_ricordare else SENZA_ETICHETTA
 
 
 # --- Fiumi ------------------------------------------------------------------
@@ -977,35 +1008,3 @@ func _allaga(centro: Vector2i, quote: PackedInt32Array, finestra: Rect2i,
 		laghi[cella] = quota_lago
 		for passo in VICINI:
 			coda.append(cella + passo)
-
-
-func _assegna_biomi_terrestri() -> void:
-	for i in livelli.size():
-		if biomi[i] == Bioma.LAGO or biomi[i] == Bioma.FIUME:
-			continue
-		if livelli[i] <= LIMITE_SPIAGGIA:
-			biomi[i] = Bioma.SPIAGGIA
-		elif i < umidita.size() and umidita[i] < UMIDITA_SECCA:
-			# L'umidità viene prima della quota, e non dopo: se contasse solo
-			# sotto una certa altezza il mondo tornerebbe a essere colorato a
-			# fasce, che è esattamente quello che si voleva togliere. Un versante
-			# al riparo è secco che stia a cinque metri o a quaranta.
-			biomi[i] = Bioma.PRATERIA
-		elif livelli[i] > LIMITE_PIANURA:
-			biomi[i] = Bioma.COLLINA
-		else:
-			biomi[i] = Bioma.PIANURA
-
-
-## L'acqua bassa sta tutta alla stessa quota; un fiume invece scende a gradini
-## seguendo il proprio letto, col pelo dell'acqua poco sopra il fondo.
-func _calcola_quote_acqua() -> void:
-	var quota_bassa := float(LIVELLO_ACQUA) * PASSO_QUOTA
-	for i in livelli.size():
-		match biomi[i]:
-			Bioma.LAGO, Bioma.FIUME:
-				# Un bacino sotto il livello dell'acqua sta al pelo comune; uno
-				# in collina sta alla propria quota, poco sopra il fondo.
-				quota_acqua[i] = maxf(quota_bassa, float(livelli[i]) * PASSO_QUOTA + PASSO_QUOTA * 0.55)
-			_:
-				quota_acqua[i] = 0.0

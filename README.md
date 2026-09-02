@@ -69,9 +69,9 @@ conta da ieri, che la giornata non è finita.
 
 ![Il mondo 3D](docs/citta.png)
 
-Il mondo su griglia da 2 metri, generato da un seme: heightmap a gradini, laghi
-— dai grandi, che chiudono il continente, a quelli di collina — fiumi che
-scendono dalle alture, spiagge, pianure e colline. La camera
+Il mondo su griglia da 2 metri, senza bordo, generato da un seme: heightmap a
+gradini, oceani a grande scala, laghi — dai grandi a quelli di collina — fiumi
+tracciati su un reticolo idrografico vero, spiagge, pianure e colline. La camera
 ortografica ruota a scatti di 90° sui quattro lati. Del terreno non si salva
 niente se non il seme — si rigenera identico. Il timer continua a scorrere
 mentre sei qui.
@@ -170,13 +170,22 @@ invece che indovinando. Nei conti della città, cliccando un servizio si accende
 in verde il territorio che copre e in rosso le case che restano fuori: il rosso
 dice che c'è un problema, il verde dice dove mettere il prossimo.
 
-**Il mondo è una scacchiera di zone**, e all'inizio ne è tua una sola: le altre
-si comprano con lo strumento *Espandi*, purché confinino con una che hai già, e
-il prezzo cresce a ogni zona presa. Del mondo si vede quello che è tuo e l'anello
-di zone che potresti comprare — quelle sotto un velo scuro e non opaco, perché
-la collina che stai per pagare devi poterla guardare. Più in là non c'è niente da
-vedere: la mappa finisce con una scogliera, e ogni acquisto la sposta un po' più
-avanti. Fuori dalle tue zone, comunque, non si costruisce e non si scava.
+**Il mondo non finisce.** È una scacchiera di zone da 32x32 e all'inizio ne è
+tua una sola; le altre si comprano con lo strumento *Espandi*, purché confinino
+con una che hai già, **in qualunque direzione e senza un bordo da raggiungere**.
+Il prezzo cresce a ogni zona presa e poi si ferma, perché una crescita
+geometrica su un mondo infinito prima o poi chiude il gioco invece di dosarlo.
+
+Del mondo si vede quello che è tuo e l'anello di zone che potresti comprare —
+quelle sotto un velo scuro e non opaco, perché la collina che stai per pagare
+devi poterla guardare. Più in là non c'è niente da vedere: il terreno finisce
+con una scogliera, e ogni acquisto la sposta un po' più avanti. Fuori dalle tue
+zone non si costruisce e non si scava, e con `H` la camera torna sulla città
+quando ci si è allontanati troppo.
+
+Del mondo non si salva niente se non il seme e quello che ci hai fatto sopra: un
+pezzo di terreno **nasce la prima volta che qualcuno lo guarda** e vale sempre lo
+stesso, che lo si chieda oggi o fra un anno, da vicino o passandoci accanto.
 
 **E poi c'è il badile.** Alza, abbassa e livella spostano il suolo di mezzo
 metro per volta, a un credito a gradino e senza rimborso. Sotto una costruzione

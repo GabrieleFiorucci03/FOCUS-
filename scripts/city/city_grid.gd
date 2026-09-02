@@ -29,8 +29,6 @@ extends RefCounted
 
 const CELL_SIZE := 2.0
 
-var size: Vector2i
-
 ## Vector2i -> id del piazzamento che occupa quella cella.
 var _occupanti: Dictionary = {}
 ## id -> { id, ancora, footprint, rotazione, modello }
@@ -38,19 +36,11 @@ var _piazzamenti: Dictionary = {}
 var _prossimo_id: int = 1
 
 
-func _init(dimensione: Vector2i = Vector2i(32, 32)) -> void:
-	size = dimensione
-
-
 ## Ruotando di 90° o 270° larghezza e profondità si scambiano.
 static func footprint_ruotato(footprint: Vector2i, rotazione: int) -> Vector2i:
 	if posmod(rotazione, 2) == 1:
 		return Vector2i(footprint.y, footprint.x)
 	return footprint
-
-
-func in_griglia(cella: Vector2i) -> bool:
-	return cella.x >= 0 and cella.y >= 0 and cella.x < size.x and cella.y < size.y
 
 
 ## Le celle che un oggetto occuperebbe, ancorato con l'angolo a coordinate minori.
@@ -65,7 +55,7 @@ func celle_occupate(ancora: Vector2i, footprint: Vector2i, rotazione: int) -> Ar
 
 func libero(ancora: Vector2i, footprint: Vector2i, rotazione: int) -> bool:
 	for cella in celle_occupate(ancora, footprint, rotazione):
-		if not in_griglia(cella) or _occupanti.has(cella):
+		if _occupanti.has(cella):
 			return false
 	return true
 
@@ -127,12 +117,3 @@ func centro_cella(cella: Vector2i) -> Vector3:
 
 func cella_da_mondo(punto: Vector3) -> Vector2i:
 	return Vector2i(roundi(punto.x / CELL_SIZE), roundi(punto.z / CELL_SIZE))
-
-
-## Centro geometrico della griglia, comodo per puntarci la camera.
-func centro_mondo() -> Vector3:
-	return Vector3(
-		float(size.x - 1) * 0.5 * CELL_SIZE,
-		0.0,
-		float(size.y - 1) * 0.5 * CELL_SIZE
-	)

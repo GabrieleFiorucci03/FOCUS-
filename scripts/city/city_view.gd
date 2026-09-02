@@ -149,9 +149,14 @@ var _servizio_acceso: String = ""
 ## ha qualcosa che non va, quindi è anche l'elenco di chi è in difetto.
 var _segnali_per_id: Dictionary = {}
 var _velo: StandardMaterial3D
-## Le celle che si disegnano: un byte per cella, parallelo al terreno. La
+## Le zone che si disegnano: quelle tue e quelle che potresti comprare. La
 ## riempie _aggiorna_visibilita(), e la leggono le mesh del mondo.
-var _celle_visibili := PackedByteArray()
+##
+## Un insieme di zone e non una maschera di celle: in un mondo senza bordo non
+## c'è un array grande quanto il mondo su cui tenere un byte per cella, e la
+## visibilità non è mai stata una faccenda di celle — si compra e si vede per
+## zone.
+var _zone_visibili: Dictionary = {}
 ## zona -> il nodo che la disegna. Chi non c'è non si vede.
 var _zone_disegnate: Dictionary = {}
 
@@ -173,8 +178,8 @@ func _ready() -> void:
 	_velo = _materiale_velo()
 
 	catalogo = CityCatalog.new()
-	griglia = CityGrid.new(SaveManager.world_size())
-	terreno = CityTerrain.new(griglia.size, SaveManager.world_seed())
+	griglia = CityGrid.new()
+	terreno = CityTerrain.new(SaveManager.world_seed())
 
 	_barra.voce_scelta.connect(_on_voce_scelta)
 	_barra.strumento_scelto.connect(_on_strumento_scelto)
@@ -192,10 +197,7 @@ func _ready() -> void:
 
 	# Si guarda dove si comincia, non il centro della mappa: la prima zona è
 	# quella con più terra, e può stare in un angolo.
-	var centro_griglia := _centro_di_casa()
-	var centro := griglia.centro_cella(centro_griglia)
-	centro.y = terreno.quota(centro_griglia)
-	_camera.inquadra(centro)
+	_torna_a_casa()
 
 	if costruiti == 0:
 		_messaggio("Mondo %d · %s · la città è tutta da fare." % [terreno.seme, _riepilogo_biomi()])
@@ -270,7 +272,8 @@ func _aggiorna_interfaccia() -> void:
 	_interfaccia.visible = is_visible_in_tree()
 
 
-## B apre e chiude la fascia delle costruzioni, C i conti della città; l'Esc
+## B apre e chiude la fascia delle costruzioni, C i conti della città, H riporta
+## la camera sulla città; l'Esc
 ## chiude quello che è aperto, ma solo quando non c'è niente in mano da posare —
 ## in cantiere l'Esc lascia prima l'attrezzo, e solo al giro dopo tocca ai
 ## pannelli. Restituisce se il tasto era per noi.
@@ -285,6 +288,13 @@ func _tasto_del_negozio(tasto: InputEventKey) -> bool:
 			_conti.alterna()
 			if _conti.aperto():
 				_aggiorna_i_conti()
+			return true
+		KEY_H:
+			# In un mondo senza bordo scorrere non finisce, e la città sparisce
+			# alle spalle senza lasciare un segno. Finché il mondo era una
+			# scacchiera di nove zone ci si ritrovava da soli; adesso no, e
+			# tornare a casa dev'essere un tasto.
+			_torna_a_casa()
 			return true
 		KEY_ESCAPE:
 			if _modo != Modo.NAVIGA:
@@ -303,9 +313,8 @@ func _tasto_del_negozio(tasto: InputEventKey) -> bool:
 ## Rifà tutte le zone che si vedono. Serve al caricamento, dove non c'è ancora
 ## niente in piedi: dopo, si rifà solo quello che è cambiato.
 func _rifai_il_mondo() -> void:
-	for zx in SaveManager.world_zones_per_side():
-		for zy in SaveManager.world_zones_per_side():
-			_rifai_la_zona(Vector2i(zx, zy))
+	for zona in _zone_visibili.keys():
+		_rifai_la_zona(zona)
 
 
 ## Rifà una zona sola: terreno, acqua, reticolo e la collisione che serve al
@@ -334,12 +343,12 @@ func _rifai_la_zona(zona: Vector2i) -> void:
 
 	var lato := SaveManager.LATO_ZONA
 	var riquadro := Rect2i(zona * lato, Vector2i(lato, lato))
-	var terra := TerrainMesh.costruisci_terreno(terreno, _celle_visibili, riquadro)
+	var terra := TerrainMesh.costruisci_terreno(terreno, _zone_visibili, riquadro)
 	(nodo.get_node("Terreno") as MeshInstance3D).mesh = terra
 	(nodo.get_node("Acqua") as MeshInstance3D).mesh = TerrainMesh.costruisci_acqua(
-		terreno, _celle_visibili, riquadro)
+		terreno, _zone_visibili, riquadro)
 	(nodo.get_node("Griglia") as MeshInstance3D).mesh = TerrainMesh.costruisci_reticolo(
-		terreno, _celle_visibili, riquadro)
+		terreno, _zone_visibili, riquadro)
 	# La collisione serve solo al raggio del mouse: senza, non c'è modo di sapere
 	# quale cella si sta indicando.
 	(nodo.get_node("Forma") as CollisionShape3D).shape = terra.create_trimesh_shape()
@@ -357,9 +366,7 @@ func _rifai_dove_e_cambiato(prima: Dictionary) -> void:
 	for cella in terreno.celle_cambiate(prima):
 		da_rifare[_zona_di(cella)] = true
 		for passo in CityTerrain.VICINI:
-			var vicina: Vector2i = cella + passo
-			if griglia.in_griglia(vicina):
-				da_rifare[_zona_di(vicina)] = true
+			da_rifare[_zona_di(cella + passo)] = true
 	for zona in da_rifare:
 		_rifai_la_zona(zona)
 
@@ -560,12 +567,22 @@ func _servizi_disponibili() -> Vector2i:
 
 # --- Zone -------------------------------------------------------------------
 
+## Riporta la camera sulla città.
+func _torna_a_casa() -> void:
+	var centro_griglia := _centro_di_casa()
+	var centro := griglia.centro_cella(centro_griglia)
+	centro.y = terreno.quota(centro_griglia)
+	_camera.inquadra(centro)
+	if _modo == Modo.NAVIGA:
+		_messaggio("Torna alla città.")
+
+
 ## La cella al centro di quello che è tuo: dove si apre la camera. Con una zona
 ## sola è il suo centro, con più zone il centro di tutte.
 func _centro_di_casa() -> Vector2i:
 	var zone := SaveManager.world_zones()
 	if zone.is_empty():
-		return Vector2i(griglia.size.x / 2, griglia.size.y / 2)
+		return Vector2i.ZERO
 	var somma := Vector2i.ZERO
 	for zona in zone:
 		somma += Vector2i(int(zona[0]), int(zona[1]))
@@ -574,9 +591,10 @@ func _centro_di_casa() -> Vector2i:
 	return media * lato + Vector2i(lato / 2, lato / 2)
 
 
-## La zona a cui appartiene una cella.
+## La zona a cui appartiene una cella. Divisione col segno: la cella -1 sta
+## nella zona -1, non nella zona 0.
 func _zona_di(cella: Vector2i) -> Vector2i:
-	return Vector2i(cella.x / SaveManager.LATO_ZONA, cella.y / SaveManager.LATO_ZONA)
+	return CityTerrain.blocco_di(cella)
 
 
 ## Se tutte le celle di un ingombro stanno in terra tua.
@@ -590,9 +608,6 @@ func _tutte_in_casa(celle: Array[Vector2i]) -> bool:
 ## Se una zona si può comprare: non è già tua, esiste, e confina con una che lo
 ## è. Il confine serve a fare una città sola invece di isole sparse.
 func _comprabile(zona: Vector2i) -> bool:
-	var lato := SaveManager.world_zones_per_side()
-	if zona.x < 0 or zona.y < 0 or zona.x >= lato or zona.y >= lato:
-		return false
 	if SaveManager.owns_zone(zona):
 		return false
 	for direzione in CityTerrain.VICINI:
@@ -610,19 +625,16 @@ func _comprabile(zona: Vector2i) -> bool:
 ## smettere di disegnare. La regola è la stessa che decide cosa si può
 ## comprare, così quello che si vede è esattamente quello che si può prendere.
 func _aggiorna_visibilita() -> void:
-	_celle_visibili = PackedByteArray()
-	_celle_visibili.resize(griglia.size.x * griglia.size.y)
-	var lato := SaveManager.LATO_ZONA
-	for zx in SaveManager.world_zones_per_side():
-		for zy in SaveManager.world_zones_per_side():
-			var zona := Vector2i(zx, zy)
-			if not SaveManager.owns_zone(zona) and not _comprabile(zona):
-				continue
-			for dx in lato:
-				for dy in lato:
-					var cella := Vector2i(zona.x * lato + dx, zona.y * lato + dy)
-					if griglia.in_griglia(cella):
-						_celle_visibili[terreno.indice(cella)] = 1
+	# Si parte da quello che è tuo e si allarga di uno: non c'è più un elenco di
+	# tutte le zone da passare in rassegna, perché «tutte» non finisce. Le zone
+	# comprabili sono per definizione le vicine di una tua, quindi guardare
+	# attorno a casa le trova tutte.
+	_zone_visibili = {}
+	for posseduta in SaveManager.world_zones():
+		var zona := Vector2i(int(posseduta[0]), int(posseduta[1]))
+		_zone_visibili[zona] = true
+		for passo in CityTerrain.VICINI:
+			_zone_visibili[zona + passo] = true
 
 
 ## Il velo sulle zone che non sono tue, rifatto quando ne compri una.
@@ -639,15 +651,15 @@ func _aggiorna_visibilita() -> void:
 func _ridisegna_il_velo() -> void:
 	var fuori: Array[Vector2i] = []
 	var quote := PackedFloat32Array()
-	for x in griglia.size.x:
-		for y in griglia.size.y:
-			var cella := Vector2i(x, y)
-			if _celle_visibili[terreno.indice(cella)] == 0:
-				continue
-			if SaveManager.owns_zone(_zona_di(cella)):
-				continue
-			fuori.append(cella)
-			quote.append(terreno.quota(cella) + 0.04)
+	var lato := SaveManager.LATO_ZONA
+	for zona in _zone_visibili.keys():
+		if SaveManager.owns_zone(zona):
+			continue
+		for dz in lato:
+			for dx in lato:
+				var cella: Vector2i = (zona as Vector2i) * lato + Vector2i(dx, dz)
+				fuori.append(cella)
+				quote.append(terreno.quota(cella) + 0.04)
 	_zone.mesh = TerrainMesh.costruisci_gruppi([
 		{ "celle": fuori, "colore": VELO_ALTROVE, "quote": quote },
 	])
@@ -698,8 +710,6 @@ func _mostra_bersaglio_zona() -> void:
 	for dx in lato:
 		for dy in lato:
 			var cella := Vector2i(zona.x * lato + dx, zona.y * lato + dy)
-			if not griglia.in_griglia(cella):
-				continue
 			celle.append(cella)
 			quote.append(terreno.quota(cella) + 0.05)
 	var colore := COLORE_VALIDO if _comprabile(zona) else COLORE_INVALIDO
@@ -719,7 +729,7 @@ func _tocca_una_strada(celle: Array[Vector2i]) -> bool:
 	for cella in celle:
 		for direzione in CityTerrain.VICINI:
 			var vicina: Vector2i = cella + direzione
-			if celle.has(vicina) or not griglia.in_griglia(vicina):
+			if celle.has(vicina):
 				continue
 			var occupante := griglia.occupante(vicina)
 			if not occupante.is_empty() and catalogo.e_strada(str(occupante["modello"])):
@@ -846,7 +856,7 @@ func _area_di(zona: String, ancora: Vector2i, footprint: Vector2i, rotazione: in
 	for dx in range(-passo, passo + 1):
 		for dy in range(-passo, passo + 1):
 			var cella := Vector2i(roundi(centro.x) + dx, roundi(centro.y) + dy)
-			if griglia.in_griglia(cella) and Vector2(cella).distance_to(centro) <= raggio:
+			if Vector2(cella).distance_to(centro) <= raggio:
 				area.append(cella)
 	return area
 
@@ -1176,7 +1186,7 @@ func _cella_puntata() -> Vector2i:
 	if colpo.is_empty():
 		return CELLA_NULLA
 	var cella: Vector2i = griglia.cella_da_mondo(colpo["position"])
-	return cella if griglia.in_griglia(cella) else CELLA_NULLA
+	return cella
 
 
 ## L'oggetto si centra sul cursore invece di crescergli a destra: puntando il
@@ -1205,10 +1215,9 @@ func _valuta(id: String, ancora: Vector2i, rotazione: int, alzata: int = 0) -> D
 		"motivo": "",
 	}
 
-	for cella in celle:
-		if not griglia.in_griglia(cella):
-			esito["motivo"] = "Fuori dal mondo."
-			return esito
+	# Non c'è più un «fuori dal mondo» da rifiutare: il mondo non finisce. Che
+	# si possa costruire solo in casa propria lo dice _tutte_in_casa(), più
+	# sotto, e lo diceva già prima.
 	for cella in celle:
 		if not griglia.occupante(cella).is_empty():
 			esito["motivo"] = "Qui c'è già qualcosa."
@@ -1256,8 +1265,6 @@ static func _con_alzata(livello: int, alzata: int) -> int:
 func _livello_scavalcato(celle: Array[Vector2i]) -> int:
 	var massimo := 0
 	for cella in celle:
-		if not griglia.in_griglia(cella):
-			continue
 		var q := CityTerrain.LIVELLO_ACQUA if terreno.e_acqua(cella) else terreno.livello(cella)
 		massimo = maxi(massimo, q)
 	return massimo
@@ -1280,7 +1287,7 @@ func _livello_impalcato(celle: Array[Vector2i]) -> int:
 	for cella in celle:
 		for direzione in CityTerrain.VICINI:
 			var vicina: Vector2i = cella + direzione
-			if celle.has(vicina) or not griglia.in_griglia(vicina):
+			if celle.has(vicina):
 				continue
 			var occupante := griglia.occupante(vicina)
 			var e_campata: bool = not occupante.is_empty() \
@@ -1860,7 +1867,7 @@ func _suggerimento() -> String:
 				return "Clic per prendere la quota da copiare · Esc annulla"
 			return "Clic per modellare il terreno · Esc annulla"
 		_:
-			return "WASD scorre (Shift corre) · Q / E ruota · rotella zoom · B costruisci · C conti"
+			return "WASD scorre (Shift corre) · Q / E ruota · rotella zoom · H torna a casa · B costruisci · C conti"
 
 
 func _riepilogo_servizi() -> String:
@@ -1891,11 +1898,17 @@ func _coda_dei_servizi(id: String) -> String:
 	return " Ma resta senza %s: guarda i conti con C." % " e senza ".join(al_buio)
 
 
+## Cosa c'è nel terreno che è tuo. Non «nel mondo»: il mondo non finisce, e
+## contarne i biomi non vorrebbe dire niente.
 func _riepilogo_biomi() -> String:
 	var conteggio := {}
-	for i in terreno.biomi.size():
-		var b: int = terreno.biomi[i]
-		conteggio[b] = int(conteggio.get(b, 0)) + 1
+	var lato := SaveManager.LATO_ZONA
+	for posseduta in SaveManager.world_zones():
+		var zona := Vector2i(int(posseduta[0]), int(posseduta[1]))
+		for dz in lato:
+			for dx in lato:
+				var b: int = terreno.bioma(zona * lato + Vector2i(dx, dz))
+				conteggio[b] = int(conteggio.get(b, 0)) + 1
 	var nomi := ["lago", "fiume", "spiaggia", "pianura", "collina", "prateria"]
 	var pezzi: Array[String] = []
 	for b in range(nomi.size()):

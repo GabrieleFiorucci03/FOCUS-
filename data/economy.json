@@ -1,11 +1,9 @@
 {
 	"_commento": "Tutti i numeri dell'economia. Modifica qui e riavvia l'app: non serve toccare il codice. Per vedere che effetto fa un prezzo: python tools/balance/simula_economia.py",
-
 	"_commento_guadagno": "24 crediti l'ora vuol dire che un credito vale due minuti e mezzo di concentrazione. E' la costante che traduce i prezzi qui sotto in tempo, e l'unica ragione per cui vale proprio 24 e' che la sessione piu' corta dell'app, 25 minuti, deve bastare a comprare una casa: il primo premio dev'essere un edificio, non due alberi.",
 	"credits_per_hour": 24.0,
 	"credits_on_early_stop": true,
 	"min_session_seconds": 60,
-
 	"_commento_prezzi": "Un prezzo per tipo di oggetto: la chiave e' il campo 'kind' di assets/models/generated/catalog.json. Un tipo non elencato costa price_default. I sostegni dei ponti non sono in vendita: nascono da soli sotto le campate.",
 	"_commento_scala": "I prezzi sono scelti come tempo e poi moltiplicati per 24: albero 5 minuti, strada 7 e mezzo, casa 25, villa e palazzina un'ora e un quarto, scuola tre ore, palazzone quattro, torre cinque. Due estremi che stanno a 1 a 60, cosi' una torre resta un traguardo di giorni mentre ogni singola sessione paga comunque qualcosa da posare.",
 	"price_default": 24,
@@ -29,32 +27,75 @@
 		"slab": 96,
 		"tower": 120
 	},
-
 	"_commento_servizi": "Corrente e acqua. Ogni edificio ne prende un tanto a cella occupata, cosi' un palazzo 3x3 pesa nove volte una casetta senza doverlo scrivere modello per modello; strade, ponti, alberi e parchi non ne prendono. Gli impianti ne danno un tanto ciascuno, fisso: una pala eolica e' una pala eolica, che stia stretta o larga. 'base' e' quanto la citta' ha addosso senza aver costruito niente: sta a zero, perche' senza impianti non deve risultare servito nulla. Alzarlo vuol dire regalare un allacciamento di partenza.",
 	"_commento_scala_servizi": "Numeri scelti su un primo quartiere plausibile (14 strade, 10 alberi, 6 case, 2 parchi, 2 negozi, 2 palazzine, 1 scuola): chiede 35 di corrente e 35 di acqua. Senza impianti non e' servito niente: si costruisce lo stesso, ma le costruzioni restano al buio finche' non arriva la pala o la torre. Un impianto per servizio (90 ciascuno) copre quel quartiere e i due successivi, quindi i 108 crediti dei due impianti si pagano una volta sola e poi si diluiscono. Per rifare i conti: python tools/balance/simula_economia.py",
 	"services": {
-		"base": { "power": 0, "water": 0 },
+		"base": {
+			"power": 0,
+			"water": 0
+		},
 		"plants": {
-			"wind": { "power": 90 },
-			"solar": { "power": 90 },
-			"water": { "water": 90 }
+			"wind": {
+				"power": 90
+			},
+			"solar": {
+				"power": 90
+			},
+			"water": {
+				"water": 90
+			}
 		},
 		"per_cell": {
-			"house": { "power": 1, "water": 1 },
-			"villa": { "power": 1, "water": 2 },
-			"apartment": { "power": 2, "water": 2 },
-			"slab": { "power": 2, "water": 2 },
-			"tower": { "power": 2, "water": 2 },
-			"shop": { "power": 1, "water": 1 },
-			"office": { "power": 2, "water": 1 },
-			"factory": { "power": 2, "water": 2 },
-			"agriculture": { "power": 1, "water": 2 },
-			"school": { "power": 1, "water": 1 },
-			"service": { "power": 1, "water": 1 },
-			"sport": { "power": 1, "water": 2 }
+			"house": {
+				"power": 1,
+				"water": 1
+			},
+			"villa": {
+				"power": 1,
+				"water": 2
+			},
+			"apartment": {
+				"power": 2,
+				"water": 2
+			},
+			"slab": {
+				"power": 2,
+				"water": 2
+			},
+			"tower": {
+				"power": 2,
+				"water": 2
+			},
+			"shop": {
+				"power": 1,
+				"water": 1
+			},
+			"office": {
+				"power": 2,
+				"water": 1
+			},
+			"factory": {
+				"power": 2,
+				"water": 2
+			},
+			"agriculture": {
+				"power": 1,
+				"water": 2
+			},
+			"school": {
+				"power": 1,
+				"water": 1
+			},
+			"service": {
+				"power": 1,
+				"water": 1
+			},
+			"sport": {
+				"power": 1,
+				"water": 2
+			}
 		}
 	},
-
 	"_commento_popolazione": "Quanti abitanti porta un edificio residenziale, per cella occupata: la densita' della tipologia moltiplicata per quanto e' grande. Una casetta 1x1 fa 3 abitanti, una 1x2 ne fa 6; una villa 2x2 ne fa 8, una palazzina 2x2 ne fa 24, una stecca 2x3 ne fa 60 e una torre 4x4 ne fa 224. La scala e' quella delle tipologie, non dei metri quadri: le celle sono 2x2 m e nessun conto realistico ci starebbe dentro, mentre il rapporto fra una villa e una torre e' quello che conta e quello si legge. Un tipo non elencato non porta nessuno: negozi, uffici e servizi daranno lavoro, non abitanti, ed e' un altro numero che verra' dopo.",
 	"_commento_scala_popolazione": "Costo per abitante, coi prezzi di adesso: casa 3,3 crediti, villa 3,8, palazzina 1,2, stecca 2,4, torre 0,95. La densita' conviene, che e' come deve essere; la villa costa piu' di quello che ospita, ed e' voluto, e' un lusso. La stecca resta il pezzo peggio prezzato del listino, ma il problema e' il suo prezzo (96) e non il suo numero di abitanti.",
 	"population": {
@@ -66,7 +107,6 @@
 			"tower": 14
 		}
 	},
-
 	"_commento_lavoro": "Quanti posti di lavoro offre un edificio, per cella occupata. Vale la stessa forma degli abitanti: la densita' sta sul tipo, l'ingombro fa il resto. I posti devono bastare per tutti gli abitanti, e chi resta senza si spopola, quindi i numeri sono tarati sul terreno che occupano: un ufficio 2x2 fa 32 posti e regge una palazzina 2x2, che di abitanti ne fa 24. Un tipo non elencato non da' lavoro a nessuno.",
 	"_commento_scala_lavoro": "In superficie il rapporto e' circa uno a uno: un isolato di uffici per un isolato di case. Una torre 4x4 (224 abitanti) vuole tre uffici 3x3, che e' la ragione per cui una torre non si posa da sola. Il quartiere di riferimento del simulatore e' nato prima del lavoro e infatti non ne ha abbastanza: python tools/balance/simula_economia.py lo dice.",
 	"jobs": {
@@ -80,7 +120,6 @@
 			"sport": 1
 		}
 	},
-
 	"_commento_felicita": "I sette servizi di zona che fanno la felicita' di un'abitazione: polizia, pompieri, ospedale, verde, sport, scuola elementare e scuola superiore. Ognuno vale un settimo, e un'abitazione che ne riceve meno di 'abandon_below' viene abbandonata. 'radius' e' il raggio base in celle, a cui si somma il lato piu' lungo dell'edificio meno uno: un ospedale 3x3 arriva a 11 celle, un parco tascabile 1x1 a 6. La scuola elementare ha un raggio piu' corto della superiore, che serve un bacino piu' largo. Sono raggi in linea d'aria, cioe' cerchi.",
 	"_commento_scala_felicita": "Con questi raggi un presidio copre circa 300 celle su 1024, quindi ne bastano quattro ben distribuiti per tipo; i parchi coprono meno ma costano 10 crediti l'uno. La soglia a meta' vuol dire che quattro servizi su sette tengono in piedi un quartiere: si puo' crescere prima e rifinire dopo, invece di dover avere tutto subito.",
 	"happiness": {
@@ -95,14 +134,12 @@
 			"superiore": 10
 		}
 	},
-
-	"_commento_zone": "Il mondo e' una scacchiera di zone 32x32: se ne possiede una all'inizio e le altre si comprano, purche' confinino con una gia' tua. 'zone_price' e' il prezzo della prima; 'zone_price_growth' quanto cresce a ogni zona gia' comprata, cosi' allargarsi resta una scelta e non un automatismo. 120 crediti sono cinque ore di concentrazione: una zona nuova e' un traguardo, non un acquisto di passaggio.",
+	"_commento_zone": "Il mondo e' una scacchiera di zone 32x32 senza bordo: se ne possiede una all'inizio e le altre si comprano, purche' confinino con una gia' tua, in qualunque direzione e senza fine. 'zone_price' e' il prezzo della prima; 'zone_price_growth' quanto cresce a ogni zona gia' comprata, cosi' allargarsi resta una scelta e non un automatismo; 'zone_price_cap_at' dopo quante il rincaro si ferma, perche' in un mondo infinito una crescita geometrica non finisce mai e a un certo punto chiuderebbe il gioco invece di dosarlo. 120 crediti sono cinque ore di concentrazione; col tetto a 8 una zona arriva a costare circa 4300, cioe' una settimana buona, e li' resta.",
 	"zone_price": 120,
 	"zone_price_growth": 1.6,
-
 	"_commento_rimborso": "Quanto torna indietro demolendo: 0.5 = meta' del prezzo, arrotondata per difetto.",
 	"refund_ratio": 0.5,
-
 	"_commento_terreno": "Quanto costa alzare o abbassare una cella di un gradino (0,5 m): quanto piantare un albero, che e' il paragone giusto per mezzo metro cubo di terra spostato. Non si rimborsa, perche' rimettere il terreno com'era e' un lavoro come scavarlo.",
-	"terrain_cost_per_level": 2
+	"terrain_cost_per_level": 2,
+	"zone_price_cap_at": 8
 }

@@ -32,9 +32,16 @@ const SAVE_VERSION := 1
 ## si comprano le altre. La misura di una zona è la vecchia misura del mondo —
 ## una città intera ci stava dentro — e adesso è il pezzo che si compra.
 const LATO_ZONA := 32
-## Quante zone per lato ha il mondo intero.
-const ZONE_PER_LATO := 3
-const DEFAULT_WORLD_SIZE := LATO_ZONA * ZONE_PER_LATO
+## Il mondo non ha un numero di zone: si comprano finché ci sono crediti, in
+## qualunque direzione, e le coordinate possono essere negative.
+##
+## Quante zone si passano in rassegna per trovare da dove cominciare, e quanta
+## terra deve avere una zona perché ci si possa fondare una città sopra.
+const ZONE_DA_PROVARE := 160
+const TERRA_PER_COMINCIARE := 0.55
+## La misura del mondo delle partite vecchie, quando il mondo era una scacchiera
+## finita. Serve solo a capire cosa possedeva chi ha salvato allora.
+const VECCHIO_LATO_IN_ZONE := 3
 
 var data: Dictionary = {}
 
@@ -86,28 +93,62 @@ static func new_save() -> Dictionary:
 
 ## Il mondo di una partita nuova: un seme, e la zona da cui si comincia.
 ##
-## La zona non è quella di mezzo per convenzione, è quella con più terra: da
-## quando l'oceano è un rumore a grande scala, un punto qualunque può capitare
-## in mezzo all'acqua, e cominciare lì vuol dire una partita da buttare. Si
-## chiede al terreno quanta terra c'è senza generarlo, che costa un rumore per
-## cella e nient'altro.
+## Niente misura: il mondo non ne ha una. Del mondo si salva quello che si è
+## comprato e quello che ci si è fatto sopra, e il resto si rigenera dal seme —
+## che è la stessa scelta di prima, solo portata alle sue conseguenze.
 static func world_nuovo(seme: int) -> Dictionary:
-	var scelta := Vector2i(ZONE_PER_LATO / 2, ZONE_PER_LATO / 2)
-	var migliore := -1.0
-	for zx in ZONE_PER_LATO:
-		for zy in ZONE_PER_LATO:
-			var terra := CityTerrain.frazione_di_terra(seme, Rect2i(
-				zx * LATO_ZONA, zy * LATO_ZONA, LATO_ZONA, LATO_ZONA))
-			if terra > migliore:
-				migliore = terra
-				scelta = Vector2i(zx, zy)
+	var scelta := zona_iniziale(seme)
 	return {
 		"seed": seme,
-		"size": [DEFAULT_WORLD_SIZE, DEFAULT_WORLD_SIZE],
 		"zones": [[scelta.x, scelta.y]],
 		"tiles": [],
 		"terrain_edits": [],
 	}
+
+
+## La zona da cui si comincia: la prima, girando a spirale attorno all'origine,
+## che abbia abbastanza terra per costruirci.
+##
+## Non è più «quella di mezzo», perché di mezzo non c'è più niente: il mondo non
+## ha un centro. E non è nemmeno l'origine per forza — da quando l'oceano è un
+## rumore a grande scala l'origine può capitare in mezzo all'acqua, e cominciare
+## lì vorrebbe dire una partita da buttare. Si gira in tondo finché non si trova
+## terra, e se in centosessanta zone non se ne trova abbastanza si prende la
+## migliore vista.
+static func zona_iniziale(seme: int) -> Vector2i:
+	var migliore := Vector2i.ZERO
+	var piu_terra := -1.0
+	for zona in spirale(ZONE_DA_PROVARE):
+		var terra := CityTerrain.frazione_di_terra(
+			seme, Rect2i(zona * LATO_ZONA, Vector2i(LATO_ZONA, LATO_ZONA)), 4)
+		if terra >= TERRA_PER_COMINCIARE:
+			return zona
+		if terra > piu_terra:
+			piu_terra = terra
+			migliore = zona
+	return migliore
+
+
+## Le prime `quante` caselle di una spirale quadrata attorno all'origine.
+static func spirale(quante: int) -> Array[Vector2i]:
+	var caselle: Array[Vector2i] = []
+	var punto := Vector2i.ZERO
+	var direzione := Vector2i(1, 0)
+	var lato := 1
+	var fatti := 0
+	var giri := 0
+	while caselle.size() < quante:
+		caselle.append(punto)
+		punto += direzione
+		fatti += 1
+		if fatti == lato:
+			fatti = 0
+			# Girare a destra: (x, y) -> (-y, x).
+			direzione = Vector2i(-direzione.y, direzione.x)
+			giri += 1
+			if giri % 2 == 0:
+				lato += 1
+	return caselle
 
 
 func load_game() -> void:
@@ -341,18 +382,6 @@ func world_seed() -> int:
 	return int(world.get("seed", 0))
 
 
-func world_size() -> Vector2i:
-	var world: Dictionary = data.get("world", {})
-	var size: Array = world.get("size", [DEFAULT_WORLD_SIZE, DEFAULT_WORLD_SIZE])
-	return Vector2i(int(size[0]), int(size[1]))
-
-
-## Quante zone ha il mondo per lato, dedotte dalla sua misura: una partita
-## vecchia, nata quando il mondo era una zona sola, resta una zona sola.
-func world_zones_per_side() -> int:
-	return maxi(1, world_size().x / LATO_ZONA)
-
-
 ## Le zone che il giocatore possiede, come coordinate di zona.
 ##
 ## Una partita salvata prima che le zone esistessero non ne ha nessuna scritta:
@@ -361,9 +390,13 @@ func world_zones_per_side() -> int:
 func world_zones() -> Array:
 	var world: Dictionary = data.get("world", {})
 	if not world.has("zones"):
+		var misura: Array = world.get("size", [])
+		var lato := VECCHIO_LATO_IN_ZONE
+		if misura.size() == 2:
+			lato = maxi(1, int(misura[0]) / LATO_ZONA)
 		var tutte: Array = []
-		for zx in world_zones_per_side():
-			for zy in world_zones_per_side():
+		for zx in lato:
+			for zy in lato:
 				tutte.append([zx, zy])
 		return tutte
 	return world.get("zones", [])
