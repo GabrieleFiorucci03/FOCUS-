@@ -161,7 +161,7 @@ func register_focus_session(seconds: float) -> int:
 # --- Statistiche e streak ---------------------------------------------------
 #
 # Del registro si salvano solo i giorni: lo streak no, si ricalcola. E' la
-# stessa scelta che il mondo fa con il mare — quello che si puo' ridedurre non
+# stessa scelta che il mondo fa con l'acqua — quello che si puo' ridedurre non
 # si scrive, cosi non puo' scollarsi da cio' che descrive.
 
 ## Oggi come chiave del registro, secondo l'orologio locale.

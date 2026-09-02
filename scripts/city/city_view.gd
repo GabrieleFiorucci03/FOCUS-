@@ -411,7 +411,7 @@ func _ricostruisci_dal_salvataggio() -> int:
 ## Rimette le quote scelte dal giocatore, spianamenti e scavi insieme.
 ##
 ## Non passa da spiana(), che è una regola di piazzamento e non scende mai sotto
-## il livello del mare: una conca scavata apposta deve poter restare una conca.
+## il livello dell'acqua: una conca scavata apposta deve poter restare una conca.
 ## Biomi e acque si rifanno una volta sola, alla fine.
 func _riapplica_le_quote_salvate() -> void:
 	var quante := 0
@@ -1242,7 +1242,7 @@ func _livello_scavalcato(celle: Array[Vector2i]) -> int:
 	for cella in celle:
 		if not griglia.in_griglia(cella):
 			continue
-		var q := CityTerrain.LIVELLO_MARE if terreno.e_acqua(cella) else terreno.livello(cella)
+		var q := CityTerrain.LIVELLO_ACQUA if terreno.e_acqua(cella) else terreno.livello(cella)
 		massimo = maxi(massimo, q)
 	return massimo
 
@@ -1255,7 +1255,7 @@ func _livello_scavalcato(celle: Array[Vector2i]) -> int:
 ## campata attaccata a un'altra campata ne eredita la quota, altrimenti un fiume
 ## largo non si attraverserebbe mai restando in piano.
 ##
-## Senza né sponde né campate accanto — un ponte in mezzo al mare, un cavalcavia
+## Senza né sponde né campate accanto — un ponte in mezzo all'acqua, un cavalcavia
 ## in cima a una collina — la campata non viene rifiutata: resta comunque un
 ## gradino sopra quello che scavalca.
 func _livello_impalcato(celle: Array[Vector2i]) -> int:
@@ -1880,7 +1880,7 @@ func _riepilogo_biomi() -> String:
 	for i in terreno.biomi.size():
 		var b: int = terreno.biomi[i]
 		conteggio[b] = int(conteggio.get(b, 0)) + 1
-	var nomi := ["mare", "lago", "fiume", "spiaggia", "pianura", "collina", "prateria"]
+	var nomi := ["lago", "fiume", "spiaggia", "pianura", "collina", "prateria"]
 	var pezzi: Array[String] = []
 	for b in range(nomi.size()):
 		if conteggio.has(b):

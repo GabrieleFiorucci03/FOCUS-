@@ -26,8 +26,7 @@ extends RefCounted
 const AVVOLGIMENTO_ORARIO := true
 
 const COLORI := {
-	CityTerrain.Bioma.MARE: Color(0.220, 0.298, 0.353),
-	CityTerrain.Bioma.LAGO: Color(0.243, 0.333, 0.353),
+	CityTerrain.Bioma.LAGO: Color(0.232, 0.315, 0.353),
 	CityTerrain.Bioma.FIUME: Color(0.416, 0.404, 0.353),
 	CityTerrain.Bioma.SPIAGGIA: Color(0.816, 0.741, 0.545),
 	CityTerrain.Bioma.PIANURA: Color(0.353, 0.510, 0.271),
@@ -273,7 +272,7 @@ static func _materiale_acqua() -> StandardMaterial3D:
 
 
 ## Fuori dai bordi — quelli della mappa e quelli di ciò che si disegna — il
-## terreno scende sotto il livello del mare, così il mondo finisce con una
+## terreno scende sotto il livello dell'acqua, così il mondo finisce con una
 ## scogliera invece che con un buco.
 static func _quota_vicina(terreno: CityTerrain, cella: Vector2i,
 		visibili: PackedByteArray) -> float:

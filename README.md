@@ -69,8 +69,9 @@ conta da ieri, che la giornata non è finita.
 
 ![Il mondo 3D](docs/citta.png)
 
-Il mondo su griglia da 2 metri, generato da un seme: heightmap a gradini, mare,
-laghi, fiumi che scendono dalle alture, spiagge, pianure e colline. La camera
+Il mondo su griglia da 2 metri, generato da un seme: heightmap a gradini, laghi
+— dai grandi, che chiudono il continente, a quelli di collina — fiumi che
+scendono dalle alture, spiagge, pianure e colline. La camera
 ortografica ruota a scatti di 90° sui quattro lati. Del terreno non si salva
 niente se non il seme — si rigenera identico. Il timer continua a scorrere
 mentre sei qui.
@@ -181,8 +182,8 @@ avanti. Fuori dalle tue zone, comunque, non si costruisce e non si scava.
 metro per volta, a un credito a gradino e senza rimborso. Sotto una costruzione
 il terreno non si tocca — demolisci prima — e fra due celle vicine il salto non
 può superare i quattro gradini. Il resto lo decide l'acqua da sola: scava una
-conca abbastanza a fondo e ci trovi un lago, collegalo alla costa con un canale
-e diventa mare, alza un fondale e ti resta un'isola.
+conca abbastanza a fondo e ci trovi un lago, scava un canale fino alla riva e i
+due specchi d'acqua diventano uno, alza un fondale e ti resta un'isola.
 
 **E si sente.** Nove effetti — avvio, pausa, la campana di fine, i crediti, il
 tonfo di una posa, il crollo di una demolizione, la palata del badile, il no di
@@ -364,12 +365,18 @@ cavallo di un dislivello. Lo sbancamento si salva per conto suo, staccato
 dall'edificio: demolisci, e il pianoro resta lì dov'era, anche riaprendo la
 partita.
 
-**Il mare non è scritto da nessuna parte.** Non c'è una lista di celle d'acqua:
-il mare è semplicemente l'acqua che si raggiunge partendo dal bordo della mappa,
-e viene ridedotto da capo a ogni modifica. Da questa sola riga di logica escono
-gratis tre comportamenti che sembravano tre funzioni diverse — il lago, il
-canale, l'isola. Fanno eccezione i fiumi e i laghi rimasti in collina, che si
-ricordano di essere tali: quelli il flood fill non saprebbe rimetterli a posto.
+**L'acqua non è scritta da nessuna parte.** Non c'è una lista di celle d'acqua:
+sott'acqua è quello che sta sotto una certa quota, e lo si rideduce da capo a
+ogni modifica. Da questa sola riga di logica escono gratis il lago che nasce
+dove scavi e l'isola che spunta dove riempi. Fanno eccezione i fiumi e i laghi
+rimasti in collina, che si ricordano di essere tali: quelli, dalla sola quota,
+non si rimetterebbero a posto.
+
+Il mare, come categoria, non esiste: le distese grandi sono laghi grandi. Prima
+era mare l'acqua che si toccava partendo dal bordo della mappa — una definizione
+che in un mondo senza bordo non vuol dire più niente, e che pagava un flood fill
+su tutta la mappa a ogni colpo di badile per distinguere due cose che si
+comportavano già allo stesso modo.
 
 **Il salvataggio sopravvive alle versioni future.** In caricamento il file JSON
 viene innestato sopra uno schema di default: quando una fase nuova aggiungerà
@@ -379,7 +386,7 @@ aperte prima si sono aperte lo stesso.
 
 **Lo streak non è scritto da nessuna parte.** Su disco vanno solo i giorni e i
 loro secondi. Serie in corso, record e giorni attivi si ricalcolano da lì ogni
-volta che servono — la stessa scelta che il mondo fa con il mare. Un contatore
+volta che servono — la stessa scelta che il mondo fa con l'acqua. Un contatore
 salvato a parte prima o poi mostra un numero che i giorni smentiscono, e a quel
 punto non sai più a quale dei due credere.
 

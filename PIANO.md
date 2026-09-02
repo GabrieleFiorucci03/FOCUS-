@@ -1175,9 +1175,9 @@ quelle che sono state aggiunte per ultime.
 - **I fiumi** partono da un punto alto e scendono a valle finché trovano il
   mare. Un fiume può essere lungo trenta celle, e non c'è un tetto: il suo
   raggio d'azione è quanto è lungo il fiume.
-- **La classificazione delle acque** oggi dice «è mare quello che si tocca
-  partendo dal bordo mappa». In un mondo senza bordo la frase non vuol dire
-  niente.
+- **La classificazione delle acque** diceva «è mare quello che si tocca partendo
+  dal bordo mappa». In un mondo senza bordo la frase non vuol dire niente —
+  **chiuso**: il mare non esiste più. Vedi «Via il mare», in fondo.
 
 La risposta per le prime due è la stessa: **generare a blocchi con un margine di
 sovrapposizione**. Per produrre una zona si genera un riquadro più largo — la
@@ -1205,8 +1205,8 @@ decisione:
 La prima è quella giusta, ed è anche l'unica che regge se un giorno si vorranno
 i bacini idrografici veri.
 
-Il mare invece **sparisce come categoria**: quelli che oggi sono mari diventano
-laghi grossi. La definizione di adesso — «è mare l'acqua che si tocca partendo
+Il mare invece **sparisce come categoria** — ed è già sparito, vedi «Via il
+mare» in fondo: quelli che erano mari sono laghi grossi. La definizione di adesso — «è mare l'acqua che si tocca partendo
 dal bordo mappa» — in un mondo senza bordo non vuol dire niente, e le soluzioni
 che la salvavano volevano tutte una soglia inventata: una distesa più larga di
 `N` celle è mare, sotto è lago. Ma quella soglia non decide niente che il
@@ -1410,6 +1410,46 @@ cambiare forma di collisione.
 
 Il velo sulle zone non tue resta una mesh sola per tutte, e va bene così: cambia
 quando cambia cosa è tuo, cioè una volta ogni acquisto, non a ogni gradino.
+
+## Via il mare
+
+Il mare non esiste più. `Bioma.MARE` è sparito dall'enum, `_allarga_il_mare()` è
+stato cancellato, e `LIVELLO_MARE` si chiama `LIVELLO_ACQUA` perché quello è
+sempre stato: la quota sotto la quale la terra è allagata. La classificazione
+delle acque, che era un flood fill dal bordo mappa su tutte le celle, adesso è
+una riga:
+
+```gdscript
+biomi[i] = Bioma.LAGO if livelli[i] <= LIVELLO_ACQUA else Bioma.PIANURA
+```
+
+**Il mondo generato è lo stesso.** Sul seme 135304051 il censimento prima diceva
+mare 5233, lago 44, fiume 64, spiaggia 690, pianura 776, collina 1817, prateria
+592; adesso dice lago 5277 e tutti gli altri identici. 5233 + 44 = 5277: le due
+etichette si sono fuse e nient'altro si è mosso. Il fotogramma è sovrapponibile,
+col colore dell'acqua a metà strada fra i due di prima.
+
+Le tre cose che si comportano ancora come devono, verificate a mano:
+
+- abbassare la terra sotto `LIVELLO_ACQUA` la allaga, e il pelo si mette a 1,5 m,
+  cioè alla quota comune;
+- alzare un fondale sopra quella quota lo fa tornare terra;
+- fiumi e laghi di collina si ricordano ancora di essere tali, perché la sola
+  quota non saprebbe rimetterli a posto.
+
+Quello che si è perso, e che vale la pena scrivere: **il canale non trasforma
+più niente**. Prima collegare una conca alla costa la promuoveva da lago a mare,
+ed era un caso che il flood fill regalava. Adesso la conca era già acqua allo
+stesso pelo prima di essere collegata, e scavare il canale unisce due specchi
+che stavano già alla stessa altezza. Si vede uguale — l'acqua scorre nel canale
+come prima — ma non è più un cambio di stato, è solo geometria. È il prezzo, ed
+è basso: quel cambio di stato non aveva nessuna conseguenza di gioco, e costava
+una visita di tutte le celle a ogni colpo di badile.
+
+Resta un ultimo posto che guarda il bordo della mappa, e non è l'acqua: la
+discesa radiale in `_rilievo()`, quella che garantisce che il continente si
+chiuda invece di essere tagliato a metà dal bordo. Se ne dovrà andare col passo
+delle coordinate senza bordo, ed è annotato lì nel commento.
 
 ## Prossimo passo
 

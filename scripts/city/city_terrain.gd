@@ -27,13 +27,22 @@ extends RefCounted
 ## PRATERIA è la pianura al riparo, dove piove meno: si costruisce come sulla
 ## pianura, ma non è verde, e serve a far vedere che il clima non dipende solo
 ## da quanto si è in alto.
-enum Bioma { MARE, LAGO, FIUME, SPIAGGIA, PIANURA, COLLINA, PRATERIA }
+##
+## Il mare non c'è: le distese grandi sono laghi grandi. La vecchia definizione
+## — è mare l'acqua che si tocca partendo dal bordo mappa — in un mondo senza
+## bordo non vuol dire niente, e ogni modo di salvarla voleva una soglia
+## inventata che il giocatore non può vedere. Un lago e un mare si comportavano
+## già allo stesso modo: stessa quota, stessi ponti, stesso badile. L'unica
+## differenza vera era il colore.
+enum Bioma { LAGO, FIUME, SPIAGGIA, PIANURA, COLLINA, PRATERIA }
 
 ## Altezza di un gradino, in metri. Una cella è 2 x 2 m (vedi CityGrid).
 const PASSO_QUOTA := 0.5
 const LIVELLO_MASSIMO := 9
-## Fin qui è sott'acqua.
-const LIVELLO_MARE := 3
+## Fin qui è sott'acqua. È la quota di riferimento di tutta l'acqua bassa: le
+## distese sotto questo livello stanno tutte allo stesso pelo, che siano
+## attaccate fra loro o no.
+const LIVELLO_ACQUA := 3
 const LIMITE_SPIAGGIA := 4
 const LIMITE_PIANURA := 6
 
@@ -80,11 +89,11 @@ var umidita: PackedFloat32Array
 var _naturale: PackedInt32Array = PackedInt32Array()
 
 ## L'acqua che il flood fill non saprebbe rimettere al suo posto: i fiumi, che
-## scorrono anche sopra il livello del mare, e i laghi rimasti in collina.
+## scorrono anche sopra il livello dell'acqua, e i laghi rimasti in collina.
 ##
-## Il mare e le conche sotto il suo livello non stanno qui apposta: quelli si
-## rideducono ogni volta da soli, ed è esattamente ciò che fa funzionare lo
-## scavo di un canale o l'innalzamento di un fondale.
+## Le conche sotto il livello dell'acqua non stanno qui apposta: quelle si
+## rideducono ogni volta da sole, ed è esattamente ciò che fa funzionare
+## l'innalzamento di un fondale.
 var _etichetta_naturale: PackedByteArray = PackedByteArray()
 
 
@@ -112,7 +121,7 @@ func livello(cella: Vector2i) -> int:
 
 func bioma(cella: Vector2i) -> Bioma:
 	if not dentro(cella):
-		return Bioma.MARE
+		return Bioma.LAGO
 	return biomi[indice(cella)] as Bioma
 
 
@@ -123,7 +132,7 @@ func quota(cella: Vector2i) -> float:
 
 func e_acqua(cella: Vector2i) -> bool:
 	var b := bioma(cella)
-	return b == Bioma.MARE or b == Bioma.LAGO or b == Bioma.FIUME
+	return b == Bioma.LAGO or b == Bioma.FIUME
 
 
 func costruibile(cella: Vector2i) -> bool:
@@ -142,7 +151,7 @@ func lotto_piano(celle: Array[Vector2i]) -> bool:
 
 
 ## La quota a cui va spianato un lotto: la più bassa fra le celle che occupa,
-## mai sotto il livello del mare.
+## mai sotto il livello dell'acqua.
 ##
 ## Livellare al minimo invece che alla mediana ha una conseguenza comoda: un
 ## oggetto che sta in una cella sola trova il terreno già a quella quota e non
@@ -153,7 +162,7 @@ func livello_piu_basso(celle: Array[Vector2i]) -> int:
 	for cella in celle:
 		if dentro(cella):
 			minimo = mini(minimo, livello(cella))
-	return maxi(minimo, LIVELLO_MARE + 1)
+	return maxi(minimo, LIVELLO_ACQUA + 1)
 
 
 ## Porta una cella a una quota, senza rifare biomi e acque: chi la chiama
@@ -169,18 +178,22 @@ func imposta_livello(cella: Vector2i, livello_nuovo: int) -> void:
 ##
 ## Una cella tornata alla quota del seme si riprende la propria etichetta: un
 ## fiume ridiventa fiume. Una cella modellata invece la perde, e cosa diventa lo
-## decide il flood fill dal bordo — che è quello che rende gratis tre casi
-## diversi: la conca scavata sotto il livello del mare diventa un lago, il
-## canale che la collega alla costa la trasforma in mare, il fondale alzato
-## sopra il pelo dell'acqua diventa un'isola.
+## decide la sola quota — che è quello che rende gratis due casi: la conca
+## scavata sotto il livello dell'acqua si riempie, e il fondale alzato sopra il
+## pelo dell'acqua diventa un'isola.
+##
+## Da quando il mare non esiste più non c'è nemmeno il terzo caso, il canale che
+## collegava una conca alla costa: la conca era già acqua allo stesso pelo prima
+## di essere collegata, e scavare il canale adesso non cambia un'etichetta ma
+## unisce due specchi d'acqua che stavano già alla stessa altezza. Si vede
+## uguale, e costa un flood fill su tutta la mappa in meno.
 func riclassifica() -> void:
 	for i in livelli.size():
 		var etichetta := _etichetta_naturale[i] if livelli[i] == _naturale[i] else SENZA_ETICHETTA
 		if etichetta != SENZA_ETICHETTA:
 			biomi[i] = etichetta
 		else:
-			biomi[i] = Bioma.LAGO if livelli[i] <= LIVELLO_MARE else Bioma.PIANURA
-	_allarga_il_mare()
+			biomi[i] = Bioma.LAGO if livelli[i] <= LIVELLO_ACQUA else Bioma.PIANURA
 	_assegna_biomi_terrestri()
 	_calcola_quote_acqua()
 
@@ -212,7 +225,7 @@ func spiana(celle: Array[Vector2i], livello_scelto: int = -1) -> int:
 			return 0
 		quote.sort()
 		scelto = quote[quote.size() / 2]
-	scelto = maxi(scelto, LIVELLO_MARE + 1)
+	scelto = maxi(scelto, LIVELLO_ACQUA + 1)
 	for cella in celle:
 		imposta_livello(cella, scelto)
 	riclassifica()
@@ -284,12 +297,12 @@ func _genera() -> void:
 	_naturale = livelli.duplicate()
 	_aggiorna_etichette()
 
-	# Il flood fill ha l'ultima parola anche qui, non solo dopo. Fiumi e laghi
-	# vengono scavati a valle della prima classificazione, e una conca allagata
-	# può essersi collegata al mare senza che nessuno sia tornato a controllare.
-	# Passare di qui adesso fa sì che il mondo appena nato sia già quello che si
-	# otterrebbe riclassificandolo: senza, il primo colpo di badile andrebbe a
-	# cambiare qualche cella dall'altra parte della mappa.
+	# La classificazione ha l'ultima parola anche qui, non solo dopo. Fiumi e
+	# laghi vengono scavati a valle della prima, e le quote che si muovono
+	# scavandoli cambiano cosa sta sotto il pelo dell'acqua. Passare di qui
+	# adesso fa sì che il mondo appena nato sia già quello che si otterrebbe
+	# riclassificandolo: senza, il primo colpo di badile andrebbe a cambiare
+	# qualche cella lontana da dove si è scavato.
 	riclassifica()
 	_aggiorna_etichette()
 
@@ -300,24 +313,25 @@ func _aggiorna_etichette() -> void:
 	_etichetta_naturale.resize(livelli.size())
 	for i in livelli.size():
 		var b := biomi[i]
-		var da_ricordare := b == Bioma.FIUME or (b == Bioma.LAGO and livelli[i] > LIVELLO_MARE)
+		var da_ricordare := b == Bioma.FIUME or (b == Bioma.LAGO and livelli[i] > LIVELLO_ACQUA)
 		_etichetta_naturale[i] = b if da_ricordare else SENZA_ETICHETTA
 
 
 ## Il rilievo, da tre rumori che fanno tre mestieri diversi.
 ##
 ## Il primo disegna la **forma del continente**: dove finisce la terra e comincia
-## il mare. Prima era un cerchio — una distanza dal centro — e si vedeva: la
+## l'acqua. Prima era un cerchio — una distanza dal centro — e si vedeva: la
 ## costa era una curva di livello. Adesso è del rumore a bassa frequenza,
-## moltiplicato per una discesa verso i bordi che serve solo a garantire che il
-## mare chiuda la mappa: dentro quel vincolo la costa fa promontori e insenature
-## per conto suo.
+## moltiplicato per una discesa verso i bordi che serve solo a garantire che
+## l'acqua chiuda la mappa: dentro quel vincolo la costa fa promontori e
+## insenature per conto suo. Quella discesa è l'ultima cosa che guarda il bordo
+## della mappa, e il giorno del mondo infinito dovrà andarsene anche lei.
 ##
 ## Il secondo fa le **colline**: rumore frattale normale, morbido, che riempie
 ## l'entroterra di alti e bassi.
 ##
 ## Il terzo fa le **creste**: rumore ridged, che invece di colline tonde produce
-## dorsali che si diramano. Pesa quanto è alta la cella — in riva al mare non se
+## dorsali che si diramano. Pesa quanto è alta la cella — in riva all'acqua non se
 ## ne accorge nessuno, in cima cambia tutto — ed è quello che distingue un
 ## paesaggio da un mucchio di dossi.
 func _rilievo() -> void:
@@ -359,7 +373,7 @@ func _rilievo() -> void:
 			var dolce := (colline.get_noise_2dv(punto) + 1.0) * 0.5
 			var acuto := (creste.get_noise_2dv(punto) + 1.0) * 0.5
 			# Il fondale parte da 0,20 e la terra sale da lì: la costa cade dove
-			# la somma passa il livello del mare, e non su una curva di livello.
+			# la somma passa il livello dell'acqua, e non su una curva di livello.
 			# Le creste contano dove si è già in alto — pesano come il quadrato
 			# della terra emersa — così le spiagge restano dolci e l'interno no.
 			var h := 0.20 + terra * (0.36 + 0.28 * dolce) + terra * terra * 0.20 * acuto
@@ -445,38 +459,11 @@ func _appiana_asperita() -> void:
 	livelli = copia
 
 
-## Separa mare e lago: è mare l'acqua che si raggiunge partendo dal bordo mappa.
-## Quello che resta sotto il livello del mare ma è chiuso da terra è un lago.
+## Sott'acqua è lago, sopra è terra da smistare. Una riga, e nessuna visita del
+## grafo: è quello che si guadagna a non avere più il mare.
 func _classifica_acque() -> void:
 	for i in livelli.size():
-		biomi[i] = Bioma.LAGO if livelli[i] <= LIVELLO_MARE else Bioma.PIANURA
-	_allarga_il_mare()
-
-
-## Il mare è l'acqua che si tocca partendo dal bordo della mappa. Le conche che
-## restano isolate no: quelle sono laghi, e lo sono senza una riga di codice
-## dedicata.
-func _allarga_il_mare() -> void:
-	var coda: Array[Vector2i] = []
-	for x in size.x:
-		coda.append(Vector2i(x, 0))
-		coda.append(Vector2i(x, size.y - 1))
-	for z in size.y:
-		coda.append(Vector2i(0, z))
-		coda.append(Vector2i(size.x - 1, z))
-
-	var visti := {}
-	while not coda.is_empty():
-		var cella: Vector2i = coda.pop_back()
-		if visti.has(cella) or not dentro(cella):
-			continue
-		var i := indice(cella)
-		if biomi[i] != Bioma.LAGO:
-			continue
-		visti[cella] = true
-		biomi[i] = Bioma.MARE
-		for passo in VICINI:
-			coda.append(cella + passo)
+		biomi[i] = Bioma.LAGO if livelli[i] <= LIVELLO_ACQUA else Bioma.PIANURA
 
 
 ## Ogni fiume parte da una cella alta e scende verso il vicino più basso.
@@ -524,7 +511,7 @@ func _scava_fiumi() -> void:
 		for c in percorso:
 			var i := indice(c)
 			biomi[i] = Bioma.FIUME
-			livelli[i] = maxi(livelli[i] - 1, LIVELLO_MARE)
+			livelli[i] = maxi(livelli[i] - 1, LIVELLO_ACQUA)
 		if not sfociato:
 			_allaga(percorso[percorso.size() - 1])
 		scavati += 1
@@ -568,7 +555,10 @@ func _allaga(centro: Vector2i) -> void:
 			continue
 		visti[cella] = true
 		var i := indice(cella)
-		if biomi[i] != Bioma.MARE:
+		# Una cella già sott'acqua non si tocca: alzarle il fondo alla quota del
+		# lago nuovo vorrebbe dire tirare su una secca in mezzo all'acqua bassa.
+		# È lo stesso riguardo che prima si aveva per il mare.
+		if livelli[i] > LIVELLO_ACQUA:
 			biomi[i] = Bioma.LAGO
 			livelli[i] = quota_lago
 			allagate += 1
@@ -591,7 +581,7 @@ func _vicino_piu_basso(cella: Vector2i) -> Vector2i:
 
 func _assegna_biomi_terrestri() -> void:
 	for i in livelli.size():
-		if biomi[i] == Bioma.MARE or biomi[i] == Bioma.LAGO or biomi[i] == Bioma.FIUME:
+		if biomi[i] == Bioma.LAGO or biomi[i] == Bioma.FIUME:
 			continue
 		if livelli[i] <= LIMITE_SPIAGGIA:
 			biomi[i] = Bioma.SPIAGGIA
@@ -607,17 +597,15 @@ func _assegna_biomi_terrestri() -> void:
 			biomi[i] = Bioma.PIANURA
 
 
-## Mare e laghi stanno tutti alla stessa quota; un fiume invece scende a gradini
+## L'acqua bassa sta tutta alla stessa quota; un fiume invece scende a gradini
 ## seguendo il proprio letto, col pelo dell'acqua poco sopra il fondo.
 func _calcola_quote_acqua() -> void:
-	var quota_mare := float(LIVELLO_MARE) * PASSO_QUOTA
+	var quota_bassa := float(LIVELLO_ACQUA) * PASSO_QUOTA
 	for i in livelli.size():
 		match biomi[i]:
-			Bioma.MARE:
-				quota_acqua[i] = quota_mare
 			Bioma.LAGO, Bioma.FIUME:
-				# Un bacino sotto il livello del mare è tutt'uno col mare; uno in
-				# collina sta alla propria quota, col pelo poco sopra il fondo.
-				quota_acqua[i] = maxf(quota_mare, float(livelli[i]) * PASSO_QUOTA + PASSO_QUOTA * 0.55)
+				# Un bacino sotto il livello dell'acqua sta al pelo comune; uno
+				# in collina sta alla propria quota, poco sopra il fondo.
+				quota_acqua[i] = maxf(quota_bassa, float(livelli[i]) * PASSO_QUOTA + PASSO_QUOTA * 0.55)
 			_:
 				quota_acqua[i] = 0.0
