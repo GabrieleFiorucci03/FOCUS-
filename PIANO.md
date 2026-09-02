@@ -1451,6 +1451,58 @@ discesa radiale in `_rilievo()`, quella che garantisce che il continente si
 chiuda invece di essere tagliato a metà dal bordo. Se ne dovrà andare col passo
 delle coordinate senza bordo, ed è annotato lì nel commento.
 
+## Il terreno diventa una funzione
+
+Primo dei tre passi del mondo infinito. **Le quote non sono più un array riempito
+tutto insieme: sono il risultato di un conto che si può fare su un riquadro
+qualunque, senza sapere niente di quello che gli sta attorno.**
+
+Come, in due mosse:
+
+- **Si genera su una finestra più larga del blocco**, ci si fanno girare sopra i
+  processi locali — rilievo, erosione, appianamento, pioggia — e si tiene solo
+  il centro. Il margine è di **otto celle**, e il conto lo fa l'erosione: una
+  passata propaga di due celle e non di una, perché una cella cambia anche
+  quando le frana addosso un vicino che ha deciso guardando i propri vicini.
+  Tre passate fanno sei, l'appianamento ne aggiunge una, sette; otto è il numero
+  tondo sopra.
+- **La discesa verso i bordi della mappa è diventata un oceano.** Era una
+  moltiplicazione per la distanza dal centro, e garantiva l'acqua tutto attorno
+  perché sapeva dov'era il bordo. Al suo posto c'è un rumore a frequenza 0,004,
+  sette volte più bassa di quella del continente: dove sta sotto il suo taglio la
+  terra non emerge. Fa la stessa cosa — modulare la massa a scala molto più
+  grande del continente — senza sapere niente di nessun bordo.
+
+**La verifica è quella che il piano chiedeva**, ed è passata: generare il mondo a
+blocchi da 16, da 32 e da 48 dà **zero celle diverse** rispetto a generarlo in un
+pezzo solo, quote e umidità. Se il margine bastasse era un ragionamento; adesso
+è una misura, e la si può rifare cambiando le passate di erosione.
+
+Il costo: la finestra di un blocco da 32 ne misura 48, quindi si calcolano due
+celle e un quarto per ognuna che si tiene, e le celle di confine vengono
+calcolate una volta per ogni blocco che le guarda. È il prezzo del non dover
+cucire niente — perché non c'è niente da cucire: due blocchi vicini vedono la
+stessa cella e le danno lo stesso valore, avendo fatto lo stesso conto.
+
+Due cose sono venute a galla, e nessuna delle due era nel piano:
+
+- **Una partita nuova poteva nascere in mezzo all'oceano.** Con la discesa verso
+  i bordi il centro della mappa era terra per costruzione; con un rumore a
+  grande scala un punto qualunque può capitare in un bacino, e su otto semi di
+  prova almeno uno lo faceva. Adesso la zona di partenza è **quella con più
+  terra**, chiesta a `CityTerrain.frazione_di_terra()` — che guarda il solo
+  rilievo, senza erosione né fiumi, perché l'erosione sposta i gradini ma non fa
+  emergere un continente. Sugli stessi otto semi la zona scelta ha fra il 43 % e
+  il 93 % di terra. La camera adesso si apre lì, non al centro della mappa.
+- **Una zona tutta d'acqua rompeva il reticolo.** `costruisci_reticolo()` apriva
+  una superficie e non ci metteva un vertice, che in Godot è un errore e non una
+  mesh vuota. Adesso i punti si raccolgono prima e la superficie si apre solo se
+  ce n'è almeno uno. Non era un bug nuovo: era un bug che il mondo vecchio non
+  poteva raggiungere, perché una zona tutta d'acqua non esisteva.
+
+Restano i fiumi, che sono ancora un processo globale, e le coordinate, che hanno
+ancora un bordo.
+
 ## Prossimo passo
 
 Il mondo infinito, qui sopra: il primo passo dell'ordine di lavoro è fatto, e

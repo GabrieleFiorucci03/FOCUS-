@@ -80,13 +80,33 @@ static func new_save() -> Dictionary:
 			"volume": 0.8,
 			"muted": false,
 		},
-		"world": {
-			"seed": randi(),
-			"size": [DEFAULT_WORLD_SIZE, DEFAULT_WORLD_SIZE],
-			"zones": [[ZONE_PER_LATO / 2, ZONE_PER_LATO / 2]],
-			"tiles": [],
-			"terrain_edits": [],
-		},
+		"world": world_nuovo(randi()),
+	}
+
+
+## Il mondo di una partita nuova: un seme, e la zona da cui si comincia.
+##
+## La zona non è quella di mezzo per convenzione, è quella con più terra: da
+## quando l'oceano è un rumore a grande scala, un punto qualunque può capitare
+## in mezzo all'acqua, e cominciare lì vuol dire una partita da buttare. Si
+## chiede al terreno quanta terra c'è senza generarlo, che costa un rumore per
+## cella e nient'altro.
+static func world_nuovo(seme: int) -> Dictionary:
+	var scelta := Vector2i(ZONE_PER_LATO / 2, ZONE_PER_LATO / 2)
+	var migliore := -1.0
+	for zx in ZONE_PER_LATO:
+		for zy in ZONE_PER_LATO:
+			var terra := CityTerrain.frazione_di_terra(seme, Rect2i(
+				zx * LATO_ZONA, zy * LATO_ZONA, LATO_ZONA, LATO_ZONA))
+			if terra > migliore:
+				migliore = terra
+				scelta = Vector2i(zx, zy)
+	return {
+		"seed": seme,
+		"size": [DEFAULT_WORLD_SIZE, DEFAULT_WORLD_SIZE],
+		"zones": [[scelta.x, scelta.y]],
+		"tiles": [],
+		"terrain_edits": [],
 	}
 
 

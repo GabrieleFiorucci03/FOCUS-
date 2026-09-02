@@ -168,8 +168,10 @@ static func costruisci_reticolo(terreno: CityTerrain,
 	materiale.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	materiale.albedo_color = Color(1.0, 1.0, 1.0, 0.10)
 
-	var mesh := ImmediateMesh.new()
-	mesh.surface_begin(Mesh.PRIMITIVE_LINES, materiale)
+	# I punti prima, la superficie poi: una zona tutta d'acqua non ha una sola
+	# cella da reticolare, e apire una superficie per non metterci niente è un
+	# errore di Godot, non una mesh vuota.
+	var punti := PackedVector3Array()
 	var area := _area(terreno, riquadro)
 	for z in range(area.position.y, area.end.y):
 		for x in range(area.position.x, area.end.x):
@@ -187,8 +189,15 @@ static func costruisci_reticolo(terreno: CityTerrain,
 				Vector3(x1, y, z1), Vector3(x0, y, z1),
 			]
 			for i in 4:
-				mesh.surface_add_vertex(angoli[i])
-				mesh.surface_add_vertex(angoli[(i + 1) % 4])
+				punti.append(angoli[i])
+				punti.append(angoli[(i + 1) % 4])
+
+	var mesh := ImmediateMesh.new()
+	if punti.is_empty():
+		return mesh
+	mesh.surface_begin(Mesh.PRIMITIVE_LINES, materiale)
+	for punto in punti:
+		mesh.surface_add_vertex(punto)
 	mesh.surface_end()
 	return mesh
 

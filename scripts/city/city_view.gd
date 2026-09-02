@@ -190,7 +190,9 @@ func _ready() -> void:
 	_mostra_i_servizi()
 	_aggiorna_i_conti()
 
-	var centro_griglia := Vector2i(griglia.size.x / 2, griglia.size.y / 2)
+	# Si guarda dove si comincia, non il centro della mappa: la prima zona è
+	# quella con più terra, e può stare in un angolo.
+	var centro_griglia := _centro_di_casa()
 	var centro := griglia.centro_cella(centro_griglia)
 	centro.y = terreno.quota(centro_griglia)
 	_camera.inquadra(centro)
@@ -557,6 +559,20 @@ func _servizi_disponibili() -> Vector2i:
 
 
 # --- Zone -------------------------------------------------------------------
+
+## La cella al centro di quello che è tuo: dove si apre la camera. Con una zona
+## sola è il suo centro, con più zone il centro di tutte.
+func _centro_di_casa() -> Vector2i:
+	var zone := SaveManager.world_zones()
+	if zone.is_empty():
+		return Vector2i(griglia.size.x / 2, griglia.size.y / 2)
+	var somma := Vector2i.ZERO
+	for zona in zone:
+		somma += Vector2i(int(zona[0]), int(zona[1]))
+	var media := Vector2i(somma.x / zone.size(), somma.y / zone.size())
+	var lato := SaveManager.LATO_ZONA
+	return media * lato + Vector2i(lato / 2, lato / 2)
+
 
 ## La zona a cui appartiene una cella.
 func _zona_di(cella: Vector2i) -> Vector2i:

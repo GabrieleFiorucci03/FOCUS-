@@ -65,8 +65,44 @@ const PASSATE_EROSIONE := 3
 ## fisica: è dove il verde comincia a sembrare fuori posto.
 const UMIDITA_SECCA := 0.46
 
-## Segna una cella su cui il flood fill può dire la sua senza consultare nessuno.
+## Segna una cella che non ha un'etichetta da ricordare.
 const SENZA_ETICHETTA := 255
+
+## Quanto è largo un blocco di generazione. È anche la misura della zona che si
+## compra, e non per caso: la zona è l'unità che il giocatore vede comparire, e
+## generare esattamente quella evita di tenere in vita mezze zone.
+const BLOCCO := 32
+
+## Quante celle di margine servono per generare un blocco senza sapere niente di
+## quello che gli sta attorno.
+##
+## Il conto lo fa l'erosione. Una passata propaga di **due** celle e non di una:
+## una cella cambia perché è franata lei, oppure perché le è franato addosso un
+## vicino — e quel vicino ha deciso guardando i propri vicini, che stanno a due
+## passi da qui. Tre passate fanno sei, l'appianamento ne aggiunge una: sette.
+## Otto è il numero tondo sopra, e su un blocco da trentadue costa un anello di
+## celle in più, non un ordine di grandezza.
+##
+## Se il margine bastasse, il blocco viene identico comunque lo si chieda. Non è
+## una speranza: è la verifica che gira in `_prova_blocchi`, che genera il mondo
+## a blocchi e in un pezzo solo e pretende le stesse quote cella per cella.
+const MARGINE := 8
+
+## Sopra questa massa del rumore del continente comincia la terra.
+const SOGLIA_TERRA := 0.22
+
+## L'oceano: dove il rumore a grandissima scala sta sotto il taglio, la terra
+## non emerge comunque il continente si sforzi.
+##
+## È l'erede della discesa verso i bordi della mappa. Quella garantiva l'acqua
+## tutto attorno perché sapeva dov'era il bordo; questa non lo sa e non le serve,
+## perché fa la stessa cosa — modulare la massa a scala molto più grande del
+## continente — con una funzione delle sole coordinate. La frequenza è sette
+## volte più bassa di quella del continente: un bacino misura centinaia di celle,
+## cioè parecchie zone, e non lo si scambia per un lago.
+const OCEANO_FREQUENZA := 0.004
+const OCEANO_TAGLIO := 0.30
+const OCEANO_SFUMATURA := 0.25
 
 const VICINI: Array[Vector2i] = [
 	Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1),
@@ -272,6 +308,26 @@ func livello_naturale(cella: Vector2i) -> int:
 	return _naturale[indice(cella)]
 
 
+## Quanta terra emersa c'è in un riquadro, da 0 a 1, guardando il solo rilievo:
+## niente erosione, niente fiumi, nessun array del mondo. L'erosione sposta i
+## gradini ma non fa emergere un continente, quindi per la domanda «qui c'è da
+## costruire?» il rilievo grezzo basta e costa mille volte meno.
+##
+## Serve a scegliere dove far cominciare una città. Da quando l'oceano è un
+## rumore a grande scala invece di una discesa verso i bordi, un punto qualunque
+## può capitare in mezzo all'acqua, e piazzarci la prima zona vorrebbe dire dare
+## al giocatore una partita da buttare.
+static func frazione_di_terra(seme: int, riquadro: Rect2i) -> float:
+	var quote := _rilievo(seme, riquadro)
+	if quote.is_empty():
+		return 0.0
+	var asciutte := 0
+	for q in quote:
+		if q > LIVELLO_ACQUA:
+			asciutte += 1
+	return float(asciutte) / float(quote.size())
+
+
 # --- Generazione ------------------------------------------------------------
 
 func _genera() -> void:
@@ -285,10 +341,14 @@ func _genera() -> void:
 	umidita = PackedFloat32Array()
 	umidita.resize(celle)
 
-	_rilievo()
-	_erosione()
-	_appiana_asperita()
-	_pioggia()
+	# Il mondo nasce un blocco per volta, ognuno col suo margine, anche se qui
+	# sarebbe ancora possibile farlo tutto insieme: è il modo in cui dovrà
+	# nascere quando i blocchi arriveranno uno alla volta, e farlo già adesso
+	# vuol dire che la strada è quella verificata e non quella immaginata.
+	for bz in range(0, size.y, BLOCCO):
+		for bx in range(0, size.x, BLOCCO):
+			_genera_blocco(Rect2i(bx, bz,
+				mini(BLOCCO, size.x - bx), mini(BLOCCO, size.y - bz)))
 	_classifica_acque()
 	_scava_fiumi()
 	_assegna_biomi_terrestri()
@@ -334,7 +394,13 @@ func _aggiorna_etichette() -> void:
 ## dorsali che si diramano. Pesa quanto è alta la cella — in riva all'acqua non se
 ## ne accorge nessuno, in cima cambia tutto — ed è quello che distingue un
 ## paesaggio da un mucchio di dossi.
-func _rilievo() -> void:
+static func _rilievo(seme: int, finestra: Rect2i) -> PackedInt32Array:
+	var oceano := FastNoiseLite.new()
+	oceano.seed = seme + 15013
+	oceano.noise_type = FastNoiseLite.TYPE_SIMPLEX_SMOOTH
+	oceano.frequency = OCEANO_FREQUENZA
+	oceano.fractal_octaves = 2
+
 	var continente := FastNoiseLite.new()
 	continente.seed = seme
 	continente.noise_type = FastNoiseLite.TYPE_SIMPLEX_SMOOTH
@@ -356,19 +422,21 @@ func _rilievo() -> void:
 	creste.fractal_octaves = 4
 	creste.fractal_lacunarity = 2.3
 
-	var centro := Vector2(float(size.x - 1) * 0.5, float(size.y - 1) * 0.5)
-	var raggio := minf(centro.x, centro.y)
-
-	for z in size.y:
-		for x in size.x:
-			var punto := Vector2(float(x), float(z))
+	var quote := PackedInt32Array()
+	quote.resize(finestra.size.x * finestra.size.y)
+	for z in finestra.size.y:
+		for x in finestra.size.x:
+			var punto := Vector2(
+				float(finestra.position.x + x), float(finestra.position.y + z))
 			# La terra c'è dove il rumore del continente sta sopra la sua
 			# soglia, e sfuma dove ci sta appena sopra: è quello che fa le
-			# spiagge larghe e le scogliere strette.
+			# spiagge larghe e le scogliere strette. L'oceano ha l'ultima
+			# parola: dove sta sotto il suo taglio la massa va a zero, e lì la
+			# terra non emerge per quanto il continente si sforzi.
 			var massa := (continente.get_noise_2dv(punto) + 1.0) * 0.5
-			var distanza := punto.distance_to(centro) / maxf(1.0, raggio)
-			massa *= clampf(1.0 - pow(distanza * 0.95, 4.0), 0.0, 1.0)
-			var terra := clampf((massa - 0.22) / 0.32, 0.0, 1.0)
+			var emerso := (oceano.get_noise_2dv(punto) + 1.0) * 0.5
+			massa *= clampf((emerso - OCEANO_TAGLIO) / OCEANO_SFUMATURA, 0.0, 1.0)
+			var terra := clampf((massa - SOGLIA_TERRA) / 0.32, 0.0, 1.0)
 
 			var dolce := (colline.get_noise_2dv(punto) + 1.0) * 0.5
 			var acuto := (creste.get_noise_2dv(punto) + 1.0) * 0.5
@@ -377,7 +445,9 @@ func _rilievo() -> void:
 			# Le creste contano dove si è già in alto — pesano come il quadrato
 			# della terra emersa — così le spiagge restano dolci e l'interno no.
 			var h := 0.20 + terra * (0.36 + 0.28 * dolce) + terra * terra * 0.20 * acuto
-			livelli[z * size.x + x] = int(round(clampf(h, 0.0, 1.0) * float(LIVELLO_MASSIMO)))
+			quote[z * finestra.size.x + x] = int(
+				round(clampf(h, 0.0, 1.0) * float(LIVELLO_MASSIMO)))
+	return quote
 
 
 ## L'erosione termica: quello che la gravità fa in mille anni.
@@ -391,44 +461,35 @@ func _rilievo() -> void:
 ## Si lavora su una copia e si applica alla fine di ogni passata, altrimenti
 ## l'ordine di scansione conterebbe e il versante a est verrebbe diverso da
 ## quello a ovest.
-func _erosione() -> void:
+##
+## Fuori dalla finestra non si guarda: è lì che il margine si paga il posto,
+## perché le celle sul bordo della finestra vengono sbagliate e vanno buttate.
+static func _erosione(quote: PackedInt32Array, finestra: Rect2i) -> PackedInt32Array:
+	var larghezza := finestra.size.x
+	var altezza := finestra.size.y
 	for _passata in PASSATE_EROSIONE:
-		var dopo := livelli.duplicate()
-		for z in size.y:
-			for x in size.x:
-				var cella := Vector2i(x, z)
-				var mia := livelli[indice(cella)]
-				var giu := cella
+		var dopo := quote.duplicate()
+		for z in altezza:
+			for x in larghezza:
+				var i := z * larghezza + x
+				var mia := quote[i]
+				var giu := -1
 				var minimo := mia
 				for passo in VICINI:
-					var vicino := cella + passo
-					if dentro(vicino) and livelli[indice(vicino)] < minimo:
-						minimo = livelli[indice(vicino)]
-						giu = vicino
-				if mia - minimo <= TALUS:
+					var vx := x + passo.x
+					var vz := z + passo.y
+					if vx < 0 or vz < 0 or vx >= larghezza or vz >= altezza:
+						continue
+					var j := vz * larghezza + vx
+					if quote[j] < minimo:
+						minimo = quote[j]
+						giu = j
+				if giu < 0 or mia - minimo <= TALUS:
 					continue
-				dopo[indice(cella)] = dopo[indice(cella)] - 1
-				dopo[indice(giu)] = mini(dopo[indice(giu)] + 1, LIVELLO_MASSIMO)
-		livelli = dopo
-
-
-## Quanto piove, cella per cella.
-##
-## Un rumore suo, più largo di quello delle colline perché il clima cambia più
-## lentamente del terreno, corretto dalla quota: in alto piove di più, che è il
-## motivo per cui le creste restano verdi e le conche interne no.
-func _pioggia() -> void:
-	var rumore := FastNoiseLite.new()
-	rumore.seed = seme + 6421
-	rumore.noise_type = FastNoiseLite.TYPE_SIMPLEX_SMOOTH
-	rumore.frequency = 0.048
-	rumore.fractal_octaves = 2
-	for z in size.y:
-		for x in size.x:
-			var i := z * size.x + x
-			var n := (rumore.get_noise_2d(float(x), float(z)) + 1.0) * 0.5
-			var alto := float(livelli[i]) / float(LIVELLO_MASSIMO)
-			umidita[i] = clampf(n * 0.82 + alto * 0.22, 0.0, 1.0)
+				dopo[i] = dopo[i] - 1
+				dopo[giu] = mini(dopo[giu] + 1, LIVELLO_MASSIMO)
+		quote = dopo
+	return quote
 
 
 ## Toglie le guglie da una cella sola: se una cella non è alla stessa quota di
@@ -436,27 +497,81 @@ func _pioggia() -> void:
 ##
 ## Quantizzare del rumore continuo produce un mosaico pieno di scalini isolati:
 ## brutto da vedere e, soprattutto, pieno di lotti che non sono pianeggianti.
-func _appiana_asperita() -> void:
-	var copia := livelli.duplicate()
-	for z in size.y:
-		for x in size.x:
-			var cella := Vector2i(x, z)
-			var mia := livelli[indice(cella)]
+static func _appiana_asperita(quote: PackedInt32Array, finestra: Rect2i) -> PackedInt32Array:
+	var larghezza := finestra.size.x
+	var altezza := finestra.size.y
+	var copia := quote.duplicate()
+	for z in altezza:
+		for x in larghezza:
+			var i := z * larghezza + x
+			var mia := quote[i]
 			var intorno: Array[int] = []
 			var uguale := false
 			for passo in VICINI:
-				var vicino := cella + passo
-				if not dentro(vicino):
+				var vx := x + passo.x
+				var vz := z + passo.y
+				if vx < 0 or vz < 0 or vx >= larghezza or vz >= altezza:
 					continue
-				var q := livelli[indice(vicino)]
+				var q := quote[vz * larghezza + vx]
 				intorno.append(q)
 				if q == mia:
 					uguale = true
 			if uguale or intorno.size() < 3:
 				continue
 			intorno.sort()
-			copia[indice(cella)] = intorno[intorno.size() / 2]
-	livelli = copia
+			copia[i] = intorno[intorno.size() / 2]
+	return copia
+
+
+## Quanto piove, cella per cella.
+##
+## Un rumore suo, più largo di quello delle colline perché il clima cambia più
+## lentamente del terreno, corretto dalla quota: in alto piove di più, che è il
+## motivo per cui le creste restano verdi e le conche interne no.
+static func _pioggia(seme: int, quote: PackedInt32Array, finestra: Rect2i) -> PackedFloat32Array:
+	var rumore := FastNoiseLite.new()
+	rumore.seed = seme + 6421
+	rumore.noise_type = FastNoiseLite.TYPE_SIMPLEX_SMOOTH
+	rumore.frequency = 0.048
+	rumore.fractal_octaves = 2
+	var pioggia := PackedFloat32Array()
+	pioggia.resize(quote.size())
+	for z in finestra.size.y:
+		for x in finestra.size.x:
+			var i := z * finestra.size.x + x
+			var n := (rumore.get_noise_2d(
+				float(finestra.position.x + x), float(finestra.position.y + z)) + 1.0) * 0.5
+			var alto := float(quote[i]) / float(LIVELLO_MASSIMO)
+			pioggia[i] = clampf(n * 0.82 + alto * 0.22, 0.0, 1.0)
+	return pioggia
+
+
+## Genera quote e umidità di un riquadro senza sapere niente del resto del
+## mondo: si lavora su una finestra più larga di MARGINE per lato, ci si fanno
+## girare sopra i processi locali, e si tiene solo il centro.
+##
+## Costa: la finestra di un blocco da 32 ne misura 48, quindi si calcolano due
+## celle e un quarto per ognuna che si tiene, e le celle di confine vengono
+## calcolate una volta per ogni blocco che le guarda. È il prezzo del non dover
+## cucire niente — perché non c'è niente da cucire: due blocchi vicini vedono la
+## stessa cella e le danno lo stesso valore, avendo fatto lo stesso conto.
+func _genera_blocco(riquadro: Rect2i) -> void:
+	var margine := Vector2i(MARGINE, MARGINE)
+	var finestra := Rect2i(riquadro.position - margine, riquadro.size + margine * 2)
+	var quote := _rilievo(seme, finestra)
+	quote = _erosione(quote, finestra)
+	quote = _appiana_asperita(quote, finestra)
+	var pioggia := _pioggia(seme, quote, finestra)
+	for z in riquadro.size.y:
+		for x in riquadro.size.x:
+			var cella := riquadro.position + Vector2i(x, z)
+			if not dentro(cella):
+				continue
+			var locale := cella - finestra.position
+			var j := locale.y * finestra.size.x + locale.x
+			var i := indice(cella)
+			livelli[i] = quote[j]
+			umidita[i] = pioggia[j]
 
 
 ## Sott'acqua è lago, sopra è terra da smistare. Una riga, e nessuna visita del
