@@ -306,7 +306,27 @@ def _add_window_frames() -> None:
 
 
 def _add_rooftop_details(spec: dict, rng: random.Random) -> None:
-    lower, upper = _scene_bounds()
+    # I dettagli devono partire dalla superficie del tetto, non dall'oggetto
+    # piu alto della scena (per esempio un'antenna o una ciminiera gia presente).
+    flat_roof_names = {
+        "roof",
+        "flatroof",
+        "serviceroof",
+        "schoolroof",
+        "crown",
+        "roofgarden",
+    }
+    roof_candidates = []
+    for obj in bpy.context.scene.objects:
+        if obj.type != "MESH":
+            continue
+        base_name = obj.name.lower().split(".", 1)[0]
+        if base_name in flat_roof_names:
+            roof_candidates.append(_object_bounds(obj))
+    if not roof_candidates:
+        return
+
+    lower, upper = max(roof_candidates, key=lambda bounds_pair: bounds_pair[1].z)
     width = upper.x - lower.x
     depth = upper.y - lower.y
     if width < 0.8 or depth < 0.8:
@@ -342,6 +362,127 @@ def _fix_agriculture_geometry(spec: dict) -> None:
         return
     roof.location.x = barn.location.x
     roof.location.y = barn.location.y
+
+
+def _replace_shed_roof(spec: dict) -> None:
+    """Sostituisce la lastra ruotata con una falda a cuneo ben appoggiata."""
+    if spec.get("kind") != "house" or spec.get("roof") != "shed":
+        return
+    house = bpy.data.objects.get("House")
+    old_roof = bpy.data.objects.get("Roof")
+    if house is None or old_roof is None:
+        return
+
+    lower, upper = _object_bounds(house)
+    bpy.data.objects.remove(old_roof, do_unlink=True)
+    half_width = (upper.x - lower.x + 0.16) * 0.5
+    half_depth = (upper.y - lower.y + 0.18) * 0.5
+    center_x = (lower.x + upper.x) * 0.5
+    center_y = (lower.y + upper.y) * 0.5
+    base_z = upper.z
+    low_z = base_z + 0.12
+    high_z = base_z + 0.38
+    vertices = [
+        (center_x - half_width, center_y - half_depth, low_z),
+        (center_x + half_width, center_y - half_depth, low_z),
+        (center_x + half_width, center_y + half_depth, high_z),
+        (center_x - half_width, center_y + half_depth, high_z),
+        (center_x - half_width, center_y - half_depth, base_z),
+        (center_x + half_width, center_y - half_depth, base_z),
+        (center_x + half_width, center_y + half_depth, base_z),
+        (center_x - half_width, center_y + half_depth, base_z),
+    ]
+    faces = [
+        (0, 1, 2, 3),
+        (4, 7, 6, 5),
+        (0, 4, 5, 1),
+        (1, 5, 6, 2),
+        (2, 6, 7, 3),
+        (3, 7, 4, 0),
+    ]
+    mesh = bpy.data.meshes.new("Roof_Mesh")
+    mesh.from_pydata(vertices, [], faces)
+    mesh.update()
+    roof = bpy.data.objects.new("Roof", mesh)
+    bpy.context.collection.objects.link(roof)
+    assign_material(roof, "terracotta")
+    bevel = roof.modifiers.new("RealisticBevel", "BEVEL")
+    bevel.width = 0.012
+    bevel.segments = 2
+    bpy.ops.object.select_all(action="DESELECT")
+    roof.select_set(True)
+    bpy.context.view_layer.objects.active = roof
+    bpy.ops.object.modifier_apply(modifier=bevel.name)
+
+    # La casa 10 ha un'ala bassa: una copertura dedicata evita che la sommità
+    # chiara della muratura sembri attraversare la falda principale.
+    side_wing = bpy.data.objects.get("SideWing")
+    if side_wing is not None:
+        wing_lower, wing_upper = _object_bounds(side_wing)
+        box(
+            "SideWingRoof",
+            (wing_upper.x - wing_lower.x + 0.10, wing_upper.y - wing_lower.y + 0.10, 0.09),
+            (
+                (wing_lower.x + wing_upper.x) * 0.5,
+                (wing_lower.y + wing_upper.y) * 0.5,
+                wing_upper.z + 0.045,
+            ),
+            "terracotta_light",
+            0.012,
+        )
+
+
+def _add_twin_tower_facade(spec: dict) -> None:
+    """Completa la torre secondaria con la stessa scansione della principale."""
+    if spec.get("id") != "RES_TOWER_4x4_003":
+        return
+    twin = bpy.data.objects.get("TowerTwin")
+    if twin is None:
+        return
+
+    lower, upper = _object_bounds(twin)
+    width = upper.x - lower.x
+    depth = upper.y - lower.y
+    height = upper.z - lower.z
+    center_x = (lower.x + upper.x) * 0.5
+    center_y = (lower.y + upper.y) * 0.5
+    center_z = (lower.z + upper.z) * 0.5
+
+    # Fasce orizzontali allineate ai piani della torre principale.
+    floor_z = lower.z
+    while floor_z < upper.z - 0.06:
+        box(
+            "TwinFloorBand",
+            (width + 0.10, depth + 0.10, 0.065),
+            (center_x, center_y, floor_z),
+            "paper",
+            0.010,
+        )
+        floor_z += 0.48
+    box(
+        "TwinFloorBand",
+        (width + 0.10, depth + 0.10, 0.065),
+        (center_x, center_y, upper.z),
+        "paper",
+        0.010,
+    )
+
+    # Montanti su tutte e quattro le facciate, proporzionati alla torre bassa.
+    for fraction in (-0.34, 0.0, 0.34):
+        x = center_x + width * fraction
+        for y in (lower.y - 0.025, upper.y + 0.025):
+            box("TwinMullion", (0.055, 0.040, height - 0.08), (x, y, center_z), "teal", 0.008)
+        y = center_y + depth * fraction
+        for x_side in (lower.x - 0.025, upper.x + 0.025):
+            box("TwinMullion", (0.040, 0.055, height - 0.08), (x_side, y, center_z), "teal", 0.008)
+
+    box(
+        "TwinCrown",
+        (width * 0.84, depth * 0.84, 0.30),
+        (center_x, center_y, upper.z + 0.15),
+        "terracotta_light",
+        0.045,
+    )
 
 
 def _remove_ambiguous_roof_units() -> None:
@@ -585,6 +726,8 @@ def _add_sport_details(spec: dict, rng: random.Random) -> None:
 def add_realistic_details(spec: dict, rng: random.Random) -> None:
     kind = spec["kind"]
     _remove_ambiguous_roof_units()
+    _replace_shed_roof(spec)
+    _add_twin_tower_facade(spec)
     if kind == "agriculture":
         _fix_agriculture_geometry(spec)
     if kind in BUILDING_KINDS:

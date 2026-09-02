@@ -289,7 +289,8 @@ FOCUS!/
 │                     grafico_giorni.gd · durata.gd
 ├─ data/              economy.json · catalog.json
 ├─ assets/
-│  ├─ models/generated/   91 .glb + catalog.json
+│  ├─ models/realistic/   91 .glb + catalog.json (quelli che carica il gioco)
+│  ├─ models/generated/   il kit MVP, tenuto come riferimento
 │  └─ previews/           render del catalogo
 └─ tools/
    ├─ blender/        la pipeline che genera i modelli

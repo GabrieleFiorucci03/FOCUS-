@@ -1,9 +1,9 @@
 # FOCUS! — realistic preview library
 
-Questa cartella contiene una variante sperimentale dei 91 asset del kit MVP.
-Non sostituisce `assets/models/generated/` e non e attualmente caricata dal
-gioco. Il file `.gdignore` evita inoltre che Godot importi i GLB prima della
-valutazione.
+Questa cartella contiene la libreria dei 91 asset che il gioco carica oggi:
+`CityCatalog` punta qui per i `.glb` e per `catalog.json`. Il kit MVP resta in
+`assets/models/generated/` come riferimento e come via di ritorno: per tornarci
+bastano le due costanti in `scripts/city/city_catalog.gd`.
 
 Caratteristiche mantenute:
 

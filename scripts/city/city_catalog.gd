@@ -19,7 +19,7 @@ extends RefCounted
 ## Il catalogo del negozio: cosa si può comprare, come si chiama e dove si posa.
 ##
 ## Nasce dall'unione di due file che hanno padroni diversi.
-## `assets/models/generated/catalog.json` lo scrive la pipeline Blender a ogni
+## `assets/models/realistic/catalog.json` lo scrive la pipeline Blender a ogni
 ## rigenerazione della libreria: footprint, altezze, nome del `.glb`. Non si
 ## tocca a mano, verrebbe sovrascritto.
 ## `data/catalog.json` è la parte di gioco: come si chiama un oggetto in
@@ -28,9 +28,9 @@ extends RefCounted
 
 ## Dove stanno i .glb che la pipeline ha generato. Li carica chi costruisce e
 ## chi ne fa l'anteprima nel negozio, quindi il percorso sta qui, in mezzo.
-const CARTELLA_MODELLI := "res://assets/models/generated/"
+const CARTELLA_MODELLI := "res://assets/models/realistic/"
 
-const CATALOGO_ASSET := "res://assets/models/generated/catalog.json"
+const CATALOGO_ASSET := "res://assets/models/realistic/catalog.json"
 const CATALOGO_GIOCO := "res://data/catalog.json"
 
 ## Come si posa un oggetto.

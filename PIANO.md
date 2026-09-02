@@ -289,7 +289,8 @@ FOCUS!/
   scenes/                # main (+ menu), focus, city, ui (negozio, statistiche)
   scripts/               # autoload (config, salvataggio, suoni), focus, city, ui
   data/                  # economy.json (prezzi) e catalog.json (nomi, scaffali)
-  assets/models/generated/   # 91 .glb + catalog.json
+  assets/models/realistic/   # 91 .glb + catalog.json (in uso nel gioco)
+  assets/models/generated/   # il kit MVP, tenuto come riferimento
   tools/blender/         # pipeline di generazione (ignorata da Godot)
   tools/balance/         # simulatore dell'economia (Python puro)
 ```
