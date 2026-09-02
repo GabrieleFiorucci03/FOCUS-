@@ -1500,8 +1500,79 @@ Due cose sono venute a galla, e nessuna delle due era nel piano:
   ce n'è almeno uno. Non era un bug nuovo: era un bug che il mondo vecchio non
   poteva raggiungere, perché una zona tutta d'acqua non esisteva.
 
-Restano i fiumi, che sono ancora un processo globale, e le coordinate, che hanno
-ancora un bordo.
+## I fiumi diventano un reticolo
+
+Secondo dei tre passi. I fiumi partivano da una cella alta e camminavano a valle
+finché trovavano acqua: un processo che poteva attraversare mezzo mondo, e che
+in un mondo infinito non ha un posto dove cominciare. Adesso sono **un reticolo
+idrografico su griglia rada**, un nodo ogni otto celle, e la domanda «per questa
+cella passa un fiume?» si risponde consultandolo.
+
+Come funziona una tessera del reticolo — 32 nodi di lato, con 24 di margine
+attorno per sapere quanta acqua le arriva da fuori:
+
+1. **Due altezze per nodo.** Quella vera, che dice se lì c'è già acqua, e quella
+   idrografica, che dice da che parte si scende.
+2. **Si riempiono le depressioni**, col priority-flood: si parte dal bordo, si
+   tira fuori sempre il nodo più basso ancora da sistemare, e si alzano i suoi
+   vicini almeno fino alla sua quota più un pelo.
+3. **Si instrada il flusso** verso il vicino più basso fra gli otto, e si accumula
+   l'area drenata scendendo dal nodo più alto al più basso: una passata sola,
+   perché un nodo non può drenare in uno più alto di lui.
+4. **Dove drenano almeno quaranta nodi c'è un fiume**, e dove il riempimento ha
+   alzato il terreno per davvero c'è un lago.
+
+Ogni nodo appartiene a **una tessera sola**, ed è quello che rende il fiume una
+proprietà del posto e non della domanda: due blocchi vicini che guardano lo
+stesso nodo ricevono la stessa risposta senza doversi parlare. La verifica è la
+stessa del passo prima, estesa ai biomi: su sei semi, generare a blocchi da 16,
+32 e 48 dà **zero celle diverse** dal pezzo unico, su quote **e** biomi.
+
+### Tre errori, e cosa hanno insegnato
+
+- **Trentotto per cento dei nodi era una conca.** Non era l'alias del
+  campionamento rado: erano i **pianori**. Dove la terra satura a uno, o dove
+  l'oceano l'ha azzerata, la formula dà lo stesso numero per nodi lontanissimi, e
+  su un pianoro nessun vicino è più basso. Sommare la massa grezza del
+  continente, che non satura mai, ridà una pendenza dove la formula l'aveva
+  appiattita: le conche scendono al 7 %.
+- **Il sette per cento restante bastava a spezzare tutto.** Con una conca ogni
+  quattordici nodi nessun corso raccoglie abbastanza da chiamarsi fiume:
+  accumulo massimo 19 contro una soglia di 90. È quello che il riempimento delle
+  depressioni serve a togliere, ed è il pezzo che non avevo previsto.
+- **Un nodo alzato dal riempimento non è un capolinea, è il fondo di un lago.**
+  Trattarlo come la fine del fiume spezzava ogni corso al primo avvallamento e
+  lasciava otto celle di fiume su un mondo intero. Il fiume nel lago ci entra,
+  lo attraversa e ne esce dall'emissario.
+
+### E una quarta cosa, che si vede e basta
+
+Il tratto fra due nodi era un segmento dritto, e a otto celle di distanza una
+diagonale perfetta non sembra un fiume: sembra un righello. Adesso il tratto si
+cammina cella per cella, scegliendo a ogni passo il vicino che costa meno — la
+sua altezza più quanto resta da fare — senza mai tornare indietro né
+allontanarsi dalla meta, così finisce sempre.
+
+Il peso del terreno contro la distanza è stato tarato guardando: **a 20 il fiume
+è ancora un righello, a 45 gira attorno ai dossi.** Il motivo è che fra due
+celle vicine l'altezza cambia di circa due centesimi, mentre un passo in
+diagonale guadagna un'unità intera di distanza: perché il terreno abbia voce in
+capitolo il suo peso dev'essere di un altro ordine di grandezza.
+
+### Cosa è cambiato nel mondo
+
+I fiumi non sono più tre per mappa perché qualcuno ha deciso che fossero tre:
+sono quelli che il drenaggio giustifica. Su sei semi vanno da 1 a 23 celle su
+96x96 — dove la terra è poca e la costa vicina i bacini sono piccoli e i fiumi
+quasi non ci sono, dove c'è entroterra scorrono. È più onesto e meno garantito:
+una zona qualunque può non avere un fiume, come nella vita.
+
+Il costo: generare un mondo 96x96 passa da una manciata di millisecondi a **circa
+630**, quasi tutti nella prima tessera — il riempimento e l'ordinamento di
+seimilaquattrocento nodi. Si paga una volta e si tiene: le tessere sono in
+cache, e un blocco che nasce dopo ne trova già pronte quelle che gli servono.
+
+Resta il terzo passo: le coordinate, che hanno ancora un bordo.
 
 ## Prossimo passo
 

@@ -46,8 +46,23 @@ const LIVELLO_ACQUA := 3
 const LIMITE_SPIAGGIA := 4
 const LIMITE_PIANURA := 6
 
-const FIUMI := 3
-const LUNGHEZZA_MINIMA_FIUME := 8
+## Il reticolo idrografico sta su una griglia rada: un nodo ogni PASSO_FIUMI
+## celle. È sessantaquattro volte più piccolo della mappa vera, quindi ci si può
+## permettere di guardarne un pezzo grande — abbastanza da far scendere un fiume
+## per centinaia di celle — al prezzo di qualche migliaio di nodi.
+const PASSO_FIUMI := 8
+## Quanti nodi radi ha una tessera del reticolo, e quanti se ne guardano attorno
+## per sapere quanta acqua le arriva da fuori. Ogni nodo appartiene a una
+## tessera sola: è quello che rende la risposta indipendente da chi l'ha
+## chiesta.
+const TESSERA_FIUMI := 32
+const MARGINE_FIUMI := 24
+## Quanti nodi devono drenare in un nodo perché lì ci sia un fiume. Più alta, e
+## restano solo i corsi grandi; più bassa, e il mondo si riempie di rigagnoli.
+const SOGLIA_FIUME := 40
+## Di quanto il riempimento deve aver alzato un nodo perché lì ci sia una conca
+## vera e non il pelo che serve a dare una pendenza a un pianoro.
+const CONCA_MINIMA := 0.004
 ## Quante celle può allagare al massimo la conca in cui muore un fiume.
 const AMPIEZZA_MASSIMA_LAGO := 14
 
@@ -123,6 +138,11 @@ var umidita: PackedFloat32Array
 ## Serve a dire quali celle sono state modellate davvero: sono quelle, e solo
 ## quelle, che vanno scritte nel salvataggio.
 var _naturale: PackedInt32Array = PackedInt32Array()
+
+## Le tessere del reticolo idrografico gia' calcolate: chiave -> { nodo -> nodo
+## a valle }. Si tengono perche' un blocco ne interroga sempre le stesse due o
+## tre, e calcolarne una costa un ordinamento di qualche migliaio di nodi.
+var _tessere_fiumi: Dictionary = {}
 
 ## L'acqua che il flood fill non saprebbe rimettere al suo posto: i fiumi, che
 ## scorrono anche sopra il livello dell'acqua, e i laghi rimasti in collina.
@@ -349,8 +369,6 @@ func _genera() -> void:
 		for bx in range(0, size.x, BLOCCO):
 			_genera_blocco(Rect2i(bx, bz,
 				mini(BLOCCO, size.x - bx), mini(BLOCCO, size.y - bz)))
-	_classifica_acque()
-	_scava_fiumi()
 	_assegna_biomi_terrestri()
 	_calcola_quote_acqua()
 
@@ -394,7 +412,8 @@ func _aggiorna_etichette() -> void:
 ## dorsali che si diramano. Pesa quanto è alta la cella — in riva all'acqua non se
 ## ne accorge nessuno, in cima cambia tutto — ed è quello che distingue un
 ## paesaggio da un mucchio di dossi.
-static func _rilievo(seme: int, finestra: Rect2i) -> PackedInt32Array:
+## I quattro rumori del rilievo, costruiti una volta sola.
+static func _rumori(seme: int) -> Array:
 	var oceano := FastNoiseLite.new()
 	oceano.seed = seme + 15013
 	oceano.noise_type = FastNoiseLite.TYPE_SIMPLEX_SMOOTH
@@ -422,31 +441,48 @@ static func _rilievo(seme: int, finestra: Rect2i) -> PackedInt32Array:
 	creste.fractal_octaves = 4
 	creste.fractal_lacunarity = 2.3
 
+	return [oceano, continente, colline, creste]
+
+
+## L'altezza continua in un punto, da 0 a 1. È la funzione che il terreno
+## davvero è: dipende solo dal seme e dalle coordinate, non guarda nessun
+## vicino, e non sa che esista una mappa.
+##
+## Continua e non a gradini perché il reticolo idrografico ha bisogno di sapere
+## da che parte scende: su quote intere troverebbe pianori dappertutto e
+## l'acqua non saprebbe dove andare.
+static func _altezza(rumori: Array, punto: Vector2) -> float:
+	# La terra c'è dove il rumore del continente sta sopra la sua soglia, e
+	# sfuma dove ci sta appena sopra: è quello che fa le spiagge larghe e le
+	# scogliere strette. L'oceano ha l'ultima parola: dove sta sotto il suo
+	# taglio la massa va a zero, e lì la terra non emerge per quanto il
+	# continente si sforzi.
+	var massa: float = (rumori[1].get_noise_2dv(punto) + 1.0) * 0.5
+	var emerso: float = (rumori[0].get_noise_2dv(punto) + 1.0) * 0.5
+	massa *= clampf((emerso - OCEANO_TAGLIO) / OCEANO_SFUMATURA, 0.0, 1.0)
+	var terra := clampf((massa - SOGLIA_TERRA) / 0.32, 0.0, 1.0)
+
+	var dolce: float = (rumori[2].get_noise_2dv(punto) + 1.0) * 0.5
+	var acuto: float = (rumori[3].get_noise_2dv(punto) + 1.0) * 0.5
+	# Il fondale parte da 0,20 e la terra sale da lì: la costa cade dove la
+	# somma passa il livello dell'acqua, e non su una curva di livello. Le
+	# creste contano dove si è già in alto — pesano come il quadrato della terra
+	# emersa — così le spiagge restano dolci e l'interno no.
+	var h := 0.20 + terra * (0.36 + 0.28 * dolce) + terra * terra * 0.20 * acuto
+	return clampf(h, 0.0, 1.0)
+
+
+## Le quote a gradini di una finestra: l'altezza continua, quantizzata.
+static func _rilievo(seme: int, finestra: Rect2i) -> PackedInt32Array:
+	var rumori := _rumori(seme)
 	var quote := PackedInt32Array()
 	quote.resize(finestra.size.x * finestra.size.y)
 	for z in finestra.size.y:
 		for x in finestra.size.x:
 			var punto := Vector2(
 				float(finestra.position.x + x), float(finestra.position.y + z))
-			# La terra c'è dove il rumore del continente sta sopra la sua
-			# soglia, e sfuma dove ci sta appena sopra: è quello che fa le
-			# spiagge larghe e le scogliere strette. L'oceano ha l'ultima
-			# parola: dove sta sotto il suo taglio la massa va a zero, e lì la
-			# terra non emerge per quanto il continente si sforzi.
-			var massa := (continente.get_noise_2dv(punto) + 1.0) * 0.5
-			var emerso := (oceano.get_noise_2dv(punto) + 1.0) * 0.5
-			massa *= clampf((emerso - OCEANO_TAGLIO) / OCEANO_SFUMATURA, 0.0, 1.0)
-			var terra := clampf((massa - SOGLIA_TERRA) / 0.32, 0.0, 1.0)
-
-			var dolce := (colline.get_noise_2dv(punto) + 1.0) * 0.5
-			var acuto := (creste.get_noise_2dv(punto) + 1.0) * 0.5
-			# Il fondale parte da 0,20 e la terra sale da lì: la costa cade dove
-			# la somma passa il livello dell'acqua, e non su una curva di livello.
-			# Le creste contano dove si è già in alto — pesano come il quadrato
-			# della terra emersa — così le spiagge restano dolci e l'interno no.
-			var h := 0.20 + terra * (0.36 + 0.28 * dolce) + terra * terra * 0.20 * acuto
 			quote[z * finestra.size.x + x] = int(
-				round(clampf(h, 0.0, 1.0) * float(LIVELLO_MASSIMO)))
+				round(_altezza(rumori, punto) * float(LIVELLO_MASSIMO)))
 	return quote
 
 
@@ -562,6 +598,32 @@ func _genera_blocco(riquadro: Rect2i) -> void:
 	quote = _erosione(quote, finestra)
 	quote = _appiana_asperita(quote, finestra)
 	var pioggia := _pioggia(seme, quote, finestra)
+
+	# I fiumi arrivano dal reticolo rado invece che da una passeggiata sul
+	# mondo: si chiede quali celle lo attraversano, e si scava lì. La domanda
+	# non dipende da chi la fa — un nodo appartiene a una tessera sola — quindi
+	# due blocchi vicini scavano lo stesso fiume nello stesso posto senza
+	# doversi parlare.
+	#
+	# Si scava su tutta la finestra e non solo sul riquadro: il lago di una
+	# conca appena fuori può entrare qui, e per allagarlo servono le quote già
+	# scavate anche là fuori.
+	var reticolo := _reticolo_sul_riquadro(finestra)
+	var corsi: Dictionary = reticolo["celle"]
+	for z in finestra.size.y:
+		for x in finestra.size.x:
+			var cella := finestra.position + Vector2i(x, z)
+			var j := z * finestra.size.x + x
+			# Il letto sta un gradino sotto la riva, e non scende mai sotto il
+			# pelo dell'acqua: un fiume che arriva al lago ci finisce dentro,
+			# non ci scava sotto.
+			if corsi.has(cella) and quote[j] > LIVELLO_ACQUA:
+				quote[j] = maxi(quote[j] - 1, LIVELLO_ACQUA)
+
+	var laghi := {}
+	for conca in reticolo["conche"]:
+		_allaga(conca, quote, finestra, laghi)
+
 	for z in riquadro.size.y:
 		for x in riquadro.size.x:
 			var cella := riquadro.position + Vector2i(x, z)
@@ -570,128 +632,351 @@ func _genera_blocco(riquadro: Rect2i) -> void:
 			var locale := cella - finestra.position
 			var j := locale.y * finestra.size.x + locale.x
 			var i := indice(cella)
-			livelli[i] = quote[j]
 			umidita[i] = pioggia[j]
+			if laghi.has(cella):
+				livelli[i] = laghi[cella]
+				biomi[i] = Bioma.LAGO
+			elif corsi.has(cella) and quote[j] > LIVELLO_ACQUA:
+				livelli[i] = quote[j]
+				biomi[i] = Bioma.FIUME
+			else:
+				livelli[i] = quote[j]
+				biomi[i] = Bioma.LAGO if quote[j] <= LIVELLO_ACQUA else Bioma.PIANURA
 
 
-## Sott'acqua è lago, sopra è terra da smistare. Una riga, e nessuna visita del
-## grafo: è quello che si guadagna a non avere più il mare.
-func _classifica_acque() -> void:
-	for i in livelli.size():
-		biomi[i] = Bioma.LAGO if livelli[i] <= LIVELLO_ACQUA else Bioma.PIANURA
+# --- Fiumi ------------------------------------------------------------------
 
+## L'altezza continua sotto la quale una cella è già acqua. Il reticolo non
+## traccia fiumi dentro un lago: ci arriva e si ferma.
+const ALTEZZA_ACQUA := (float(LIVELLO_ACQUA) + 0.5) / float(LIVELLO_MASSIMO)
 
-## Ogni fiume parte da una cella alta e scende verso il vicino più basso.
+## Quanto pesa l'altezza del terreno, contro la distanza dalla meta, nello
+## scegliere dove passa un tratto di fiume. Zero dà una linea retta; troppo alto
+## dà un corso che gira in tondo e non arriva.
+const PESO_TERRENO_CORSO := 45.0
+
+## Quanto pesa, nell'altezza che guarda il reticolo, la massa grezza del
+## continente.
 ##
-## Su un terreno a gradini la discesa stretta si ferma al primo pianoro, quindi
-## a parità di quota il corso prosegue di lato invece di arrendersi. Se finisce
-## comunque in un avvallamento chiuso, quell'avvallamento diventa un lago:
-## è come si comporta l'acqua vera, e regala i laghi senza inventarli a mano.
-func _scava_fiumi() -> void:
-	var rng := RandomNumberGenerator.new()
-	rng.seed = seme + 977
+## L'altezza vera ha dei pianori: dove la terra satura a uno, o dove l'oceano
+## l'ha azzerata, la formula dà lo stesso numero per nodi lontanissimi. Su un
+## pianoro ogni nodo è una conca e l'acqua non sa dove andare — misurato: il 38 %
+## dei nodi senza sbocco, e nemmeno un fiume. La massa grezza non satura mai,
+## quindi ridà una pendenza dove la formula l'aveva appiattita, e le conche
+## scendono al 7 %. Il resto lo fa il riempimento.
+const PESO_IDROGRAFICO := 0.25
 
-	var sorgenti: Array[Vector2i] = []
-	for z in size.y:
-		for x in size.x:
-			var cella := Vector2i(x, z)
-			if livello(cella) > LIMITE_PIANURA:
-				sorgenti.append(cella)
-	if sorgenti.is_empty():
+## Le otto direzioni. Il reticolo scende in otto e non in quattro: a un nodo
+## ogni otto celle, un corso vincolato agli assi verrebbe una scaletta, e si
+## vedrebbe.
+const OTTO_VICINI: Array[Vector2i] = [
+	Vector2i(1, 0), Vector2i(1, 1), Vector2i(0, 1), Vector2i(-1, 1),
+	Vector2i(-1, 0), Vector2i(-1, -1), Vector2i(0, -1), Vector2i(1, -1),
+]
+
+
+## L'altezza che il reticolo idrografico guarda: quella vera più la massa
+## grezza, che non satura. Non è la quota del terreno e non deve esserlo: serve
+## solo a dire da che parte scende l'acqua, e dove il terreno scende davvero è
+## il terreno a decidere, perché quel termine è piccolo e liscio.
+static func _altezza_idrografica(rumori: Array, punto: Vector2) -> float:
+	var massa: float = (rumori[1].get_noise_2dv(punto) + 1.0) * 0.5
+	return _altezza(rumori, punto) + PESO_IDROGRAFICO * massa
+
+
+## Un mucchio binario minimo su un Array di coppie [quota, indice].
+##
+## GDScript non ne ha uno e qui serve: il riempimento tira fuori sempre il nodo
+## più basso fra qualche migliaio, e farlo con un ordinamento costerebbe un
+## ordinamento per nodo. Un Array e non un PackedArray perché i primi si passano
+## per riferimento, e questi due li si vuole modificare.
+static func _mucchio_dentro(mucchio: Array, quota: float, indice: int) -> void:
+	mucchio.append([quota, indice])
+	var i := mucchio.size() - 1
+	while i > 0:
+		var padre := (i - 1) / 2
+		if mucchio[padre][0] <= mucchio[i][0]:
+			break
+		var scambio: Array = mucchio[padre]
+		mucchio[padre] = mucchio[i]
+		mucchio[i] = scambio
+		i = padre
+
+
+static func _mucchio_fuori(mucchio: Array) -> Array:
+	var primo: Array = mucchio[0]
+	var ultimo: Array = mucchio.pop_back()
+	if mucchio.is_empty():
+		return primo
+	mucchio[0] = ultimo
+	var i := 0
+	while true:
+		var piccolo := i
+		var sinistro := i * 2 + 1
+		var destro := sinistro + 1
+		if sinistro < mucchio.size() and mucchio[sinistro][0] < mucchio[piccolo][0]:
+			piccolo = sinistro
+		if destro < mucchio.size() and mucchio[destro][0] < mucchio[piccolo][0]:
+			piccolo = destro
+		if piccolo == i:
+			break
+		var scambio: Array = mucchio[i]
+		mucchio[i] = mucchio[piccolo]
+		mucchio[piccolo] = scambio
+		i = piccolo
+	return primo
+
+
+## Riempie le depressioni, così che da ogni nodo l'acqua arrivi al bordo della
+## finestra. È il priority-flood: si parte dal bordo, si tira fuori sempre il
+## nodo più basso ancora da sistemare, e si alzano i suoi vicini almeno fino
+## alla sua quota più un pelo.
+##
+## Senza, i corsi si spezzano alla prima conca e non raccolgono mai abbastanza
+## da chiamarsi fiumi: misurato, accumulo massimo 19 su una soglia di 90. Di
+## regalo, i nodi che il riempimento ha alzato davvero sono le conche chiuse —
+## cioè i laghi — e non c'è bisogno di cercarli a parte.
+static func _riempi_le_conche(altezze: PackedFloat32Array, lato: int) -> PackedFloat32Array:
+	var pelo := 0.00001
+	var riempite := altezze.duplicate()
+	var visti := {}
+	var mucchio: Array = []
+	for z in lato:
+		for x in lato:
+			if x > 0 and z > 0 and x < lato - 1 and z < lato - 1:
+				continue
+			var i := z * lato + x
+			visti[i] = true
+			_mucchio_dentro(mucchio, riempite[i], i)
+
+	while not mucchio.is_empty():
+		var cima := _mucchio_fuori(mucchio)
+		var quota: float = cima[0]
+		var i: int = cima[1]
+		var x := i % lato
+		var z := i / lato
+		for passo in OTTO_VICINI:
+			var vx := x + passo.x
+			var vz := z + passo.y
+			if vx < 0 or vz < 0 or vx >= lato or vz >= lato:
+				continue
+			var j := vz * lato + vx
+			if visti.has(j):
+				continue
+			visti[j] = true
+			riempite[j] = maxf(riempite[j], quota + pelo)
+			_mucchio_dentro(mucchio, riempite[j], j)
+	return riempite
+
+
+## La tessera del reticolo a cui appartiene un nodo. Ogni nodo ne ha una sola,
+## ed è quello che rende il fiume una proprietà del posto e non della domanda.
+static func _tessera_di(nodo: Vector2i) -> Vector2i:
+	return Vector2i(
+		floori(float(nodo.x) / float(TESSERA_FIUMI)),
+		floori(float(nodo.y) / float(TESSERA_FIUMI)))
+
+
+## I nodi di fiume di una tessera, ognuno col nodo a valle. Un nodo che non ha
+## dove scendere sta a valle di sé stesso: è una conca, e lì il fiume muore.
+func _fiumi_della_tessera(chiave: Vector2i) -> Dictionary:
+	if _tessere_fiumi.has(chiave):
+		return _tessere_fiumi[chiave]
+
+	var lato := TESSERA_FIUMI + MARGINE_FIUMI * 2
+	var origine := chiave * TESSERA_FIUMI - Vector2i(MARGINE_FIUMI, MARGINE_FIUMI)
+	var rumori := _rumori(seme)
+	# Due altezze per nodo: quella vera, che dice se lì c'è già acqua, e quella
+	# idrografica, che dice da che parte scende.
+	var vere := PackedFloat32Array()
+	vere.resize(lato * lato)
+	var idro := PackedFloat32Array()
+	idro.resize(lato * lato)
+	for z in lato:
+		for x in lato:
+			var nodo := origine + Vector2i(x, z)
+			var punto := Vector2(
+				float(nodo.x * PASSO_FIUMI), float(nodo.y * PASSO_FIUMI))
+			vere[z * lato + x] = _altezza(rumori, punto)
+			idro[z * lato + x] = _altezza_idrografica(rumori, punto)
+
+	var riempite := _riempi_le_conche(idro, lato)
+
+	# A valle: il vicino più basso fra gli otto. Otto e non quattro perché a un
+	# nodo ogni otto celle un corso vincolato agli assi verrebbe una scaletta.
+	# Dopo il riempimento un nodo interno ne ha sempre uno.
+	var valle := PackedInt32Array()
+	valle.resize(lato * lato)
+	for z in lato:
+		for x in lato:
+			var i := z * lato + x
+			var scelto := -1
+			var minima := riempite[i]
+			for passo in OTTO_VICINI:
+				var vx := x + passo.x
+				var vz := z + passo.y
+				if vx < 0 or vz < 0 or vx >= lato or vz >= lato:
+					continue
+				var j := vz * lato + vx
+				if riempite[j] < minima:
+					minima = riempite[j]
+					scelto = j
+			valle[i] = scelto
+
+	# L'area drenata. Si scende dal nodo più alto al più basso e ognuno passa a
+	# valle quello che ha raccolto: una passata sola basta, perché un nodo non
+	# può drenare in uno più alto di lui, e quando arriva il suo turno ha già
+	# ricevuto tutto. È il pezzo che rende i fiumi grossi in fondo e piccoli in
+	# cima senza doverlo dire.
+	var ordine := range(lato * lato)
+	ordine.sort_custom(func(a, b): return riempite[a] > riempite[b])
+	var area := PackedInt32Array()
+	area.resize(lato * lato)
+	area.fill(1)
+	for i in ordine:
+		var g: int = valle[i]
+		if g >= 0:
+			area[g] += area[i]
+
+	var a_valle := {}
+	var conche := {}
+	for z in range(MARGINE_FIUMI, MARGINE_FIUMI + TESSERA_FIUMI):
+		for x in range(MARGINE_FIUMI, MARGINE_FIUMI + TESSERA_FIUMI):
+			var i := z * lato + x
+			if area[i] < SOGLIA_FIUME or vere[i] <= ALTEZZA_ACQUA:
+				continue
+			var nodo := origine + Vector2i(x, z)
+			var g: int = valle[i]
+			a_valle[nodo] = nodo if g < 0 else origine + Vector2i(g % lato, g / lato)
+			# Un nodo che il riempimento ha alzato davvero sta **sotto il pelo**
+			# di una conca chiusa: lì c'è un lago. Il fiume non si ferma per
+			# questo — ci entra, lo attraversa e ne esce dall'emissario — ed è
+			# l'errore che avevo fatto la prima volta: trattare ogni nodo alzato
+			# come un capolinea spezzava tutti i corsi al primo avvallamento e
+			# lasciava otto celle di fiume su un mondo intero.
+			if riempite[i] - idro[i] > CONCA_MINIMA:
+				conche[nodo] = true
+
+	var tessera := { "a_valle": a_valle, "conche": conche }
+	_tessere_fiumi[chiave] = tessera
+	return tessera
+
+
+## Le celle attraversate dai fiumi che passano per un riquadro, e le conche in
+## cui muoiono.
+##
+## Si guardano i nodi del riquadro allargato di un passo, perché un tratto lungo
+## un passo può entrare da fuori. Restituisce { celle_di_fiume, conche }.
+func _reticolo_sul_riquadro(riquadro: Rect2i) -> Dictionary:
+	var da := Vector2i(
+		floori(float(riquadro.position.x - PASSO_FIUMI) / float(PASSO_FIUMI)),
+		floori(float(riquadro.position.y - PASSO_FIUMI) / float(PASSO_FIUMI)))
+	var a := Vector2i(
+		floori(float(riquadro.end.x + PASSO_FIUMI) / float(PASSO_FIUMI)),
+		floori(float(riquadro.end.y + PASSO_FIUMI) / float(PASSO_FIUMI)))
+
+	var rumori := _rumori(seme)
+	var celle := {}
+	var conche: Array[Vector2i] = []
+	for nx in range(da.x, a.x + 1):
+		for nz in range(da.y, a.y + 1):
+			var nodo := Vector2i(nx, nz)
+			var tessera := _fiumi_della_tessera(_tessera_di(nodo))
+			var a_valle: Dictionary = tessera["a_valle"]
+			if not a_valle.has(nodo):
+				continue
+			var partenza := nodo * PASSO_FIUMI
+			# Una conca si allaga solo se il suo centro sta dentro il riquadro
+			# chiesto: più in là il lago non ci arriverebbe comunque, e allagare
+			# a metà fuori vorrebbe dire dipendere da quanto in là si è guardato.
+			if (tessera["conche"] as Dictionary).has(nodo) and riquadro.has_point(partenza):
+				conche.append(partenza)
+			for cella in _corso(rumori, partenza, (a_valle[nodo] as Vector2i) * PASSO_FIUMI):
+				celle[cella] = true
+	return { "celle": celle, "conche": conche }
+
+
+## Il tratto di fiume fra due nodi del reticolo, cella per cella.
+##
+## Non un segmento dritto: a otto celle di distanza una diagonale perfetta non
+## sembra un fiume, sembra un righello — e si vede, l'ho guardata. Si cammina
+## dal nodo di monte a quello di valle scegliendo a ogni passo il vicino che
+## costa meno: la sua altezza più quanto resta da fare. Così il corso aggira i
+## dossi e ci arriva lo stesso.
+##
+## Non si torna indietro e non ci si allontana mai dalla meta, quindi il
+## cammino finisce sempre. E dipende solo dai due nodi e dall'altezza, che è
+## una funzione delle coordinate: due blocchi che vedono lo stesso tratto lo
+## tracciano uguale senza doversi parlare.
+static func _corso(rumori: Array, da: Vector2i, a: Vector2i) -> Array[Vector2i]:
+	var celle: Array[Vector2i] = [da]
+	var visti := { da: true }
+	var punto := da
+	var resta := _lontananza(punto, a)
+	var tetto := resta * 3 + 2
+	while punto != a and celle.size() < tetto:
+		var migliore := punto
+		var costo_migliore := INF
+		for passo in OTTO_VICINI:
+			var prossimo: Vector2i = punto + passo
+			if visti.has(prossimo):
+				continue
+			var quanto := _lontananza(prossimo, a)
+			if quanto > resta:
+				continue
+			var costo := _altezza(rumori, Vector2(prossimo)) * PESO_TERRENO_CORSO 				+ float(quanto)
+			if costo < costo_migliore:
+				costo_migliore = costo
+				migliore = prossimo
+		if migliore == punto:
+			break
+		punto = migliore
+		resta = _lontananza(punto, a)
+		visti[punto] = true
+		celle.append(punto)
+	return celle
+
+
+## La distanza di Chebyshev: quanti passi in otto direzioni servono ad arrivare.
+static func _lontananza(da: Vector2i, a: Vector2i) -> int:
+	return maxi(absi(a.x - da.x), absi(a.y - da.y))
+
+
+## Allaga la conca in cui muore un fiume, scrivendo in `laghi` la quota del pelo
+## per ogni cella coperta.
+##
+## Si lavora sulle quote della finestra e non su quelle del mondo: quando un
+## blocco si genera, i blocchi accanto possono non esistere ancora, e leggere di
+## là darebbe risposte diverse a seconda dell'ordine in cui sono nati.
+##
+## L'allagamento parte dal nodo del reticolo e non da dove è arrivata una
+## passeggiata: è ancorato a un punto che dipende dal solo seme, quindi due
+## blocchi che vedono la stessa conca ne allagano le stesse celle. Il tetto di
+## AMPIEZZA_MASSIMA_LAGO tiene il lago dentro il margine con cui la finestra è
+## stata generata.
+func _allaga(centro: Vector2i, quote: PackedInt32Array, finestra: Rect2i,
+		laghi: Dictionary) -> void:
+	if not finestra.has_point(centro):
 		return
-
-	var scavati := 0
-	var tentativi := 0
-	while scavati < FIUMI and tentativi < FIUMI * 20:
-		tentativi += 1
-		var cella: Vector2i = sorgenti[rng.randi_range(0, sorgenti.size() - 1)]
-		var percorso: Array[Vector2i] = []
-		var visti := {}
-		var sfociato := false
-		while true:
-			if not dentro(cella) or visti.has(cella):
-				break
-			visti[cella] = true
-			if e_acqua(cella):
-				sfociato = true
-				break
-			percorso.append(cella)
-			var prossima := _passo_a_valle(cella, visti, rng)
-			if prossima == cella:
-				break
-			cella = prossima
-
-		if percorso.size() < LUNGHEZZA_MINIMA_FIUME:
-			continue
-		for c in percorso:
-			var i := indice(c)
-			biomi[i] = Bioma.FIUME
-			livelli[i] = maxi(livelli[i] - 1, LIVELLO_ACQUA)
-		if not sfociato:
-			_allaga(percorso[percorso.size() - 1])
-		scavati += 1
-
-
-## Il passo successivo del corso d'acqua: il vicino più basso se c'è, altrimenti
-## uno alla stessa quota non ancora attraversato, altrimenti nessuno.
-func _passo_a_valle(cella: Vector2i, visti: Dictionary, rng: RandomNumberGenerator) -> Vector2i:
-	var mia_quota := livello(cella)
-	var piu_basso := cella
-	var quota_minima := mia_quota
-	var pari: Array[Vector2i] = []
-	for passo in VICINI:
-		var vicino := cella + passo
-		if not dentro(vicino) or visti.has(vicino):
-			continue
-		var q := livello(vicino)
-		if q < quota_minima:
-			quota_minima = q
-			piu_basso = vicino
-		elif q == mia_quota:
-			pari.append(vicino)
-	if piu_basso != cella:
-		return piu_basso
-	if not pari.is_empty():
-		return pari[rng.randi_range(0, pari.size() - 1)]
-	return cella
-
-
-## Trasforma in lago la conca in cui si è fermato un fiume.
-func _allaga(centro: Vector2i) -> void:
-	var quota_lago := livello(centro)
+	var locale := centro - finestra.position
+	var quota_lago := quote[locale.y * finestra.size.x + locale.x]
+	if quota_lago <= LIVELLO_ACQUA:
+		return
 	var coda: Array[Vector2i] = [centro]
 	var visti := {}
 	var allagate := 0
 	while not coda.is_empty() and allagate < AMPIEZZA_MASSIMA_LAGO:
 		var cella: Vector2i = coda.pop_front()
-		if visti.has(cella) or not dentro(cella):
+		if visti.has(cella) or not finestra.has_point(cella):
 			continue
-		if livello(cella) > quota_lago:
+		var l := cella - finestra.position
+		if quote[l.y * finestra.size.x + l.x] > quota_lago:
 			continue
 		visti[cella] = true
-		var i := indice(cella)
-		# Una cella già sott'acqua non si tocca: alzarle il fondo alla quota del
-		# lago nuovo vorrebbe dire tirare su una secca in mezzo all'acqua bassa.
-		# È lo stesso riguardo che prima si aveva per il mare.
-		if livelli[i] > LIVELLO_ACQUA:
-			biomi[i] = Bioma.LAGO
-			livelli[i] = quota_lago
-			allagate += 1
+		allagate += 1
+		laghi[cella] = quota_lago
 		for passo in VICINI:
 			coda.append(cella + passo)
-
-
-func _vicino_piu_basso(cella: Vector2i) -> Vector2i:
-	var migliore := cella
-	var quota_migliore := livello(cella)
-	for passo in VICINI:
-		var vicino := cella + passo
-		if not dentro(vicino):
-			continue
-		if livello(vicino) < quota_migliore:
-			quota_migliore = livello(vicino)
-			migliore = vicino
-	return migliore
 
 
 func _assegna_biomi_terrestri() -> void:
