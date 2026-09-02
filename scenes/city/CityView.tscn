@@ -32,16 +32,7 @@ environment = SubResource("Env_1")
 light_energy = 0.95
 shadow_enabled = true
 
-[node name="Terreno" type="MeshInstance3D" parent="."]
-
-[node name="Corpo" type="StaticBody3D" parent="Terreno"]
-collision_mask = 0
-
-[node name="Forma" type="CollisionShape3D" parent="Terreno/Corpo"]
-
-[node name="Acqua" type="MeshInstance3D" parent="."]
-
-[node name="Griglia" type="MeshInstance3D" parent="."]
+[node name="Mondo" type="Node3D" parent="."]
 
 [node name="Selezione" type="MeshInstance3D" parent="."]
 

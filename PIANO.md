@@ -239,8 +239,9 @@ scavato a mano.
 
 Restano fuori, e vanno decisi se serviranno:
 
-- [ ] Ricostruzione della mesh a blocchi. Oggi si rifà tutto il terreno a ogni
-      modifica: su 32x32 regge, su una mappa grande no.
+- [x] Ricostruzione della mesh a blocchi — **chiusa**: il terreno è una mesh per
+      zona, e una modifica rifà solo le zone che ha cambiato. Vedi «Una mesh per
+      zona», in fondo.
 - [x] Cosa fa una campata quando le si alza la sponda accanto — **chiuso in
       Fase 5**: il terreno che serve a una costruzione vicina non si tocca più.
 
@@ -1204,12 +1205,22 @@ decisione:
 La prima è quella giusta, ed è anche l'unica che regge se un giorno si vorranno
 i bacini idrografici veri.
 
-Per il mare invece va cambiata la definizione, non l'implementazione: **è mare
-quello che sta sotto il livello del mare e appartiene a una distesa più larga di
-`N` celle; è lago quello che sta in una conca che si chiude dentro la finestra.**
-Si calcola dentro un riquadro limitato, non serve un flood fill globale, e
-recupera la stessa intuizione di adesso — il mare è grande, il lago è piccolo —
-senza appoggiarsi a un bordo che non c'è più.
+Il mare invece **sparisce come categoria**: quelli che oggi sono mari diventano
+laghi grossi. La definizione di adesso — «è mare l'acqua che si tocca partendo
+dal bordo mappa» — in un mondo senza bordo non vuol dire niente, e le soluzioni
+che la salvavano volevano tutte una soglia inventata: una distesa più larga di
+`N` celle è mare, sotto è lago. Ma quella soglia non decide niente che il
+giocatore possa vedere. Un lago e un mare si comportano già allo stesso modo:
+stanno a una quota, ci si costruiscono sopra ponti, li si scava e li si riempie
+col badile. L'unica differenza vera era il colore, ed è un prezzo basso da
+pagare per togliere di mezzo un flood fill globale che in un mondo infinito non
+saprebbe da dove partire.
+
+Quello che resta è più semplice di prima: **l'acqua sotto il livello di
+riferimento è un lago, l'acqua che scende a gradini è un fiume.** Nessuna delle
+due ha bisogno di sapere quanto è grande il mondo. Le distese larghe restano
+larghe — il rilievo non cambia — ma non sono più un'entità a parte, e la costa
+smette di essere il confine del mondo per tornare a essere solo una riva.
 
 #### Cosa si rompe, in ordine di fastidio
 
@@ -1217,14 +1228,13 @@ senza appoggiarsi a un bordo che non c'è più.
   ha una `size`. Serve o un'origine mobile — il mondo si estende attorno a un
   punto che resta a zero — o coordinate con segno. La seconda è più pulita e
   tocca più codice; la prima è un trucco che prima o poi si paga.
-- **La mesh del terreno è una sola per tutto il mondo.** A 96x96 già sono
-  novemila celle rifatte a ogni colpo di badile; con un mondo che cresce non
-  regge. Va spezzata **per zona**, e questo è un lavoro che conviene comunque,
-  anche restando finiti: rifare una zona invece del mondo intero rende
-  istantaneo quello che oggi non lo è.
-- **Il velo sulle zone non tue** oggi scorre tutte le celle del mondo. Con un
-  mondo infinito «tutte le celle» non esiste: va disegnato solo attorno a quello
-  che si possiede, un anello di zone comprabili e basta.
+- **La mesh del terreno era una sola per tutto il mondo** — **chiuso**: adesso
+  è una per zona, e una modifica rifà solo le zone che ha cambiato. Vedi «Una
+  mesh per zona», in fondo.
+- **Il velo sulle zone non tue** scorreva tutte le celle del mondo. Con un mondo
+  infinito «tutte le celle» non esiste — **chiuso**: adesso si disegna solo
+  quello che è tuo e l'anello di zone comprabili, velo compreso. Vedi «Si vede
+  solo quello che si può prendere», più sotto.
 - **La camera non ha limiti** già adesso, quindi lì non cambia niente — ma
   diventa il modo con cui ci si perde. Serve un «torna alla città», o la
   bussola.
@@ -1249,8 +1259,9 @@ senza appoggiarsi a un bordo che non c'è più.
 
 #### L'ordine di lavoro
 
-1. **Spezzare la mesh per zona.** Serve comunque, non rompe niente, e si misura
-   subito.
+1. ~~**Spezzare la mesh per zona.**~~ Fatto. Serviva comunque, non ha rotto
+   niente, e si è misurato: cinque volte più svelto oggi, e non peggiora se il
+   mondo cresce.
 2. **Il terreno come funzione**, con generazione a blocchi e margine, a mondo
    ancora finito: si può confrontare cella per cella col generatore di adesso e
    pretendere che dia lo stesso risultato. È il controllo che rende sicuro tutto
@@ -1309,9 +1320,101 @@ strade servirà, il giorno che si vorranno, ai ponti e ai muri. Vale la pena
 scriverla come una cosa a sé, che dalla maschera dei vicini restituisce id del
 modello e rotazione, e non come un `match` nascosto dentro il piazzatore.
 
+## Si vede solo quello che si può prendere
+
+Il mondo si disegnava tutto. Nove zone su nove, quelle comprate e quelle no, le
+seconde sotto un velo scuro; il velo diceva «non è tua», ma il paesaggio sotto
+c'era, e la mappa finiva dove finiva l'array. Adesso **si disegna quello che è
+tuo e l'anello di zone che confinano con qualcosa di tuo, e basta.**
+
+La regola è la stessa che decide cosa si può comprare — `_comprabile()`, che
+esisteva già — e quella coincidenza è metà del motivo per cui vale la pena: **si
+vede esattamente quello che si può prendere.** Non c'è una zona lontana che si
+guarda per mesi senza poterla toccare, e non c'è un pezzo di mondo comprabile
+che non si sia mai visto.
+
+Come funziona, in due pezzi:
+
+- **Una maschera di celle**, un byte per cella, parallela al terreno. La riempie
+  `CityView._aggiorna_visibilita()` scorrendo le zone, non le celle: sono nove
+  domande invece di novemila. La leggono le tre mesh del mondo — terreno, acqua
+  e reticolo — e una maschera vuota vuol dire «tutto», così chi non ha niente da
+  nascondere non deve costruirsene una piena di uno.
+- **I fianchi si chiudono sul bordo del visibile** esattamente come si chiudevano
+  sul bordo della mappa: `_quota_vicina()` non distingue più fra «fuori mappa» e
+  «fuori dalla maschera», e in tutti e due i casi il terreno cala sotto il pelo
+  dell'acqua. Senza, il bordo del disegnato si vedrebbe in trasparenza. Con,
+  il mondo finisce con una scogliera, e ogni zona comprata la sposta più in là.
+
+Comprare rifà il terreno e non solo il velo: la zona presa scopre l'anello che
+adesso le confina, quindi le celle da disegnare cambiano più di quelle appena
+comprate. È l'unico posto dove ricostruire tutto costa, ed è una volta per
+acquisto.
+
+Quello che non cambia: la collisione del terreno nasce dalla sua mesh, quindi il
+raggio del mouse non trova più niente dove non si disegna — e non c'era niente
+da cliccare comunque, perché le zone lontane non erano comprabili nemmeno prima.
+
+Il conto vero, però, è un altro. **Questo è il primo pezzo del mondo infinito
+che si poteva scrivere senza toccare la generazione**: quando le zone non
+avranno più un numero, «disegna tutto» non sarà solo lento, sarà impossibile.
+Averlo già fatto vuol dire che il giorno del terreno-funzione resta un problema
+solo — generare — e non due.
+
+## Una mesh per zona
+
+Il terreno era **una mesh sola e un trimesh solo** per tutto il mondo, rifatti
+interi a ogni modifica. Un colpo di badile tocca una cella; ne faceva ricostruire
+novemila, più la forma di collisione che serve al raggio del mouse. Adesso ogni
+zona ha la sua mesh, la sua acqua, il suo reticolo e il suo corpo, e una modifica
+rifà solo le zone che ha cambiato.
+
+Le misure, su un mondo di prova con cinque zone visibili:
+
+| | prima | adesso |
+|---|---|---|
+| colpo di badile in mezzo a una zona | 328 ms | **64 ms** |
+| colpo sul confine fra due zone | 328 ms | **129 ms** |
+
+Cinque volte, e il numero che conta non è il cinque: è che **64 ms non
+cresceranno**. Con nove zone possedute il vecchio codice ne avrebbe messi circa
+seicento; con novanta, seimila. Il costo di adesso dipende da quante zone la
+modifica tocca — una, o due se si scava sul confine — e non da quanto è grande
+il mondo.
+
+Tre cose che il lavoro ha tirato fuori, e che non erano nel piano:
+
+- **Le celle toccate non sono le celle cambiate.** `riclassifica()` rifà biomi e
+  acque su tutta la mappa, ed è quello che fa funzionare il canale scavato a
+  mano: un colpo di badile qui può spostare una riva dall'altra parte del mondo.
+  Rifare «la zona della cella toccata» sarebbe stato sbagliato in modo
+  invisibile finché uno non scava un canale. Così `CityTerrain` ha imparato a
+  farsi una `fotografia()` di quote, biomi e pelo dell'acqua, e a dire con
+  `celle_cambiate()` cosa si vede diverso: costa una scansione dell'array, che
+  è nulla accanto a una mesh.
+- **Il vicinato va rifatto insieme.** Il fianco di un gradino appartiene alla
+  cella più alta, che può stare nella zona accanto: alzare una cella sul confine
+  scopre una parete che l'altra zona ha in carico. Per questo una cella cambiata
+  sporca la sua zona e quelle delle sue quattro vicine — ed è il motivo per cui
+  il colpo sul confine costa il doppio invece di uguale.
+- **La maschera di visibilità e il riquadro sono due cose diverse.** La maschera
+  dice cosa esiste, il riquadro dice di chi è il compito di disegnarlo. Non si
+  possono fondere: una cella fuori dal riquadro va guardata comunque, per sapere
+  se quella dentro ha un fianco scoperto.
+
+Dove vanno i 64 ms, per il giorno che non basteranno: 43 a costruire la mesh del
+terreno con `SurfaceTool`, 11 ad acqua e reticolo, 8 al trimesh di collisione. Il
+collo è la mesh, non la fisica — il contrario di quello che ci si aspetterebbe,
+e vuol dire che il prossimo guadagno sta nell'emettere meno quadri, non nel
+cambiare forma di collisione.
+
+Il velo sulle zone non tue resta una mesh sola per tutte, e va bene così: cambia
+quando cambia cosa è tuo, cioè una volta ogni acquisto, non a ogni gradino.
+
 ## Prossimo passo
 
-Il mondo infinito, qui sopra. Le cinque fasi erano chiuse da un pezzo; quello
+Il mondo infinito, qui sopra: il primo passo dell'ordine di lavoro è fatto, e
+resta il terreno come funzione. Le cinque fasi erano chiuse da un pezzo; quello
 che è venuto dopo — servizi, strada, conti, spostamento, abitanti, lavoro,
 felicità, aree, mondo e zone — è la città che chiede qualcosa a chi la
 costruisce.

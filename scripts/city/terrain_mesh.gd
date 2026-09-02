@@ -47,16 +47,33 @@ const VARIAZIONE := 0.05
 # conversione il terreno viene fuori slavato. Si converte al momento dell'uso.
 
 
-static func costruisci_terreno(terreno: CityTerrain) -> ArrayMesh:
+## Il terreno. `visibili` è la maschera delle celle da disegnare — un byte per
+## cella, parallelo al terreno, vuota per dire «tutte». Chi la passa si vede
+## solo il pezzo di mondo che gli interessa, e i fianchi si chiudono lungo il
+## suo bordo come si chiudono lungo quello della mappa.
+##
+## `riquadro` è la porzione di celle da emettere, vuoto per dire «tutte»: è come
+## si fa una mesh per zona invece che una per il mondo. La maschera dice cosa
+## esiste, il riquadro dice di chi è il compito di disegnarlo — e restano due
+## cose diverse, perché una cella fuori dal riquadro va comunque guardata per
+## sapere se il vicino dentro il riquadro ha un fianco scoperto.
+static func costruisci_terreno(terreno: CityTerrain,
+		visibili: PackedByteArray = PackedByteArray(),
+		riquadro: Rect2i = Rect2i()) -> ArrayMesh:
 	var cella := CityGrid.CELL_SIZE
 	var mezza := cella * 0.5
 
 	var st := SurfaceTool.new()
 	st.begin(Mesh.PRIMITIVE_TRIANGLES)
+	var quadri := 0
 
-	for z in terreno.size.y:
-		for x in terreno.size.x:
+	var area := _area(terreno, riquadro)
+	for z in range(area.position.y, area.end.y):
+		for x in range(area.position.x, area.end.x):
 			var coord := Vector2i(x, z)
+			if not _visibile(terreno, coord, visibili):
+				continue
+			quadri += 1
 			var y := terreno.quota(coord)
 			var x0 := float(x) * cella - mezza
 			var x1 := float(x) * cella + mezza
@@ -69,41 +86,46 @@ static func costruisci_terreno(terreno: CityTerrain) -> ArrayMesh:
 				Vector3(x1, y, z1), Vector3(x1, y, z0),
 				Vector3.UP, colore)
 
-			# Fianchi verso i vicini più bassi. Fuori mappa il terreno cala
-			# comunque, altrimenti il bordo del mondo si vede in trasparenza.
-			var quota_est := _quota_vicina(terreno, coord + Vector2i(1, 0))
+			# Fianchi verso i vicini più bassi. Dove non si disegna — fuori
+			# mappa o fuori dalla maschera — il terreno cala comunque,
+			# altrimenti il bordo si vede in trasparenza.
+			var quota_est := _quota_vicina(terreno, coord + Vector2i(1, 0), visibili)
 			if quota_est < y:
 				_quad(st,
 					Vector3(x1, quota_est, z0), Vector3(x1, y, z0),
 					Vector3(x1, y, z1), Vector3(x1, quota_est, z1),
 					Vector3.RIGHT, COLORE_SCARPATA.srgb_to_linear())
 
-			var quota_ovest := _quota_vicina(terreno, coord + Vector2i(-1, 0))
+			var quota_ovest := _quota_vicina(terreno, coord + Vector2i(-1, 0), visibili)
 			if quota_ovest < y:
 				_quad(st,
 					Vector3(x0, quota_ovest, z1), Vector3(x0, y, z1),
 					Vector3(x0, y, z0), Vector3(x0, quota_ovest, z0),
 					Vector3.LEFT, COLORE_SCARPATA.srgb_to_linear())
 
-			var quota_sud := _quota_vicina(terreno, coord + Vector2i(0, 1))
+			var quota_sud := _quota_vicina(terreno, coord + Vector2i(0, 1), visibili)
 			if quota_sud < y:
 				_quad(st,
 					Vector3(x1, quota_sud, z1), Vector3(x1, y, z1),
 					Vector3(x0, y, z1), Vector3(x0, quota_sud, z1),
 					Vector3.BACK, COLORE_SCARPATA.srgb_to_linear())
 
-			var quota_nord := _quota_vicina(terreno, coord + Vector2i(0, -1))
+			var quota_nord := _quota_vicina(terreno, coord + Vector2i(0, -1), visibili)
 			if quota_nord < y:
 				_quad(st,
 					Vector3(x0, quota_nord, z0), Vector3(x0, y, z0),
 					Vector3(x1, y, z0), Vector3(x1, quota_nord, z0),
 					Vector3.FORWARD, COLORE_SCARPATA.srgb_to_linear())
 
+	if quadri == 0:
+		return ArrayMesh.new()
 	st.set_material(_materiale_terreno())
 	return st.commit()
 
 
-static func costruisci_acqua(terreno: CityTerrain) -> ArrayMesh:
+static func costruisci_acqua(terreno: CityTerrain,
+		visibili: PackedByteArray = PackedByteArray(),
+		riquadro: Rect2i = Rect2i()) -> ArrayMesh:
 	var cella := CityGrid.CELL_SIZE
 	var mezza := cella * 0.5
 
@@ -111,10 +133,11 @@ static func costruisci_acqua(terreno: CityTerrain) -> ArrayMesh:
 	st.begin(Mesh.PRIMITIVE_TRIANGLES)
 	var quadri := 0
 
-	for z in terreno.size.y:
-		for x in terreno.size.x:
+	var area := _area(terreno, riquadro)
+	for z in range(area.position.y, area.end.y):
+		for x in range(area.position.x, area.end.x):
 			var coord := Vector2i(x, z)
-			if not terreno.e_acqua(coord):
+			if not terreno.e_acqua(coord) or not _visibile(terreno, coord, visibili):
 				continue
 			var y: float = terreno.quota_acqua[terreno.indice(coord)]
 			var x0 := float(x) * cella - mezza
@@ -135,7 +158,9 @@ static func costruisci_acqua(terreno: CityTerrain) -> ArrayMesh:
 
 ## Reticolo delle celle, appoggiato alla quota di ciascuna. Solo sull'asciutto:
 ## sull'acqua non si costruisce, quindi disegnarlo sarebbe una bugia.
-static func costruisci_reticolo(terreno: CityTerrain) -> Mesh:
+static func costruisci_reticolo(terreno: CityTerrain,
+		visibili: PackedByteArray = PackedByteArray(),
+		riquadro: Rect2i = Rect2i()) -> Mesh:
 	var cella := CityGrid.CELL_SIZE
 	var mezza := cella * 0.5
 
@@ -146,10 +171,11 @@ static func costruisci_reticolo(terreno: CityTerrain) -> Mesh:
 
 	var mesh := ImmediateMesh.new()
 	mesh.surface_begin(Mesh.PRIMITIVE_LINES, materiale)
-	for z in terreno.size.y:
-		for x in terreno.size.x:
+	var area := _area(terreno, riquadro)
+	for z in range(area.position.y, area.end.y):
+		for x in range(area.position.x, area.end.x):
 			var coord := Vector2i(x, z)
-			if terreno.e_acqua(coord):
+			if terreno.e_acqua(coord) or not _visibile(terreno, coord, visibili):
 				continue
 			# Un filo sopra la faccia, altrimenti le linee sfarfallano.
 			var y := terreno.quota(coord) + 0.012
@@ -246,12 +272,34 @@ static func _materiale_acqua() -> StandardMaterial3D:
 	return m
 
 
-## Fuori dai bordi il terreno scende sotto il livello del mare, così la mappa
-## finisce con una scogliera invece che con un buco.
-static func _quota_vicina(terreno: CityTerrain, cella: Vector2i) -> float:
-	if not terreno.dentro(cella):
+## Fuori dai bordi — quelli della mappa e quelli di ciò che si disegna — il
+## terreno scende sotto il livello del mare, così il mondo finisce con una
+## scogliera invece che con un buco.
+static func _quota_vicina(terreno: CityTerrain, cella: Vector2i,
+		visibili: PackedByteArray) -> float:
+	if not _visibile(terreno, cella, visibili):
 		return -2.0 * CityTerrain.PASSO_QUOTA
 	return terreno.quota(cella)
+
+
+## Il riquadro di celle da percorrere, tenuto dentro la mappa. Vuoto vuol dire
+## tutto il terreno, così chi non ragiona per zone non deve saperne niente.
+static func _area(terreno: CityTerrain, riquadro: Rect2i) -> Rect2i:
+	var tutto := Rect2i(Vector2i.ZERO, terreno.size)
+	if riquadro.size.x <= 0 or riquadro.size.y <= 0:
+		return tutto
+	return riquadro.intersection(tutto)
+
+
+## Se una cella va disegnata. Una maschera vuota vuol dire tutte: chi non ha
+## niente da nascondere non deve costruirsene una piena di uno.
+static func _visibile(terreno: CityTerrain, cella: Vector2i,
+		visibili: PackedByteArray) -> bool:
+	if not terreno.dentro(cella):
+		return false
+	if visibili.is_empty():
+		return true
+	return visibili[terreno.indice(cella)] != 0
 
 
 static func _colore_cella(terreno: CityTerrain, cella: Vector2i) -> Color:

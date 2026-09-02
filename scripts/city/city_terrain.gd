@@ -219,6 +219,38 @@ func spiana(celle: Array[Vector2i], livello_scelto: int = -1) -> int:
 	return scelto
 
 
+## Una fotografia di quello che del terreno si vede: quote, biomi e pelo
+## dell'acqua. Confrontarne due dice quali celle vanno ridisegnate.
+##
+## Serve perché una modifica non si ferma dove la si fa: riclassifica() rifa i
+## conti su tutta la mappa, e un canale scavato qui può spostare una riva
+## dall'altra parte del mondo. Le celle toccate a mano non sono l'elenco di
+## quelle cambiate.
+func fotografia() -> Dictionary:
+	return {
+		"livelli": livelli.duplicate(),
+		"biomi": biomi.duplicate(),
+		"quota_acqua": quota_acqua.duplicate(),
+	}
+
+
+## Le celle che si vedono diverse da come stavano nella fotografia.
+func celle_cambiate(prima: Dictionary) -> Array[Vector2i]:
+	var cambiate: Array[Vector2i] = []
+	if prima.is_empty():
+		return cambiate
+	var quote: PackedInt32Array = prima["livelli"]
+	var etichette: PackedByteArray = prima["biomi"]
+	var acque: PackedFloat32Array = prima["quota_acqua"]
+	if quote.size() != livelli.size():
+		return cambiate
+	for i in livelli.size():
+		if livelli[i] == quote[i] and biomi[i] == etichette[i] 				and is_equal_approx(quota_acqua[i], acque[i]):
+			continue
+		cambiate.append(Vector2i(i % size.x, i / size.x))
+	return cambiate
+
+
 ## La quota che il seme aveva dato a questa cella, prima che ci si costruisse.
 ## Confrontarla con quella di adesso dice se la cella è stata spianata.
 func livello_naturale(cella: Vector2i) -> int:

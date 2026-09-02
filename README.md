@@ -171,9 +171,11 @@ dice che c'è un problema, il verde dice dove mettere il prossimo.
 
 **Il mondo è una scacchiera di zone**, e all'inizio ne è tua una sola: le altre
 si comprano con lo strumento *Espandi*, purché confinino con una che hai già, e
-il prezzo cresce a ogni zona presa. Fuori dalle tue zone non si costruisce e non
-si scava, ma si vede lo stesso — sotto un velo scuro e non opaco, perché la
-collina che potresti comprare devi poterla guardare.
+il prezzo cresce a ogni zona presa. Del mondo si vede quello che è tuo e l'anello
+di zone che potresti comprare — quelle sotto un velo scuro e non opaco, perché
+la collina che stai per pagare devi poterla guardare. Più in là non c'è niente da
+vedere: la mappa finisce con una scogliera, e ogni acquisto la sposta un po' più
+avanti. Fuori dalle tue zone, comunque, non si costruisce e non si scava.
 
 **E poi c'è il badile.** Alza, abbassa e livella spostano il suolo di mezzo
 metro per volta, a un credito a gradino e senza rimborso. Sotto una costruzione

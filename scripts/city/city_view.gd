@@ -94,10 +94,7 @@ enum Modo { NAVIGA, PIAZZA, DEMOLISCI, TERRENO, SPOSTA, ZONA }
 ## Gli attrezzi della modalità terreno.
 enum Attrezzo { ALZA, ABBASSA, LIVELLA }
 
-@onready var _terreno_mesh: MeshInstance3D = $Terreno
-@onready var _forma_terreno: CollisionShape3D = $Terreno/Corpo/Forma
-@onready var _acqua_mesh: MeshInstance3D = $Acqua
-@onready var _reticolo: MeshInstance3D = $Griglia
+@onready var _mondo: Node3D = $Mondo
 @onready var _selezione: MeshInstance3D = $Selezione
 @onready var _evidenza: MeshInstance3D = $Evidenza
 @onready var _zone: MeshInstance3D = $Zone
@@ -152,6 +149,11 @@ var _servizio_acceso: String = ""
 ## ha qualcosa che non va, quindi è anche l'elenco di chi è in difetto.
 var _segnali_per_id: Dictionary = {}
 var _velo: StandardMaterial3D
+## Le celle che si disegnano: un byte per cella, parallelo al terreno. La
+## riempie _aggiorna_visibilita(), e la leggono le mesh del mondo.
+var _celle_visibili := PackedByteArray()
+## zona -> il nodo che la disegna. Chi non c'è non si vede.
+var _zone_disegnate: Dictionary = {}
 
 var _messaggio_corrente: String = ""
 var _materiale_valido: StandardMaterial3D
@@ -182,8 +184,9 @@ func _ready() -> void:
 	_barra.aggiorna_saldo(SaveManager.credits)
 
 	var costruiti := _ricostruisci_dal_salvataggio()
-	_costruisci_mesh()
-	_ridisegna_le_zone()
+	_aggiorna_visibilita()
+	_rifai_il_mondo()
+	_ridisegna_il_velo()
 	_mostra_i_servizi()
 	_aggiorna_i_conti()
 
@@ -295,13 +298,88 @@ func _tasto_del_negozio(tasto: InputEventKey) -> bool:
 
 # --- Costruzione del mondo --------------------------------------------------
 
-func _costruisci_mesh() -> void:
-	_terreno_mesh.mesh = TerrainMesh.costruisci_terreno(terreno)
-	_acqua_mesh.mesh = TerrainMesh.costruisci_acqua(terreno)
-	_reticolo.mesh = TerrainMesh.costruisci_reticolo(terreno)
-	# La collisione del terreno serve solo al raggio del mouse: senza, non c'è
-	# modo di sapere quale cella si sta indicando.
-	_forma_terreno.shape = _terreno_mesh.mesh.create_trimesh_shape()
+## Rifà tutte le zone che si vedono. Serve al caricamento, dove non c'è ancora
+## niente in piedi: dopo, si rifà solo quello che è cambiato.
+func _rifai_il_mondo() -> void:
+	for zx in SaveManager.world_zones_per_side():
+		for zy in SaveManager.world_zones_per_side():
+			_rifai_la_zona(Vector2i(zx, zy))
+
+
+## Rifà una zona sola: terreno, acqua, reticolo e la collisione che serve al
+## raggio del mouse.
+##
+## È il pezzo che rende sopportabile il badile. Il mondo era una mesh sola e un
+## trimesh solo, rifatti interi a ogni gradino spostato: a 96x96 sono novemila
+## celle per un colpo che ne tocca una. Adesso sono mille e ventiquattro, e non
+## crescono se il mondo cresce.
+##
+## Le mesh restano in coordinate del mondo e il nodo sta nell'origine: spostare
+## l'origine per zona non servirebbe a niente a queste distanze, e vorrebbe dire
+## sottrarla in ogni punto che si emette.
+func _rifai_la_zona(zona: Vector2i) -> void:
+	if not SaveManager.owns_zone(zona) and not _comprabile(zona):
+		if _zone_disegnate.has(zona):
+			(_zone_disegnate[zona] as Node).queue_free()
+			_zone_disegnate.erase(zona)
+		return
+
+	var nodo: StaticBody3D = _zone_disegnate.get(zona, null)
+	if nodo == null:
+		nodo = _nuova_zona(zona)
+		_zone_disegnate[zona] = nodo
+		_mondo.add_child(nodo)
+
+	var lato := SaveManager.LATO_ZONA
+	var riquadro := Rect2i(zona * lato, Vector2i(lato, lato))
+	var terra := TerrainMesh.costruisci_terreno(terreno, _celle_visibili, riquadro)
+	(nodo.get_node("Terreno") as MeshInstance3D).mesh = terra
+	(nodo.get_node("Acqua") as MeshInstance3D).mesh = TerrainMesh.costruisci_acqua(
+		terreno, _celle_visibili, riquadro)
+	(nodo.get_node("Griglia") as MeshInstance3D).mesh = TerrainMesh.costruisci_reticolo(
+		terreno, _celle_visibili, riquadro)
+	# La collisione serve solo al raggio del mouse: senza, non c'è modo di sapere
+	# quale cella si sta indicando.
+	(nodo.get_node("Forma") as CollisionShape3D).shape = terra.create_trimesh_shape()
+
+
+## Rifà solo le zone che il terreno ha cambiato da quando è stata scattata la
+## fotografia.
+##
+## Non basta la zona delle celle cambiate: il fianco di un gradino appartiene
+## alla cella più alta, che può stare nella zona accanto, e alzare una cella sul
+## confine scopre o copre una parete che l'altra zona ha in carico. Per questo
+## si rifà anche il vicinato.
+func _rifai_dove_e_cambiato(prima: Dictionary) -> void:
+	var da_rifare: Dictionary = {}
+	for cella in terreno.celle_cambiate(prima):
+		da_rifare[_zona_di(cella)] = true
+		for passo in CityTerrain.VICINI:
+			var vicina: Vector2i = cella + passo
+			if griglia.in_griglia(vicina):
+				da_rifare[_zona_di(vicina)] = true
+	for zona in da_rifare:
+		_rifai_la_zona(zona)
+
+
+## Il nodo di una zona: le tre mesh e il corpo per il raggio del mouse.
+##
+## Un corpo per zona e non uno per il mondo: è metà del guadagno, perché
+## costruire il trimesh di collisione costa quanto costruire la mesh, e tenerne
+## uno solo per tutto il mondo vanificherebbe l'altra metà.
+static func _nuova_zona(zona: Vector2i) -> StaticBody3D:
+	var corpo := StaticBody3D.new()
+	corpo.name = "Zona %d %d" % [zona.x, zona.y]
+	corpo.collision_layer = LAYER_TERRENO
+	corpo.collision_mask = 0
+	for nome in ["Terreno", "Acqua", "Griglia"]:
+		var mesh := MeshInstance3D.new()
+		mesh.name = nome
+		corpo.add_child(mesh)
+	var forma := CollisionShape3D.new()
+	forma.name = "Forma"
+	corpo.add_child(forma)
+	return corpo
 
 
 ## Rimette in piedi la città salvata. Restituisce quante costruzioni ha ripreso.
@@ -383,9 +461,10 @@ func _costruisci(id: String, ancora: Vector2i, rotazione: int, livello: int,
 
 	var celle := griglia.celle_occupate(ancora, footprint, rotazione)
 	if voce["regola"] == CityCatalog.Regola.TERRA and _serve_livellare(celle, livello):
+		var prima: Dictionary = terreno.fotografia() if rifai_la_mesh else {}
 		terreno.spiana(celle, livello)
 		if rifai_la_mesh:
-			_costruisci_mesh()
+			_rifai_dove_e_cambiato(prima)
 
 	var nodo := _istanzia(voce, ancora, rotazione, livello)
 	if nodo == null:
@@ -506,17 +585,49 @@ func _comprabile(zona: Vector2i) -> bool:
 	return false
 
 
+## Quali celle si disegnano: quelle delle zone tue e di quelle che potresti
+## comprare, e basta.
+##
+## Il mondo intorno esiste — il seme lo genera tutto — ma mostrarlo vorrebbe
+## dire far vedere un paesaggio su cui il giocatore non ha nessuna presa, e il
+## giorno in cui le zone non finiranno più non ci sarebbe nemmeno un punto dove
+## smettere di disegnare. La regola è la stessa che decide cosa si può
+## comprare, così quello che si vede è esattamente quello che si può prendere.
+func _aggiorna_visibilita() -> void:
+	_celle_visibili = PackedByteArray()
+	_celle_visibili.resize(griglia.size.x * griglia.size.y)
+	var lato := SaveManager.LATO_ZONA
+	for zx in SaveManager.world_zones_per_side():
+		for zy in SaveManager.world_zones_per_side():
+			var zona := Vector2i(zx, zy)
+			if not SaveManager.owns_zone(zona) and not _comprabile(zona):
+				continue
+			for dx in lato:
+				for dy in lato:
+					var cella := Vector2i(zona.x * lato + dx, zona.y * lato + dy)
+					if griglia.in_griglia(cella):
+						_celle_visibili[terreno.indice(cella)] = 1
+
+
 ## Il velo sulle zone che non sono tue, rifatto quando ne compri una.
 ##
-## Una mesh sola per tutte le celle di fuori: sono migliaia, ma cambiano una
-## volta ogni acquisto, e tenerle in un pezzo solo costa meno che un nodo per
-## zona da accendere e spegnere.
-func _ridisegna_le_zone() -> void:
+## Resta una mesh sola per tutte, e non una per zona come il terreno: cambia
+## solo quando cambia cosa è tuo, cioè una volta ogni acquisto, e non a ogni
+## colpo di badile.
+##
+## Sono soltanto quelle che si vedono, cioè l'anello che confina con la tua
+## città: il resto del mondo non è disegnato, e un velo su qualcosa che non c'è
+## sarebbe una macchia sospesa nel vuoto. Una mesh sola perché cambiano una
+## volta ogni acquisto, e tenerle in un pezzo costa meno che un nodo per zona da
+## accendere e spegnere.
+func _ridisegna_il_velo() -> void:
 	var fuori: Array[Vector2i] = []
 	var quote := PackedFloat32Array()
 	for x in griglia.size.x:
 		for y in griglia.size.y:
 			var cella := Vector2i(x, y)
+			if _celle_visibili[terreno.indice(cella)] == 0:
+				continue
 			if SaveManager.owns_zone(_zona_di(cella)):
 				continue
 			fuori.append(cella)
@@ -546,7 +657,14 @@ func _compra_la_zona() -> void:
 		return
 	SaveManager.add_zone(zona)
 	SaveManager.save_game()
-	_ridisegna_le_zone()
+	# Comprare non scopre solo la zona presa: scopre anche l'anello di quelle
+	# che adesso le confinano. Sono le uniche a cambiare — nessun'altra zona
+	# diventa comprabile — quindi si rifà quel pugno e non il mondo.
+	_aggiorna_visibilita()
+	_rifai_la_zona(zona)
+	for passo in CityTerrain.VICINI:
+		_rifai_la_zona(zona + passo)
+	_ridisegna_il_velo()
 	Sfx.suona("posa")
 	_messaggio("Zona comprata: -%d crediti. Adesso ne hai %d." % [
 		prezzo, SaveManager.world_zones().size()
@@ -1535,10 +1653,11 @@ func _modella_sotto_il_cursore() -> void:
 		_messaggio("Servono %d crediti, ne hai %d." % [costo, SaveManager.credits])
 		return
 
+	var prima := terreno.fotografia()
 	terreno.imposta_livello(_cella, int(esito["livello"]))
 	terreno.riclassifica()
-	_costruisci_mesh()
-	_ridisegna_le_zone()
+	_rifai_dove_e_cambiato(prima)
+	_ridisegna_il_velo()
 	_registra_quota(_cella)
 	SaveManager.save_game()
 
