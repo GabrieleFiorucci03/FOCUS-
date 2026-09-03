@@ -21,8 +21,11 @@ extends Node3D
 ## quote spianate — quelle sì, perché costruire muove il suolo e il seme da solo
 ## non se ne ricorderebbe.
 
-## Le coordinate di griglia non sono mai negative, quindi questa vale "nessuna".
-const CELLA_NULLA := Vector2i(-1, -1)
+## Una coordinata irraggiungibile col mouse, usata per dire "nessuna cella".
+##
+## Il mondo infinito comprende anche coordinate negative: (-1, -1) è terra
+## vera e non può più fare da segnaposto come quando la mappa aveva un bordo.
+const CELLA_NULLA := Vector2i(2147483647, 2147483647)
 
 ## Il terreno è l'unica cosa che il raggio del mouse deve colpire. Gli edifici
 ## restano fuori da ogni layer: puntando una casa si vuole la cella su cui
@@ -89,7 +92,7 @@ const SERVIZI_ZONA := [
 ## conta solo quando scende sotto la soglia.
 const SERVIZI_VITALI := ["strada", "corrente", "acqua", "lavoro"]
 
-enum Modo { NAVIGA, PIAZZA, DEMOLISCI, TERRENO, SPOSTA, ZONA }
+enum Modo { NAVIGA, PIAZZA, DEMOLISCI, TERRENO, SPOSTA, ZONA, STRADA }
 
 ## Gli attrezzi della modalità terreno.
 enum Attrezzo { ALZA, ABBASSA, LIVELLA }
@@ -133,6 +136,15 @@ var _fantasma: Node3D = null
 ## id del piazzamento -> { nodo, livello }. La griglia sa chi occupa cosa; qui
 ## sta quello che serve per disfare: il nodo da buttare e la quota a cui sta.
 var _costruzioni: Dictionary = {}
+
+## Da dove è cominciato il trascinamento che sta tracciando una strada, e da che
+## parte gira il gomito dell'elle. `_traccia_da` vale CELLA_NULLA quando non si
+## sta trascinando niente.
+var _traccia_da := CELLA_NULLA
+var _gomito_su_x := true
+## L'ultimo tracciato calcolato, quello che si vede in anteprima e quello che si
+## posa al rilascio: { celle, quote, pezzi, rifiutate, prezzo, motivo }.
+var _tracciato: Dictionary = {}
 
 var _attrezzo: Attrezzo = Attrezzo.ALZA
 ## La quota a cui livellare, presa col primo clic. -1 = ancora da scegliere.
@@ -208,9 +220,21 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if _modo == Modo.NAVIGA:
 		return
+	# Un Control può assorbire il rilascio prima che arrivi a _unhandled_input:
+	# se il gesto è cominciato sul terreno e finisce sopra il negozio, il polling
+	# del tasto garantisce comunque che non resti una strada appesa al cursore.
+	if _modo == Modo.STRADA and _sta_tracciando() \
+			and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		_posa_il_tracciato()
+		return
 	# Col cursore sopra il negozio il raggio andrebbe comunque a colpire il
 	# terreno dietro il pannello, e l'anteprima ballerebbe mentre si sceglie.
 	var puntata := CELLA_NULLA if _mouse_sul_pannello() else _cella_puntata()
+	# Durante un trascinamento si conserva l'ultima cella valida. Oltre a essere
+	# più naturale, evita di costruire un percorso verso CELLA_NULLA se il mouse
+	# esce per un istante dal terreno o passa sopra un pannello.
+	if _sta_tracciando() and puntata == CELLA_NULLA:
+		return
 	if puntata != _cella:
 		_cella = puntata
 		_aggiorna_bersaglio()
@@ -243,8 +267,13 @@ func _unhandled_input(evento: InputEvent) -> void:
 			return
 		match tasto.physical_keycode:
 			KEY_R:
-				# Q ed E girano la vista: il pezzo gira con un tasto suo.
-				_ruota_il_pezzo(-1 if tasto.shift_pressed else 1)
+				# Q ed E girano la vista: il pezzo gira con un tasto suo. Quando
+				# si traccia una strada un pezzo in mano non c'è, e lo stesso
+				# tasto fa la cosa che gli somiglia: gira il gomito dell'elle.
+				if _modo == Modo.STRADA:
+					_gira_il_gomito()
+				else:
+					_ruota_il_pezzo(-1 if tasto.shift_pressed else 1)
 				get_viewport().set_input_as_handled()
 			KEY_PAGEUP, KEY_KP_ADD:
 				_alza_il_pezzo(1)
@@ -254,8 +283,12 @@ func _unhandled_input(evento: InputEvent) -> void:
 				get_viewport().set_input_as_handled()
 			KEY_ESCAPE:
 				# Un passo indietro per volta: chi ha qualcosa in mano la rimette
-				# dov'era e resta a spostare, e solo il secondo Esc esce.
-				if _rimetti_dov_era():
+				# dov'era e resta a spostare, chi stava tirando una strada la
+				# lascia cadere, e solo il secondo Esc esce.
+				if _sta_tracciando():
+					_annulla_il_tracciato()
+					_messaggio("Tracciato lasciato lì.")
+				elif _rimetti_dov_era():
 					_messaggio("Rimessa dov'era.")
 					_aggiorna_bersaglio()
 				else:
@@ -263,7 +296,18 @@ func _unhandled_input(evento: InputEvent) -> void:
 				get_viewport().set_input_as_handled()
 	elif evento is InputEventMouseButton:
 		var clic := evento as InputEventMouseButton
-		if clic.pressed and clic.button_index == MOUSE_BUTTON_LEFT:
+		if clic.button_index != MOUSE_BUTTON_LEFT:
+			return
+		# Una strada non si posa con un clic ma con un gesto: si preme dove
+		# comincia, si trascina, e a decidere è il rilascio. È l'unico modo in
+		# cui anche il rilascio del tasto è una cosa che ci riguarda.
+		if _modo == Modo.STRADA:
+			if clic.pressed:
+				_comincia_a_tracciare()
+			else:
+				_posa_il_tracciato()
+			get_viewport().set_input_as_handled()
+		elif clic.pressed:
 			_conferma()
 			get_viewport().set_input_as_handled()
 
@@ -1328,18 +1372,28 @@ func _livello_rampa(celle: Array[Vector2i], salita: int) -> int:
 func _on_voce_scelta(id: String) -> void:
 	Sfx.suona("clic")
 	_rimetti_dov_era()
-	_modo = Modo.PIAZZA
+	_annulla_il_tracciato()
 	_scelto = id
 	_rotazione = 0
 	_alzata = 0
-	_crea_fantasma()
 	_cella = CELLA_NULLA
 	_messaggio("")
+	# Le due strade non sono modelli da posare ma famiglie da tracciare: chi le
+	# sceglie non prende in mano un pezzo, prende una matita, e il fantasma che
+	# segue il cursore non avrebbe niente da mostrare.
+	if catalogo.si_traccia(id):
+		_modo = Modo.STRADA
+		_libera_fantasma()
+		return
+	_modo = Modo.PIAZZA
+	_crea_fantasma()
 
 
 func _on_strumento_scelto(strumento: String) -> void:
 	Sfx.suona("clic")
 	_rimetti_dov_era()
+	_traccia_da = CELLA_NULLA
+	_tracciato = {}
 	if strumento.is_empty():
 		_torna_a_navigare()
 		return
@@ -1373,6 +1427,8 @@ func _on_crediti_cambiati(crediti: int) -> void:
 
 func _torna_a_navigare() -> void:
 	_rimetti_dov_era()
+	_traccia_da = CELLA_NULLA
+	_tracciato = {}
 	_modo = Modo.NAVIGA
 	_ridipingi_evidenza()
 	_scelto = ""
@@ -1468,6 +1524,487 @@ func _conferma() -> void:
 		catalogo.voce(_scelto)["nome"], prezzo, _coda_dei_servizi(_scelto)
 	])
 	_aggiorna_bersaglio()
+
+
+# --- Tracciare le strade ----------------------------------------------------
+#
+# Una strada non si posa una cella per volta: si preme dove comincia, si
+# trascina fin dove deve arrivare, e il gioco sceglie i pezzi. Il grosso del
+# lavoro non è il percorso — quello è un'elle — ma decidere cosa mettere in ogni
+# cella, e la risposta sta in ReteStradale, che dalla maschera dei quattro
+# vicini tira fuori modello e rotazione. Qui c'è quello che quella tabella non
+# può sapere: cosa c'è già per terra, a che quota sta, quanto costa e chi paga.
+#
+# **La regola che tiene insieme tutto: due pezzi attaccati devono incontrarsi
+# alla stessa quota.** Una rampa non è un pezzo che si mette dove il terreno
+# sale — è un pezzo che *collega due quote*, e ha due capi. Se uno dei due non
+# incontra niente, quella non è una rampa, è uno scalino con la ringhiera. Da
+# qui viene tutto il resto: le rampe non vanno ai capi della strada, non vanno
+# sui gomiti né sugli incroci, e dove non ci possono andare il gradino si toglie
+# modellando il terreno invece di lasciarlo lì.
+
+
+func _sta_tracciando() -> bool:
+	return _traccia_da != CELLA_NULLA
+
+
+func _comincia_a_tracciare() -> void:
+	if _cella == CELLA_NULLA:
+		return
+	_traccia_da = _cella
+	_aggiorna_bersaglio()
+
+
+func _annulla_il_tracciato() -> void:
+	_traccia_da = CELLA_NULLA
+	_tracciato = {}
+	_selezione.mesh = null
+	_aggiorna_bersaglio()
+
+
+func _gira_il_gomito() -> void:
+	_gomito_su_x = not _gomito_su_x
+	Sfx.suona("clic")
+	_aggiorna_bersaglio()
+
+
+# --- Cosa c'è già per terra -------------------------------------------------
+
+## Se la strada che sta in `cella` offre un braccio a chi arriva da `verso`.
+##
+## Un pezzo piano li offre da tutte le parti: la sua forma si rifà, e un braccio
+## in più glielo si può sempre dare. **Una rampa no.** Ha due capi e una
+## pendenza, e di fianco non ha niente a cui attaccarsi: innestarcisi vorrebbe
+## dire una strada che entra nel muro di una salita, ed è esattamente uno dei
+## modi in cui nascono le rampe che non portano da nessuna parte.
+func _lato_stradale(cella: Vector2i, verso: Vector2i) -> bool:
+	var occupante := griglia.occupante(cella)
+	if occupante.is_empty():
+		return false
+	var modello := str(occupante["modello"])
+	if not catalogo.e_strada(modello):
+		return false
+	if str(catalogo.voce(modello)["kind"]) != "sloped_road":
+		return true
+	var asse := ReteStradale.ruota(Vector2i(0, -1), int(occupante["rotazione"]))
+	return verso == asse or verso == -asse
+
+
+## A che quota sta la superficie della strada di `cella` sul lato che guarda
+## `verso`. Un pezzo piano ha la stessa quota da tutti i lati; una rampa sta un
+## gradino più in alto dalla parte in cui sale, ed è quella la quota a cui
+## bisogna agganciarsi per non lasciare uno scalino.
+func _quota_del_lato(cella: Vector2i, verso: Vector2i) -> int:
+	var occupante := griglia.occupante(cella)
+	if occupante.is_empty():
+		return terreno.livello(cella)
+	var livello := int(_costruzioni[occupante["id"]]["livello"])
+	var modello := str(occupante["modello"])
+	if str(catalogo.voce(modello)["kind"]) != "sloped_road":
+		return livello
+	var alto := ReteStradale.ruota(Vector2i(0, -1), int(occupante["rotazione"]))
+	return livello + 1 if verso == alto else livello
+
+
+## La quota a cui sta la strada di una cella, guardata da sopra: quella del
+## terreno dove non c'è niente, quella del pezzo dove una strada c'era già.
+func _quota_stradale(cella: Vector2i) -> int:
+	var occupante := griglia.occupante(cella)
+	if occupante.is_empty():
+		return terreno.livello(cella)
+	return int(_costruzioni[occupante["id"]]["livello"])
+
+
+## Perché una strada non può passare da questa cella, o "" se ci passa.
+##
+## Una strada piana che c'è già non è un ostacolo: ci si passa sopra, non si
+## ricompra, e semmai le si rifà la forma. Una rampa sì: la sua forma non si
+## rifà — la decide il dislivello, non i vicini — e passarci in mezzo o
+## innestarcisi lascerebbe un giunto che non combacia.
+func _perche_non_ci_passa(cella: Vector2i) -> String:
+	var sola: Array[Vector2i] = [cella]
+	if not _tutte_in_casa(sola):
+		return "Questa terra non è tua: comprala prima, con lo strumento Espandi."
+	var occupante := griglia.occupante(cella)
+	if not occupante.is_empty():
+		var modello := str(occupante["modello"])
+		if str(catalogo.voce(modello).get("kind", "")) == "sloped_road":
+			return "Su una rampa non ci si innesta: comincia da dopo."
+		if catalogo.e_strada(modello):
+			return ""
+		return "Qui c'è già qualcosa, e la strada si ferma prima."
+	if not terreno.costruibile(cella):
+		return "Sull'acqua ci vuole un ponte, e i ponti si posano a mano."
+	return ""
+
+
+## La maschera dei quattro vicini di una cella: un bit acceso per ogni lato da
+## cui arriva una strada, quelle già per terra e quelle che il tracciato sta per
+## posare messe insieme.
+func _maschera_stradale(cella: Vector2i, nel_tracciato: Dictionary) -> int:
+	var maschera := 0
+	for i in ReteStradale.DIREZIONI.size():
+		var passo: Vector2i = ReteStradale.DIREZIONI[i]
+		if nel_tracciato.has(cella + passo) or _lato_stradale(cella + passo, -passo):
+			maschera |= 1 << i
+	return maschera
+
+
+## I due bit di traverso rispetto a una direzione. Una rampa ha due braccia in
+## fila e basta: se la cella ne vuole una di lato, la rampa non ci sta.
+static func _di_traverso(verso: Vector2i) -> int:
+	var perpendicolare := Vector2i(-verso.y, verso.x)
+	return (1 << ReteStradale.indice(perpendicolare)) \
+		| (1 << ReteStradale.indice(-perpendicolare))
+
+
+# --- Il profilo delle quote -------------------------------------------------
+
+## A che quota va ogni cella del percorso, e dove ci vogliono le rampe:
+## { livelli, rampe, tronca_a, motivo }.
+##
+## `rampe` va da indice della cella al verso in cui quella rampa sale. Se
+## `tronca_a` non è -1 il percorso va accorciato lì e il conto rifatto.
+##
+## Il profilo si sistema a giri: si guarda ogni giunto, e dove c'è un gradino o
+## ci si mette una rampa o si toglie il gradino spianando. Spianare cambia il
+## giunto accanto, quindi si ricomincia da capo finché non si muove più niente.
+## Il numero di giri è limitato perché una cella tirata avanti e indietro fra due
+## vicini che non vanno d'accordo non deve poter bloccare il gioco: dopo l'ultimo
+## giro si tiene quello che c'è.
+func _profilo(celle: Array[Vector2i], nel_tracciato: Dictionary) -> Dictionary:
+	var livelli: Array[int] = []
+	var fisso: Array[bool] = []
+	for cella in celle:
+		fisso.append(not griglia.occupante(cella).is_empty())
+		livelli.append(_quota_stradale(cella))
+
+	_aggancia_alle_strade_vecchie(celle, livelli, fisso)
+
+	for i in range(1, celle.size()):
+		if absi(livelli[i] - livelli[i - 1]) > 1:
+			return { "livelli": livelli, "rampe": {}, "tronca_a": i,
+				"motivo": "Il terreno qui fa un salto: spianalo prima, poi ripassa." }
+
+	var rampe := {}
+	for _giro in celle.size() * 2 + 8:
+		rampe = {}
+		var cambiato := false
+		for i in range(1, celle.size()):
+			var salto := livelli[i] - livelli[i - 1]
+			if salto == 0:
+				continue
+			var alto := i if salto > 0 else i - 1
+			var basso := i - 1 if salto > 0 else i
+			if not rampe.has(alto) and _puo_fare_rampa(celle, livelli, fisso, nel_tracciato, alto):
+				rampe[alto] = celle[alto] - celle[basso]
+				continue
+			# Niente rampa qui: il gradino si toglie invece di lasciarlo. Si
+			# muove la cella che si può muovere — una strada già posata non si
+			# alza e non si abbassa — e si ricomincia.
+			if not fisso[alto]:
+				livelli[alto] = livelli[basso]
+			elif not fisso[basso]:
+				livelli[basso] = livelli[alto]
+			else:
+				continue
+			cambiato = true
+			break
+		if not cambiato:
+			break
+	return { "livelli": livelli, "rampe": rampe, "tronca_a": -1, "motivo": "" }
+
+
+## Se la cella `alto` può fare da rampa.
+##
+## Deve essere una cella nuova — di una vecchia non si rifà la pendenza — deve
+## avere il percorso che le passa dritto attraverso, non deve avere braccia di
+## traverso, e il suo piede non deve finire in acqua. E soprattutto **non può
+## essere un capo della strada**: là fuori non c'è niente a cui consegnare la
+## quota alta, e una rampa che sale verso il nulla è proprio la cosa che si
+## vuole togliere di mezzo.
+func _puo_fare_rampa(celle: Array[Vector2i], livelli: Array[int], fisso: Array[bool],
+		nel_tracciato: Dictionary, alto: int) -> bool:
+	if fisso[alto] or alto == 0 or alto == celle.size() - 1:
+		return false
+	if livelli[alto] - 1 <= CityTerrain.LIVELLO_ACQUA:
+		return false
+	var entra: Vector2i = celle[alto] - celle[alto - 1]
+	var esce: Vector2i = celle[alto + 1] - celle[alto]
+	if entra != esce:
+		return false
+	return _maschera_stradale(celle[alto], nel_tracciato) & _di_traverso(entra) == 0
+
+
+## Porta le celle nuove alla quota delle strade che già toccano.
+##
+## Se una cella nuova si attacca a una vecchia, il giunto fra le due deve
+## combaciare, e la sola che si può muovere è quella nuova. Vicini che chiedono
+## quote diverse non si accontentano tutti, e allora non si accontenta nessuno:
+## meglio seguire il terreno che scegliere a caso. Una cella agganciata diventa
+## fissa come se fosse già costruita, perché quella quota non è una preferenza
+## ma la condizione perché i due pezzi si tocchino.
+func _aggancia_alle_strade_vecchie(celle: Array[Vector2i], livelli: Array[int],
+		fisso: Array[bool]) -> void:
+	for i in celle.size():
+		if fisso[i]:
+			continue
+		var chiesta := -1
+		var discordi := false
+		for passo in ReteStradale.DIREZIONI:
+			var vicina: Vector2i = celle[i] + passo
+			if not _lato_stradale(vicina, -passo):
+				continue
+			var quota := _quota_del_lato(vicina, -passo)
+			if chiesta >= 0 and chiesta != quota:
+				discordi = true
+				break
+			chiesta = quota
+		# Solo se il terreno è lì attorno: agganciarsi a una strada che sta tre
+		# gradini più su vorrebbe dire scavare una trincea per compiacerla.
+		if discordi or chiesta < 0 or absi(chiesta - livelli[i]) > 1:
+			continue
+		livelli[i] = chiesta
+		fisso[i] = true
+
+
+# --- Il tracciato -----------------------------------------------------------
+
+## Cosa verrebbe costruito da qui a lì: { celle, quote, pezzi, rifiutate,
+## prezzo, motivo }.
+##
+## `celle` sono quelle che il tracciato attraversa davvero, comprese quelle dove
+## una strada c'era già; `pezzi` solo quelle che si posano, con dentro il
+## modello scelto e la quota; `rifiutate` quelle a cui il percorso avrebbe
+## voluto arrivare e non arriva, che l'anteprima disegna in rosso.
+func _calcola_tracciato(da: Vector2i, a: Vector2i) -> Dictionary:
+	var famiglia := catalogo.famiglia(_scelto)
+	var candidate := ReteStradale.percorso_a_elle(da, a, _gomito_su_x)
+	var motivo := ""
+
+	# Il percorso arriva fin dove può e si ferma davanti al primo ostacolo,
+	# invece di rifiutare tutto o di aggirarlo: è l'unica risposta che non fa
+	# danni e non sorprende.
+	var celle: Array[Vector2i] = []
+	for cella in candidate:
+		var perche := _perche_non_ci_passa(cella)
+		if not perche.is_empty():
+			motivo = perche
+			break
+		celle.append(cella)
+
+	# Il profilo può chiedere di accorciare ancora — un salto di due gradini in
+	# una cella sola non si passa — e allora si rifà, perché accorciare cambia
+	# la forma dell'ultima cella rimasta e le forme si decidono sul percorso vero.
+	var livelli: Array[int] = []
+	var rampe := {}
+	while true:
+		var nel_tracciato := {}
+		for cella in celle:
+			nel_tracciato[cella] = true
+		var profilo := _profilo(celle, nel_tracciato)
+		if int(profilo["tronca_a"]) < 0:
+			livelli = profilo["livelli"]
+			rampe = profilo["rampe"]
+			break
+		motivo = str(profilo["motivo"])
+		celle.resize(int(profilo["tronca_a"]))
+
+	var pezzi := _pezzi_del_tracciato(famiglia, celle, livelli, rampe)
+	var prezzo := 0
+	for pezzo in pezzi:
+		prezzo += catalogo.prezzo(str(pezzo["id"]))
+
+	var rifiutate: Array[Vector2i] = []
+	for i in range(celle.size(), candidate.size()):
+		rifiutate.append(candidate[i])
+
+	return {
+		"celle": celle,
+		"quote": livelli,
+		"pezzi": pezzi,
+		"rifiutate": rifiutate,
+		"prezzo": prezzo,
+		"motivo": motivo,
+	}
+
+
+## Il modello e la rotazione di ogni cella da posare.
+func _pezzi_del_tracciato(famiglia: String, celle: Array[Vector2i],
+		livelli: Array[int], rampe: Dictionary) -> Array:
+	var nel_tracciato := {}
+	for cella in celle:
+		nel_tracciato[cella] = true
+
+	var pezzi: Array = []
+	for i in celle.size():
+		var cella: Vector2i = celle[i]
+		# Dove una strada c'era già non si posa niente: la si paga zero e le si
+		# rifà semmai la forma, dopo, insieme a tutte le altre che sono cambiate
+		# perché adesso hanno un braccio in più.
+		if not griglia.occupante(cella).is_empty():
+			continue
+		if rampe.has(i):
+			pezzi.append({
+				"cella": cella,
+				"id": ReteStradale.id_della_rampa(famiglia),
+				"rotazione": ReteStradale.rotazione_della_rampa(rampe[i]),
+				"livello": livelli[i] - 1,
+			})
+			continue
+		var scelto := ReteStradale.pezzo(_maschera_stradale(cella, nel_tracciato))
+		pezzi.append({
+			"cella": cella,
+			"id": ReteStradale.id_del_pezzo(famiglia, str(scelto["variante"])),
+			"rotazione": int(scelto["rotazione"]),
+			"livello": livelli[i],
+		})
+	return pezzi
+
+
+## Paga e costruisce quello che l'anteprima stava mostrando.
+func _posa_il_tracciato() -> void:
+	if not _sta_tracciando():
+		return
+	var pezzi: Array = _tracciato.get("pezzi", [])
+	var motivo := str(_tracciato.get("motivo", ""))
+	_traccia_da = CELLA_NULLA
+
+	if pezzi.is_empty():
+		Sfx.suona("errore")
+		_messaggio(motivo if not motivo.is_empty() else "Qui non ci passa niente.")
+		_aggiorna_bersaglio()
+		return
+
+	var prezzo := int(_tracciato["prezzo"])
+	if not SaveManager.try_spend(prezzo):
+		Sfx.suona("errore")
+		_messaggio("La strada costa %d crediti, ne hai %d. Torna a fare focus." % [
+			prezzo, SaveManager.credits
+		])
+		_aggiorna_bersaglio()
+		return
+
+	# Una fotografia sola per tutto il gesto: la mesh del terreno si rifà una
+	# volta alla fine invece di venti volte di fila mentre la strada cresce.
+	var prima := terreno.fotografia()
+	var posate := 0
+	for pezzo in pezzi:
+		var cella: Vector2i = pezzo["cella"]
+		var livello := int(pezzo["livello"])
+		var sola: Array[Vector2i] = [cella]
+		# Il pezzo piano si spiana il lotto da sé, dentro _costruisci; la rampa
+		# no, perché la sua regola dice di non toccare il terreno — ma il suo
+		# piede sta un gradino sotto il suolo che ha attorno, e senza sbancare
+		# ci finirebbe dentro.
+		terreno.spiana(sola, livello)
+		if not _costruisci(str(pezzo["id"]), cella, int(pezzo["rotazione"]), livello, false):
+			continue
+		_registra_quota(cella)
+		SaveManager.add_tile(cella, str(pezzo["id"]), int(pezzo["rotazione"]), livello, false)
+		posate += 1
+
+	_rifai_le_forme(_tracciato["celle"])
+	_rifai_dove_e_cambiato(prima)
+	SaveManager.save_game()
+	_mostra_i_servizi()
+	_aggiorna_i_conti()
+	Sfx.suona("posa")
+	var coda := "" if motivo.is_empty() else " " + motivo
+	_messaggio("Strada tracciata: %d celle, -%d crediti.%s" % [posate, prezzo, coda])
+	_aggiorna_bersaglio()
+
+
+## Rifà la forma delle strade toccate dal tracciato e di quelle che ci stanno
+## accanto.
+##
+## È la parte che si dimentica e che si nota subito: attaccandosi a un dritto,
+## quel dritto diventa una T, e non basta posare le celle nuove. Si guardano
+## anche le vicine perché una strada che il tracciato ha solo sfiorato ha
+## comunque un braccio in più da mostrare.
+func _rifai_le_forme(celle: Array) -> void:
+	var da_guardare := {}
+	for cella in celle:
+		da_guardare[cella] = true
+		for passo in ReteStradale.DIREZIONI:
+			da_guardare[(cella as Vector2i) + passo] = true
+	for cella in da_guardare:
+		_rifai_la_forma(cella)
+
+
+## Rimette in una cella lo stesso pezzo di strada nella forma che i vicini
+## chiedono adesso. Non costa niente: cambiare forma non è comprare, ed è una
+## conseguenza di quello che si è appena pagato.
+##
+## Le rampe non si toccano: la loro forma non la decidono i vicini ma il
+## dislivello, e rifarla vorrebbe dire rifare il conto delle quote di tutta la
+## strada. Nemmeno i ponti, che sono un'altra cosa e si posano a mano.
+func _rifai_la_forma(cella: Vector2i) -> void:
+	var occupante := griglia.occupante(cella)
+	if occupante.is_empty():
+		return
+	var modello := str(occupante["modello"])
+	var voce := catalogo.voce(modello)
+	if voce.is_empty() or str(voce["kind"]) != "road":
+		return
+
+	var scelto := ReteStradale.pezzo(_maschera_stradale(cella, {}))
+	var id_nuovo := ReteStradale.id_del_pezzo(
+		ReteStradale.famiglia_di(modello), str(scelto["variante"]))
+	var rotazione := int(scelto["rotazione"])
+	if id_nuovo.is_empty() or not catalogo.esiste(id_nuovo):
+		return
+	if id_nuovo == modello and rotazione == int(occupante["rotazione"]):
+		return
+
+	var id_piazzamento := int(occupante["id"])
+	var livello := int(_costruzioni[id_piazzamento]["livello"])
+	var costruzione: Dictionary = _costruzioni.get(id_piazzamento, {})
+	if costruzione.has("nodo"):
+		(costruzione["nodo"] as Node3D).queue_free()
+	_costruzioni.erase(id_piazzamento)
+	griglia.rimuovi(cella)
+	_conta_i_servizi(voce, -1)
+	SaveManager.remove_tile(cella, false)
+
+	if _costruisci(id_nuovo, cella, rotazione, livello, false):
+		SaveManager.add_tile(cella, id_nuovo, rotazione, livello, false)
+
+
+## L'anteprima del tracciato: in verde quello che si posa, in rosso quello a cui
+## non si arriva. Le quote sono una per cella, perché una strada che segue una
+## costa non sta tutta alla stessa altezza.
+func _mostra_bersaglio_strada() -> void:
+	if _cella == CELLA_NULLA:
+		_selezione.mesh = null
+		return
+	if not _sta_tracciando():
+		_tracciato = {}
+		var sola: Array[Vector2i] = [_cella]
+		var libera := _perche_non_ci_passa(_cella).is_empty()
+		_selezione.mesh = TerrainMesh.costruisci_selezione(
+			sola, terreno.quota(_cella) + 0.02,
+			COLORE_VALIDO if libera else COLORE_INVALIDO
+		)
+		return
+
+	_tracciato = _calcola_tracciato(_traccia_da, _cella)
+	var gruppi: Array = []
+	var celle: Array[Vector2i] = _tracciato["celle"]
+	var quote: Array[int] = _tracciato["quote"]
+	if not celle.is_empty():
+		var alte := PackedFloat32Array()
+		for i in celle.size():
+			alte.append(float(quote[i]) * CityTerrain.PASSO_QUOTA + 0.02)
+		gruppi.append({ "celle": celle, "quote": alte, "colore": COLORE_VALIDO })
+	var rifiutate: Array[Vector2i] = _tracciato["rifiutate"]
+	if not rifiutate.is_empty():
+		gruppi.append({
+			"celle": rifiutate,
+			"quote": _quote_di(rifiutate),
+			"colore": COLORE_INVALIDO,
+		})
+	_selezione.mesh = TerrainMesh.costruisci_gruppi(gruppi)
 
 
 # --- Spostare ---------------------------------------------------------------
@@ -1716,6 +2253,8 @@ func _aggiorna_bersaglio() -> void:
 			_mostra_bersaglio(COLORE_SPOSTAMENTO)
 		Modo.TERRENO:
 			_mostra_bersaglio_terreno()
+		Modo.STRADA:
+			_mostra_bersaglio_strada()
 		_:
 			_mostra_bersaglio_piazzamento()
 	_aggiorna_aiuto()
@@ -1866,6 +2405,8 @@ func _suggerimento() -> String:
 			return "Clic per riposarla · R gira · PagSu / PagGiù cambia quota · Esc la rimette dov'era"
 		Modo.ZONA:
 			return _suggerimento_zona()
+		Modo.STRADA:
+			return _suggerimento_strada()
 		Modo.DEMOLISCI:
 			return "Clic su una costruzione per demolirla · Esc annulla"
 		Modo.TERRENO:
@@ -1891,6 +2432,22 @@ func _suggerimento_zona() -> String:
 	if prezzo == 0:
 		return "Qui è tutta acqua: la prendi gratis · clic per comprarla · Esc annulla"
 	return "Questa zona costa %d crediti · clic per comprarla · Esc annulla" % prezzo
+
+
+## Il suggerimento mentre si traccia: quanto verrebbe lunga la strada e quanto
+## costerebbe, aggiornati a ogni movimento. Decidere dopo aver pagato è la cosa
+## che tracciare deve togliere di mezzo.
+func _suggerimento_strada() -> String:
+	if not _sta_tracciando():
+		return "Premi e trascina per tracciare la strada · R cambia il gomito · Esc annulla"
+	var pezzi: Array = _tracciato.get("pezzi", [])
+	var motivo := str(_tracciato.get("motivo", ""))
+	var coda := "" if motivo.is_empty() else " · " + motivo
+	if pezzi.is_empty():
+		return "Da qui non parte niente%s" % coda
+	return "%d celle · %d crediti · R cambia il gomito%s" % [
+		pezzi.size(), int(_tracciato.get("prezzo", 0)), coda
+	]
 
 
 func _riepilogo_servizi() -> String:

@@ -208,11 +208,17 @@ func _crea_scheda(id: String) -> Button:
 	scheda.toggle_mode = true
 	scheda.button_group = _gruppo
 	var servizi := _frase_servizi(id)
-	scheda.tooltip_text = "%s · %d crediti · ingombro %dx%d celle%s" % [
-		v["nome"], _catalogo.prezzo(id), f.x, f.y,
-		"" if servizi.is_empty() else "
+	if _catalogo.si_traccia(id):
+		scheda.tooltip_text = "%s · %d crediti a cella
+Premi e trascina per tracciare il percorso." % [
+			v["nome"], _catalogo.prezzo(id)
+		]
+	else:
+		scheda.tooltip_text = "%s · %d crediti · ingombro %dx%d celle%s" % [
+			v["nome"], _catalogo.prezzo(id), f.x, f.y,
+			"" if servizi.is_empty() else "
 " + servizi.capitalize()
-	]
+		]
 	scheda.toggled.connect(_on_scheda_commutata.bind(id))
 
 	var colonna := VBoxContainer.new()
@@ -241,7 +247,12 @@ func _crea_scheda(id: String) -> Button:
 	colonna.add_child(nome)
 
 	var prezzo := Label.new()
-	prezzo.text = "%d cr" % _catalogo.prezzo(id)
+	# Una strada si paga a cella: "3 cr" da solo, sotto quella scheda, direbbe
+	# una cosa falsa a chi sta per tirarne venti.
+	if _catalogo.si_traccia(id):
+		prezzo.text = "%d cr/cella" % _catalogo.prezzo(id)
+	else:
+		prezzo.text = "%d cr" % _catalogo.prezzo(id)
 	prezzo.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	prezzo.add_theme_font_size_override("font_size", 11)
 	prezzo.add_theme_color_override("font_color", Color(0.905882, 0.85098, 0.505882))
@@ -557,6 +568,10 @@ func _frase_servizi(id: String) -> String:
 
 func _descrizione(id: String) -> String:
 	var v := _catalogo.voce(id)
+	if _catalogo.si_traccia(id):
+		return ("%s · %d crediti a cella · premi e trascina per tracciare il percorso: "
+			+ "curve, incroci e rampe le sceglie il gioco guardando i vicini · "
+			+ "R cambia il gomito · Esc annulla") % [v["nome"], _catalogo.prezzo(id)]
 	var f: Vector2i = v["footprint"]
 	var pezzi := PackedStringArray()
 	pezzi.append("%s · %dx%d celle · %d crediti" % [v["nome"], f.x, f.y, _catalogo.prezzo(id)])

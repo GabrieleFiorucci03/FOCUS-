@@ -71,12 +71,13 @@
 			"nomi": { "wind": "Pale eoliche", "solar": "Impianto solare", "water": "Serbatoio idrico" }
 		},
 
+		"_commento_strade": "I pezzi di strada non si comprano uno per uno: nel negozio ci sono le due famiglie (asfaltata e sterrata), si traccia un percorso e il gioco sceglie dritti, curve, T, incroci e rampe guardando i vicini. Restano nel catalogo perche' sono loro che si posano davvero, e perche' una partita vecchia li ha nel salvataggio.",
 		"road": {
-			"nome": "Strada", "categoria": "mobilita",
+			"nome": "Strada", "categoria": "mobilita", "in_vendita": false,
 			"qualificatori": { "dirt": "sterrata", "straight": "dritta", "corner": "in curva", "t": "a T", "cross": "a incrocio", "end": "senza uscita" }
 		},
 		"sloped_road": {
-			"nome": "Rampa", "categoria": "mobilita", "regola": "rampa",
+			"nome": "Rampa", "categoria": "mobilita", "regola": "rampa", "in_vendita": false,
 			"qualificatori": { "dirt": "sterrata", "up": "in salita", "down": "in discesa" }
 		},
 		"bridge": {

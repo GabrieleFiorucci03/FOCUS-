@@ -1651,24 +1651,148 @@ tenere accese anche le zone lontane.
 - E, sotto tutto, la verifica dei due passi prima continua a girare: generare a
   blocchi di misure diverse dà sempre lo stesso mondo.
 
+## Si paga la terra, non i quadrati
+
+Il mondo infinito aveva reso comprabile anche l'oceano, e a prezzo pieno: una
+zona di mare aperto costava come una pianura, e sopra non ci si costruiva
+niente. Non era un difetto del listino ma della domanda che il listino faceva —
+«quanti quadrati vuoi?» invece di «quanta terra vuoi?».
+
+- **Il prezzo è in proporzione alla terra emersa della zona in vendita.** Mezza
+  costa costa metà, il mare aperto non costa niente, e la regola «l'acqua è
+  gratis» non c'è: viene fuori da sé, che è meglio di scriverla.
+- **A far crescere il prezzo è la terra già presa, non il numero di zone.**
+  Altrimenti attraversare un braccio di mare — gratis, ma pur sempre un
+  acquisto — rincarerebbe la terra dall'altra parte, e la traversata la
+  pagherebbe proprio chi non ci ha guadagnato niente. `zone_cost` prende due
+  numeri, tutt'e due misurati in zone piene.
+- **La terra posseduta si risomma, non si salva.** È la stessa scelta dello
+  streak e dell'acqua: quello che si ridedùce dal seme non ha motivo di stare su
+  disco, dove potrebbe solo scollarsi. C'è una cache in memoria, buttata quando
+  cambia il seme, perché il prezzo si legge a ogni movimento del mouse.
+- **Il suggerimento dice il prezzo della zona sotto il cursore**, non più uno
+  buono per tutte: da quando dipende da cosa c'è dentro, un prezzo solo non
+  esiste.
+
+Con zone di sola terra la curva è quella di prima al credito: 120, 192, 307 e
+via fino al tetto. Non si è ritarato niente, si è cambiata la domanda.
+
+| Prova | Esito |
+|---|---|
+| Zona al 99% di terra, con 9,7 zone possedute | 5.114 crediti |
+| La stessa zona al 24% | 1.248 |
+| Mare aperto | 0, e non conta per il rincaro |
+| Curva su zone piene | 120 · 192 · 307 · … · 5.154 e lì si ferma, come prima |
+
+## Oceani più piccoli
+
+Misurando su quattro semi, 256 zone per seme: il 20% delle zone era acqua e
+basta, e il bacino più grande ne teneva **ventinove attaccate**. Sopra non ci si
+costruisce, quindi non era paesaggio: era una parte di mondo tolta dal gioco.
+
+Le due manopole dell'oceano fanno cose diverse, e conviene averlo scritto.
+`OCEANO_TAGLIO` decide **quanta** acqua c'è; `OCEANO_FREQUENZA` decide **quanto
+è grande ciascun mare**. Siccome il problema era la taglia, si è mossa solo la
+seconda: da 0,004 a 0,008.
+
+| | taglio 0,30 | taglio 0,26 | taglio 0,22 |
+|---|---|---|---|
+| **freq 0,004** | 50% · 29 zone | 59% · 17 | 66% · 14 |
+| **freq 0,006** | 50% · 12 zone | 58% · 8 | 65% · 5 |
+| **freq 0,008** | 50% · 6 zone | 57% · 4 | 64% · 2 |
+
+<sub>terra media per zona · oceano più grande, in zone tutte acqua attaccate</sub>
+
+La terra resta al 50% al decimo di punto — il rapporto fra costa ed entroterra
+non si è mosso — ma un oceano adesso è un mare che si attraversa. Le zone di
+sola acqua sono passate dal 20% al 9,9%, e quelle sono anche gratis.
+
+**`OCEANO_SFUMATURA` non è la larghezza della costa** e non va usata per
+addolcirla: sta a denominatore, quindi allargarla ritarda il punto in cui la
+terra emerge del tutto e allaga. A 0,50 la terra crollava al 21% e l'oceano più
+grande risaliva a 39 zone.
+
+## Le strade si tracciano
+
+Il piano lo chiedeva da un giro, ed è fatto: si preme dove la strada comincia,
+si trascina fin dove deve arrivare, e al rilascio c'è una strada già fatta.
+
+- **Nel negozio ci sono due voci, non venti.** «Strada asfaltata» e «Strada
+  sterrata» sono le due famiglie; dritti, curve, T, incroci e testate spariscono
+  dallo scaffale perché non è più roba da scegliere a mano. Restano nel catalogo
+  — sono loro che si posano davvero, e una partita vecchia ce le ha nel
+  salvataggio — ma con `in_vendita: false`. Le due voci non sono modelli: sono
+  finte, e sceglierle non prende in mano un pezzo, accende una modalità.
+- **La tabella dei sedici casi sta in `ReteStradale`, per conto suo.** Dalla
+  maschera dei quattro vicini escono modello e rotazione, e non è una faccenda
+  di strade: è la stessa domanda che si faranno i muri e i ponti. Si costruisce
+  da sé alla prima domanda — cinque varianti per quattro rotazioni coprono i
+  sedici casi — invece di essere scritta a mano venti volte.
+- **La convenzione dei modelli si è misurata, non dedotta.** Nei `.glb` veri si
+  è guardato fin dove arriva l'asfalto: `STRAIGHT` ha le braccia a nord e sud,
+  `CORNER` a nord ed est, `T` a nord, est e ovest, `END` solo a nord, e il nord
+  della pipeline guarda +z. Una tabella costruita su una convenzione sbagliata
+  compila benissimo e mette curve al posto di incroci.
+- **Le strade che c'erano già cambiano forma.** Attaccandosi a un dritto, quel
+  dritto diventa una T. Si rifà la forma delle celle attraversate e di tutte le
+  loro vicine, e non costa niente: cambiare forma non è comprare, è una
+  conseguenza di quello che si è appena pagato.
+- **Il percorso è a elle**, con `R` che cambia il gomito. A mano libera darebbe
+  strade che tremano, e una città vuole isolati.
+- **Il dislivello: di due celle che fanno un gradino, la rampa tocca a quella
+  più in alto**, che si spiana al livello di sotto e ci risale sopra. È la
+  regola che si incatena da sé su una costa — la cima di una rampa e il piede
+  della successiva stanno alla stessa quota — e che non chiede niente alla cella
+  di sotto, che il terreno ce l'ha già giusto. Un dosso di una cella sola si
+  abbassa invece di chiedere due rampe attaccate.
+- **Dove non si passa, ci si ferma prima.** Acqua, terra non tua, qualcosa già
+  costruito, un salto di due gradini in una cella sola, una rampa che finirebbe
+  su un incrocio: il tracciato arriva fin dove poteva e dice perché. Spianare
+  mezzo colle di nascosto costerebbe al giocatore un paesaggio che non ha
+  chiesto, e l'attrezzo per farlo apposta ce l'ha già.
+- **Il prezzo si vede mentre si traccia**, celle e crediti aggiornati a ogni
+  movimento, col pezzo che non si posa disegnato in rosso. Decidere dopo aver
+  pagato è la cosa che tracciare doveva togliere di mezzo.
+- **I ponti no.** Un percorso che incontra l'acqua si ferma: i ponti si posano
+  ancora a mano, pezzo per pezzo, ed era la scelta giusta anche nel piano —
+  prima le strade su terra.
+- **Un gesto, un salvataggio.** `add_tile` e `remove_tile` hanno preso un
+  `salva` da spegnere: venti piazzamenti non devono scrivere venti file.
+
+| Prova | Esito |
+|---|---|
+| I sedici casi | ognuno ridà esattamente la maschera da cui era partito |
+| Percorso a elle, nei due gomiti | `(0,0)→(2,2)` fa 5 celle, e il gomito gira dove gli si dice |
+| Cinque celle in fila | testata, tre dritti, testata · 15 crediti |
+| Una seconda strada che incrocia | la cella in mezzo diventa un incrocio, le vicine restano dritti |
+| Ripassare su una strada che c'è già | zero crediti |
+| Verso l'acqua | si ferma, e lo dice |
+| Un gradino di un livello | una rampa sola, nella cella alta, che parte dalla quota bassa e sale dalla parte giusta |
+| Un salto di due livelli | si ferma davanti |
+| Un dosso di una cella | si spiana, niente rampe |
+| I frame veri | anello con quattro curve, T, due incroci, e le rampe agganciate da tutt'e due i capi |
+
+Una cosa da sapere guardando: **una rampa scava**. La cella alta scende di un
+gradino, quindi ai suoi lati resta scoperto il fianco del terreno — la stessa
+parete scura che si vede su ogni gradino del mondo. È un taglio nella collina, e
+si legge come tale.
+
 ## Prossimo passo
 
-**Le strade che si tracciano invece di posarle una per una**, qui sopra: è
-l'unica cosa rimasta che si veda giocando il giorno stesso, e la tabella dei
-sedici casi non dipende da niente di quello che il mondo infinito ha cambiato.
+Le strade che si tracciano erano l'ultima cosa rimasta che si vedesse giocando
+il giorno stesso, e adesso ci sono. Quello che resta non è un debito: sono
+domande aperte e scelte che si fanno giocando.
 
-Del mondo infinito restano aperte due domande, e nessuna delle due è un debito:
-**che carattere dare a una zona lontana**, perché comprarla non sia solo un
-numero che sale — un fiume, una baia, una montagna — e **quante zone tenere
-vive** il giorno che si vorranno accese anche quelle lontane, che per adesso non
-si pone.
+Del mondo infinito restano aperte due domande: **che carattere dare a una zona
+lontana**, perché comprarla non sia solo un numero che sale — un fiume, una
+baia, una montagna — e **quante zone tenere vive** il giorno che si vorranno
+accese anche quelle lontane, che per adesso non si pone.
 
-Le cinque fasi erano chiuse da un pezzo; quello
-che è venuto dopo — servizi, strada, conti, spostamento, abitanti, lavoro,
-felicità, aree, mondo e zone — è la città che chiede qualcosa a chi la
-costruisce.
+Le cinque fasi erano chiuse da un pezzo; quello che è venuto dopo — servizi,
+strada, conti, spostamento, abitanti, lavoro, felicità, aree, mondo, zone e
+adesso il tracciamento — è la città che chiede qualcosa a chi la costruisce.
 
-Restano anche due cose che non sono debiti ma scelte, e si decidono giocando:
+Restano tre cose che non sono debiti ma scelte, e si decidono giocando:
 
 - **Il bilanciamento con sette servizi di zona.** Coprire 32x32 con sette aree è
   parecchio; con un mondo senza fine lo è senza fine. Se la felicità si rivela
@@ -1676,3 +1800,13 @@ Restano anche due cose che non sono debiti ma scelte, e si decidono giocando:
   `economy.json`.
 - **Cosa succede a una città infelice**, oltre allo spopolamento: per ora la
   felicità è un punteggio da far salire, non una tassa da pagare.
+- **Se le strade debbano attraversare l'acqua da sole.** Oggi il tracciato si
+  ferma sulla riva e il ponte si posa a mano. Il kit del ponte è già modulare e
+  la tabella dei sedici casi vale anche per le campate: il giorno che lo si
+  vorrà, il pezzo grosso è già scritto.
+
+E una cosa da sistemare nel documento, non nel codice: **la sezione sulla
+felicità dice cinque servizi di zona, la chiusura ne diceva sette, e il codice
+ne ha sette** — `polizia`, `pompieri`, `ospedale`, `verde`, `sport`,
+`elementare`, `superiore`, in `city_view.gd`. È il testo a essere rimasto
+indietro.

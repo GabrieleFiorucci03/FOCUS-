@@ -150,6 +150,42 @@ func _costruisci_voci(asset: Dictionary, gioco: Dictionary) -> void:
 		ordine.append(id)
 
 	_numera_gli_omonimi(ordine)
+	_aggiungi_le_strade()
+
+
+## Mette nel negozio le due strade che si tracciano, al posto dei loro pezzi.
+##
+## Non sono modelli: sono le due famiglie, e sceglierle non posa niente — accende
+## la modalità con cui si tira un percorso. Stanno fra le voci e non fra gli
+## attrezzi perché è lì che uno le cerca, in mezzo a quello che si compra, e
+## perché così si portano dietro gratis prezzo, ritratto e scaffale.
+##
+## Il ritratto e l'ingombro se li prendono in prestito dal pezzo dritto della
+## loro famiglia: una scheda deve far vedere di che strada si tratta, e il
+## dritto è il pezzo che la racconta.
+func _aggiungi_le_strade() -> void:
+	for famiglia in ReteStradale.FAMIGLIE:
+		var dritto := ReteStradale.id_del_pezzo(str(famiglia), "STRAIGHT")
+		if not voci.has(dritto):
+			push_error("CityCatalog: manca il pezzo dritto di %s (%s)." % [famiglia, dritto])
+			continue
+		var modello: Dictionary = (voci[dritto] as Dictionary).duplicate(true)
+		modello["id"] = ReteStradale.voce_della_famiglia(str(famiglia))
+		modello["nome"] = str(ReteStradale.FAMIGLIE[famiglia]["nome"])
+		modello["in_vendita"] = true
+		modello["famiglia"] = str(famiglia)
+		voci[modello["id"]] = modello
+
+
+## Se una voce del negozio è una strada da tracciare invece di un modello da
+## posare. Chi la sceglie non prende in mano un pezzo: prende una matita.
+func si_traccia(id: String) -> bool:
+	return voce(id).has("famiglia")
+
+
+## La famiglia di strada dietro una voce, o "" se quella voce non si traccia.
+func famiglia(id: String) -> String:
+	return str(voce(id).get("famiglia", ""))
 
 
 ## Dieci case si chiamano tutte "Casa": senza un numero il negozio sarebbe una

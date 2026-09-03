@@ -480,14 +480,19 @@ func world_tiles() -> Array:
 	return world["tiles"]
 
 
-func add_tile(cell: Vector2i, type: String, rotation: int, level: int) -> void:
+## `salva` esiste per i gesti che posano più di una cosa: tracciare una strada
+## sono venti piazzamenti, e salvare venti volte di fila vorrebbe dire scrivere
+## venti file per una cosa sola. Chi passa false chiude lui con save_game().
+func add_tile(cell: Vector2i, type: String, rotation: int, level: int,
+		salva: bool = true) -> void:
 	world_tiles().append({
 		"pos": [cell.x, cell.y],
 		"type": type,
 		"rotation": rotation,
 		"level": level,
 	})
-	save_game()
+	if salva:
+		save_game()
 
 
 ## Le quote che sono state spianate, come stanno su disco: pos come array
@@ -527,12 +532,13 @@ func clear_terrain_edit(cell: Vector2i) -> void:
 
 
 ## Toglie la cella ancorata in "cell". Restituisce true se c'era davvero.
-func remove_tile(cell: Vector2i) -> bool:
+func remove_tile(cell: Vector2i, salva: bool = true) -> bool:
 	var tiles := world_tiles()
 	for i in tiles.size():
 		var pos: Array = tiles[i].get("pos", [])
 		if pos.size() == 2 and int(pos[0]) == cell.x and int(pos[1]) == cell.y:
 			tiles.remove_at(i)
-			save_game()
+			if salva:
+				save_game()
 			return true
 	return false
