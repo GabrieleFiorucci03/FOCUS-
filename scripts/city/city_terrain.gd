@@ -112,10 +112,22 @@ const SOGLIA_TERRA := 0.22
 ## È l'erede della discesa verso i bordi della mappa. Quella garantiva l'acqua
 ## tutto attorno perché sapeva dov'era il bordo; questa non lo sa e non le serve,
 ## perché fa la stessa cosa — modulare la massa a scala molto più grande del
-## continente — con una funzione delle sole coordinate. La frequenza è sette
-## volte più bassa di quella del continente: un bacino misura centinaia di celle,
-## cioè parecchie zone, e non lo si scambia per un lago.
-const OCEANO_FREQUENZA := 0.004
+## continente — con una funzione delle sole coordinate.
+##
+## La frequenza è tre volte e mezzo più bassa di quella del continente: un bacino
+## misura qualche decina di celle, cioè un paio di zone, e i più grandi arrivano
+## a una mezza dozzina. Resta un mare e non lo si scambia per un lago, ma non è
+## più un muro. **Era la metà**, e con quella un oceano arrivava a ventinove zone
+## di fila: sopra non ci si costruisce niente, quindi non era paesaggio, era una
+## parte di mondo tolta dal gioco. Raddoppiarla rimpicciolisce i bacini senza
+## spostare quanta terra c'è — misurata sui semi di prova resta al 50% tanto
+## prima quanto dopo: cambia la taglia dell'acqua, non la sua quantità.
+##
+## Il taglio è la manopola dell'altra domanda, quanta acqua ci sia: abbassarlo
+## asciuga il mondo. La sfumatura invece non è la larghezza della costa e non va
+## usata per quello: sta a denominatore, quindi allargarla ritarda il punto in
+## cui la terra emerge del tutto e finisce per allagare, non per addolcire.
+const OCEANO_FREQUENZA := 0.008
 const OCEANO_TAGLIO := 0.30
 const OCEANO_SFUMATURA := 0.25
 

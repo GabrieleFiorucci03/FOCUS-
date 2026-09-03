@@ -39,11 +39,25 @@ const LATO_ZONA := 32
 ## terra deve avere una zona perché ci si possa fondare una città sopra.
 const ZONE_DA_PROVARE := 160
 const TERRA_PER_COMINCIARE := 0.55
+## Ogni quante celle si guarda per misurare la terra di una zona da mettere in
+## vendita. Più fitto di quello che basta a scegliere da dove cominciare: lì si
+## rispondeva sì o no su centinaia di zone, qui esce un prezzo, e una cella ogni
+## due tiene l'errore sotto il credito. Si misura una zona sola e una volta
+## sola, quindi può permetterselo.
+const PASSO_TERRA := 2
 ## La misura del mondo delle partite vecchie, quando il mondo era una scacchiera
 ## finita. Serve solo a capire cosa possedeva chi ha salvato allora.
 const VECCHIO_LATO_IN_ZONE := 3
 
 var data: Dictionary = {}
+
+## Quanta terra ha ogni zona, tenuta da parte man mano che la si chiede.
+##
+## Non è un salvataggio: è il seme riletto. Dipende solo da quello, quindi si
+## butta quando il seme cambia e per il resto non può scollarsi da niente. Serve
+## perché il prezzo di una zona si mostra mentre il mouse ci passa sopra, e
+## rifare mille campioni di rumore a ogni movimento sarebbe uno spreco.
+var _terra_per_zona: Dictionary = {}
 
 var credits: int:
 	get:
@@ -153,6 +167,7 @@ static func spirale(quante: int) -> Array[Vector2i]:
 
 func load_game() -> void:
 	data = new_save()
+	_terra_per_zona.clear()
 	if FileAccess.file_exists(SAVE_PATH):
 		var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(SAVE_PATH))
 		if typeof(parsed) == TYPE_DICTIONARY:
@@ -369,6 +384,7 @@ func reset_game() -> void:
 	var preferenze: Dictionary = (impostazioni() as Dictionary).duplicate(true)
 	data = new_save()
 	data["settings"] = preferenze
+	_terra_per_zona.clear()
 	save_game()
 	game_loaded.emit()
 	credits_changed.emit(credits)
@@ -400,6 +416,36 @@ func world_zones() -> Array:
 				tutte.append([zx, zy])
 		return tutte
 	return world.get("zones", [])
+
+
+## Quanta terra emersa ha una zona, da 0 a 1. Dipende dal solo seme, quindi si
+## calcola una volta e poi si ricorda.
+func terra_della_zona(zona: Vector2i) -> float:
+	if _terra_per_zona.has(zona):
+		return float(_terra_per_zona[zona])
+	var terra := CityTerrain.frazione_di_terra(
+		world_seed(), Rect2i(zona * LATO_ZONA, Vector2i(LATO_ZONA, LATO_ZONA)), PASSO_TERRA)
+	_terra_per_zona[zona] = terra
+	return terra
+
+
+## Quanta terra si possiede, contata in zone piene: due mezze coste fanno una
+## zona di terra, e un mare aperto non ne fa niente.
+##
+## È la misura con cui rincara la prossima zona, al posto del numero di zone
+## prese. Si risomma invece di tenerne il conto su disco, come si fa con lo
+## streak: quello che si può ridedurre dal seme e da cosa si possiede non ha
+## motivo di stare in un file, dove potrebbe solo scollarsi.
+func terra_posseduta() -> float:
+	var somma := 0.0
+	for posseduta in world_zones():
+		somma += terra_della_zona(Vector2i(int(posseduta[0]), int(posseduta[1])))
+	return somma
+
+
+## Quanto costa comprare una zona, adesso, con quello che si ha.
+func costo_della_zona(zona: Vector2i) -> int:
+	return Config.zone_cost(terra_posseduta(), terra_della_zona(zona))
 
 
 func owns_zone(zona: Vector2i) -> bool:

@@ -523,7 +523,7 @@ func _annulla_la_pressione() -> void:
 func _descrizione_strumento(id: String) -> String:
 	match id:
 		"espandi":
-			return "Il mondo è una scacchiera di zone: clic su una zona spenta che confini con la tua per comprarla. Il prezzo cresce a ogni zona presa, quindi allargarsi è una scelta e non un automatismo."
+			return "Il mondo è una scacchiera di zone: clic su una zona spenta che confini con la tua per comprarla. Si paga la terra che c'è dentro, quindi il mare aperto non costa niente; e il prezzo cresce con la terra che possiedi già, così allargarsi è una scelta e non un automatismo."
 		"sposta":
 			return "Clic su una costruzione per prenderla in mano, clic per riposarla dove vuoi. R la gira, PagSu e PagGiù le cambiano quota, Esc la rimette dov'era. Spostare non costa niente."
 		"demolisci":

@@ -192,21 +192,31 @@ func jobs_per_cell(kind: String) -> int:
 ## Il raggio base di un servizio di zona, in celle. Chi lo usa ci somma il lato
 ## più lungo dell'edificio meno uno: un ospedale 3x3 arriva più lontano di una
 ## clinica 2x2, e non serve un numero per modello per dirlo.
-## Quanto costa la prossima zona, sapendo quante se ne hanno già.
+## Quanto costa la prossima zona, date la terra che si possiede già e quella
+## che la zona in vendita contiene — tutt'e due misurate in zone piene, cioè
+## come frazione di terra emersa sommata sulle zone.
 ##
-## Cresce con quelle possedute: allargarsi deve restare una scelta, non
-## l'automatismo che si fa perché tanto costa poco. La prima in più è la
-## seconda del mondo, quindi l'esponente parte da quante ce n'erano meno una.
+## **Si conta la terra, non i quadrati.** Il mondo è fatto anche di oceano, e un
+## quadrato di mare aperto non è un pezzo di città a cui manca qualcosa: è
+## paesaggio. Farlo pagare come una pianura voleva dire vendere niente a prezzo
+## pieno; per questo il prezzo è in proporzione alla terra della zona, e il mare
+## aperto arriva a zero da sé, senza una regola apposta che lo dica.
 ##
-## **Ma smette di crescere.** Finché le zone erano nove, moltiplicare per 1,6 a
-## ogni acquisto era una curva che finiva prima di diventare assurda; in un mondo
-## senza bordo non finisce, e alla ventesima zona una zona costerebbe più di
-## quanto si guadagni in un anno di concentrazione. Dopo `zone_price_cap_at` il
-## prezzo si ferma: da lì in poi allargarsi costa tanto, sempre uguale, e resta
-## una cosa che si sceglie invece di una cosa che si smette di poter fare.
-func zone_cost(gia_possedute: int) -> int:
-	var scatti := clampi(gia_possedute - 1, 0, zone_price_cap_at)
-	return int(round(float(zone_price) * pow(zone_price_growth, scatti)))
+## Per la stessa ragione a far crescere il prezzo è la terra già presa e non il
+## numero di zone: se no attraversare un braccio di mare — gratis, ma pur sempre
+## un acquisto — rincarerebbe la terra che c'è dall'altra parte, e la traversata
+## costerebbe proprio a chi non ci ha guadagnato niente.
+##
+## Il resto è come prima: cresce, perché allargarsi deve restare una scelta e
+## non l'automatismo che si fa tanto costa poco, e **smette di crescere**, perché
+## in un mondo senza bordo una curva geometrica non finisce mai e alla ventesima
+## zona chiuderebbe il gioco invece di dosarlo. Dopo `zone_price_cap_at` zone
+## piene di terra il prezzo si ferma: da lì in poi allargarsi costa tanto,
+## sempre uguale, e resta una cosa che si sceglie.
+func zone_cost(terra_posseduta: float, terra_della_zona: float) -> int:
+	var scatti := clampf(terra_posseduta - 1.0, 0.0, float(zone_price_cap_at))
+	var pieno := float(zone_price) * pow(zone_price_growth, scatti)
+	return int(round(pieno * clampf(terra_della_zona, 0.0, 1.0)))
 
 
 func service_radius(zona: String) -> float:

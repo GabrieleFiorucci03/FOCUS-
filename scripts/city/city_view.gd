@@ -676,7 +676,7 @@ func _compra_la_zona() -> void:
 		Sfx.suona("errore")
 		_messaggio("Si comprano solo le zone che confinano con quelle che hai già.")
 		return
-	var prezzo := Config.zone_cost(SaveManager.world_zones().size())
+	var prezzo := SaveManager.costo_della_zona(zona)
 	if not SaveManager.try_spend(prezzo):
 		Sfx.suona("errore")
 		_messaggio("La zona costa %d crediti, ne hai %d. Torna a fare focus." % [
@@ -694,9 +694,15 @@ func _compra_la_zona() -> void:
 		_rifai_la_zona(zona + passo)
 	_ridisegna_il_velo()
 	Sfx.suona("posa")
-	_messaggio("Zona comprata: -%d crediti. Adesso ne hai %d." % [
-		prezzo, SaveManager.world_zones().size()
-	])
+	# Una zona di solo mare non costa niente, e "-0 crediti" sarebbe un modo
+	# storto di dire una cosa che va detta dritta.
+	if prezzo == 0:
+		_messaggio("Zona d'acqua presa, non costa niente. Adesso ne hai %d." %
+			SaveManager.world_zones().size())
+	else:
+		_messaggio("Zona comprata: -%d crediti. Adesso ne hai %d." % [
+			prezzo, SaveManager.world_zones().size()
+		])
 	_aggiorna_bersaglio()
 
 
@@ -1859,7 +1865,7 @@ func _suggerimento() -> String:
 				return "Clic su una costruzione per prenderla in mano · Esc annulla"
 			return "Clic per riposarla · R gira · PagSu / PagGiù cambia quota · Esc la rimette dov'era"
 		Modo.ZONA:
-			return "Clic su una zona spenta che confina con la tua per comprarla (%d crediti) · Esc annulla" % Config.zone_cost(SaveManager.world_zones().size())
+			return _suggerimento_zona()
 		Modo.DEMOLISCI:
 			return "Clic su una costruzione per demolirla · Esc annulla"
 		Modo.TERRENO:
@@ -1868,6 +1874,23 @@ func _suggerimento() -> String:
 			return "Clic per modellare il terreno · Esc annulla"
 		_:
 			return "WASD scorre (Shift corre) · Q / E ruota · rotella zoom · H torna a casa · B costruisci · C conti"
+
+
+## Il suggerimento mentre si compra: il prezzo della zona sotto il cursore, non
+## più uno buono per tutte.
+##
+## Adesso che il prezzo dipende da quanta terra c'è dentro, un prezzo solo non
+## esiste: quello che serve sapere è quanto costa *questa*, prima di cliccarci.
+func _suggerimento_zona() -> String:
+	if _cella == CELLA_NULLA:
+		return "Clic su una zona spenta che confina con la tua per comprarla · Esc annulla"
+	var zona := _zona_di(_cella)
+	if not _comprabile(zona):
+		return "Clic su una zona spenta che confina con la tua per comprarla · Esc annulla"
+	var prezzo := SaveManager.costo_della_zona(zona)
+	if prezzo == 0:
+		return "Qui è tutta acqua: la prendi gratis · clic per comprarla · Esc annulla"
+	return "Questa zona costa %d crediti · clic per comprarla · Esc annulla" % prezzo
 
 
 func _riepilogo_servizi() -> String:
