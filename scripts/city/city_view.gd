@@ -56,9 +56,8 @@ const RAGGIO_SEGNALE := 22.0
 
 ## I servizi di cui la città tiene il conto, nell'ordine in cui si leggono. Le
 ## chiavi sono quelle che il pannello rimanda indietro quando se ne clicca uno.
-## I cinque presidi civici (polizia, sanità, pompieri, le due scuole) non sono
-## qui perché non hanno ancora un'area di azione: quando ce l'avranno entrano in
-## questo elenco, e il resto funziona già.
+## Prima i quattro allacciamenti, poi i sette servizi di zona: undici righe, e
+## l'ordine è quello di SERVIZI_VITALI seguito da SERVIZI_ZONA.
 const SERVIZI := [
 	{ "id": "strada", "nome": "Strada" },
 	{ "id": "corrente", "nome": "Corrente" },
@@ -918,7 +917,7 @@ static func _dentro_la_zona(celle: Array[Vector2i], coperte: Dictionary) -> bool
 	return false
 
 
-## Quanti dei cinque servizi di zona arrivano a ogni abitazione, come frazione
+## Quanti dei sette servizi di zona arrivano a ogni abitazione, come frazione
 ## da 0 a 1. Restituisce id del piazzamento -> felicità.
 ##
 ## Solo le abitazioni: la felicità è di chi ci vive, e chiedere a una pala eolica
@@ -1008,7 +1007,7 @@ func _aggiorna_i_conti() -> void:
 		var id_servizio := str(servizio["id"])
 		var conto := _copertura(id_servizio)
 		# Un servizio di zona che manca non spegne niente da solo: pesa un
-		# quinto sulla felicità, ed è la felicità a decidere. La riga nel
+		# settimo sulla felicità, ed è la felicità a decidere. La riga nel
 		# pannello c'è lo stesso, perché serve a sapere dove mettere il prossimo.
 		if SERVIZI_VITALI.has(id_servizio):
 			for id_piazzamento in conto["scoperti"]:
@@ -1679,7 +1678,7 @@ func _profilo(celle: Array[Vector2i], nel_tracciato: Dictionary) -> Dictionary:
 		fisso.append(not griglia.occupante(cella).is_empty())
 		livelli.append(_quota_stradale(cella))
 
-	_aggancia_alle_strade_vecchie(celle, livelli, fisso)
+	var imposte := _aggancia_alle_strade_vecchie(celle, livelli, fisso, nel_tracciato)
 
 	for i in range(1, celle.size()):
 		if absi(livelli[i] - livelli[i - 1]) > 1:
@@ -1688,7 +1687,7 @@ func _profilo(celle: Array[Vector2i], nel_tracciato: Dictionary) -> Dictionary:
 
 	var rampe := {}
 	for _giro in celle.size() * 2 + 8:
-		rampe = {}
+		rampe = imposte.duplicate()
 		var cambiato := false
 		for i in range(1, celle.size()):
 			var salto := livelli[i] - livelli[i - 1]
@@ -1696,7 +1695,14 @@ func _profilo(celle: Array[Vector2i], nel_tracciato: Dictionary) -> Dictionary:
 				continue
 			var alto := i if salto > 0 else i - 1
 			var basso := i - 1 if salto > 0 else i
-			if not rampe.has(alto) and _puo_fare_rampa(celle, livelli, fisso, nel_tracciato, alto):
+			# Una rampa che scende già da questa parte il gradino l'ha risolto.
+			# Se invece scende dall'altra — una cella che è alta da tutt'e due i
+			# lati — la rampa è una sola e non può servire due gradini: quel
+			# dosso si abbassa, come ha sempre fatto.
+			if rampe.has(alto):
+				if rampe[alto] == celle[alto] - celle[basso]:
+					continue
+			elif _puo_fare_rampa(celle, livelli, fisso, nel_tracciato, alto):
 				rampe[alto] = celle[alto] - celle[basso]
 				continue
 			# Niente rampa qui: il gradino si toglie invece di lasciarlo. Si
@@ -1719,24 +1725,52 @@ func _profilo(celle: Array[Vector2i], nel_tracciato: Dictionary) -> Dictionary:
 ##
 ## Deve essere una cella nuova — di una vecchia non si rifà la pendenza — deve
 ## avere il percorso che le passa dritto attraverso, non deve avere braccia di
-## traverso, e il suo piede non deve finire in acqua. E soprattutto **non può
-## essere un capo della strada**: là fuori non c'è niente a cui consegnare la
-## quota alta, e una rampa che sale verso il nulla è proprio la cosa che si
-## vuole togliere di mezzo.
+## traverso, e il suo piede non deve finire in acqua.
+##
+## Un capo della strada può farla, ma solo se dietro di lui la terra c'è
+## davvero: vedi `_capo_regge_la_rampa`. Vietarlo sempre era la ragione per cui
+## una salita finiva sbancata — l'ultima cella non poteva salire, e allora si
+## scavava lei e tutte quelle prima.
 func _puo_fare_rampa(celle: Array[Vector2i], livelli: Array[int], fisso: Array[bool],
 		nel_tracciato: Dictionary, alto: int) -> bool:
-	if fisso[alto] or alto == 0 or alto == celle.size() - 1:
+	if fisso[alto]:
 		return false
 	if livelli[alto] - 1 <= CityTerrain.LIVELLO_ACQUA:
 		return false
-	var entra: Vector2i = celle[alto] - celle[alto - 1]
-	var esce: Vector2i = celle[alto + 1] - celle[alto]
-	if entra != esce:
-		return false
+	# La rampa sale sempre allontanandosi dalla cella bassa, e la cella bassa di
+	# un capo è la sua unica vicina nel tracciato.
+	var entra: Vector2i
+	if alto == 0:
+		entra = celle[0] - celle[1]
+	else:
+		entra = celle[alto] - celle[alto - 1]
+	if alto == 0 or alto == celle.size() - 1:
+		if not _capo_regge_la_rampa(celle[alto], entra, livelli[alto]):
+			return false
+	else:
+		var esce: Vector2i = celle[alto + 1] - celle[alto]
+		if entra != esce:
+			return false
 	return _maschera_stradale(celle[alto], nel_tracciato) & _di_traverso(entra) == 0
 
 
-## Porta le celle nuove alla quota delle strade che già toccano.
+## Se un capo del tracciato regge una rampa: dietro di lui la terra dev'esserci
+## davvero, e almeno alla quota a cui la rampa consegna.
+##
+## È la differenza fra le due cose che sembrano uguali. Una rampa che sale verso
+## il vuoto lascia un gradino per aria, e va tolta di mezzo. Una che si appoggia
+## al fianco della collina — la terra oltre il capo sta a quella quota o più su
+## — è la salita che il giocatore stava cercando di fare, e finora al suo posto
+## veniva sbancata la collina.
+func _capo_regge_la_rampa(cella: Vector2i, verso: Vector2i, quota_alta: int) -> bool:
+	var oltre := cella + verso
+	if not griglia.occupante(oltre).is_empty():
+		return false
+	return terreno.livello(oltre) >= quota_alta
+
+
+## Porta le celle nuove alla quota delle strade che già toccano, e restituisce
+## le rampe che il giunto impone: indice della cella -> verso in cui sale.
 ##
 ## Se una cella nuova si attacca a una vecchia, il giunto fra le due deve
 ## combaciare, e la sola che si può muovere è quella nuova. Vicini che chiedono
@@ -1744,12 +1778,20 @@ func _puo_fare_rampa(celle: Array[Vector2i], livelli: Array[int], fisso: Array[b
 ## meglio seguire il terreno che scegliere a caso. Una cella agganciata diventa
 ## fissa come se fosse già costruita, perché quella quota non è una preferenza
 ## ma la condizione perché i due pezzi si tocchino.
+##
+## **Combaciare non vuol dire per forza appiattirsi.** Se il terreno della cella
+## sta un gradino sopra il giunto, la cella diventa una rampa che parte dalla
+## quota della strada vecchia e risale a quella del terreno: il giunto combacia
+## lo stesso e la collina resta dov'è. È così che una salita fatta in due tirate
+## si incatena invece di scavarsi una trincea a ogni tirata.
 func _aggancia_alle_strade_vecchie(celle: Array[Vector2i], livelli: Array[int],
-		fisso: Array[bool]) -> void:
+		fisso: Array[bool], nel_tracciato: Dictionary) -> Dictionary:
+	var imposte := {}
 	for i in celle.size():
 		if fisso[i]:
 			continue
 		var chiesta := -1
+		var da_dove := Vector2i.ZERO
 		var discordi := false
 		for passo in ReteStradale.DIREZIONI:
 			var vicina: Vector2i = celle[i] + passo
@@ -1760,12 +1802,40 @@ func _aggancia_alle_strade_vecchie(celle: Array[Vector2i], livelli: Array[int],
 				discordi = true
 				break
 			chiesta = quota
+			da_dove = passo
 		# Solo se il terreno è lì attorno: agganciarsi a una strada che sta tre
 		# gradini più su vorrebbe dire scavare una trincea per compiacerla.
 		if discordi or chiesta < 0 or absi(chiesta - livelli[i]) > 1:
 			continue
+		if chiesta != livelli[i] \
+				and maxi(livelli[i], chiesta) - 1 > CityTerrain.LIVELLO_ACQUA \
+				and _rampa_al_giunto(celle, i, da_dove, nel_tracciato):
+			# Chi è alto lo dice il verso: la rampa sale verso il terreno se è
+			# lui a stare sopra, verso la strada vecchia se sopra c'è lei. La
+			# quota tenuta in `livelli` è sempre quella del capo alto.
+			imposte[i] = -da_dove if livelli[i] > chiesta else da_dove
+			livelli[i] = maxi(livelli[i], chiesta)
+			fisso[i] = true
+			continue
 		livelli[i] = chiesta
 		fisso[i] = true
+	return imposte
+
+
+## Se la cella `i` può essere la rampa che aggancia il tracciato a una strada
+## che sta un gradino più su o più giù, dalla parte di `da_dove`.
+##
+## Una rampa ha due capi in fila: uno guarda la strada vecchia, l'altro deve
+## guardare il resto del tracciato. Se il percorso in quella cella gira, o se
+## qualcosa le arriva di fianco, la rampa non ci sta e si torna ad appiattire.
+func _rampa_al_giunto(celle: Array[Vector2i], i: int, da_dove: Vector2i,
+		nel_tracciato: Dictionary) -> bool:
+	var avanti: Vector2i = celle[i] - da_dove
+	var prosegue := (i > 0 and celle[i - 1] == avanti) \
+		or (i < celle.size() - 1 and celle[i + 1] == avanti)
+	if not prosegue:
+		return false
+	return _maschera_stradale(celle[i], nel_tracciato) & _di_traverso(da_dove) == 0
 
 
 # --- Il tracciato -----------------------------------------------------------
@@ -1786,9 +1856,23 @@ func _calcola_tracciato(da: Vector2i, a: Vector2i) -> Dictionary:
 	# invece di rifiutare tutto o di aggirarlo: è l'unica risposta che non fa
 	# danni e non sorprende.
 	var celle: Array[Vector2i] = []
-	for cella in candidate:
+	# Quante celle in testa il tracciato si è lasciato dietro senza toccarle:
+	# servono per sapere dove ricominciano, nel percorso chiesto, quelle che non
+	# ce l'hanno fatta.
+	var saltate := 0
+	for i in candidate.size():
+		var cella: Vector2i = candidate[i]
 		var perche := _perche_non_ci_passa(cella)
 		if not perche.is_empty():
+			# Cominciare dal capo di una rampa è la cosa più naturale del
+			# mondo: è lì che la strada di prima è finita. Innestarcisi no, ma
+			# non serve — la rampa c'è già, e si comincia dalla cella dopo, che
+			# è quello che il giocatore intendeva. Il giunto con lei se lo vede
+			# _aggancia_alle_strade_vecchie, come per ogni altra strada vecchia.
+			if celle.is_empty() and i + 1 < candidate.size() \
+					and _lato_stradale(cella, candidate[i + 1] - cella):
+				saltate += 1
+				continue
 			motivo = perche
 			break
 		celle.append(cella)
@@ -1816,7 +1900,7 @@ func _calcola_tracciato(da: Vector2i, a: Vector2i) -> Dictionary:
 		prezzo += catalogo.prezzo(str(pezzo["id"]))
 
 	var rifiutate: Array[Vector2i] = []
-	for i in range(celle.size(), candidate.size()):
+	for i in range(saltate + celle.size(), candidate.size()):
 		rifiutate.append(candidate[i])
 
 	return {

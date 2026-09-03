@@ -99,6 +99,7 @@ func _ready() -> void:
 	_gruppo = ButtonGroup.new()
 	_gruppo.allow_unpress = true
 	_prepara_lo_studio()
+	StileBottoni.applica(_pulsante)
 	_pulsante.toggled.connect(_on_pulsante_commutato)
 	_chiudi.pressed.connect(chiudi)
 	_fascia.hide()

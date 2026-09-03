@@ -1,12 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" width="96" height="96" fill="none">
-  <!-- Martello e chiave inglese incrociati: il pulsante che apre le costruzioni.
-       Tratti grossi e pochi: a 30 pixel di lato i dettagli non si vedrebbero. -->
-  <g stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round">
-    <!-- chiave inglese: manico in basso a sinistra, testa aperta in alto a destra -->
-    <path d="M8 33 L23.5 17.5" stroke-width="5"/>
-    <path d="M29.6 7.9 A6 6 0 1 0 33.1 11.5" stroke-width="5"/>
-    <!-- martello: manico in basso a destra, testa in alto a sinistra -->
-    <path d="M33 33 L18 18" stroke-width="5"/>
-    <path d="M13.5 20.5 L20.5 13.5" stroke-width="8.5"/>
+  <!-- Una casa: il pulsante che apre il negozio delle costruzioni.
+       Martello e chiave inglese incrociati, a 28 pixel di lato, diventavano una
+       macchia sola: due utensili sovrapposti sono troppa roba per un'icona
+       piccola. Una casa e' la cosa che il negozio vende, si legge di colpo, e
+       non somiglia al grafico a barre del pulsante dei conti qui accanto. -->
+  <g stroke="#ffffff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round">
+    <!-- il tetto, da grondaia a grondaia -->
+    <path d="M5.5 19.5 L20 7.5 L34.5 19.5"/>
+    <!-- i muri: partono da sotto la falda e scendono a terra -->
+    <path d="M9.5 18.5 V33 H30.5 V18.5"/>
   </g>
+  <!-- la porta, piena: due righe sottili a questa misura si chiuderebbero -->
+  <rect x="16.6" y="24" width="6.8" height="9" rx="1.2" fill="#ffffff"/>
 </svg>

@@ -49,6 +49,9 @@ var _bottoni: Dictionary = {}
 func _ready() -> void:
 	_gruppo = ButtonGroup.new()
 	_gruppo.allow_unpress = true
+	# La stessa pelle del pulsante accanto: sono due interruttori gemelli, e
+	# vestirne uno solo li farebbe sembrare due cose diverse.
+	StileBottoni.applica(_pulsante)
 	_pulsante.toggled.connect(_on_pulsante_commutato)
 	_chiudi.pressed.connect(chiudi)
 	_pannello.hide()
@@ -112,8 +115,8 @@ func _crea_riga(id: String) -> Button:
 	var bottone := Button.new()
 	bottone.toggle_mode = true
 	bottone.button_group = _gruppo
-	# Righe basse: da quattro che erano sono diventate nove, e nove righe alte
-	# non ci stavano piu' sotto la fascia senza arrivare a toccare il fondo.
+	# Righe basse: da quattro che erano sono diventate undici, e undici righe
+	# alte non ci stavano piu' sotto la fascia senza arrivare a toccare il fondo.
 	bottone.custom_minimum_size = Vector2(0, 26)
 	bottone.alignment = HORIZONTAL_ALIGNMENT_LEFT
 	bottone.add_theme_font_size_override("font_size", 12)

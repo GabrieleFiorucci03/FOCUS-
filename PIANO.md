@@ -938,30 +938,34 @@ un certo numero di posti, e gli abitanti li vogliono tutti.
 
 ## La felicità, e gli edifici che si abbandonano
 
-Il terzo attributo, e il primo che non è un sì o un no. Cinque servizi di zona —
-**polizia, pompieri, ospedale, verde e sport** — ognuno con un'area di azione
-attorno a sé; un'abitazione dentro l'area riceve quel servizio, e la sua
-felicità è la frazione dei cinque che le arrivano. **Sotto il 50% l'abitazione
-viene abbandonata**: la gente se ne va, il velo scuro e il punto esclamativo
-compaiono come per chi resta senz'acqua.
+Il terzo attributo, e il primo che non è un sì o un no. Sette servizi di zona —
+**polizia, pompieri, ospedale, verde, sport, scuola elementare e scuola
+superiore** — ognuno con un'area di azione attorno a sé; un'abitazione dentro
+l'area riceve quel servizio, e la sua felicità è la frazione dei sette che le
+arrivano. **Sotto il 50% l'abitazione viene abbandonata**: la gente se ne va, il
+velo scuro e il punto esclamativo compaiono come per chi resta senz'acqua.
+
+Erano cinque quando la felicità è nata, e sono diventati sette con le due scuole
+poco dopo. Qui sono raccontati come stanno adesso: sette, come nel codice.
 
 - **Due famiglie di bisogni, e vanno tenute distinte** perché è quello che rende
   il gioco leggibile. **Strada, corrente, acqua e lavoro sono allacciamenti**: o
-  ci sono o non ci sono, e senza si spegne subito. **I cinque presidi sono
+  ci sono o non ci sono, e senza si spegne subito. **I sette presidi sono
   felicità**: si contano a frazione, nessuno da solo spegne niente, e si cede
   sotto metà. In `CityView` sono due costanti — `SERVIZI_VITALI` e
   `SERVIZI_ZONA` — e la differenza sta scritta lì, non sparsa fra i controlli.
 - **Il raggio cresce con l'edificio.** Un numero base per servizio in
   `economy.json` (9 celle per i tre presidi civici, 8 per lo sport, 6 per il
-  verde) più il lato più lungo dell'edificio meno uno: un ospedale 3x3 arriva a
-  11 celle, una clinica 2x2 a 10, un parco tascabile 1x1 a 6. Un numero per
-  modello non serve — l'ingombro lo dice già.
+  verde, 7 per l'elementare e 10 per la superiore) più il lato più lungo
+  dell'edificio meno uno: un ospedale 3x3 arriva a 11 celle, una clinica 2x2 a
+  10, un parco tascabile 1x1 a 6. Un numero per modello non serve — l'ingombro
+  lo dice già.
 - **Cerchi, non rombi.** Il raggio è in linea d'aria: le aree tonde sono quello
   che ci si aspetta guardando, e la distanza di Manhattan avrebbe fatto rombi
   che nessuno associa a «quanto lontano arriva un'ambulanza».
-- **La soglia a metà è generosa di proposito.** Tre servizi su cinque tengono in
-  piedi un quartiere: si può crescere prima e rifinire dopo, invece di dover
-  avere tutto subito. È un numero in `economy.json`, `abandon_below`.
+- **La soglia a metà è generosa di proposito.** Quattro servizi su sette
+  tengono in piedi un quartiere: si può crescere prima e rifinire dopo, invece
+  di dover avere tutto subito. È un numero in `economy.json`, `abandon_below`.
 - **La felicità è delle abitazioni, non di tutti.** Chiedere a una pala eolica
   se ha il parco sotto casa non vuol dire niente. Ma soprattutto: se anche i
   presidi potessero essere abbandonati per infelicità, l'infelicità di ciascuno
@@ -977,26 +981,33 @@ compaiono come per chi resta senz'acqua.
   è duecento volte più gente. Sta nel pannello di stato con la sua barra, e il
   colore va al contrario delle altre — qui il pieno è la cosa buona, e il rosso
   comincia alla soglia dell'abbandono.
-- **I conti della città hanno nove righe**, una per servizio, e le cinque di
+- **I conti della città hanno undici righe**, una per servizio, e le sette di
   zona dicono quante abitazioni restano fuori. Cliccandone una si accende sul
   mondo chi ne è scoperto: è così che si decide dove mettere il prossimo
   presidio. In fondo, quante costruzioni sono abbandonate — è la riga che spiega
   un «Abitanti 0» senza far aprire nient'altro.
 
-Le scuole sono entrate subito dopo: i servizi di zona sono diventati sette, e
-per arrivare al cento per cento servono sia l'elementare sia la superiore. La
-sezione qui sotto racconta com'è andata.
+Le scuole sono entrate subito dopo, e con loro i servizi di zona sono diventati
+sette: per arrivare al cento per cento servono sia l'elementare sia la
+superiore. La sezione qui sotto racconta com'è andata.
+
+Le prove non sono più a mano: stanno in `tests/TestFelicita.tscn` e si rifanno
+da sole. Montano un quartiere — la strada, i due impianti, una casa e i sette
+presidi tutti nel suo raggio — e guardano la felicità salire un presidio per
+volta.
 
 | Prova | Esito |
 |---|---|
-| Chi porta cosa | polizia, pompieri, ospedale dai presidi; verde dai parchi; sport dai campi |
-| Case e scuole | non portano nessun servizio di zona |
-| Abitazione senza presidi | felicità 0%, abbandonata, col punto esclamativo |
-| Un presidio per volta | 20%, 40%, 60%: un quinto ciascuno |
-| A tre su cinque | sopra la soglia: la casa si ripopola e il `!` sparisce |
-| Demolire un presidio | si torna al 40% e la casa viene riabbandonata |
-| Togliere la strada a un presidio | la sua area sparisce del tutto |
-| Il pannello | felicità in percentuale, e le nove righe dei servizi |
+| Chi porta cosa | polizia, pompieri, ospedale dai presidi; verde dai parchi; sport dai campi; elementare e superiore dalle due scuole |
+| Case, strade e impianti | non portano nessun servizio di zona |
+| Abitazione senza presidi | felicità 0%, e abbandonata |
+| Un presidio per volta | 14%, 29%, 43%… un settimo a colpo, fino al 100% |
+| A quattro su sette | sopra la soglia: la casa si ripopola |
+| Demolendo fino a tre su sette | si torna al 43% e la casa viene riabbandonata |
+| Togliere la strada a un presidio | la sua area sparisce del tutto, e torna rimettendocela |
+| La media della città | pesa sugli abitanti: una torre scontenta conta per la gente che ci sta |
+| Le tre voci dello stesso conto | costanti, raggi in `economy.json` e righe del pannello dicono sette |
+| Il pannello | felicità in percentuale, e le undici righe dei servizi |
 
 ## Le aree, e come si vedono
 
@@ -1777,6 +1788,135 @@ gradino, quindi ai suoi lati resta scoperto il fianco del terreno — la stessa
 parete scura che si vede su ogni gradino del mondo. È un taglio nella collina, e
 si legge come tale.
 
+## Sette, non cinque
+
+Il documento diceva cinque servizi di zona, la chiusura ne diceva sette, il
+codice ne ha sette. Rimessi in riga, e non solo nel documento: la stessa scoria
+stava in tre commenti del codice — l'elenco delle righe del pannello diceva che
+i presidi civici «non hanno ancora un'area di azione» quando ce l'hanno da un
+pezzo, un altro contava «un quinto sulla felicità», e il pannello si diceva
+cresciuto «da quattro a nove» righe quando ne ha undici.
+
+Ma un testo che si corregge a mano si riscolla la volta dopo, quindi la parte
+che conta è la prova: **`tests/TestFelicita.tscn`**. Monta un quartiere vero —
+una strada dritta, l'impianto della corrente e quello dell'acqua, una casa che
+si affaccia sulla strada e i sette presidi in fila sotto, tutti dentro il raggio
+della casa — e posa un presidio per volta guardando salire la felicità.
+
+- **Un settimo a colpo, e la soglia dove deve stare.** 14%, 29%, 43%, 57%: la
+  casa è abbandonata fino a tre servizi e si ripopola al quarto, che è la
+  soglia `abandon_below` letta da `economy.json` e non un numero scritto nella
+  prova.
+- **Le tre voci che raccontano lo stesso conto devono dire lo stesso numero.**
+  Le costanti di `CityView`, i raggi in `economy.json` e le righe del pannello:
+  la prova controlla che i servizi di zona siano gli stessi in tutt'e tre, che
+  nessuno sia insieme allacciamento e servizio di zona, e che le righe del
+  pannello siano `SERVIZI_VITALI` seguito da `SERVIZI_ZONA`. È esattamente il
+  modo in cui erano scivolati via.
+- **Che la prova morda davvero, si è verificato togliendo un servizio.** Con
+  `superiore` fuori da `SERVIZI_ZONA` sono usciti nove errori, non zero. Una
+  prova che passa comunque è peggio di nessuna prova.
+- **Una prova che passava senza provare niente.** Il primo tentativo era una
+  `SceneTree` con `--script`: lì gli autoload non esistono, `city_view.gd` non
+  compila, `get_script_constant_map()` torna vuoto e ogni controllo su un
+  elenco vuoto passa. Verde, e non aveva guardato niente. Le prove che toccano
+  il gioco vanno fatte girare come scena, come già faceva quella delle strade.
+
+| Prova | Esito |
+|---|---|
+| Senza presidi | 0%, abbandonata |
+| Uno alla volta, tutti e sette | un settimo a colpo fino al pieno |
+| La soglia | abbandonata a 3/7, ripopolata a 4/7 |
+| Demolendo a ritroso | si riscende di un settimo per volta e si riabbandona sotto la soglia |
+| La strada tolta a un presidio | la sua area sparisce, e torna rimettendocela |
+| La media pesata | una torre da 126 abitanti scontenta tira giù la media di una casa da 3 |
+| Il conto dichiarato | sette servizi, sette raggi, undici righe |
+| Con un servizio tolto di mezzo | la prova fallisce, come deve |
+
+## Le salite si fanno, non si sbancano
+
+Provando: il tracciato teneva le strade basse. Su una collina scavava invece di
+salire, e dopo non ci si saliva più — la terra accanto restava due gradini più
+su, e due gradini in una cella sola il tracciato li rifiuta.
+
+La causa non era il terreno ma **una regola scritta troppo larga**: una rampa
+non poteva stare a un capo del tracciato. La ragione era buona — «là fuori non
+c'è niente a cui consegnare la quota alta», una rampa che sale verso il vuoto
+lascia un gradino per aria — ma vale solo quando là fuori non c'è niente. Se
+oltre il capo c'è il fianco della collina, la rampa gliela consegna eccome. Ed
+è il caso normale: si traccia proprio *su* per la collina.
+
+- **Un capo può essere una rampa se dietro di lui la terra c'è, e almeno a
+  quella quota.** Una riga sola — `_capo_regge_la_rampa` — e la salita smette
+  di finire sbancata. Il caso che la regola vecchia difendeva resta difeso: se
+  oltre il capo il terreno sta più in basso, niente rampa, e il gradino si
+  toglie spianando come prima.
+- **Anche il giunto con una strada vecchia può essere una rampa.** Prima una
+  cella nuova attaccata a una strada vecchia veniva *appiattita* alla sua
+  quota: giusto per far combaciare i due pezzi, ma se il terreno lì sta un
+  gradino più su vuol dire scavarlo. Adesso quella cella diventa una rampa che
+  parte dalla quota della strada vecchia e risale a quella del terreno. Il
+  giunto combacia lo stesso e la collina resta dov'è: è questo che fa
+  **incatenare una salita fatta in più tirate**.
+- **Si può ricominciare dal pezzo dove la strada è finita**, anche se è una
+  rampa. Innestarsi su una rampa continua a non avere senso — di fianco non ha
+  niente a cui attaccarsi — ma partire dal suo capo sì, ed è quello che uno fa:
+  riprende da dove aveva lasciato. Il tracciato salta la rampa e comincia dalla
+  cella dopo, che è quello che intendeva chi trascina.
+- **Quello che non è cambiato, di proposito.** Un dosso di una cella sola si
+  abbassa ancora invece di chiedere due rampe attaccate. Un salto di due
+  gradini si rifiuta ancora, e lo dice. Un gomito non può essere una rampa: una
+  rampa ha due capi in fila, e una strada che gira non glieli dà. E quando una
+  cella è alta da tutt'e due i lati, la rampa è una sola e non può servire due
+  gradini: quel dosso si abbassa, come ha sempre fatto.
+
+| Prova | Esito |
+|---|---|
+| Salita di cinque celle, un gradino per cella | le quote seguono il terreno, quattro rampe, niente sbancato |
+| L'ultima cella | consegna la quota della collina, non una in meno |
+| La stessa salita in due tirate | la seconda riparte dopo la rampa e continua a salire |
+| Il giunto fra le due tirate | stessa quota da tutt'e due le parti |
+| Discesa | il primo pezzo scende con una rampa invece di alzarsi a pianerottolo |
+| Dosso di una cella, salto di due, incrocio | come prima |
+| Con la regola vecchia rimessa | otto errori, fra cui «le due tirate non si toccano: 4 contro 6» |
+
+L'ultima riga è la prova che le prove mordono: sono in
+`tests/TestTracciamentoStrade.tscn`, insieme a quelle che c'erano già.
+
+## I pulsanti che stanno sopra il mondo
+
+Sono tre, e prima erano tre cose diverse: due quadrati scuri in alto a sinistra
+— costruzioni e conti — e in mezzo alla barra un rettangolo grigio con su
+scritto «Menu», identico alle due schede accanto.
+
+- **Due schede e un comando.** «Focus» e «Città» dicono *dove sei* e si
+  escludono a vicenda; «Menu» *fa una cosa*. Tre rettangoli uguali dicevano che
+  erano tre modalità. Adesso il menu è un quadrato con le tre righe, e la barra
+  si legge in un colpo. La parola sparisce ma non l'informazione: c'è il
+  suggerimento «Menu (Esc)», e l'Esc apre e chiude il menu da sempre.
+- **Fondo scuro, sempre.** Il menu era trasparente, e sopra il mondo 3D spariva:
+  la mappa è chiara sulla spiaggia e scura nel mare, e non c'è un fondo su cui
+  contare. Un pulsante appoggiato sopra qualcos'altro deve portarsi dietro il
+  proprio fondo — è la stessa ragione per cui `pannello.tres` è opaco.
+- **Acceso è verde acqua**, che è già il colore di «acceso» altrove: lo streak,
+  i numeri delle statistiche. Su costruzioni e conti, che sono interruttori,
+  vuol dire che il pannello che aprono è aperto — e si vede senza guardare cosa
+  c'è sotto.
+- **Una pelle sola per tutti e tre**, in `scripts/ui/stile_bottoni.gd`: stesso
+  fondo, stesso angolo tondo dei pannelli, stessi colori di stato. Se un giorno
+  si scuriscono, si scuriscono insieme. I due in alto a sinistra sono gemelli:
+  vestirne uno solo li avrebbe fatti sembrare due cose diverse.
+- **La casa al posto degli attrezzi.** L'icona del negozio erano un martello e
+  una chiave inglese incrociati: a 28 pixel di lato due utensili sovrapposti
+  diventano una macchia sola, e a guardarla non si capiva cosa fosse. Una casa
+  è la cosa che il negozio vende, si legge di colpo, e non somiglia al grafico
+  a barre del pulsante dei conti che le sta accanto.
+
+Guardato per davvero, coi frame veri, nei quattro posti dove questi pulsanti
+vivono: sopra la mappa, sopra la schermata del focus, col negozio aperto e col
+negozio chiuso. Il fondo trasparente del menu compilava benissimo — si vedeva
+solo aprendo la città.
+
 ## Prossimo passo
 
 Le strade che si tracciano erano l'ultima cosa rimasta che si vedesse giocando
@@ -1805,8 +1945,5 @@ Restano tre cose che non sono debiti ma scelte, e si decidono giocando:
   la tabella dei sedici casi vale anche per le campate: il giorno che lo si
   vorrà, il pezzo grosso è già scritto.
 
-E una cosa da sistemare nel documento, non nel codice: **la sezione sulla
-felicità dice cinque servizi di zona, la chiusura ne diceva sette, e il codice
-ne ha sette** — `polizia`, `pompieri`, `ospedale`, `verde`, `sport`,
-`elementare`, `superiore`, in `city_view.gd`. È il testo a essere rimasto
-indietro.
+Il documento non è più indietro sui servizi di zona: sette dappertutto, e
+adesso c'è una prova che se ne accorge se tornano a divergere.

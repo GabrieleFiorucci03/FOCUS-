@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_main"]
+[ext_resource type="Script" path="res://scripts/ui/bottone_menu.gd" id="2_menu"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_main")
@@ -42,9 +43,9 @@ layout_mode = 2
 
 [node name="Menu" type="Button" parent="Interfaccia/Modalita"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(90, 0)
+custom_minimum_size = Vector2(38, 0)
 layout_mode = 2
-text = "Menu"
+script = ExtResource("2_menu")
 
 [node name="Sovrapposizioni" type="CanvasLayer" parent="."]
 layer = 10
