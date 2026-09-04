@@ -26,6 +26,7 @@ const DEFAULTS := {
 	"credits_per_hour": 10.0,
 	"credits_on_early_stop": true,
 	"min_session_seconds": 60,
+	"starting_credits": 0,
 	"price_default": 10,
 	"refund_ratio": 0.5,
 	"terrain_cost_per_level": 1,
@@ -52,8 +53,8 @@ const DEFAULTS := {
 	"happiness": {
 		"abandon_below": 0.5,
 		"radius": {
-			"polizia": 9, "pompieri": 9, "ospedale": 9,
-			"verde": 6, "sport": 8, "elementare": 7, "superiore": 10,
+			"polizia": 13, "pompieri": 13, "ospedale": 13,
+			"verde": 9, "sport": 12, "elementare": 10, "superiore": 14,
 		},
 	},
 }
@@ -66,6 +67,12 @@ var credits_on_early_stop: bool = bool(DEFAULTS["credits_on_early_stop"])
 
 ## Sotto questa soglia un'interruzione manuale non accredita nulla.
 var min_session_seconds: int = int(DEFAULTS["min_session_seconds"])
+
+## La cassa con cui comincia una partita nuova. Serve a far partire la citta'
+## gia' con l'infrastruttura di base — corrente, acqua, una casa e i suoi
+## servizi — invece di chiedere giorni di concentrazione prima che si veda
+## qualcosa che assomigli a un quartiere. Zero rimette il gioco com'era.
+var starting_credits: int = int(DEFAULTS["starting_credits"])
 
 ## Prezzo di ogni tipo di oggetto: la chiave è il "kind" del catalogo asset.
 ## Un tipo assente da qui costa price_default.
@@ -116,6 +123,7 @@ func reload() -> void:
 	credits_per_hour = float(values["credits_per_hour"])
 	credits_on_early_stop = bool(values["credits_on_early_stop"])
 	min_session_seconds = int(values["min_session_seconds"])
+	starting_credits = maxi(0, int(values["starting_credits"]))
 	price_default = int(values["price_default"])
 	refund_ratio = clampf(float(values["refund_ratio"]), 0.0, 1.0)
 	terrain_cost_per_level = maxi(0, int(values["terrain_cost_per_level"]))

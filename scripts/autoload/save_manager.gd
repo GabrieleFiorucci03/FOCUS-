@@ -86,10 +86,14 @@ func _notification(what: int) -> void:
 
 
 ## Salvataggio vuoto, usato al primo avvio e come base su cui innestare il file.
+##
+## Non e' del tutto vuoto: i crediti partono dalla dotazione iniziale scritta in
+## economy.json, cosi' una partita nuova nasce potendosi permettere il primo
+## isolato servito invece di una casa al buio.
 static func new_save() -> Dictionary:
 	return {
 		"version": SAVE_VERSION,
-		"credits": 0,
+		"credits": Config.starting_credits,
 		"credit_remainder": 0.0,
 		"total_focus_seconds": 0,
 		"sessions_completed": 0,
@@ -372,11 +376,19 @@ func imposta_audio(volume_nuovo: float, muto_nuovo: bool) -> void:
 
 ## Se c'e' gia' qualcosa da riprendere. Serve al menu per dire "Continua"
 ## invece di "Comincia", e per chiedere conferma prima di buttare via tutto.
+##
+## Il saldo conta solo se si e' mosso dalla dotazione iniziale: con una cassa di
+## partenza, "crediti in tasca" non vuol piu' dire "partita cominciata", e
+## chiederebbe conferma a chi non ha ancora fatto niente. Spesi o guadagnati che
+## siano, appena il numero cambia la partita e' cominciata davvero.
 func partita_iniziata() -> bool:
-	return total_focus_seconds > 0 or credits > 0 or not world_tiles().is_empty()
+	return (total_focus_seconds > 0
+		or credits != Config.starting_credits
+		or not world_tiles().is_empty())
 
 
-## Ricomincia da capo: mondo nuovo, crediti a zero, statistiche azzerate.
+## Ricomincia da capo: mondo nuovo, crediti alla dotazione iniziale,
+## statistiche azzerate.
 ##
 ## Le preferenze sopravvivono: il volume dell'audio e' dell'utente, non della
 ## partita, e non c'e' motivo di rialzarlo ogni volta che si riparte.

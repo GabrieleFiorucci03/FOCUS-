@@ -4,6 +4,8 @@
 	"credits_per_hour": 24.0,
 	"credits_on_early_stop": true,
 	"min_session_seconds": 60,
+	"_commento_dotazione": "Con che cassa comincia una partita nuova. Zero vorrebbe dire che la prima cosa che si posa e' una casa al buio, senza acqua e senza un presidio, e che il quartiere diventa un quartiere solo dopo giorni: l'infrastruttura di base non e' un premio, e' il punto di partenza. Il primo isolato servito costa 480 esatti, prezzi di questo file alla mano: una pala eolica (54) e un serbatoio idrico (54) perche' corrente e acqua arrivino davvero, una casa (10), i sette servizi di zona che la tengono felice — polizia, pompieri e presidio sanitario (36 l'uno), un parco (10), un campo sportivo (40), la scuola elementare e la superiore (72 l'una) — e venti pezzi di strada (3 l'uno) per cucire tutto insieme. La dotazione e' 600 e non 480 perche' un percorso non viene mai lungo esattamente venti pezzi, il terreno va spianato (2 a gradino) e restare col saldo a zero dopo l'ultimo edificio non e' partire, e' finire. In tempo sono venticinque ore, cioe' proprio quello che non si vuole chiedere prima di far vedere come funziona la citta'.",
+	"starting_credits": 600,
 	"_commento_prezzi": "Un prezzo per tipo di oggetto: la chiave e' il campo 'kind' di assets/models/generated/catalog.json. Un tipo non elencato costa price_default. I sostegni dei ponti non sono in vendita: nascono da soli sotto le campate.",
 	"_commento_scala": "I prezzi sono scelti come tempo e poi moltiplicati per 24: albero 5 minuti, strada 7 e mezzo, casa 25, villa e palazzina un'ora e un quarto, scuola tre ore, palazzone quattro, torre cinque. Due estremi che stanno a 1 a 60, cosi' una torre resta un traguardo di giorni mentre ogni singola sessione paga comunque qualcosa da posare.",
 	"price_default": 24,
@@ -120,18 +122,18 @@
 			"sport": 1
 		}
 	},
-	"_commento_felicita": "I sette servizi di zona che fanno la felicita' di un'abitazione: polizia, pompieri, ospedale, verde, sport, scuola elementare e scuola superiore. Ognuno vale un settimo, e un'abitazione che ne riceve meno di 'abandon_below' viene abbandonata. 'radius' e' il raggio base in celle, a cui si somma il lato piu' lungo dell'edificio meno uno: un ospedale 3x3 arriva a 11 celle, un parco tascabile 1x1 a 6. La scuola elementare ha un raggio piu' corto della superiore, che serve un bacino piu' largo. Sono raggi in linea d'aria, cioe' cerchi.",
-	"_commento_scala_felicita": "Con questi raggi un presidio copre circa 300 celle su 1024, quindi ne bastano quattro ben distribuiti per tipo; i parchi coprono meno ma costano 10 crediti l'uno. La soglia a meta' vuol dire che quattro servizi su sette tengono in piedi un quartiere: si puo' crescere prima e rifinire dopo, invece di dover avere tutto subito.",
+	"_commento_felicita": "I sette servizi di zona che fanno la felicita' di un'abitazione: polizia, pompieri, ospedale, verde, sport, scuola elementare e scuola superiore. Ognuno vale un settimo, e un'abitazione che ne riceve meno di 'abandon_below' viene abbandonata. 'radius' e' il raggio base in celle, a cui si somma il lato piu' lungo dell'edificio meno uno: un ospedale 3x3 arriva a 15 celle, un parco tascabile 1x1 a 9. La scuola elementare ha un raggio piu' corto della superiore, che serve un bacino piu' largo. Sono raggi in linea d'aria, cioe' cerchi.",
+	"_commento_scala_felicita": "Con questi raggi un presidio copre grosso modo mezza zona: un ospedale 3x3 arriva a circa 700 celle su 1024, quindi ne bastano due ben distribuiti per tipo invece di quattro; i parchi coprono meno — circa 250 celle — ma costano 10 crediti l'uno. Raggi corti obbligavano a punteggiare il quartiere di presidi identici prima ancora di poterlo far crescere, che e' lavoro di riempimento e non una scelta; larghi cosi', dove mettere il presidio conta ancora, ma una volta messo si torna a costruire citta'. La soglia a meta' vuol dire che quattro servizi su sette tengono in piedi un quartiere: si puo' crescere prima e rifinire dopo, invece di dover avere tutto subito.",
 	"happiness": {
 		"abandon_below": 0.5,
 		"radius": {
-			"polizia": 9,
-			"pompieri": 9,
-			"ospedale": 9,
-			"verde": 6,
-			"sport": 8,
-			"elementare": 7,
-			"superiore": 10
+			"polizia": 13,
+			"pompieri": 13,
+			"ospedale": 13,
+			"verde": 9,
+			"sport": 12,
+			"elementare": 10,
+			"superiore": 14
 		}
 	},
 	"_commento_zone": "Il mondo e' una scacchiera di zone 32x32 senza bordo: se ne possiede una all'inizio e le altre si comprano, purche' confinino con una gia' tua, in qualunque direzione e senza fine. 'zone_price' e' il prezzo di una zona tutta terra; 'zone_price_growth' quanto cresce per ogni zona di terra gia' comprata, cosi' allargarsi resta una scelta e non un automatismo; 'zone_price_cap_at' dopo quanta terra il rincaro si ferma, perche' in un mondo infinito una crescita geometrica non finisce mai e a un certo punto chiuderebbe il gioco invece di dosarlo. 120 crediti sono cinque ore di concentrazione; col tetto a 8 una zona di sola terra arriva a costare circa 5150, cioe' una settimana buona, e li' resta. Si paga in proporzione alla terra emersa della zona in vendita: mezza costa costa meta', il mare aperto niente, e a contare per il rincaro e' la terra presa e non il numero di zone, cosi' attraversare l'acqua non fa rincarare la terra dall'altra parte.",

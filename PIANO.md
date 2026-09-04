@@ -955,11 +955,16 @@ poco dopo. Qui sono raccontati come stanno adesso: sette, come nel codice.
   sotto metà. In `CityView` sono due costanti — `SERVIZI_VITALI` e
   `SERVIZI_ZONA` — e la differenza sta scritta lì, non sparsa fra i controlli.
 - **Il raggio cresce con l'edificio.** Un numero base per servizio in
-  `economy.json` (9 celle per i tre presidi civici, 8 per lo sport, 6 per il
-  verde, 7 per l'elementare e 10 per la superiore) più il lato più lungo
-  dell'edificio meno uno: un ospedale 3x3 arriva a 11 celle, una clinica 2x2 a
-  10, un parco tascabile 1x1 a 6. Un numero per modello non serve — l'ingombro
+  `economy.json` (13 celle per i tre presidi civici, 12 per lo sport, 9 per il
+  verde, 10 per l'elementare e 14 per la superiore) più il lato più lungo
+  dell'edificio meno uno: un ospedale 3x3 arriva a 15 celle, una clinica 2x2 a
+  14, un parco tascabile 1x1 a 9. Un numero per modello non serve — l'ingombro
   lo dice già.
+- **Raggi larghi: un presidio serve mezza zona.** I numeri di partenza erano
+  circa un terzo più corti, e coprire una zona voleva dire punteggiarla di
+  quattro presidi identici per tipo prima ancora di poterla far crescere —
+  lavoro di riempimento, non una scelta. Con questi ne bastano due: dove mettere
+  il presidio conta ancora, ma una volta messo si torna a costruire città.
 - **Cerchi, non rombi.** Il raggio è in linea d'aria: le aree tonde sono quello
   che ci si aspetta guardando, e la distanza di Manhattan avrebbe fatto rombi
   che nessuno associa a «quanto lontano arriva un'ambulanza».
@@ -1017,14 +1022,14 @@ quell'area si vede.
 
 - **Come si calcola.** Un cerchio attorno al centro del presidio, di raggio
   letto da `economy.json` più il lato più lungo dell'edificio meno uno: un
-  ospedale 3x3 arriva a 11 celle, una clinica 2x2 a 10, un parco tascabile 1x1 a
-  6. Un'abitazione è coperta se **almeno una delle sue celle** cade dentro il
+  ospedale 3x3 arriva a 15 celle, una clinica 2x2 a 14, un parco tascabile 1x1 a
+  9. Un'abitazione è coperta se **almeno una delle sue celle** cade dentro il
   cerchio di **almeno un** presidio di quel tipo. In linea d'aria e non a
   scacchiera: le aree tonde sono quello che ci si aspetta guardando, e la
   distanza di Manhattan avrebbe fatto rombi che nessuno associa a «quanto
   lontano arriva un'ambulanza».
-- **Le due scuole contano separate.** Servono bacini diversi — 7 celle base
-  l'elementare, 10 la superiore — e averne una sola non è come averle tutte e
+- **Le due scuole contano separate.** Servono bacini diversi — 10 celle base
+  l'elementare, 14 la superiore — e averne una sola non è come averle tutte e
   due: per arrivare al cento per cento servono entrambe.
 - **Un settimo ciascuno.** Con sette servizi la soglia di abbandono a metà vuol
   dire che ne bastano quattro: si può crescere prima e rifinire dopo.
