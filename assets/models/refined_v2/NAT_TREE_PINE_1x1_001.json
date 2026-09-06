@@ -1,0 +1,23 @@
+{
+  "id": "NAT_TREE_PINE_1x1_001",
+  "kind": "tree",
+  "footprint": [
+    1,
+    1
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 1.484,
+  "min_z": 0.0,
+  "max_z": 1.484,
+  "triangles": 2492,
+  "seed": 1202,
+  "model": "NAT_TREE_PINE_1x1_001.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 2001,
+  "variant": "pine",
+  "style_variant": "refined_v2",
+  "source_asset_id": "NAT_TREE_PINE_1x1_001",
+  "collision_source": "realistic"
+}

@@ -1,0 +1,92 @@
+[REFINED] 1/7 BRG_LOCAL_RAMP_1x1_UP_050
+C:\Users\gabri\Desktop\FOCUS!\tools\blender\generate_refined_assets.py:68: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  mat.use_nodes = True
+11:56:19 | INFO: Data are loaded, start creating Blender stuff
+11:56:19 | INFO: Blender create Mesh node BRG_LOCAL_RAMP_1x1_UP_050-colonly_Mesh
+11:56:19 | INFO: Blender create Mesh node BridgeRampSlab_Mesh
+11:56:19 | INFO: glTF import finished in 0.02s
+INFO Draco is available, use library at C:\Program Files\Blender Foundation\Blender 5.2\5.2\scripts\addons_core\io_scene_gltf2\bf_intern_draco_bridge.dll
+INFO MeshOptimizer is available, use library at C:\Program Files\Blender Foundation\Blender 5.2\5.2\scripts\addons_core\io_scene_gltf2\bf_intern_meshopt_bridge.dll
+11:56:20 | INFO: Starting glTF 2.0 export
+11:56:20 | INFO: Extracting primitive: BRG_LOCAL_RAMP_1x1_UP_050-colonly_Mesh.001
+11:56:20 | INFO: Primitives created: 1
+11:56:20 | INFO: Extracting primitive: BridgeRampSlab_Mesh
+11:56:20 | INFO: Primitives created: 5
+11:56:20 | INFO: Finished glTF 2.0 export in 0.31986451148986816 s
+
+[REFINED] 2/7 BRG_LOCAL_RAMP_1x1_DOWN_050
+11:56:20 | INFO: Data are loaded, start creating Blender stuff
+11:56:20 | INFO: Blender create Mesh node BRG_LOCAL_RAMP_1x1_DOWN_050-colonly_Mesh
+11:56:20 | INFO: Blender create Mesh node BridgeRampSlab_Mesh
+11:56:20 | INFO: glTF import finished in 0.03s
+11:56:20 | INFO: Starting glTF 2.0 export
+11:56:20 | INFO: Extracting primitive: BRG_LOCAL_RAMP_1x1_DOWN_050-colonly_Mesh.001
+11:56:20 | INFO: Primitives created: 1
+11:56:20 | INFO: Extracting primitive: BridgeRampSlab_Mesh
+11:56:20 | INFO: Primitives created: 5
+11:56:20 | INFO: Finished glTF 2.0 export in 0.11489462852478027 s
+
+[REFINED] 3/7 BRG_LOCAL_DECK_1x1_STRAIGHT
+11:56:20 | INFO: Data are loaded, start creating Blender stuff
+11:56:20 | INFO: Blender create Mesh node Cube.011
+11:56:20 | INFO: Blender create Mesh node Cube
+11:56:20 | INFO: glTF import finished in 0.03s
+11:56:20 | INFO: Starting glTF 2.0 export
+11:56:20 | INFO: Extracting primitive: Cube.011
+11:56:20 | INFO: Primitives created: 1
+11:56:20 | INFO: Extracting primitive: Cube.008
+11:56:20 | INFO: Primitives created: 5
+11:56:20 | INFO: Finished glTF 2.0 export in 0.16009092330932617 s
+
+[REFINED] 4/7 BRG_LOCAL_DECK_1x1_CORNER
+11:56:21 | INFO: Data are loaded, start creating Blender stuff
+11:56:21 | INFO: Blender create Mesh node Cube.013
+11:56:21 | INFO: Blender create Mesh node Cube
+11:56:21 | INFO: glTF import finished in 0.04s
+11:56:21 | INFO: Starting glTF 2.0 export
+11:56:21 | INFO: Extracting primitive: Cube.013
+11:56:21 | INFO: Primitives created: 1
+11:56:21 | INFO: Extracting primitive: Cube.010
+11:56:21 | INFO: Primitives created: 5
+11:56:21 | INFO: Finished glTF 2.0 export in 0.1756758689880371 s
+
+[REFINED] 5/7 BRG_LOCAL_DECK_1x1_T
+11:56:21 | INFO: Data are loaded, start creating Blender stuff
+11:56:21 | INFO: Blender create Mesh node Cube.017
+11:56:21 | INFO: Blender create Mesh node Cube
+11:56:21 | INFO: glTF import finished in 0.05s
+11:56:21 | INFO: Starting glTF 2.0 export
+11:56:21 | INFO: Extracting primitive: Cube.017
+11:56:21 | INFO: Primitives created: 1
+11:56:21 | INFO: Extracting primitive: Cube.014
+11:56:21 | INFO: Primitives created: 5
+11:56:21 | INFO: Finished glTF 2.0 export in 0.15375423431396484 s
+
+[REFINED] 6/7 BRG_LOCAL_DECK_1x1_CROSS
+11:56:22 | INFO: Data are loaded, start creating Blender stuff
+11:56:22 | INFO: Blender create Mesh node Cube.021
+11:56:22 | INFO: Blender create Mesh node Cube
+11:56:22 | INFO: glTF import finished in 0.06s
+11:56:22 | INFO: Starting glTF 2.0 export
+11:56:22 | INFO: Extracting primitive: Cube.021
+11:56:22 | INFO: Primitives created: 1
+11:56:22 | INFO: Extracting primitive: Cube.018
+11:56:22 | INFO: Primitives created: 5
+11:56:22 | INFO: Finished glTF 2.0 export in 0.16414999961853027 s
+
+[REFINED] 7/7 BRG_LOCAL_DECK_1x1_END
+11:56:22 | INFO: Data are loaded, start creating Blender stuff
+11:56:22 | INFO: Blender create Mesh node Cube.010
+11:56:22 | INFO: Blender create Mesh node Cube
+11:56:22 | INFO: glTF import finished in 0.04s
+11:56:22 | INFO: Starting glTF 2.0 export
+11:56:22 | INFO: Extracting primitive: Cube.010
+11:56:22 | INFO: Primitives created: 1
+11:56:22 | INFO: Extracting primitive: Cube.007
+11:56:22 | INFO: Primitives created: 5
+11:56:22 | INFO: Finished glTF 2.0 export in 0.19136333465576172 s
+
+[REFINED] Complete 91
+Blender 5.2.1 LTS (hash 9e2066aef7ef built 2026-08-25 02:38:20)
+
+Blender quit

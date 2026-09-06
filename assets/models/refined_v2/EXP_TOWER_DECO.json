@@ -1,0 +1,40 @@
+{
+  "id": "EXP_TOWER_DECO",
+  "kind": "tower",
+  "footprint": [
+    3,
+    3
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 10.05,
+  "min_z": 0.0,
+  "max_z": 10.05,
+  "triangles": 27112,
+  "seed": 3113,
+  "model": "EXP_TOWER_DECO.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 2100,
+  "style": "refined_v2",
+  "name": "Torre Aurora",
+  "group": "citta",
+  "description": "Grattacielo art déco con arretramenti, nervature verticali e guglia.",
+  "recipe": "deco",
+  "palette": [
+    "b7aa8b",
+    "74898c",
+    "656b6a"
+  ],
+  "style_variant": "refined_v2",
+  "collection": "refined_expansion",
+  "is_new_asset": true,
+  "collision_mode": "simplified_component_boxes",
+  "collision_parts": 4,
+  "windows_by_side": {
+    "front": 79,
+    "rear": 80,
+    "left": 64,
+    "right": 64
+  }
+}

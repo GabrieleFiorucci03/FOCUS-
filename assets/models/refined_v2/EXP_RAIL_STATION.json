@@ -1,0 +1,40 @@
+{
+  "id": "EXP_RAIL_STATION",
+  "kind": "service",
+  "footprint": [
+    5,
+    3
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 2.625,
+  "min_z": 0.0,
+  "max_z": 2.625,
+  "triangles": 6188,
+  "seed": 3146,
+  "model": "EXP_RAIL_STATION.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 2100,
+  "style": "refined_v2",
+  "name": "Stazione ferroviaria",
+  "group": "servizi",
+  "description": "Fabbricato con orologio, binari, banchine, pensiline e panchine.",
+  "recipe": "station",
+  "palette": [
+    "c6ad88",
+    "6a8580",
+    "9c7259"
+  ],
+  "style_variant": "refined_v2",
+  "collection": "refined_expansion",
+  "is_new_asset": true,
+  "collision_mode": "simplified_component_boxes",
+  "collision_parts": 2,
+  "windows_by_side": {
+    "front": 14,
+    "rear": 15,
+    "left": 5,
+    "right": 5
+  }
+}

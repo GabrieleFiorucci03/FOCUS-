@@ -1,0 +1,40 @@
+{
+  "id": "EXP_FACTORY_SAW",
+  "kind": "factory",
+  "footprint": [
+    4,
+    3
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 2.22,
+  "min_z": 0.0,
+  "max_z": 2.22,
+  "triangles": 7550,
+  "seed": 3130,
+  "model": "EXP_FACTORY_SAW.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 2100,
+  "style": "refined_v2",
+  "name": "Officine a shed",
+  "group": "industria",
+  "description": "Tre campate con tetti a shed, lucernari, tubazioni e officina annessa.",
+  "recipe": "sawtooth",
+  "palette": [
+    "a9b4ae",
+    "5e7d8e",
+    "728177"
+  ],
+  "style_variant": "refined_v2",
+  "collection": "refined_expansion",
+  "is_new_asset": true,
+  "collision_mode": "simplified_component_boxes",
+  "collision_parts": 1,
+  "windows_by_side": {
+    "front": 15,
+    "rear": 18,
+    "left": 10,
+    "right": 10
+  }
+}

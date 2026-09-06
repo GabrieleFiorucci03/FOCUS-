@@ -1,0 +1,24 @@
+{
+  "id": "ROAD_DIRT_1x1_T",
+  "kind": "road",
+  "footprint": [
+    1,
+    1
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 0.168,
+  "min_z": 0.0,
+  "max_z": 0.168,
+  "triangles": 1104,
+  "seed": 1113,
+  "model": "ROAD_DIRT_1x1_T.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 2001,
+  "variant": "t",
+  "style": "dirt",
+  "style_variant": "refined_v2",
+  "source_asset_id": "ROAD_DIRT_1x1_T",
+  "collision_source": "realistic"
+}

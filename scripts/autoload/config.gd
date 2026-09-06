@@ -36,9 +36,12 @@ const DEFAULTS := {
 		"house": 8,
 		"apartment": 25,
 	},
+	"prices_by_asset": {},
+	"built_cells": {},
 	"services": {
 		"base": { "power": 12, "water": 12 },
 		"plants": { "wind": { "power": 72 }, "water": { "water": 72 } },
+		"plants_by_asset": {},
 		"per_cell": { "house": { "power": 1, "water": 1 } },
 	},
 	"population": {
@@ -77,6 +80,24 @@ var starting_credits: int = int(DEFAULTS["starting_credits"])
 ## Prezzo di ogni tipo di oggetto: la chiave è il "kind" del catalogo asset.
 ## Un tipo assente da qui costa price_default.
 var prices: Dictionary = (DEFAULTS["prices"] as Dictionary).duplicate()
+
+## Il prezzo di un singolo modello, quando quello del suo tipo non basta a
+## dirlo. Un prezzo per tipo regge finche' i modelli di un tipo si somigliano;
+## non regge piu' da quando lo stesso "utility" e' tanto una pala eolica quanto
+## una centrale nucleare, e lo stesso "tower" un grattacielo di nove piani
+## quanto una coppia di torri gemelle. La chiave e' l'id del modello, e quello
+## che non compare qui continua a costare quanto costa il suo tipo.
+var prices_by_asset: Dictionary = (DEFAULTS["prices_by_asset"] as Dictionary).duplicate()
+
+## Quante celle del suo ingombro un modello occupa davvero col costruito.
+##
+## Abitanti, posti di lavoro e consumi si contano a cella, e finche' un edificio
+## riempie il suo rettangolo il conto torna. Non torna piu' con un cottage 3x3
+## fatto per due terzi di giardino, o con uno stadio 7x8 che e' quasi tutto
+## campo e gradinate: contando il prato come fosse casa, quel cottage ospiterebbe
+## ventisette persone. La chiave e' l'id del modello, il valore quante celle
+## contano; chi non compare qui conta tutto il suo ingombro, com'e' sempre stato.
+var built_cells: Dictionary = (DEFAULTS["built_cells"] as Dictionary).duplicate()
 
 ## Quanto costa un tipo che non compare in prices.
 var price_default: int = int(DEFAULTS["price_default"])
@@ -131,6 +152,8 @@ func reload() -> void:
 	zone_price_growth = maxf(1.0, float(values["zone_price_growth"]))
 	zone_price_cap_at = maxi(1, int(values["zone_price_cap_at"]))
 	prices = values["prices"]
+	prices_by_asset = values["prices_by_asset"]
+	built_cells = values["built_cells"]
 	services = values["services"]
 	population = values["population"]
 	jobs = values["jobs"]
@@ -145,6 +168,25 @@ func credits_for_seconds(seconds: float) -> float:
 ## Quanto costa un oggetto, dato il suo tipo nel catalogo asset.
 func price_for_kind(kind: String) -> int:
 	return int(prices.get(kind, price_default))
+
+
+## Quanto costa un oggetto: il suo prezzo se ne ha uno suo, se no quello del suo
+## tipo. Il prezzo per modello e' l'eccezione e non la regola — si scrive solo
+## dove il tipo non basta piu' a dire quanto vale una cosa.
+func price_for_asset(id: String, kind: String) -> int:
+	if prices_by_asset.has(id):
+		return maxi(0, int(prices_by_asset[id]))
+	return price_for_kind(kind)
+
+
+## Quante celle di un ingombro contano per abitanti, posti e consumi. Il
+## giardino di una villa e il campo di uno stadio stanno dentro l'ingombro ma
+## non sono costruito, e non devono pesare come se lo fossero.
+func built_cells_for(id: String, footprint_cells: int) -> int:
+	var celle := maxi(1, footprint_cells)
+	if built_cells.has(id):
+		return clampi(int(built_cells[id]), 1, celle)
+	return celle
 
 
 ## Quanto rende demolire qualcosa che era costato "price". Si arrotonda per
@@ -173,6 +215,20 @@ func plant_output(kind: String, variant: String) -> Vector2i:
 		return Vector2i.ZERO
 	var impianti: Dictionary = services.get("plants", {})
 	return _coppia(impianti.get(variant, {}))
+
+
+## Quanto mette in comune un impianto, guardando prima il modello e poi la sua
+## variante. La variante bastava quando gli impianti erano tre e uno per
+## servizio; da quando ce ne sono dieci, fra pale, centrali a carbone, nucleare,
+## pompe e depuratori, quanto ne da' uno e' una cosa del singolo impianto e non
+## piu' della famiglia a cui appartiene.
+func plant_output_for_asset(id: String, kind: String, variant: String) -> Vector2i:
+	if kind != "utility":
+		return Vector2i.ZERO
+	var per_modello: Dictionary = services.get("plants_by_asset", {})
+	if per_modello.has(id):
+		return _coppia(per_modello[id])
+	return plant_output(kind, variant)
 
 
 ## Quanto prende, a cella occupata, un tipo di edificio. Zero per quello che non

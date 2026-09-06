@@ -1,0 +1,29 @@
+{
+  "id": "RES_MID_3x2_006",
+  "kind": "apartment",
+  "footprint": [
+    3,
+    2
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 3.032,
+  "min_z": 0.0,
+  "max_z": 3.032,
+  "triangles": 16080,
+  "seed": 206,
+  "model": "RES_MID_3x2_006.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 2001,
+  "shape": "twin",
+  "style_variant": "refined_v2",
+  "source_asset_id": "RES_MID_3x2_006",
+  "collision_source": "realistic",
+  "windows_by_side": {
+    "front": 26,
+    "rear": 27,
+    "left": 36,
+    "right": 36
+  }
+}

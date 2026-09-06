@@ -1,0 +1,128 @@
+[EXPANSION] 1/10 EXP_FACTORY_SAW
+INFO Draco is available, use library at C:\Program Files\Blender Foundation\Blender 5.2\5.2\scripts\addons_core\io_scene_gltf2\bf_intern_draco_bridge.dll
+INFO MeshOptimizer is available, use library at C:\Program Files\Blender Foundation\Blender 5.2\5.2\scripts\addons_core\io_scene_gltf2\bf_intern_meshopt_bridge.dll
+11:37:28 | INFO: Starting glTF 2.0 export
+11:37:28 | INFO: Extracting primitive: Cube.002
+11:37:28 | INFO: Primitives created: 1
+11:37:28 | INFO: Extracting primitive: Cube
+11:37:29 | INFO: Primitives created: 14
+11:37:29 | INFO: Finished glTF 2.0 export in 0.6687390804290771 s
+
+[EXPANSION] 2/10 EXP_FACTORY_STEEL
+11:37:30 | INFO: Starting glTF 2.0 export
+11:37:30 | INFO: Extracting primitive: Cube.002
+11:37:30 | INFO: Primitives created: 1
+11:37:30 | INFO: Extracting primitive: Cube.004
+11:37:30 | INFO: Primitives created: 1
+11:37:30 | INFO: Extracting primitive: Cube.005
+11:37:30 | INFO: Primitives created: 1
+11:37:30 | INFO: Extracting primitive: Cube.006
+11:37:30 | INFO: Primitives created: 1
+11:37:30 | INFO: Extracting primitive: Cube
+11:37:30 | INFO: Primitives created: 18
+11:37:30 | INFO: Finished glTF 2.0 export in 0.7173738479614258 s
+
+[EXPANSION] 3/10 EXP_FACTORY_FOOD
+11:37:32 | INFO: Starting glTF 2.0 export
+11:37:32 | INFO: Extracting primitive: Cube.002
+11:37:32 | INFO: Primitives created: 1
+11:37:32 | INFO: Extracting primitive: Cube.004
+11:37:32 | INFO: Primitives created: 1
+11:37:32 | INFO: Extracting primitive: Cube.005
+11:37:32 | INFO: Primitives created: 1
+11:37:32 | INFO: Extracting primitive: Cube.006
+11:37:32 | INFO: Primitives created: 1
+11:37:32 | INFO: Extracting primitive: Cube.007
+11:37:32 | INFO: Primitives created: 1
+11:37:32 | INFO: Extracting primitive: Cube.008
+11:37:32 | INFO: Primitives created: 1
+11:37:32 | INFO: Extracting primitive: Cube
+11:37:33 | INFO: Primitives created: 15
+11:37:33 | INFO: Finished glTF 2.0 export in 0.9283373355865479 s
+
+[EXPANSION] 4/10 EXP_POWER_COAL_SMALL
+11:37:35 | INFO: Starting glTF 2.0 export
+11:37:35 | INFO: Extracting primitive: Cube.002
+11:37:35 | INFO: Primitives created: 1
+11:37:35 | INFO: Extracting primitive: Cube.004
+11:37:35 | INFO: Primitives created: 1
+11:37:35 | INFO: Extracting primitive: Cube.005
+11:37:35 | INFO: Primitives created: 1
+11:37:35 | INFO: Extracting primitive: Cube
+11:37:36 | INFO: Primitives created: 15
+11:37:36 | INFO: Finished glTF 2.0 export in 0.7752246856689453 s
+
+[EXPANSION] 5/10 EXP_POWER_COAL_LARGE
+11:37:39 | INFO: Starting glTF 2.0 export
+11:37:39 | INFO: Extracting primitive: Cube.002
+11:37:39 | INFO: Primitives created: 1
+11:37:39 | INFO: Extracting primitive: Cube.004
+11:37:39 | INFO: Primitives created: 1
+11:37:39 | INFO: Extracting primitive: Cube.006
+11:37:39 | INFO: Primitives created: 1
+11:37:39 | INFO: Extracting primitive: Cube.007
+11:37:39 | INFO: Primitives created: 1
+11:37:39 | INFO: Extracting primitive: Cube.008
+11:37:39 | INFO: Primitives created: 1
+11:37:39 | INFO: Extracting primitive: Cube.009
+11:37:39 | INFO: Primitives created: 1
+11:37:40 | INFO: Extracting primitive: Cube
+11:37:40 | INFO: Primitives created: 15
+11:37:40 | INFO: Finished glTF 2.0 export in 1.0459790229797363 s
+
+[EXPANSION] 6/10 EXP_POWER_NUCLEAR
+11:37:45 | INFO: Starting glTF 2.0 export
+11:37:45 | INFO: Extracting primitive: Cube.001
+11:37:45 | INFO: Primitives created: 1
+11:37:45 | INFO: Extracting primitive: Cube.002
+11:37:45 | INFO: Primitives created: 1
+11:37:45 | INFO: Extracting primitive: Cube.004
+11:37:45 | INFO: Primitives created: 1
+11:37:45 | INFO: Extracting primitive: Cube.006
+11:37:45 | INFO: Primitives created: 1
+11:37:45 | INFO: Extracting primitive: Cube.007
+11:37:45 | INFO: Primitives created: 1
+11:37:45 | INFO: Extracting primitive: Cube.008
+11:37:45 | INFO: Primitives created: 1
+11:37:45 | INFO: Extracting primitive: Cube
+11:37:46 | INFO: Primitives created: 14
+11:37:46 | INFO: Finished glTF 2.0 export in 0.7845540046691895 s
+
+[EXPANSION] 7/10 EXP_WATER_PUMP_URBAN
+11:37:47 | INFO: Starting glTF 2.0 export
+11:37:47 | INFO: Extracting primitive: Cube.002
+11:37:48 | INFO: Primitives created: 1
+11:37:48 | INFO: Extracting primitive: Cube.004
+11:37:48 | INFO: Primitives created: 1
+11:37:48 | INFO: Extracting primitive: Cube
+11:37:48 | INFO: Primitives created: 15
+11:37:49 | INFO: Finished glTF 2.0 export in 1.0195529460906982 s
+
+[EXPANSION] 8/10 EXP_WATER_PUMP_RIVER
+11:37:50 | INFO: Starting glTF 2.0 export
+11:37:50 | INFO: Extracting primitive: Cube.002
+11:37:50 | INFO: Primitives created: 1
+11:37:50 | INFO: Extracting primitive: Cube
+11:37:51 | INFO: Primitives created: 15
+11:37:52 | INFO: Finished glTF 2.0 export in 1.692657709121704 s
+
+[EXPANSION] 9/10 EXP_WATER_TREATMENT
+11:37:53 | INFO: Starting glTF 2.0 export
+11:37:53 | INFO: Extracting primitive: Cube.002
+11:37:53 | INFO: Primitives created: 1
+11:37:53 | INFO: Extracting primitive: Cube
+11:37:53 | INFO: Primitives created: 14
+11:37:53 | INFO: Finished glTF 2.0 export in 0.6467008590698242 s
+
+[EXPANSION] 10/10 EXP_BOTANICAL
+11:38:13 | INFO: Starting glTF 2.0 export
+11:38:13 | INFO: Extracting primitive: Cube.011
+11:38:13 | INFO: Primitives created: 1
+11:38:13 | INFO: Extracting primitive: Cube
+11:38:14 | INFO: Primitives created: 14
+11:38:14 | INFO: Finished glTF 2.0 export in 1.219735860824585 s
+
+[EXPANSION] Complete 48
+Blender 5.2.1 LTS (hash 9e2066aef7ef built 2026-08-25 02:38:20)
+
+Blender quit

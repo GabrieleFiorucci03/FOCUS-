@@ -1,0 +1,29 @@
+{
+  "id": "RES_LOW_2x1_010",
+  "kind": "house",
+  "footprint": [
+    2,
+    1
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 1.413,
+  "min_z": -0.0,
+  "max_z": 1.413,
+  "triangles": 7548,
+  "seed": 110,
+  "model": "RES_LOW_2x1_010.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 2001,
+  "feature": "courtyard",
+  "style_variant": "refined_v2",
+  "source_asset_id": "RES_LOW_2x1_010",
+  "collision_source": "realistic",
+  "windows_by_side": {
+    "front": 4,
+    "rear": 5,
+    "left": 2,
+    "right": 1
+  }
+}

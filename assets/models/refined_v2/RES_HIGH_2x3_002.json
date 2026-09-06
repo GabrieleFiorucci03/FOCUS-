@@ -1,0 +1,29 @@
+{
+  "id": "RES_HIGH_2x3_002",
+  "kind": "slab",
+  "footprint": [
+    2,
+    3
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 6.841,
+  "min_z": 0.0,
+  "max_z": 6.841,
+  "triangles": 31752,
+  "seed": 302,
+  "model": "RES_HIGH_2x3_002.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 2001,
+  "shape": "offset",
+  "style_variant": "refined_v2",
+  "source_asset_id": "RES_HIGH_2x3_002",
+  "collision_source": "realistic",
+  "windows_by_side": {
+    "front": 60,
+    "rear": 61,
+    "left": 84,
+    "right": 79
+  }
+}

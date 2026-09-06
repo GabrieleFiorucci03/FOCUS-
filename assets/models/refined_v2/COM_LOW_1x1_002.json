@@ -1,0 +1,28 @@
+{
+  "id": "COM_LOW_1x1_002",
+  "kind": "shop",
+  "footprint": [
+    1,
+    1
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 1.072,
+  "min_z": 0.0,
+  "max_z": 1.072,
+  "triangles": 2484,
+  "seed": 602,
+  "model": "COM_LOW_1x1_002.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 2001,
+  "style_variant": "refined_v2",
+  "source_asset_id": "COM_LOW_1x1_002",
+  "collision_source": "realistic",
+  "windows_by_side": {
+    "front": 1,
+    "rear": 2,
+    "left": 2,
+    "right": 2
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "id": "COM_MID_2x2_005",
+  "kind": "shop",
+  "footprint": [
+    2,
+    2
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 1.322,
+  "min_z": 0.0,
+  "max_z": 1.322,
+  "triangles": 5352,
+  "seed": 605,
+  "model": "COM_MID_2x2_005.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 2001,
+  "variant": "market",
+  "style_variant": "refined_v2",
+  "source_asset_id": "COM_MID_2x2_005",
+  "collision_source": "realistic",
+  "windows_by_side": {
+    "front": 6,
+    "rear": 8,
+    "left": 10,
+    "right": 10
+  }
+}

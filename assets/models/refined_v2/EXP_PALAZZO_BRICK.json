@@ -1,0 +1,40 @@
+{
+  "id": "EXP_PALAZZO_BRICK",
+  "kind": "apartment",
+  "footprint": [
+    3,
+    3
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 4.271,
+  "min_z": 0.0,
+  "max_z": 4.271,
+  "triangles": 17036,
+  "seed": 3110,
+  "model": "EXP_PALAZZO_BRICK.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 2100,
+  "style": "refined_v2",
+  "name": "Palazzo delle officine",
+  "group": "citta",
+  "description": "Mattoni rossi, basamento in pietra e balconi metallici.",
+  "recipe": "brick",
+  "palette": [
+    "a7735d",
+    "607788",
+    "706959"
+  ],
+  "style_variant": "refined_v2",
+  "collection": "refined_expansion",
+  "is_new_asset": true,
+  "collision_mode": "simplified_component_boxes",
+  "collision_parts": 1,
+  "windows_by_side": {
+    "front": 34,
+    "rear": 36,
+    "left": 24,
+    "right": 24
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "id": "RES_LOW_1x1_008",
+  "kind": "house",
+  "footprint": [
+    1,
+    1
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 1.065,
+  "min_z": 0.0,
+  "max_z": 1.065,
+  "triangles": 3696,
+  "seed": 108,
+  "model": "RES_LOW_1x1_008.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 2001,
+  "feature": "modern",
+  "style_variant": "refined_v2",
+  "source_asset_id": "RES_LOW_1x1_008",
+  "collision_source": "realistic",
+  "windows_by_side": {
+    "front": 2,
+    "rear": 2,
+    "left": 2,
+    "right": 2
+  }
+}

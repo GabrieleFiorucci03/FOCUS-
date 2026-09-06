@@ -1,0 +1,105 @@
+Info: Deleted 5 data-block(s)
+16:16:03 | INFO: Data are loaded, start creating Blender stuff
+16:16:03 | INFO: Blender create Mesh node BRG_LOCAL_RAMP_1x1_UP_050-colonly_Mesh.001
+16:16:03 | INFO: Blender create Mesh node BridgeRampSlab_Mesh.001
+16:16:03 | INFO: glTF import finished in 0.02s
+C:\Users\gabri\Desktop\FOCUS!\tools\blender\render_refined_assets.py:39: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  mat=bpy.data.materials.new('StudioWarmGrey');mat.use_nodes=True
+C:\Users\gabri\Desktop\FOCUS!\tools\blender\render_refined_assets.py:44: DeprecationWarning: 'World.use_nodes' is expected to be removed in Blender 6.0
+  world.use_nodes=True;world.node_tree.nodes['Background'].inputs[0].default_value=(.72,.78,.85,1)
+00:08.157  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\BRG_LOCAL_RAMP_1x1_UP_050__refined_v2__front.png'
+[RENDER] BRG_LOCAL_RAMP_1x1_UP_050__refined_v2__front.png
+Info: Deleted 21 data-block(s)
+16:16:08 | INFO: Data are loaded, start creating Blender stuff
+16:16:08 | INFO: Blender create Mesh node BRG_LOCAL_RAMP_1x1_UP_050-colonly_Mesh.001
+16:16:08 | INFO: Blender create Mesh node BridgeRampSlab_Mesh.001
+16:16:08 | INFO: glTF import finished in 0.01s
+00:13.266  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\BRG_LOCAL_RAMP_1x1_UP_050__refined_v2__rear.png'
+[RENDER] BRG_LOCAL_RAMP_1x1_UP_050__refined_v2__rear.png
+Info: Deleted 21 data-block(s)
+16:16:13 | INFO: Data are loaded, start creating Blender stuff
+16:16:13 | INFO: Blender create Mesh node BRG_LOCAL_RAMP_1x1_DOWN_050-colonly_Mesh.001
+16:16:13 | INFO: Blender create Mesh node BridgeRampSlab_Mesh.001
+16:16:13 | INFO: glTF import finished in 0.02s
+00:18.282  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\BRG_LOCAL_RAMP_1x1_DOWN_050__refined_v2__front.png'
+[RENDER] BRG_LOCAL_RAMP_1x1_DOWN_050__refined_v2__front.png
+Info: Deleted 21 data-block(s)
+16:16:18 | INFO: Data are loaded, start creating Blender stuff
+16:16:18 | INFO: Blender create Mesh node BRG_LOCAL_RAMP_1x1_DOWN_050-colonly_Mesh.001
+16:16:18 | INFO: Blender create Mesh node BridgeRampSlab_Mesh.001
+16:16:18 | INFO: glTF import finished in 0.02s
+00:23.532  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\BRG_LOCAL_RAMP_1x1_DOWN_050__refined_v2__rear.png'
+[RENDER] BRG_LOCAL_RAMP_1x1_DOWN_050__refined_v2__rear.png
+Info: Deleted 21 data-block(s)
+16:16:24 | INFO: Data are loaded, start creating Blender stuff
+16:16:24 | INFO: Blender create Mesh node Cube.011
+16:16:24 | INFO: Blender create Mesh node BridgeCurb
+16:16:24 | INFO: glTF import finished in 0.02s
+00:28.641  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\BRG_LOCAL_DECK_1x1_STRAIGHT__refined_v2__front.png'
+[RENDER] BRG_LOCAL_DECK_1x1_STRAIGHT__refined_v2__front.png
+Info: Deleted 23 data-block(s)
+16:16:29 | INFO: Data are loaded, start creating Blender stuff
+16:16:29 | INFO: Blender create Mesh node Cube.011
+16:16:29 | INFO: Blender create Mesh node BridgeCurb
+16:16:29 | INFO: glTF import finished in 0.02s
+00:34.047  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\BRG_LOCAL_DECK_1x1_STRAIGHT__refined_v2__rear.png'
+[RENDER] BRG_LOCAL_DECK_1x1_STRAIGHT__refined_v2__rear.png
+Info: Deleted 23 data-block(s)
+16:16:34 | INFO: Data are loaded, start creating Blender stuff
+16:16:34 | INFO: Blender create Mesh node Cube.013
+16:16:34 | INFO: Blender create Mesh node BridgeCurb
+16:16:34 | INFO: glTF import finished in 0.02s
+00:39.172  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\BRG_LOCAL_DECK_1x1_CORNER__refined_v2__front.png'
+[RENDER] BRG_LOCAL_DECK_1x1_CORNER__refined_v2__front.png
+Info: Deleted 23 data-block(s)
+16:16:39 | INFO: Data are loaded, start creating Blender stuff
+16:16:39 | INFO: Blender create Mesh node Cube.013
+16:16:39 | INFO: Blender create Mesh node BridgeCurb
+16:16:39 | INFO: glTF import finished in 0.02s
+00:44.250  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\BRG_LOCAL_DECK_1x1_CORNER__refined_v2__rear.png'
+[RENDER] BRG_LOCAL_DECK_1x1_CORNER__refined_v2__rear.png
+Info: Deleted 23 data-block(s)
+16:16:44 | INFO: Data are loaded, start creating Blender stuff
+16:16:44 | INFO: Blender create Mesh node Cube.017
+16:16:44 | INFO: Blender create Mesh node BridgeCurb
+16:16:44 | INFO: glTF import finished in 0.02s
+00:49.313  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\BRG_LOCAL_DECK_1x1_T__refined_v2__front.png'
+[RENDER] BRG_LOCAL_DECK_1x1_T__refined_v2__front.png
+Info: Deleted 23 data-block(s)
+16:16:49 | INFO: Data are loaded, start creating Blender stuff
+16:16:49 | INFO: Blender create Mesh node Cube.017
+16:16:49 | INFO: Blender create Mesh node BridgeCurb
+16:16:50 | INFO: glTF import finished in 0.02s
+00:57.407  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\BRG_LOCAL_DECK_1x1_T__refined_v2__rear.png'
+[RENDER] BRG_LOCAL_DECK_1x1_T__refined_v2__rear.png
+Info: Deleted 23 data-block(s)
+16:16:58 | INFO: Data are loaded, start creating Blender stuff
+16:16:58 | INFO: Blender create Mesh node Cube.021
+16:16:58 | INFO: Blender create Mesh node BridgeCurb
+16:16:58 | INFO: glTF import finished in 0.03s
+01:04.844  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\BRG_LOCAL_DECK_1x1_CROSS__refined_v2__front.png'
+[RENDER] BRG_LOCAL_DECK_1x1_CROSS__refined_v2__front.png
+Info: Deleted 23 data-block(s)
+16:17:05 | INFO: Data are loaded, start creating Blender stuff
+16:17:05 | INFO: Blender create Mesh node Cube.021
+16:17:05 | INFO: Blender create Mesh node BridgeCurb
+16:17:05 | INFO: glTF import finished in 0.02s
+01:10.172  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\BRG_LOCAL_DECK_1x1_CROSS__refined_v2__rear.png'
+[RENDER] BRG_LOCAL_DECK_1x1_CROSS__refined_v2__rear.png
+Info: Deleted 23 data-block(s)
+16:17:10 | INFO: Data are loaded, start creating Blender stuff
+16:17:10 | INFO: Blender create Mesh node Cube.010
+16:17:10 | INFO: Blender create Mesh node BridgeCurb
+16:17:10 | INFO: glTF import finished in 0.02s
+01:15.453  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\BRG_LOCAL_DECK_1x1_END__refined_v2__front.png'
+[RENDER] BRG_LOCAL_DECK_1x1_END__refined_v2__front.png
+Info: Deleted 23 data-block(s)
+16:17:16 | INFO: Data are loaded, start creating Blender stuff
+16:17:16 | INFO: Blender create Mesh node Cube.010
+16:17:16 | INFO: Blender create Mesh node BridgeCurb
+16:17:16 | INFO: glTF import finished in 0.02s
+01:20.688  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\BRG_LOCAL_DECK_1x1_END__refined_v2__rear.png'
+[RENDER] BRG_LOCAL_DECK_1x1_END__refined_v2__rear.png
+Blender 5.2.1 LTS (hash 9e2066aef7ef built 2026-08-25 02:38:20)
+
+Blender quit

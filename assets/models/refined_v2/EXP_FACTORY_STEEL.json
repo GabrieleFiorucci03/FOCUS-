@@ -1,0 +1,40 @@
+{
+  "id": "EXP_FACTORY_STEEL",
+  "kind": "factory",
+  "footprint": [
+    4,
+    4
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 3.94,
+  "min_z": 0.0,
+  "max_z": 3.94,
+  "triangles": 12968,
+  "seed": 3132,
+  "model": "EXP_FACTORY_STEEL.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 2100,
+  "style": "refined_v2",
+  "name": "Acciaieria compatta",
+  "group": "industria",
+  "description": "Due capannoni, altoforno, passerelle, condotte e serbatoi.",
+  "recipe": "steel",
+  "palette": [
+    "997e6a",
+    "8b6657",
+    "5b6969"
+  ],
+  "style_variant": "refined_v2",
+  "collection": "refined_expansion",
+  "is_new_asset": true,
+  "collision_mode": "simplified_component_boxes",
+  "collision_parts": 4,
+  "windows_by_side": {
+    "front": 14,
+    "rear": 14,
+    "left": 16,
+    "right": 16
+  }
+}

@@ -1,0 +1,124 @@
+16:16:16 | INFO: Data are loaded, start creating Blender stuff
+16:16:16 | INFO: Blender create Mesh node BRG_LOCAL_RAMP_1x1_UP_050-colonly_Mesh.001
+16:16:16 | INFO: Blender create Mesh node BridgeRampSlab_Mesh.001
+16:16:16 | INFO: glTF import finished in 0.02s
+16:16:16 | INFO: Data are loaded, start creating Blender stuff
+16:16:16 | INFO: Blender create Mesh node Cube.011
+16:16:16 | INFO: Blender create Mesh node BridgeCurb
+16:16:16 | INFO: glTF import finished in 0.02s
+16:16:16 | INFO: Data are loaded, start creating Blender stuff
+16:16:16 | INFO: Blender create Mesh node Cube.013
+16:16:16 | INFO: Blender create Mesh node BridgeCurb
+16:16:16 | INFO: glTF import finished in 0.02s
+16:16:16 | INFO: Data are loaded, start creating Blender stuff
+16:16:16 | INFO: Blender create Mesh node Cube.017
+16:16:16 | INFO: Blender create Mesh node BridgeCurb
+16:16:16 | INFO: glTF import finished in 0.02s
+16:16:16 | INFO: Data are loaded, start creating Blender stuff
+16:16:16 | INFO: Blender create Mesh node Cube.010
+16:16:16 | INFO: Blender create Mesh node BridgeCurb
+16:16:16 | INFO: glTF import finished in 0.03s
+16:16:16 | INFO: Data are loaded, start creating Blender stuff
+16:16:16 | INFO: Blender create Mesh node Cube.021
+16:16:16 | INFO: Blender create Mesh node BridgeCurb
+16:16:16 | INFO: glTF import finished in 0.03s
+16:16:16 | INFO: Data are loaded, start creating Blender stuff
+16:16:16 | INFO: Blender create Mesh node Cube.010
+16:16:16 | INFO: Blender create Mesh node BridgeCurb
+16:16:16 | INFO: glTF import finished in 0.03s
+16:16:16 | INFO: Data are loaded, start creating Blender stuff
+16:16:16 | INFO: Blender create Mesh node Cube.010
+16:16:16 | INFO: Blender create Mesh node BridgeCurb
+16:16:17 | INFO: glTF import finished in 0.03s
+16:16:17 | INFO: Data are loaded, start creating Blender stuff
+16:16:17 | INFO: Blender create Mesh node BRG_LOCAL_RAMP_1x1_DOWN_050-colonly_Mesh.001
+16:16:17 | INFO: Blender create Mesh node BridgeRampSlab_Mesh.001
+16:16:17 | INFO: glTF import finished in 0.02s
+INFO Draco is available, use library at C:\Program Files\Blender Foundation\Blender 5.2\5.2\scripts\addons_core\io_scene_gltf2\bf_intern_draco_bridge.dll
+INFO MeshOptimizer is available, use library at C:\Program Files\Blender Foundation\Blender 5.2\5.2\scripts\addons_core\io_scene_gltf2\bf_intern_meshopt_bridge.dll
+16:16:17 | INFO: Starting glTF 2.0 export
+16:16:17 | INFO: Extracting primitive: BridgeCurb.001
+16:16:17 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+16:16:17 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+16:16:17 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+16:16:17 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+16:16:17 | INFO: Primitives created: 6
+16:16:17 | INFO: Extracting primitive: BridgeCurb.004
+16:16:17 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+16:16:17 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+16:16:17 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+16:16:17 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+16:16:17 | INFO: Primitives created: 6
+16:16:17 | INFO: Extracting primitive: BridgeCurb.003
+16:16:17 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+16:16:17 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+16:16:17 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+16:16:17 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+16:16:17 | INFO: Primitives created: 6
+16:16:17 | INFO: Extracting primitive: BridgeCurb.005
+16:16:17 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+16:16:17 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+16:16:17 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+16:16:17 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+16:16:17 | INFO: Primitives created: 6
+16:16:17 | INFO: Extracting primitive: BridgeCurb.006
+16:16:17 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+16:16:17 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+16:16:17 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+16:16:17 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+16:16:17 | INFO: Primitives created: 6
+16:16:17 | INFO: Extracting primitive: BridgeCurb
+16:16:17 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+16:16:17 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+16:16:17 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+16:16:17 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+16:16:17 | INFO: Primitives created: 6
+16:16:17 | INFO: Extracting primitive: BridgeCurb.002
+16:16:17 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+16:16:17 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+16:16:17 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+16:16:17 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+16:16:17 | INFO: Primitives created: 6
+16:16:17 | INFO: Extracting primitive: BridgeRampSlab_Mesh.002
+16:16:17 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+16:16:17 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+16:16:17 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+16:16:17 | INFO: Primitives created: 6
+16:16:17 | INFO: Extracting primitive: BridgeRampSlab_Mesh.001
+16:16:17 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+16:16:17 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+16:16:17 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+16:16:17 | INFO: Primitives created: 6
+16:16:17 | INFO: Finished glTF 2.0 export in 0.5253767967224121 s
+
+Info: Deleted 145 data-block(s)
+16:16:17 | INFO: Data are loaded, start creating Blender stuff
+16:16:17 | INFO: Blender create Mesh node BridgeCurb.001
+16:16:17 | INFO: Blender create Mesh node BridgeCurb.004
+16:16:17 | INFO: Blender create Mesh node BridgeCurb.003
+16:16:17 | INFO: Blender create Mesh node BridgeCurb.005
+16:16:17 | INFO: Blender create Mesh node BridgeCurb.006
+16:16:17 | INFO: Blender create Mesh node BridgeCurb
+16:16:17 | INFO: Blender create Mesh node BridgeCurb.002
+16:16:17 | INFO: Blender create Mesh node BridgeRampSlab_Mesh.002
+16:16:18 | INFO: Blender create Mesh node BridgeRampSlab_Mesh.001
+16:16:18 | INFO: glTF import finished in 0.18s
+00:24.657  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\bridge_v3\renders\BRIDGE_ASSEMBLY__refined_v2__front.png'
+[RENDER] BRIDGE_ASSEMBLY__refined_v2__front.png
+Info: Deleted 78 data-block(s)
+16:16:38 | INFO: Data are loaded, start creating Blender stuff
+16:16:38 | INFO: Blender create Mesh node BridgeCurb.001
+16:16:38 | INFO: Blender create Mesh node BridgeCurb.004
+16:16:38 | INFO: Blender create Mesh node BridgeCurb.003
+16:16:38 | INFO: Blender create Mesh node BridgeCurb.005
+16:16:38 | INFO: Blender create Mesh node BridgeCurb.006
+16:16:38 | INFO: Blender create Mesh node BridgeCurb
+16:16:38 | INFO: Blender create Mesh node BridgeCurb.002
+16:16:38 | INFO: Blender create Mesh node BridgeRampSlab_Mesh.002
+16:16:38 | INFO: Blender create Mesh node BridgeRampSlab_Mesh.001
+16:16:38 | INFO: glTF import finished in 0.19s
+00:49.750  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\bridge_v3\renders\BRIDGE_ASSEMBLY__refined_v2__rear.png'
+[RENDER] BRIDGE_ASSEMBLY__refined_v2__rear.png
+Blender 5.2.1 LTS (hash 9e2066aef7ef built 2026-08-25 02:38:20)
+
+Blender quit

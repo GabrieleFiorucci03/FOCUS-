@@ -1,0 +1,34 @@
+{
+  "id": "EXP_POWER_SUBSTATION",
+  "kind": "utility",
+  "footprint": [
+    3,
+    3
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 2.04,
+  "min_z": 0.0,
+  "max_z": 2.04,
+  "triangles": 10452,
+  "seed": 3141,
+  "model": "EXP_POWER_SUBSTATION.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 2100,
+  "style": "refined_v2",
+  "name": "Sottostazione elettrica",
+  "group": "impianti",
+  "description": "Tre trasformatori, radiatori, isolatori, portali e recinzione.",
+  "recipe": "substation",
+  "palette": [
+    "afada0",
+    "789198",
+    "6e7e78"
+  ],
+  "style_variant": "refined_v2",
+  "collection": "refined_expansion",
+  "is_new_asset": true,
+  "collision_mode": "simplified_component_boxes",
+  "collision_parts": 1
+}

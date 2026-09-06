@@ -1,0 +1,40 @@
+{
+  "id": "EXP_SHOP_DESIGN",
+  "kind": "shop",
+  "footprint": [
+    3,
+    2
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 2.631,
+  "min_z": 0.0,
+  "max_z": 2.631,
+  "triangles": 6128,
+  "seed": 3128,
+  "model": "EXP_SHOP_DESIGN.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 2100,
+  "style": "refined_v2",
+  "name": "Galleria di design",
+  "group": "negozi",
+  "description": "Showroom a doppia altezza, brise-soleil e mobili in esposizione.",
+  "recipe": "design",
+  "palette": [
+    "9ca9bf",
+    "ad8d73",
+    "646d7c"
+  ],
+  "style_variant": "refined_v2",
+  "collection": "refined_expansion",
+  "is_new_asset": true,
+  "collision_mode": "simplified_component_boxes",
+  "collision_parts": 1,
+  "windows_by_side": {
+    "front": 8,
+    "rear": 21,
+    "left": 12,
+    "right": 12
+  }
+}

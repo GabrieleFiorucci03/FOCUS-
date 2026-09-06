@@ -1,0 +1,397 @@
+Info: Deleted 5 data-block(s)
+11:36:31 | INFO: Data are loaded, start creating Blender stuff
+11:36:31 | INFO: Blender create Mesh node Cube.008
+11:36:31 | INFO: Blender create Mesh node Cube
+11:36:31 | INFO: glTF import finished in 0.14s
+00:09.516  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_expansion\renders\EXP_COTTAGE__refined_expansion__front.png'
+[RENDER] EXP_COTTAGE__refined_expansion__front.png
+Info: Deleted 65 data-block(s)
+11:36:38 | INFO: Data are loaded, start creating Blender stuff
+11:36:38 | INFO: Blender create Mesh node Cube.008
+11:36:38 | INFO: Blender create Mesh node Cube
+11:36:38 | INFO: glTF import finished in 0.19s
+00:15.797  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_expansion\renders\EXP_COTTAGE__refined_expansion__rear.png'
+[RENDER] EXP_COTTAGE__refined_expansion__rear.png
+Info: Deleted 65 data-block(s)
+11:36:44 | INFO: Data are loaded, start creating Blender stuff
+11:36:44 | INFO: Blender create Mesh node Cube.008
+11:36:44 | INFO: Blender create Mesh node Cube.010
+11:36:44 | INFO: Blender create Mesh node Cube
+11:36:44 | INFO: glTF import finished in 0.19s
+00:22.141  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_expansion\renders\EXP_VILLA_POOL__refined_expansion__front.png'
+[RENDER] EXP_VILLA_POOL__refined_expansion__front.png
+Info: Deleted 60 data-block(s)
+11:36:50 | INFO: Data are loaded, start creating Blender stuff
+11:36:50 | INFO: Blender create Mesh node Cube.008
+11:36:50 | INFO: Blender create Mesh node Cube.010
+11:36:50 | INFO: Blender create Mesh node Cube
+11:36:50 | INFO: glTF import finished in 0.18s
+00:28.422  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_expansion\renders\EXP_VILLA_POOL__refined_expansion__rear.png'
+[RENDER] EXP_VILLA_POOL__refined_expansion__rear.png
+Info: Deleted 60 data-block(s)
+11:36:57 | INFO: Data are loaded, start creating Blender stuff
+11:36:57 | INFO: Blender create Mesh node Cube.008
+11:36:57 | INFO: Blender create Mesh node Cube
+11:36:57 | INFO: glTF import finished in 0.21s
+00:34.813  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_expansion\renders\EXP_VILLA_FORMAL__refined_expansion__front.png'
+[RENDER] EXP_VILLA_FORMAL__refined_expansion__front.png
+Info: Deleted 70 data-block(s)
+11:37:03 | INFO: Data are loaded, start creating Blender stuff
+11:37:03 | INFO: Blender create Mesh node Cube.008
+11:37:03 | INFO: Blender create Mesh node Cube
+11:37:03 | INFO: glTF import finished in 0.26s
+00:41.157  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_expansion\renders\EXP_VILLA_FORMAL__refined_expansion__rear.png'
+[RENDER] EXP_VILLA_FORMAL__refined_expansion__rear.png
+Info: Deleted 70 data-block(s)
+11:37:09 | INFO: Data are loaded, start creating Blender stuff
+11:37:09 | INFO: Blender create Mesh node Cube.008
+11:37:09 | INFO: Blender create Mesh node Cube
+11:37:09 | INFO: glTF import finished in 0.16s
+00:47.704  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_expansion\renders\EXP_CHALET__refined_expansion__front.png'
+[RENDER] EXP_CHALET__refined_expansion__front.png
+Info: Deleted 65 data-block(s)
+11:37:16 | INFO: Data are loaded, start creating Blender stuff
+11:37:16 | INFO: Blender create Mesh node Cube.008
+11:37:16 | INFO: Blender create Mesh node Cube
+11:37:16 | INFO: glTF import finished in 0.20s
+00:56.688  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_expansion\renders\EXP_CHALET__refined_expansion__rear.png'
+[RENDER] EXP_CHALET__refined_expansion__rear.png
+Info: Deleted 65 data-block(s)
+11:37:25 | INFO: Data are loaded, start creating Blender stuff
+11:37:25 | INFO: Blender create Mesh node Cube.002
+11:37:25 | INFO: Blender create Mesh node Cube.004
+11:37:25 | INFO: Blender create Mesh node Cube.006
+11:37:25 | INFO: Blender create Mesh node Cube.008
+11:37:25 | INFO: Blender create Mesh node Cube
+11:37:25 | INFO: glTF import finished in 0.56s
+01:13.141  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_expansion\renders\EXP_PALAZZO_COURT__refined_expansion__front.png'
+[RENDER] EXP_PALAZZO_COURT__refined_expansion__front.png
+Info: Deleted 57 data-block(s)
+11:37:41 | INFO: Data are loaded, start creating Blender stuff
+11:37:41 | INFO: Blender create Mesh node Cube.002
+11:37:41 | INFO: Blender create Mesh node Cube.004
+11:37:41 | INFO: Blender create Mesh node Cube.006
+11:37:41 | INFO: Blender create Mesh node Cube.008
+11:37:41 | INFO: Blender create Mesh node Cube
+11:37:42 | INFO: glTF import finished in 1.00s
+01:31.360  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_expansion\renders\EXP_PALAZZO_COURT__refined_expansion__rear.png'
+[RENDER] EXP_PALAZZO_COURT__refined_expansion__rear.png
+Info: Deleted 57 data-block(s)
+11:37:59 | INFO: Data are loaded, start creating Blender stuff
+11:37:59 | INFO: Blender create Mesh node Cube.002
+11:38:00 | INFO: Blender create Mesh node Cube
+11:38:00 | INFO: glTF import finished in 0.34s
+01:46.032  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_expansion\renders\EXP_PALAZZO_BRICK__refined_expansion__front.png'
+[RENDER] EXP_PALAZZO_BRICK__refined_expansion__front.png
+Info: Deleted 48 data-block(s)
+11:38:14 | INFO: Data are loaded, start creating Blender stuff
+11:38:14 | INFO: Blender create Mesh node Cube.002
+11:38:14 | INFO: Blender create Mesh node Cube
+11:38:15 | INFO: glTF import finished in 0.33s
+02:02.704  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_expansion\renders\EXP_PALAZZO_BRICK__refined_expansion__rear.png'
+[RENDER] EXP_PALAZZO_BRICK__refined_expansion__rear.png
+Info: Deleted 48 data-block(s)
+11:38:31 | INFO: Data are loaded, start creating Blender stuff
+11:38:31 | INFO: Blender create Mesh node Cube.002
+11:38:31 | INFO: Blender create Mesh node Cube
+11:38:31 | INFO: glTF import finished in 0.49s
+02:18.188  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_expansion\renders\EXP_PALAZZO_LOGGIAS__refined_expansion__front.png'
+[RENDER] EXP_PALAZZO_LOGGIAS__refined_expansion__front.png
+Info: Deleted 45 data-block(s)
+11:38:46 | INFO: Data are loaded, start creating Blender stuff
+11:38:46 | INFO: Blender create Mesh node Cube.002
+11:38:46 | INFO: Blender create Mesh node Cube
+11:38:47 | INFO: glTF import finished in 0.28s
+02:33.532  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_expansion\renders\EXP_PALAZZO_LOGGIAS__refined_expansion__rear.png'
+[RENDER] EXP_PALAZZO_LOGGIAS__refined_expansion__rear.png
+Info: Deleted 45 data-block(s)
+11:39:02 | INFO: Data are loaded, start creating Blender stuff
+11:39:02 | INFO: Blender create Mesh node Cube.002
+11:39:02 | INFO: Blender create Mesh node Cube.004
+11:39:02 | INFO: Blender create Mesh node Cube.006
+11:39:02 | INFO: Blender create Mesh node Cube.008
+11:39:02 | INFO: Blender create Mesh node Cube
+11:39:02 | INFO: glTF import finished in 0.79s
+02:55.688  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_expansion\renders\EXP_TOWER_TWINS__refined_expansion__front.png'
+[RENDER] EXP_TOWER_TWINS__refined_expansion__front.png
+Info: Deleted 40 data-block(s)
+11:39:24 | INFO: Data are loaded, start creating Blender stuff
+11:39:24 | INFO: Blender create Mesh node Cube.002
+11:39:24 | INFO: Blender create Mesh node Cube.004
+11:39:24 | INFO: Blender create Mesh node Cube.006
+11:39:24 | INFO: Blender create Mesh node Cube.008
+11:39:24 | INFO: Blender create Mesh node Cube
+11:39:25 | INFO: glTF import finished in 1.45s
+03:18.079  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_expansion\renders\EXP_TOWER_TWINS__refined_expansion__rear.png'
+[RENDER] EXP_TOWER_TWINS__refined_expansion__rear.png
+Info: Deleted 40 data-block(s)
+11:39:46 | INFO: Data are loaded, start creating Blender stuff
+11:39:46 | INFO: Blender create Mesh node Cube.002
+11:39:46 | INFO: Blender create Mesh node Cube.004
+11:39:46 | INFO: Blender create Mesh node Cube.006
+11:39:46 | INFO: Blender create Mesh node Cube.008
+11:39:46 | INFO: Blender create Mesh node Cube.010
+11:39:46 | INFO: Blender create Mesh node Cube
+11:39:47 | INFO: glTF import finished in 0.80s
+03:32.110  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_expansion\renders\EXP_TOWER_GARDENS__refined_expansion__front.png'
+[RENDER] EXP_TOWER_GARDENS__refined_expansion__front.png
+Info: Deleted 41 data-block(s)
+11:40:00 | INFO: Data are loaded, start creating Blender stuff
+11:40:00 | INFO: Blender create Mesh node Cube.002
+11:40:00 | INFO: Blender create Mesh node Cube.004
+11:40:00 | INFO: Blender create Mesh node Cube.006
+11:40:00 | INFO: Blender create Mesh node Cube.008
+11:40:00 | INFO: Blender create Mesh node Cube.010
+11:40:00 | INFO: Blender create Mesh node Cube
+11:40:01 | INFO: glTF import finished in 0.45s
+03:44.235  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_expansion\renders\EXP_TOWER_GARDENS__refined_expansion__rear.png'
+[RENDER] EXP_TOWER_GARDENS__refined_expansion__rear.png
+Info: Deleted 41 data-block(s)
+11:40:12 | INFO: Data are loaded, start creating Blender stuff
+11:40:12 | INFO: Blender create Mesh node Cube.002
+11:40:12 | INFO: Blender create Mesh node Cube.004
+11:40:12 | INFO: Blender create Mesh node Cube.006
+11:40:12 | INFO: Blender create Mesh node Cube.008
+11:40:12 | INFO: Blender create Mesh node Cube
+11:40:13 | INFO: glTF import finished in 0.35s
+03:55.797  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_expansion\renders\EXP_TOWER_LANTERN__refined_expansion__front.png'
+[RENDER] EXP_TOWER_LANTERN__refined_expansion__front.png
+Info: Deleted 40 data-block(s)
+11:40:24 | INFO: Data are loaded, start creating Blender stuff
+11:40:24 | INFO: Blender create Mesh node Cube.002
+11:40:24 | INFO: Blender create Mesh node Cube.004
+11:40:24 | INFO: Blender create Mesh node Cube.006
+11:40:24 | INFO: Blender create Mesh node Cube.008
+11:40:24 | INFO: Blender create Mesh node Cube
+11:40:24 | INFO: glTF import finished in 0.40s
+04:07.250  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_expansion\renders\EXP_TOWER_LANTERN__refined_expansion__rear.png'
+[RENDER] EXP_TOWER_LANTERN__refined_expansion__rear.png
+Info: Deleted 40 data-block(s)
+11:40:35 | INFO: Data are loaded, start creating Blender stuff
+11:40:35 | INFO: Blender create Mesh node Cube.002
+11:40:35 | INFO: Blender create Mesh node Cube
+11:40:36 | INFO: glTF import finished in 0.18s
+04:18.891  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_expansion\renders\EXP_SHOP_FLORIST__refined_expansion__front.png'
+[RENDER] EXP_SHOP_FLORIST__refined_expansion__front.png
+Info: Deleted 48 data-block(s)
+11:40:47 | INFO: Data are loaded, start creating Blender stuff
+11:40:47 | INFO: Blender create Mesh node Cube.002
+11:40:47 | INFO: Blender create Mesh node Cube
+11:40:47 | INFO: glTF import finished in 0.17s
+04:31.032  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_expansion\renders\EXP_SHOP_FLORIST__refined_expansion__rear.png'
+[RENDER] EXP_SHOP_FLORIST__refined_expansion__rear.png
+Info: Deleted 48 data-block(s)
+11:40:59 | INFO: Data are loaded, start creating Blender stuff
+11:40:59 | INFO: Blender create Mesh node Cube.002
+11:40:59 | INFO: Blender create Mesh node Cube
+11:40:59 | INFO: glTF import finished in 0.12s
+04:43.329  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_expansion\renders\EXP_SHOP_CAFE__refined_expansion__front.png'
+[RENDER] EXP_SHOP_CAFE__refined_expansion__front.png
+Info: Deleted 44 data-block(s)
+11:41:11 | INFO: Data are loaded, start creating Blender stuff
+11:41:11 | INFO: Blender create Mesh node Cube.002
+11:41:11 | INFO: Blender create Mesh node Cube
+11:41:12 | INFO: glTF import finished in 0.14s
+04:55.579  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_expansion\renders\EXP_SHOP_CAFE__refined_expansion__rear.png'
+[RENDER] EXP_SHOP_CAFE__refined_expansion__rear.png
+Info: Deleted 44 data-block(s)
+11:41:24 | INFO: Data are loaded, start creating Blender stuff
+11:41:24 | INFO: Blender create Mesh node Cube.002
+11:41:24 | INFO: Blender create Mesh node Cube
+11:41:24 | INFO: glTF import finished in 0.08s
+05:07.141  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_expansion\renders\EXP_SHOP_PHARMACY__refined_expansion__front.png'
+[RENDER] EXP_SHOP_PHARMACY__refined_expansion__front.png
+Info: Deleted 41 data-block(s)
+11:41:35 | INFO: Data are loaded, start creating Blender stuff
+11:41:35 | INFO: Blender create Mesh node Cube.002
+11:41:35 | INFO: Blender create Mesh node Cube
+11:41:35 | INFO: glTF import finished in 0.08s
+05:19.360  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_expansion\renders\EXP_SHOP_PHARMACY__refined_expansion__rear.png'
+[RENDER] EXP_SHOP_PHARMACY__refined_expansion__rear.png
+Info: Deleted 41 data-block(s)
+11:41:48 | INFO: Data are loaded, start creating Blender stuff
+11:41:48 | INFO: Blender create Mesh node Cube.002
+11:41:48 | INFO: Blender create Mesh node Cube
+11:41:48 | INFO: glTF import finished in 0.21s
+05:31.782  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_expansion\renders\EXP_SHOP_CYCLES__refined_expansion__front.png'
+[RENDER] EXP_SHOP_CYCLES__refined_expansion__front.png
+Info: Deleted 41 data-block(s)
+11:42:00 | INFO: Data are loaded, start creating Blender stuff
+11:42:00 | INFO: Blender create Mesh node Cube.002
+11:42:00 | INFO: Blender create Mesh node Cube
+11:42:00 | INFO: glTF import finished in 0.12s
+05:43.188  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_expansion\renders\EXP_SHOP_CYCLES__refined_expansion__rear.png'
+[RENDER] EXP_SHOP_CYCLES__refined_expansion__rear.png
+Info: Deleted 41 data-block(s)
+11:42:11 | INFO: Data are loaded, start creating Blender stuff
+11:42:11 | INFO: Blender create Mesh node Cube.002
+11:42:11 | INFO: Blender create Mesh node Cube
+11:42:11 | INFO: glTF import finished in 0.15s
+05:54.672  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_expansion\renders\EXP_SHOP_DESIGN__refined_expansion__front.png'
+[RENDER] EXP_SHOP_DESIGN__refined_expansion__front.png
+Info: Deleted 37 data-block(s)
+11:42:23 | INFO: Data are loaded, start creating Blender stuff
+11:42:23 | INFO: Blender create Mesh node Cube.002
+11:42:23 | INFO: Blender create Mesh node Cube
+11:42:23 | INFO: glTF import finished in 0.15s
+06:08.047  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_expansion\renders\EXP_SHOP_DESIGN__refined_expansion__rear.png'
+[RENDER] EXP_SHOP_DESIGN__refined_expansion__rear.png
+Info: Deleted 37 data-block(s)
+11:42:36 | INFO: Data are loaded, start creating Blender stuff
+11:42:36 | INFO: Blender create Mesh node Cube.002
+11:42:36 | INFO: Blender create Mesh node Cube
+11:42:36 | INFO: glTF import finished in 0.18s
+06:24.235  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_expansion\renders\EXP_FACTORY_SAW__refined_expansion__front.png'
+[RENDER] EXP_FACTORY_SAW__refined_expansion__front.png
+Info: Deleted 37 data-block(s)
+11:42:52 | INFO: Data are loaded, start creating Blender stuff
+11:42:52 | INFO: Blender create Mesh node Cube.002
+11:42:52 | INFO: Blender create Mesh node Cube
+11:42:53 | INFO: glTF import finished in 0.30s
+06:41.797  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_expansion\renders\EXP_FACTORY_SAW__refined_expansion__rear.png'
+[RENDER] EXP_FACTORY_SAW__refined_expansion__rear.png
+Info: Deleted 37 data-block(s)
+11:43:10 | INFO: Data are loaded, start creating Blender stuff
+11:43:10 | INFO: Blender create Mesh node Cube.002
+11:43:10 | INFO: Blender create Mesh node Cube.004
+11:43:10 | INFO: Blender create Mesh node Cube.005
+11:43:10 | INFO: Blender create Mesh node Cube.006
+11:43:10 | INFO: Blender create Mesh node Cube
+11:43:10 | INFO: glTF import finished in 0.36s
+06:59.469  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_expansion\renders\EXP_FACTORY_STEEL__refined_expansion__front.png'
+[RENDER] EXP_FACTORY_STEEL__refined_expansion__front.png
+Info: Deleted 52 data-block(s)
+11:43:28 | INFO: Data are loaded, start creating Blender stuff
+11:43:28 | INFO: Blender create Mesh node Cube.002
+11:43:28 | INFO: Blender create Mesh node Cube.004
+11:43:28 | INFO: Blender create Mesh node Cube.005
+11:43:28 | INFO: Blender create Mesh node Cube.006
+11:43:28 | INFO: Blender create Mesh node Cube
+11:43:28 | INFO: glTF import finished in 0.42s
+07:13.688  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_expansion\renders\EXP_FACTORY_STEEL__refined_expansion__rear.png'
+[RENDER] EXP_FACTORY_STEEL__refined_expansion__rear.png
+Info: Deleted 52 data-block(s)
+11:43:42 | INFO: Data are loaded, start creating Blender stuff
+11:43:42 | INFO: Blender create Mesh node Cube.002
+11:43:42 | INFO: Blender create Mesh node Cube.004
+11:43:42 | INFO: Blender create Mesh node Cube
+11:43:42 | INFO: glTF import finished in 0.13s
+07:25.782  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_expansion\renders\EXP_FACTORY_TECH__refined_expansion__front.png'
+[RENDER] EXP_FACTORY_TECH__refined_expansion__front.png
+Info: Deleted 41 data-block(s)
+11:43:54 | INFO: Data are loaded, start creating Blender stuff
+11:43:54 | INFO: Blender create Mesh node Cube.002
+11:43:54 | INFO: Blender create Mesh node Cube.004
+11:43:54 | INFO: Blender create Mesh node Cube
+11:43:54 | INFO: glTF import finished in 0.16s
+07:39.516  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_expansion\renders\EXP_FACTORY_TECH__refined_expansion__rear.png'
+[RENDER] EXP_FACTORY_TECH__refined_expansion__rear.png
+Info: Deleted 41 data-block(s)
+11:44:08 | INFO: Data are loaded, start creating Blender stuff
+11:44:08 | INFO: Blender create Mesh node Cube.002
+11:44:08 | INFO: Blender create Mesh node Cube.004
+11:44:08 | INFO: Blender create Mesh node Cube.006
+11:44:08 | INFO: Blender create Mesh node Cube.007
+11:44:08 | INFO: Blender create Mesh node Cube.008
+11:44:08 | INFO: Blender create Mesh node Cube.009
+11:44:08 | INFO: Blender create Mesh node Cube
+11:44:08 | INFO: glTF import finished in 0.45s
+07:52.391  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_expansion\renders\EXP_POWER_COAL_LARGE__refined_expansion__front.png'
+[RENDER] EXP_POWER_COAL_LARGE__refined_expansion__front.png
+Info: Deleted 47 data-block(s)
+11:44:21 | INFO: Data are loaded, start creating Blender stuff
+11:44:21 | INFO: Blender create Mesh node Cube.002
+11:44:21 | INFO: Blender create Mesh node Cube.004
+11:44:21 | INFO: Blender create Mesh node Cube.006
+11:44:21 | INFO: Blender create Mesh node Cube.007
+11:44:21 | INFO: Blender create Mesh node Cube.008
+11:44:21 | INFO: Blender create Mesh node Cube.009
+11:44:21 | INFO: Blender create Mesh node Cube
+11:44:21 | INFO: glTF import finished in 0.59s
+08:07.563  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_expansion\renders\EXP_POWER_COAL_LARGE__refined_expansion__rear.png'
+[RENDER] EXP_POWER_COAL_LARGE__refined_expansion__rear.png
+Info: Deleted 47 data-block(s)
+11:44:36 | INFO: Data are loaded, start creating Blender stuff
+11:44:36 | INFO: Blender create Mesh node Cube.002
+11:44:36 | INFO: Blender create Mesh node Cube.004
+11:44:36 | INFO: Blender create Mesh node Cube
+11:44:36 | INFO: glTF import finished in 0.30s
+08:21.329  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_expansion\renders\EXP_WATER_PUMP_URBAN__refined_expansion__front.png'
+[RENDER] EXP_WATER_PUMP_URBAN__refined_expansion__front.png
+Info: Deleted 45 data-block(s)
+11:44:49 | INFO: Data are loaded, start creating Blender stuff
+11:44:49 | INFO: Blender create Mesh node Cube.002
+11:44:49 | INFO: Blender create Mesh node Cube.004
+11:44:49 | INFO: Blender create Mesh node Cube
+11:44:50 | INFO: glTF import finished in 0.30s
+08:33.297  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_expansion\renders\EXP_WATER_PUMP_URBAN__refined_expansion__rear.png'
+[RENDER] EXP_WATER_PUMP_URBAN__refined_expansion__rear.png
+Info: Deleted 45 data-block(s)
+11:45:01 | INFO: Data are loaded, start creating Blender stuff
+11:45:01 | INFO: Blender create Mesh node Cube.002
+11:45:01 | INFO: Blender create Mesh node Cube
+11:45:02 | INFO: glTF import finished in 0.11s
+08:44.125  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_expansion\renders\EXP_WATER_TREATMENT__refined_expansion__front.png'
+[RENDER] EXP_WATER_TREATMENT__refined_expansion__front.png
+Info: Deleted 39 data-block(s)
+11:45:12 | INFO: Data are loaded, start creating Blender stuff
+11:45:12 | INFO: Blender create Mesh node Cube.002
+11:45:12 | INFO: Blender create Mesh node Cube
+11:45:12 | INFO: glTF import finished in 0.12s
+08:54.829  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_expansion\renders\EXP_WATER_TREATMENT__refined_expansion__rear.png'
+[RENDER] EXP_WATER_TREATMENT__refined_expansion__rear.png
+Info: Deleted 39 data-block(s)
+11:45:23 | INFO: Data are loaded, start creating Blender stuff
+11:45:23 | INFO: Blender create Mesh node Cube.001
+11:45:23 | INFO: Blender create Mesh node Cube.002
+11:45:23 | INFO: Blender create Mesh node Cube.003
+11:45:23 | INFO: Blender create Mesh node Cube.004
+11:45:23 | INFO: Blender create Mesh node Cube
+11:45:24 | INFO: glTF import finished in 0.74s
+09:13.829  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_expansion\renders\EXP_STADIUM__refined_expansion__front.png'
+[RENDER] EXP_STADIUM__refined_expansion__front.png
+Info: Deleted 47 data-block(s)
+11:45:42 | INFO: Data are loaded, start creating Blender stuff
+11:45:42 | INFO: Blender create Mesh node Cube.001
+11:45:42 | INFO: Blender create Mesh node Cube.002
+11:45:42 | INFO: Blender create Mesh node Cube.003
+11:45:42 | INFO: Blender create Mesh node Cube.004
+11:45:42 | INFO: Blender create Mesh node Cube
+11:45:43 | INFO: glTF import finished in 0.86s
+09:39.391  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_expansion\renders\EXP_STADIUM__refined_expansion__rear.png'
+[RENDER] EXP_STADIUM__refined_expansion__rear.png
+Info: Deleted 47 data-block(s)
+11:46:08 | INFO: Data are loaded, start creating Blender stuff
+11:46:08 | INFO: Blender create Mesh node Cube.002
+11:46:08 | INFO: Blender create Mesh node Cube.004
+11:46:08 | INFO: Blender create Mesh node Cube
+11:46:08 | INFO: glTF import finished in 0.23s
+10:01.469  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_expansion\renders\EXP_FIRE_STATION__refined_expansion__front.png'
+[RENDER] EXP_FIRE_STATION__refined_expansion__front.png
+Info: Deleted 41 data-block(s)
+11:46:30 | INFO: Data are loaded, start creating Blender stuff
+11:46:30 | INFO: Blender create Mesh node Cube.002
+11:46:30 | INFO: Blender create Mesh node Cube.004
+11:46:30 | INFO: Blender create Mesh node Cube
+11:46:30 | INFO: glTF import finished in 0.18s
+10:17.000  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_expansion\renders\EXP_FIRE_STATION__refined_expansion__rear.png'
+[RENDER] EXP_FIRE_STATION__refined_expansion__rear.png
+Info: Deleted 41 data-block(s)
+11:46:45 | INFO: Data are loaded, start creating Blender stuff
+11:46:45 | INFO: Blender create Mesh node Cube.002
+11:46:45 | INFO: Blender create Mesh node Cube.004
+11:46:45 | INFO: Blender create Mesh node Cube
+11:46:46 | INFO: glTF import finished in 0.37s
+10:30.172  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_expansion\renders\EXP_RAIL_STATION__refined_expansion__front.png'
+[RENDER] EXP_RAIL_STATION__refined_expansion__front.png
+Info: Deleted 45 data-block(s)
+11:46:58 | INFO: Data are loaded, start creating Blender stuff
+11:46:58 | INFO: Blender create Mesh node Cube.002
+11:46:58 | INFO: Blender create Mesh node Cube.004
+11:46:58 | INFO: Blender create Mesh node Cube
+11:46:58 | INFO: glTF import finished in 0.17s
+10:43.047  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_expansion\renders\EXP_RAIL_STATION__refined_expansion__rear.png'
+[RENDER] EXP_RAIL_STATION__refined_expansion__rear.png
+Blender 5.2.1 LTS (hash 9e2066aef7ef built 2026-08-25 02:38:20)
+
+Blender quit

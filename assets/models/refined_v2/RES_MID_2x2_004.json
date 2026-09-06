@@ -1,0 +1,29 @@
+{
+  "id": "RES_MID_2x2_004",
+  "kind": "apartment",
+  "footprint": [
+    2,
+    2
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 3.496,
+  "min_z": 0.0,
+  "max_z": 3.496,
+  "triangles": 11940,
+  "seed": 204,
+  "model": "RES_MID_2x2_004.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 2001,
+  "shape": "stepped",
+  "style_variant": "refined_v2",
+  "source_asset_id": "RES_MID_2x2_004",
+  "collision_source": "realistic",
+  "windows_by_side": {
+    "front": 20,
+    "rear": 22,
+    "left": 22,
+    "right": 22
+  }
+}

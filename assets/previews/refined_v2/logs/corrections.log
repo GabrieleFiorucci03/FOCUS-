@@ -1,0 +1,32 @@
+[REFINED] 1/2 RES_LOW_1x2_006
+C:\Users\gabri\Desktop\FOCUS!\tools\blender\generate_refined_assets.py:68: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  mat.use_nodes = True
+10:48:09 | INFO: Data are loaded, start creating Blender stuff
+10:48:09 | INFO: Blender create Mesh node Cube.015
+10:48:09 | INFO: Blender create Mesh node Cube
+10:48:09 | INFO: glTF import finished in 0.08s
+INFO Draco is available, use library at C:\Program Files\Blender Foundation\Blender 5.2\5.2\scripts\addons_core\io_scene_gltf2\bf_intern_draco_bridge.dll
+INFO MeshOptimizer is available, use library at C:\Program Files\Blender Foundation\Blender 5.2\5.2\scripts\addons_core\io_scene_gltf2\bf_intern_meshopt_bridge.dll
+10:48:09 | INFO: Starting glTF 2.0 export
+10:48:09 | INFO: Extracting primitive: Cube.015
+10:48:09 | INFO: Primitives created: 1
+10:48:09 | INFO: Extracting primitive: Cube
+10:48:10 | INFO: Primitives created: 15
+10:48:10 | INFO: Finished glTF 2.0 export in 0.5458033084869385 s
+
+[REFINED] 2/2 RES_HIGH_2x3_002
+10:48:15 | INFO: Data are loaded, start creating Blender stuff
+10:48:15 | INFO: Blender create Mesh node Cube.174
+10:48:15 | INFO: Blender create Mesh node Cube
+10:48:16 | INFO: glTF import finished in 0.40s
+10:48:16 | INFO: Starting glTF 2.0 export
+10:48:16 | INFO: Extracting primitive: Cube.174
+10:48:16 | INFO: Primitives created: 1
+10:48:16 | INFO: Extracting primitive: Cube
+10:48:16 | INFO: Primitives created: 13
+10:48:16 | INFO: Finished glTF 2.0 export in 0.365584135055542 s
+
+[REFINED] Complete 91
+Blender 5.2.1 LTS (hash 9e2066aef7ef built 2026-08-25 02:38:20)
+
+Blender quit

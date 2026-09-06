@@ -1,0 +1,40 @@
+{
+  "id": "EXP_SHOP_PHARMACY",
+  "kind": "shop",
+  "footprint": [
+    2,
+    2
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 1.801,
+  "min_z": 0.0,
+  "max_z": 1.801,
+  "triangles": 2692,
+  "seed": 3124,
+  "model": "EXP_SHOP_PHARMACY.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 2100,
+  "style": "refined_v2",
+  "name": "Farmacia del parco",
+  "group": "negozi",
+  "description": "Facciate chiare, croce verde e ingresso accessibile sotto pensilina.",
+  "recipe": "pharmacy",
+  "palette": [
+    "c2cec6",
+    "5c8a75",
+    "728585"
+  ],
+  "style_variant": "refined_v2",
+  "collection": "refined_expansion",
+  "is_new_asset": true,
+  "collision_mode": "simplified_component_boxes",
+  "collision_parts": 1,
+  "windows_by_side": {
+    "front": 1,
+    "rear": 6,
+    "left": 6,
+    "right": 6
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "id": "EXP_TOWER_COPPER",
+  "kind": "tower",
+  "footprint": [
+    3,
+    3
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 9.031,
+  "min_z": 0.0,
+  "max_z": 9.031,
+  "triangles": 29944,
+  "seed": 3115,
+  "model": "EXP_TOWER_COPPER.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 2100,
+  "style": "refined_v2",
+  "name": "Torre Rame",
+  "group": "citta",
+  "description": "Facciate verde rame, pinne color bronzo e coronamento tecnico.",
+  "recipe": "copper",
+  "palette": [
+    "719188",
+    "b08962",
+    "546563"
+  ],
+  "style_variant": "refined_v2",
+  "collection": "refined_expansion",
+  "is_new_asset": true,
+  "collision_mode": "simplified_component_boxes",
+  "collision_parts": 2,
+  "windows_by_side": {
+    "front": 88,
+    "rear": 89,
+    "left": 71,
+    "right": 71
+  }
+}

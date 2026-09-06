@@ -1,0 +1,40 @@
+{
+  "id": "EXP_TOWER_ROUND",
+  "kind": "tower",
+  "footprint": [
+    3,
+    3
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 9.055,
+  "min_z": 0.0,
+  "max_z": 9.055,
+  "triangles": 16172,
+  "seed": 3117,
+  "model": "EXP_TOWER_ROUND.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 2100,
+  "style": "refined_v2",
+  "name": "Torre Meridian",
+  "group": "citta",
+  "description": "Pianta circolare, vetrate continue, marcapiani e coronamento arretrato.",
+  "recipe": "round",
+  "palette": [
+    "8598a5",
+    "c4b38d",
+    "586a76"
+  ],
+  "style_variant": "refined_v2",
+  "collection": "refined_expansion",
+  "is_new_asset": true,
+  "collision_mode": "simplified_component_boxes",
+  "collision_parts": 3,
+  "windows_by_side": {
+    "front": 8,
+    "rear": 9,
+    "left": 7,
+    "right": 7
+  }
+}

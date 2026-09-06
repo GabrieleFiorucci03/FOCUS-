@@ -1,0 +1,40 @@
+{
+  "id": "EXP_SHOP_TRATTORIA",
+  "kind": "shop",
+  "footprint": [
+    3,
+    2
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 1.858,
+  "min_z": 0.0,
+  "max_z": 1.858,
+  "triangles": 5624,
+  "seed": 3127,
+  "model": "EXP_SHOP_TRATTORIA.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 2100,
+  "style": "refined_v2",
+  "name": "Trattoria del pergolato",
+  "group": "negozi",
+  "description": "Sala a L, pergolato, tavoli e fioriere all’ingresso.",
+  "recipe": "restaurant",
+  "palette": [
+    "c09682",
+    "6c8464",
+    "986d50"
+  ],
+  "style_variant": "refined_v2",
+  "collection": "refined_expansion",
+  "is_new_asset": true,
+  "collision_mode": "simplified_component_boxes",
+  "collision_parts": 2,
+  "windows_by_side": {
+    "front": 2,
+    "rear": 11,
+    "left": 4,
+    "right": 6
+  }
+}

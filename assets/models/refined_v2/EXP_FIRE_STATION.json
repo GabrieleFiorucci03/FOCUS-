@@ -1,0 +1,40 @@
+{
+  "id": "EXP_FIRE_STATION",
+  "kind": "service",
+  "footprint": [
+    3,
+    3
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 3.425,
+  "min_z": 0.0,
+  "max_z": 3.425,
+  "triangles": 6088,
+  "seed": 3144,
+  "model": "EXP_FIRE_STATION.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 2100,
+  "style": "refined_v2",
+  "name": "Caserma dei vigili del fuoco",
+  "group": "servizi",
+  "description": "Tre autorimesse, torre di esercitazione e corte di manovra.",
+  "recipe": "fire",
+  "palette": [
+    "ac6f59",
+    "af9d80",
+    "687786"
+  ],
+  "style_variant": "refined_v2",
+  "collection": "refined_expansion",
+  "is_new_asset": true,
+  "collision_mode": "simplified_component_boxes",
+  "collision_parts": 2,
+  "windows_by_side": {
+    "front": 11,
+    "rear": 17,
+    "left": 10,
+    "right": 7
+  }
+}

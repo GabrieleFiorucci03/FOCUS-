@@ -1,0 +1,34 @@
+{
+  "id": "EXP_BOTANICAL",
+  "kind": "service",
+  "footprint": [
+    4,
+    4
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 1.925,
+  "min_z": 0.0,
+  "max_z": 1.925,
+  "triangles": 41270,
+  "seed": 3147,
+  "model": "EXP_BOTANICAL.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 2100,
+  "style": "refined_v2",
+  "name": "Serra botanica",
+  "group": "servizi",
+  "description": "Padiglione a volte trasparenti, navate laterali e collezione di piante.",
+  "recipe": "botanical",
+  "palette": [
+    "adc4b8",
+    "d0c1a4",
+    "749787"
+  ],
+  "style_variant": "refined_v2",
+  "collection": "refined_expansion",
+  "is_new_asset": true,
+  "collision_mode": "simplified_component_boxes",
+  "collision_parts": 1
+}

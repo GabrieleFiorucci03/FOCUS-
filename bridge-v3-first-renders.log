@@ -1,0 +1,28 @@
+Info: Deleted 5 data-block(s)
+16:13:26 | INFO: Data are loaded, start creating Blender stuff
+16:13:26 | INFO: Blender create Mesh node BRG_LOCAL_RAMP_1x1_UP_050-colonly_Mesh.001
+16:13:26 | INFO: Blender create Mesh node BridgeRampSlab_Mesh.001
+16:13:26 | INFO: glTF import finished in 0.03s
+C:\Users\gabri\Desktop\FOCUS!\tools\blender\render_refined_assets.py:39: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  mat=bpy.data.materials.new('StudioWarmGrey');mat.use_nodes=True
+C:\Users\gabri\Desktop\FOCUS!\tools\blender\render_refined_assets.py:44: DeprecationWarning: 'World.use_nodes' is expected to be removed in Blender 6.0
+  world.use_nodes=True;world.node_tree.nodes['Background'].inputs[0].default_value=(.72,.78,.85,1)
+00:07.015  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\BRG_LOCAL_RAMP_1x1_UP_050__refined_v2__front.png'
+[RENDER] BRG_LOCAL_RAMP_1x1_UP_050__refined_v2__front.png
+Info: Deleted 21 data-block(s)
+16:13:31 | INFO: Data are loaded, start creating Blender stuff
+16:13:31 | INFO: Blender create Mesh node Cube.013
+16:13:31 | INFO: Blender create Mesh node BridgeCurb
+16:13:31 | INFO: glTF import finished in 0.02s
+00:10.344  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\BRG_LOCAL_DECK_1x1_CORNER__refined_v2__front.png'
+[RENDER] BRG_LOCAL_DECK_1x1_CORNER__refined_v2__front.png
+Info: Deleted 23 data-block(s)
+16:13:34 | INFO: Data are loaded, start creating Blender stuff
+16:13:34 | INFO: Blender create Mesh node Cube.010
+16:13:34 | INFO: Blender create Mesh node BridgeCurb
+16:13:34 | INFO: glTF import finished in 0.02s
+00:13.609  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\BRG_LOCAL_DECK_1x1_END__refined_v2__front.png'
+[RENDER] BRG_LOCAL_DECK_1x1_END__refined_v2__front.png
+Blender 5.2.1 LTS (hash 9e2066aef7ef built 2026-08-25 02:38:20)
+
+Blender quit

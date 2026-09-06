@@ -1,0 +1,40 @@
+{
+  "id": "EXP_FACTORY_MILL",
+  "kind": "factory",
+  "footprint": [
+    4,
+    3
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 4.14,
+  "min_z": 0.0,
+  "max_z": 4.14,
+  "triangles": 11208,
+  "seed": 3129,
+  "model": "EXP_FACTORY_MILL.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 2100,
+  "style": "refined_v2",
+  "name": "Filanda in mattoni",
+  "group": "industria",
+  "description": "Opificio lungo a più piani con torre scala, ciminiera e carico.",
+  "recipe": "mill",
+  "palette": [
+    "a57661",
+    "64817d",
+    "69645c"
+  ],
+  "style_variant": "refined_v2",
+  "collection": "refined_expansion",
+  "is_new_asset": true,
+  "collision_mode": "simplified_component_boxes",
+  "collision_parts": 3,
+  "windows_by_side": {
+    "front": 28,
+    "rear": 33,
+    "left": 17,
+    "right": 9
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "id": "EXP_VILLA_POOL",
+  "kind": "villa",
+  "footprint": [
+    4,
+    4
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 2.475,
+  "min_z": 0.0,
+  "max_z": 2.475,
+  "triangles": 17744,
+  "seed": 3102,
+  "model": "EXP_VILLA_POOL.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 2100,
+  "style": "refined_v2",
+  "name": "Villa orizzonte",
+  "group": "residenze",
+  "description": "Volumi sfalsati, vetrate, terrazza, piscina con scala e lettini.",
+  "recipe": "modern",
+  "palette": [
+    "d7d8cf",
+    "586d78",
+    "676e69"
+  ],
+  "style_variant": "refined_v2",
+  "collection": "refined_expansion",
+  "is_new_asset": true,
+  "collision_mode": "simplified_component_boxes",
+  "collision_parts": 2,
+  "windows_by_side": {
+    "front": 14,
+    "rear": 16,
+    "left": 13,
+    "right": 13
+  }
+}

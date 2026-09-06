@@ -1,0 +1,29 @@
+{
+  "id": "OFF_MID_3x3_003",
+  "kind": "office",
+  "footprint": [
+    3,
+    3
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 6.149,
+  "min_z": -0.017,
+  "max_z": 6.131,
+  "triangles": 43116,
+  "seed": 703,
+  "model": "OFF_MID_3x3_003.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 2001,
+  "shape": "atrium",
+  "style_variant": "refined_v2",
+  "source_asset_id": "OFF_MID_3x3_003",
+  "collision_source": "realistic",
+  "windows_by_side": {
+    "front": 74,
+    "rear": 76,
+    "left": 145,
+    "right": 152
+  }
+}

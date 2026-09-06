@@ -1,0 +1,90 @@
+[EXPANSION] 1/8 EXP_SHOP_CAFE
+INFO Draco is available, use library at C:\Program Files\Blender Foundation\Blender 5.2\5.2\scripts\addons_core\io_scene_gltf2\bf_intern_draco_bridge.dll
+INFO MeshOptimizer is available, use library at C:\Program Files\Blender Foundation\Blender 5.2\5.2\scripts\addons_core\io_scene_gltf2\bf_intern_meshopt_bridge.dll
+11:36:10 | INFO: Starting glTF 2.0 export
+11:36:10 | INFO: Extracting primitive: Cube.002
+11:36:10 | INFO: Primitives created: 1
+11:36:10 | INFO: Extracting primitive: Cube
+11:36:11 | INFO: Primitives created: 15
+11:36:11 | INFO: Finished glTF 2.0 export in 0.3119807243347168 s
+
+[EXPANSION] 2/8 EXP_SHOP_MARKET
+11:36:11 | INFO: Starting glTF 2.0 export
+11:36:11 | INFO: Extracting primitive: Cube.002
+11:36:11 | INFO: Primitives created: 1
+11:36:11 | INFO: Extracting primitive: Cube
+11:36:11 | INFO: Primitives created: 18
+11:36:11 | INFO: Finished glTF 2.0 export in 0.33071136474609375 s
+
+[EXPANSION] 3/8 EXP_FACTORY_MILL
+11:36:11 | INFO: Starting glTF 2.0 export
+11:36:11 | INFO: Extracting primitive: Cube.002
+11:36:11 | INFO: Primitives created: 1
+11:36:11 | INFO: Extracting primitive: Cube.004
+11:36:11 | INFO: Primitives created: 1
+11:36:11 | INFO: Extracting primitive: Cube.005
+11:36:11 | INFO: Primitives created: 1
+11:36:11 | INFO: Extracting primitive: Cube
+11:36:12 | INFO: Primitives created: 17
+11:36:12 | INFO: Finished glTF 2.0 export in 0.28405237197875977 s
+
+[EXPANSION] 4/8 EXP_FACTORY_SAW
+11:36:12 | INFO: Starting glTF 2.0 export
+11:36:12 | INFO: Extracting primitive: Cube.002
+11:36:12 | INFO: Primitives created: 1
+11:36:12 | INFO: Extracting primitive: Cube
+11:36:12 | INFO: Primitives created: 14
+11:36:12 | INFO: Finished glTF 2.0 export in 0.17822790145874023 s
+
+[EXPANSION] 5/8 EXP_FACTORY_LOGISTICS
+11:36:12 | INFO: Starting glTF 2.0 export
+11:36:12 | INFO: Extracting primitive: Cube.002
+11:36:12 | INFO: Primitives created: 1
+11:36:12 | INFO: Extracting primitive: Cube.004
+11:36:12 | INFO: Primitives created: 1
+11:36:12 | INFO: Extracting primitive: Cube
+11:36:12 | INFO: Primitives created: 15
+11:36:12 | INFO: Finished glTF 2.0 export in 0.19508957862854004 s
+
+[EXPANSION] 6/8 EXP_FACTORY_FOOD
+11:36:13 | INFO: Starting glTF 2.0 export
+11:36:13 | INFO: Extracting primitive: Cube.002
+11:36:13 | INFO: Primitives created: 1
+11:36:13 | INFO: Extracting primitive: Cube.004
+11:36:13 | INFO: Primitives created: 1
+11:36:13 | INFO: Extracting primitive: Cube.005
+11:36:13 | INFO: Primitives created: 1
+11:36:13 | INFO: Extracting primitive: Cube.006
+11:36:13 | INFO: Primitives created: 1
+11:36:13 | INFO: Extracting primitive: Cube.007
+11:36:13 | INFO: Primitives created: 1
+11:36:13 | INFO: Extracting primitive: Cube.008
+11:36:13 | INFO: Primitives created: 1
+11:36:13 | INFO: Extracting primitive: Cube
+11:36:13 | INFO: Primitives created: 15
+11:36:13 | INFO: Finished glTF 2.0 export in 0.25110530853271484 s
+
+[EXPANSION] 7/8 EXP_FACTORY_TECH
+11:36:13 | INFO: Starting glTF 2.0 export
+11:36:13 | INFO: Extracting primitive: Cube.002
+11:36:13 | INFO: Primitives created: 1
+11:36:13 | INFO: Extracting primitive: Cube.004
+11:36:13 | INFO: Primitives created: 1
+11:36:13 | INFO: Extracting primitive: Cube
+11:36:13 | INFO: Primitives created: 15
+11:36:13 | INFO: Finished glTF 2.0 export in 0.19948625564575195 s
+
+[EXPANSION] 8/8 EXP_FIRE_STATION
+11:36:14 | INFO: Starting glTF 2.0 export
+11:36:14 | INFO: Extracting primitive: Cube.002
+11:36:14 | INFO: Primitives created: 1
+11:36:14 | INFO: Extracting primitive: Cube.004
+11:36:14 | INFO: Primitives created: 1
+11:36:14 | INFO: Extracting primitive: Cube
+11:36:14 | INFO: Primitives created: 15
+11:36:14 | INFO: Finished glTF 2.0 export in 0.21549224853515625 s
+
+[EXPANSION] Complete 48
+Blender 5.2.1 LTS (hash 9e2066aef7ef built 2026-08-25 02:38:20)
+
+Blender quit

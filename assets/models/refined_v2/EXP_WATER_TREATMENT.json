@@ -1,0 +1,40 @@
+{
+  "id": "EXP_WATER_TREATMENT",
+  "kind": "utility",
+  "footprint": [
+    5,
+    4
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 1.425,
+  "min_z": 0.0,
+  "max_z": 1.425,
+  "triangles": 6556,
+  "seed": 3140,
+  "model": "EXP_WATER_TREATMENT.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 2100,
+  "style": "refined_v2",
+  "name": "Impianto di depurazione",
+  "group": "impianti",
+  "description": "Vasche circolari con ponti raschiatori, aerazione, condotte e edificio controllo.",
+  "recipe": "treatment",
+  "palette": [
+    "bcc1ad",
+    "739292",
+    "748477"
+  ],
+  "style_variant": "refined_v2",
+  "collection": "refined_expansion",
+  "is_new_asset": true,
+  "collision_mode": "simplified_component_boxes",
+  "collision_parts": 1,
+  "windows_by_side": {
+    "front": 4,
+    "rear": 4,
+    "left": 6,
+    "right": 6
+  }
+}

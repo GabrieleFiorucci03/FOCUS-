@@ -1,0 +1,4633 @@
+{
+  "style_variant": "refined_v2",
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "assets": [
+    {
+      "id": "RES_LOW_1x1_001",
+      "kind": "house",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 1.413,
+      "min_z": 0.0,
+      "max_z": 1.413,
+      "triangles": 3092,
+      "seed": 101,
+      "model": "RES_LOW_1x1_001.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "style_variant": "refined_v2",
+      "source_asset_id": "RES_LOW_1x1_001",
+      "collision_source": "realistic",
+      "windows_by_side": {
+        "front": 2,
+        "rear": 2,
+        "left": 1,
+        "right": 1
+      }
+    },
+    {
+      "id": "RES_LOW_1x1_002",
+      "kind": "house",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 1.398,
+      "min_z": 0.0,
+      "max_z": 1.398,
+      "triangles": 3246,
+      "seed": 102,
+      "model": "RES_LOW_1x1_002.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "style_variant": "refined_v2",
+      "source_asset_id": "RES_LOW_1x1_002",
+      "collision_source": "realistic",
+      "windows_by_side": {
+        "front": 2,
+        "rear": 2,
+        "left": 2,
+        "right": 2
+      }
+    },
+    {
+      "id": "RES_LOW_1x1_003",
+      "kind": "house",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 2.133,
+      "min_z": 0.0,
+      "max_z": 2.133,
+      "triangles": 5492,
+      "seed": 103,
+      "model": "RES_LOW_1x1_003.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "style_variant": "refined_v2",
+      "source_asset_id": "RES_LOW_1x1_003",
+      "collision_source": "realistic",
+      "windows_by_side": {
+        "front": 4,
+        "rear": 4,
+        "left": 4,
+        "right": 4
+      }
+    },
+    {
+      "id": "RES_LOW_1x1_004",
+      "kind": "house",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 1.785,
+      "min_z": 0.0,
+      "max_z": 1.785,
+      "triangles": 5580,
+      "seed": 104,
+      "model": "RES_LOW_1x1_004.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "style_variant": "refined_v2",
+      "source_asset_id": "RES_LOW_1x1_004",
+      "collision_source": "realistic",
+      "windows_by_side": {
+        "front": 4,
+        "rear": 4,
+        "left": 4,
+        "right": 4
+      }
+    },
+    {
+      "id": "RES_LOW_1x1_005",
+      "kind": "house",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 1.413,
+      "min_z": 0.0,
+      "max_z": 1.413,
+      "triangles": 4476,
+      "seed": 105,
+      "model": "RES_LOW_1x1_005.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "style_variant": "refined_v2",
+      "source_asset_id": "RES_LOW_1x1_005",
+      "collision_source": "realistic",
+      "windows_by_side": {
+        "front": 2,
+        "rear": 2,
+        "left": 2,
+        "right": 2
+      }
+    },
+    {
+      "id": "RES_LOW_1x2_006",
+      "kind": "house",
+      "footprint": [
+        1,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 1.379,
+      "min_z": 0.0,
+      "max_z": 1.379,
+      "triangles": 5288,
+      "seed": 106,
+      "model": "RES_LOW_1x2_006.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "feature": "garage",
+      "style_variant": "refined_v2",
+      "source_asset_id": "RES_LOW_1x2_006",
+      "collision_source": "realistic",
+      "windows_by_side": {
+        "front": 2,
+        "rear": 2,
+        "left": 4,
+        "right": 4
+      }
+    },
+    {
+      "id": "RES_LOW_2x1_007",
+      "kind": "house",
+      "footprint": [
+        2,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 2.133,
+      "min_z": 0.0,
+      "max_z": 2.133,
+      "triangles": 7760,
+      "seed": 107,
+      "model": "RES_LOW_2x1_007.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "feature": "duplex",
+      "style_variant": "refined_v2",
+      "source_asset_id": "RES_LOW_2x1_007",
+      "collision_source": "realistic",
+      "windows_by_side": {
+        "front": 6,
+        "rear": 8,
+        "left": 4,
+        "right": 4
+      }
+    },
+    {
+      "id": "RES_LOW_1x1_008",
+      "kind": "house",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 1.065,
+      "min_z": 0.0,
+      "max_z": 1.065,
+      "triangles": 3696,
+      "seed": 108,
+      "model": "RES_LOW_1x1_008.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "feature": "modern",
+      "style_variant": "refined_v2",
+      "source_asset_id": "RES_LOW_1x1_008",
+      "collision_source": "realistic",
+      "windows_by_side": {
+        "front": 2,
+        "rear": 2,
+        "left": 2,
+        "right": 2
+      }
+    },
+    {
+      "id": "RES_LOW_1x2_009",
+      "kind": "house",
+      "footprint": [
+        1,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 2.133,
+      "min_z": 0.0,
+      "max_z": 2.133,
+      "triangles": 8214,
+      "seed": 109,
+      "model": "RES_LOW_1x2_009.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "feature": "porch",
+      "style_variant": "refined_v2",
+      "source_asset_id": "RES_LOW_1x2_009",
+      "collision_source": "realistic",
+      "windows_by_side": {
+        "front": 4,
+        "rear": 4,
+        "left": 8,
+        "right": 8
+      }
+    },
+    {
+      "id": "RES_LOW_2x1_010",
+      "kind": "house",
+      "footprint": [
+        2,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 1.413,
+      "min_z": -0.0,
+      "max_z": 1.413,
+      "triangles": 7548,
+      "seed": 110,
+      "model": "RES_LOW_2x1_010.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "feature": "courtyard",
+      "style_variant": "refined_v2",
+      "source_asset_id": "RES_LOW_2x1_010",
+      "collision_source": "realistic",
+      "windows_by_side": {
+        "front": 4,
+        "rear": 5,
+        "left": 2,
+        "right": 1
+      }
+    },
+    {
+      "id": "RES_MID_2x2_001",
+      "kind": "apartment",
+      "footprint": [
+        2,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 2.451,
+      "min_z": 0.0,
+      "max_z": 2.451,
+      "triangles": 8280,
+      "seed": 201,
+      "model": "RES_MID_2x2_001.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "style_variant": "refined_v2",
+      "source_asset_id": "RES_MID_2x2_001",
+      "collision_source": "realistic",
+      "windows_by_side": {
+        "front": 14,
+        "rear": 16,
+        "left": 16,
+        "right": 16
+      }
+    },
+    {
+      "id": "RES_MID_2x2_002",
+      "kind": "apartment",
+      "footprint": [
+        2,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 3.032,
+      "min_z": 0.0,
+      "max_z": 3.032,
+      "triangles": 9060,
+      "seed": 202,
+      "model": "RES_MID_2x2_002.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "style_variant": "refined_v2",
+      "source_asset_id": "RES_MID_2x2_002",
+      "collision_source": "realistic",
+      "windows_by_side": {
+        "front": 18,
+        "rear": 20,
+        "left": 20,
+        "right": 20
+      }
+    },
+    {
+      "id": "RES_MID_2x2_003",
+      "kind": "apartment",
+      "footprint": [
+        2,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 3.612,
+      "min_z": 0.0,
+      "max_z": 3.612,
+      "triangles": 11856,
+      "seed": 203,
+      "model": "RES_MID_2x2_003.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "style_variant": "refined_v2",
+      "source_asset_id": "RES_MID_2x2_003",
+      "collision_source": "realistic",
+      "windows_by_side": {
+        "front": 22,
+        "rear": 24,
+        "left": 24,
+        "right": 24
+      }
+    },
+    {
+      "id": "RES_MID_2x2_004",
+      "kind": "apartment",
+      "footprint": [
+        2,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 3.496,
+      "min_z": 0.0,
+      "max_z": 3.496,
+      "triangles": 11940,
+      "seed": 204,
+      "model": "RES_MID_2x2_004.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "shape": "stepped",
+      "style_variant": "refined_v2",
+      "source_asset_id": "RES_MID_2x2_004",
+      "collision_source": "realistic",
+      "windows_by_side": {
+        "front": 20,
+        "rear": 22,
+        "left": 22,
+        "right": 22
+      }
+    },
+    {
+      "id": "RES_MID_2x3_005",
+      "kind": "apartment",
+      "footprint": [
+        2,
+        3
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 3.612,
+      "min_z": 0.0,
+      "max_z": 3.612,
+      "triangles": 15468,
+      "seed": 205,
+      "model": "RES_MID_2x3_005.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "shape": "wing",
+      "style_variant": "refined_v2",
+      "source_asset_id": "RES_MID_2x3_005",
+      "collision_source": "realistic",
+      "windows_by_side": {
+        "front": 22,
+        "rear": 24,
+        "left": 42,
+        "right": 42
+      }
+    },
+    {
+      "id": "RES_MID_3x2_006",
+      "kind": "apartment",
+      "footprint": [
+        3,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 3.032,
+      "min_z": 0.0,
+      "max_z": 3.032,
+      "triangles": 16080,
+      "seed": 206,
+      "model": "RES_MID_3x2_006.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "shape": "twin",
+      "style_variant": "refined_v2",
+      "source_asset_id": "RES_MID_3x2_006",
+      "collision_source": "realistic",
+      "windows_by_side": {
+        "front": 26,
+        "rear": 27,
+        "left": 36,
+        "right": 36
+      }
+    },
+    {
+      "id": "RES_HIGH_2x2_001",
+      "kind": "slab",
+      "footprint": [
+        2,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 5.251,
+      "min_z": 0.0,
+      "max_z": 5.251,
+      "triangles": 18588,
+      "seed": 301,
+      "model": "RES_HIGH_2x2_001.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "style_variant": "refined_v2",
+      "source_asset_id": "RES_HIGH_2x2_001",
+      "collision_source": "realistic",
+      "windows_by_side": {
+        "front": 45,
+        "rear": 46,
+        "left": 36,
+        "right": 36
+      }
+    },
+    {
+      "id": "RES_HIGH_2x3_002",
+      "kind": "slab",
+      "footprint": [
+        2,
+        3
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 6.841,
+      "min_z": 0.0,
+      "max_z": 6.841,
+      "triangles": 31752,
+      "seed": 302,
+      "model": "RES_HIGH_2x3_002.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "shape": "offset",
+      "style_variant": "refined_v2",
+      "source_asset_id": "RES_HIGH_2x3_002",
+      "collision_source": "realistic",
+      "windows_by_side": {
+        "front": 60,
+        "rear": 61,
+        "left": 84,
+        "right": 79
+      }
+    },
+    {
+      "id": "RES_LUX_2x2_001",
+      "kind": "villa",
+      "footprint": [
+        2,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 1.98,
+      "min_z": 0.0,
+      "max_z": 1.98,
+      "triangles": 11264,
+      "seed": 401,
+      "model": "RES_LUX_2x2_001.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "style_variant": "refined_v2",
+      "source_asset_id": "RES_LUX_2x2_001",
+      "collision_source": "realistic",
+      "windows_by_side": {
+        "front": 8,
+        "rear": 9,
+        "left": 6,
+        "right": 5
+      }
+    },
+    {
+      "id": "RES_LUX_2x2_002",
+      "kind": "villa",
+      "footprint": [
+        2,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 1.665,
+      "min_z": 0.0,
+      "max_z": 1.665,
+      "triangles": 12036,
+      "seed": 402,
+      "model": "RES_LUX_2x2_002.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "style_variant": "refined_v2",
+      "source_asset_id": "RES_LUX_2x2_002",
+      "collision_source": "realistic",
+      "windows_by_side": {
+        "front": 8,
+        "rear": 9,
+        "left": 6,
+        "right": 5
+      }
+    },
+    {
+      "id": "RES_LUX_2x2_003",
+      "kind": "villa",
+      "footprint": [
+        2,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 1.26,
+      "min_z": 0.0,
+      "max_z": 1.26,
+      "triangles": 10016,
+      "seed": 403,
+      "model": "RES_LUX_2x2_003.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "shape": "courtyard",
+      "style_variant": "refined_v2",
+      "source_asset_id": "RES_LUX_2x2_003",
+      "collision_source": "realistic",
+      "windows_by_side": {
+        "front": 4,
+        "rear": 5,
+        "left": 3,
+        "right": 2
+      }
+    },
+    {
+      "id": "RES_LUX_3x2_004",
+      "kind": "villa",
+      "footprint": [
+        3,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 1.622,
+      "min_z": 0.0,
+      "max_z": 1.622,
+      "triangles": 11016,
+      "seed": 404,
+      "model": "RES_LUX_3x2_004.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "shape": "modern",
+      "style_variant": "refined_v2",
+      "source_asset_id": "RES_LUX_3x2_004",
+      "collision_source": "realistic",
+      "windows_by_side": {
+        "front": 11,
+        "rear": 11,
+        "left": 6,
+        "right": 5
+      }
+    },
+    {
+      "id": "RES_TOWER_3x3_001",
+      "kind": "tower",
+      "footprint": [
+        3,
+        3
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 10.205,
+      "min_z": 0.0,
+      "max_z": 10.205,
+      "triangles": 33168,
+      "seed": 501,
+      "model": "RES_TOWER_3x3_001.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "style_variant": "refined_v2",
+      "source_asset_id": "RES_TOWER_3x3_001",
+      "collision_source": "realistic",
+      "windows_by_side": {
+        "front": 94,
+        "rear": 94,
+        "left": 92,
+        "right": 92
+      }
+    },
+    {
+      "id": "RES_TOWER_3x3_002",
+      "kind": "tower",
+      "footprint": [
+        3,
+        3
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 12.125,
+      "min_z": 0.0,
+      "max_z": 12.125,
+      "triangles": 37932,
+      "seed": 502,
+      "model": "RES_TOWER_3x3_002.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "shape": "setback",
+      "style_variant": "refined_v2",
+      "source_asset_id": "RES_TOWER_3x3_002",
+      "collision_source": "realistic",
+      "windows_by_side": {
+        "front": 107,
+        "rear": 107,
+        "left": 105,
+        "right": 105
+      }
+    },
+    {
+      "id": "RES_TOWER_4x4_003",
+      "kind": "tower",
+      "footprint": [
+        4,
+        4
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 14.045,
+      "min_z": 0.0,
+      "max_z": 14.045,
+      "triangles": 69240,
+      "seed": 503,
+      "model": "RES_TOWER_4x4_003.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "shape": "twin",
+      "style_variant": "refined_v2",
+      "source_asset_id": "RES_TOWER_4x4_003",
+      "collision_source": "realistic",
+      "windows_by_side": {
+        "front": 184,
+        "rear": 184,
+        "left": 206,
+        "right": 206
+      }
+    },
+    {
+      "id": "COM_LOW_1x1_001",
+      "kind": "shop",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 1.072,
+      "min_z": 0.0,
+      "max_z": 1.072,
+      "triangles": 2484,
+      "seed": 601,
+      "model": "COM_LOW_1x1_001.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "style_variant": "refined_v2",
+      "source_asset_id": "COM_LOW_1x1_001",
+      "collision_source": "realistic",
+      "windows_by_side": {
+        "front": 1,
+        "rear": 2,
+        "left": 2,
+        "right": 2
+      }
+    },
+    {
+      "id": "COM_LOW_1x1_002",
+      "kind": "shop",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 1.072,
+      "min_z": 0.0,
+      "max_z": 1.072,
+      "triangles": 2484,
+      "seed": 602,
+      "model": "COM_LOW_1x1_002.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "style_variant": "refined_v2",
+      "source_asset_id": "COM_LOW_1x1_002",
+      "collision_source": "realistic",
+      "windows_by_side": {
+        "front": 1,
+        "rear": 2,
+        "left": 2,
+        "right": 2
+      }
+    },
+    {
+      "id": "COM_LOW_1x1_003",
+      "kind": "shop",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 1.072,
+      "min_z": 0.0,
+      "max_z": 1.072,
+      "triangles": 2724,
+      "seed": 603,
+      "model": "COM_LOW_1x1_003.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "variant": "cafe",
+      "style_variant": "refined_v2",
+      "source_asset_id": "COM_LOW_1x1_003",
+      "collision_source": "realistic",
+      "windows_by_side": {
+        "front": 1,
+        "rear": 2,
+        "left": 2,
+        "right": 2
+      }
+    },
+    {
+      "id": "COM_LOW_2x1_004",
+      "kind": "shop",
+      "footprint": [
+        2,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 1.072,
+      "min_z": 0.0,
+      "max_z": 1.072,
+      "triangles": 2880,
+      "seed": 604,
+      "model": "COM_LOW_2x1_004.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "variant": "restaurant",
+      "style_variant": "refined_v2",
+      "source_asset_id": "COM_LOW_2x1_004",
+      "collision_source": "realistic",
+      "windows_by_side": {
+        "front": 1,
+        "rear": 5,
+        "left": 2,
+        "right": 2
+      }
+    },
+    {
+      "id": "COM_MID_2x2_005",
+      "kind": "shop",
+      "footprint": [
+        2,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 1.322,
+      "min_z": 0.0,
+      "max_z": 1.322,
+      "triangles": 5352,
+      "seed": 605,
+      "model": "COM_MID_2x2_005.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "variant": "market",
+      "style_variant": "refined_v2",
+      "source_asset_id": "COM_MID_2x2_005",
+      "collision_source": "realistic",
+      "windows_by_side": {
+        "front": 6,
+        "rear": 8,
+        "left": 10,
+        "right": 10
+      }
+    },
+    {
+      "id": "COM_KIOSK_1x1_006",
+      "kind": "shop",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 1.072,
+      "min_z": 0.0,
+      "max_z": 1.072,
+      "triangles": 2484,
+      "seed": 606,
+      "model": "COM_KIOSK_1x1_006.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "variant": "kiosk",
+      "style_variant": "refined_v2",
+      "source_asset_id": "COM_KIOSK_1x1_006",
+      "collision_source": "realistic",
+      "windows_by_side": {
+        "front": 1,
+        "rear": 2,
+        "left": 2,
+        "right": 2
+      }
+    },
+    {
+      "id": "OFF_LOW_2x2_001",
+      "kind": "office",
+      "footprint": [
+        2,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 3.149,
+      "min_z": -0.018,
+      "max_z": 3.132,
+      "triangles": 10716,
+      "seed": 701,
+      "model": "OFF_LOW_2x2_001.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "style_variant": "refined_v2",
+      "source_asset_id": "OFF_LOW_2x2_001",
+      "collision_source": "realistic",
+      "windows_by_side": {
+        "front": 27,
+        "rear": 30,
+        "left": 25,
+        "right": 25
+      }
+    },
+    {
+      "id": "OFF_MID_2x2_002",
+      "kind": "office",
+      "footprint": [
+        2,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 5.549,
+      "min_z": -0.017,
+      "max_z": 5.531,
+      "triangles": 18660,
+      "seed": 702,
+      "model": "OFF_MID_2x2_002.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "shape": "stepped",
+      "style_variant": "refined_v2",
+      "source_asset_id": "OFF_MID_2x2_002",
+      "collision_source": "realistic",
+      "windows_by_side": {
+        "front": 47,
+        "rear": 50,
+        "left": 43,
+        "right": 43
+      }
+    },
+    {
+      "id": "OFF_MID_3x3_003",
+      "kind": "office",
+      "footprint": [
+        3,
+        3
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 6.149,
+      "min_z": -0.017,
+      "max_z": 6.131,
+      "triangles": 43116,
+      "seed": 703,
+      "model": "OFF_MID_3x3_003.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "shape": "atrium",
+      "style_variant": "refined_v2",
+      "source_asset_id": "OFF_MID_3x3_003",
+      "collision_source": "realistic",
+      "windows_by_side": {
+        "front": 74,
+        "rear": 76,
+        "left": 145,
+        "right": 152
+      }
+    },
+    {
+      "id": "IND_LOW_2x2_001",
+      "kind": "factory",
+      "footprint": [
+        2,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 2.89,
+      "min_z": 0.0,
+      "max_z": 2.89,
+      "triangles": 3748,
+      "seed": 801,
+      "model": "IND_LOW_2x2_001.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "style_variant": "refined_v2",
+      "source_asset_id": "IND_LOW_2x2_001",
+      "collision_source": "realistic",
+      "windows_by_side": {
+        "front": 5,
+        "rear": 5,
+        "left": 4,
+        "right": 4
+      }
+    },
+    {
+      "id": "IND_LOW_3x2_002",
+      "kind": "factory",
+      "footprint": [
+        3,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 2.89,
+      "min_z": 0.0,
+      "max_z": 2.89,
+      "triangles": 5644,
+      "seed": 802,
+      "model": "IND_LOW_3x2_002.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "variant": "warehouse",
+      "style_variant": "refined_v2",
+      "source_asset_id": "IND_LOW_3x2_002",
+      "collision_source": "realistic",
+      "windows_by_side": {
+        "front": 8,
+        "rear": 8,
+        "left": 4,
+        "right": 4
+      }
+    },
+    {
+      "id": "IND_MID_3x3_003",
+      "kind": "factory",
+      "footprint": [
+        3,
+        3
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 3.16,
+      "min_z": 0.0,
+      "max_z": 3.16,
+      "triangles": 7468,
+      "seed": 803,
+      "model": "IND_MID_3x3_003.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "variant": "logistics",
+      "style_variant": "refined_v2",
+      "source_asset_id": "IND_MID_3x3_003",
+      "collision_source": "realistic",
+      "windows_by_side": {
+        "front": 8,
+        "rear": 8,
+        "left": 7,
+        "right": 7
+      }
+    },
+    {
+      "id": "PARK_2x2_001",
+      "kind": "park",
+      "footprint": [
+        2,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 1.086,
+      "min_z": -0.004,
+      "max_z": 1.082,
+      "triangles": 10416,
+      "seed": 901,
+      "model": "PARK_2x2_001.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "style_variant": "refined_v2",
+      "source_asset_id": "PARK_2x2_001",
+      "collision_source": "realistic"
+    },
+    {
+      "id": "PARK_2x2_002",
+      "kind": "park",
+      "footprint": [
+        2,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 1.09,
+      "min_z": -0.004,
+      "max_z": 1.086,
+      "triangles": 10904,
+      "seed": 902,
+      "model": "PARK_2x2_002.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "variant": "playground",
+      "style_variant": "refined_v2",
+      "source_asset_id": "PARK_2x2_002",
+      "collision_source": "realistic"
+    },
+    {
+      "id": "PARK_3x3_003",
+      "kind": "park",
+      "footprint": [
+        3,
+        3
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 1.079,
+      "min_z": -0.004,
+      "max_z": 1.075,
+      "triangles": 10524,
+      "seed": 903,
+      "model": "PARK_3x3_003.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "variant": "plaza",
+      "style_variant": "refined_v2",
+      "source_asset_id": "PARK_3x3_003",
+      "collision_source": "realistic"
+    },
+    {
+      "id": "PARK_1x1_004",
+      "kind": "park",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 1.06,
+      "min_z": -0.004,
+      "max_z": 1.056,
+      "triangles": 6408,
+      "seed": 904,
+      "model": "PARK_1x1_004.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "variant": "pocket",
+      "style_variant": "refined_v2",
+      "source_asset_id": "PARK_1x1_004",
+      "collision_source": "realistic"
+    },
+    {
+      "id": "CIV_POLICE_2x2_001",
+      "kind": "service",
+      "footprint": [
+        2,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 2.49,
+      "min_z": 0.0,
+      "max_z": 2.49,
+      "triangles": 5208,
+      "seed": 1001,
+      "model": "CIV_POLICE_2x2_001.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "service": "police",
+      "style_variant": "refined_v2",
+      "source_asset_id": "CIV_POLICE_2x2_001",
+      "collision_source": "realistic",
+      "windows_by_side": {
+        "front": 9,
+        "rear": 10,
+        "left": 8,
+        "right": 8
+      }
+    },
+    {
+      "id": "CIV_FIRE_2x2_001",
+      "kind": "service",
+      "footprint": [
+        2,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 1.512,
+      "min_z": 0.0,
+      "max_z": 1.512,
+      "triangles": 5640,
+      "seed": 1002,
+      "model": "CIV_FIRE_2x2_001.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "service": "fire",
+      "style_variant": "refined_v2",
+      "source_asset_id": "CIV_FIRE_2x2_001",
+      "collision_source": "realistic",
+      "windows_by_side": {
+        "front": 7,
+        "rear": 10,
+        "left": 8,
+        "right": 8
+      }
+    },
+    {
+      "id": "CIV_HEALTH_3x3_001",
+      "kind": "service",
+      "footprint": [
+        3,
+        3
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 2.171,
+      "min_z": 0.0,
+      "max_z": 2.171,
+      "triangles": 10896,
+      "seed": 1003,
+      "model": "CIV_HEALTH_3x3_001.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "service": "health",
+      "style_variant": "refined_v2",
+      "source_asset_id": "CIV_HEALTH_3x3_001",
+      "collision_source": "realistic",
+      "windows_by_side": {
+        "front": 20,
+        "rear": 24,
+        "left": 24,
+        "right": 24
+      }
+    },
+    {
+      "id": "CIV_POLICE_3x2_002",
+      "kind": "service",
+      "footprint": [
+        3,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 3.15,
+      "min_z": 0.0,
+      "max_z": 3.15,
+      "triangles": 8568,
+      "seed": 1004,
+      "model": "CIV_POLICE_3x2_002.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "variant": "central",
+      "service": "police",
+      "style_variant": "refined_v2",
+      "source_asset_id": "CIV_POLICE_3x2_002",
+      "collision_source": "realistic",
+      "windows_by_side": {
+        "front": 22,
+        "rear": 24,
+        "left": 12,
+        "right": 12
+      }
+    },
+    {
+      "id": "CIV_FIRE_3x2_002",
+      "kind": "service",
+      "footprint": [
+        3,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 1.512,
+      "min_z": 0.0,
+      "max_z": 1.512,
+      "triangles": 6696,
+      "seed": 1005,
+      "model": "CIV_FIRE_3x2_002.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "variant": "central",
+      "service": "fire",
+      "style_variant": "refined_v2",
+      "source_asset_id": "CIV_FIRE_3x2_002",
+      "collision_source": "realistic",
+      "windows_by_side": {
+        "front": 12,
+        "rear": 16,
+        "left": 8,
+        "right": 8
+      }
+    },
+    {
+      "id": "CIV_HEALTH_2x2_002",
+      "kind": "service",
+      "footprint": [
+        2,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 1.512,
+      "min_z": 0.0,
+      "max_z": 1.512,
+      "triangles": 5268,
+      "seed": 1006,
+      "model": "CIV_HEALTH_2x2_002.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "variant": "clinic",
+      "service": "health",
+      "style_variant": "refined_v2",
+      "source_asset_id": "CIV_HEALTH_2x2_002",
+      "collision_source": "realistic",
+      "windows_by_side": {
+        "front": 8,
+        "rear": 10,
+        "left": 8,
+        "right": 8
+      }
+    },
+    {
+      "id": "ROAD_LOCAL_1x1_STRAIGHT",
+      "kind": "road",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 0.12,
+      "min_z": 0.0,
+      "max_z": 0.12,
+      "triangles": 2176,
+      "seed": 1101,
+      "model": "ROAD_LOCAL_1x1_STRAIGHT.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "variant": "straight",
+      "style_variant": "refined_v2",
+      "source_asset_id": "ROAD_LOCAL_1x1_STRAIGHT",
+      "collision_source": "realistic"
+    },
+    {
+      "id": "ROAD_LOCAL_1x1_CORNER",
+      "kind": "road",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 0.12,
+      "min_z": 0.0,
+      "max_z": 0.12,
+      "triangles": 2176,
+      "seed": 1102,
+      "model": "ROAD_LOCAL_1x1_CORNER.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "variant": "corner",
+      "style_variant": "refined_v2",
+      "source_asset_id": "ROAD_LOCAL_1x1_CORNER",
+      "collision_source": "realistic"
+    },
+    {
+      "id": "ROAD_LOCAL_1x1_T",
+      "kind": "road",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 0.12,
+      "min_z": 0.0,
+      "max_z": 0.12,
+      "triangles": 2340,
+      "seed": 1103,
+      "model": "ROAD_LOCAL_1x1_T.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "variant": "t",
+      "style_variant": "refined_v2",
+      "source_asset_id": "ROAD_LOCAL_1x1_T",
+      "collision_source": "realistic"
+    },
+    {
+      "id": "ROAD_LOCAL_1x1_CROSS",
+      "kind": "road",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 0.12,
+      "min_z": 0.0,
+      "max_z": 0.12,
+      "triangles": 2504,
+      "seed": 1104,
+      "model": "ROAD_LOCAL_1x1_CROSS.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "variant": "cross",
+      "style_variant": "refined_v2",
+      "source_asset_id": "ROAD_LOCAL_1x1_CROSS",
+      "collision_source": "realistic"
+    },
+    {
+      "id": "ROAD_LOCAL_1x1_END",
+      "kind": "road",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 0.12,
+      "min_z": 0.0,
+      "max_z": 0.12,
+      "triangles": 2120,
+      "seed": 1105,
+      "model": "ROAD_LOCAL_1x1_END.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "variant": "end",
+      "style_variant": "refined_v2",
+      "source_asset_id": "ROAD_LOCAL_1x1_END",
+      "collision_source": "realistic"
+    },
+    {
+      "id": "ROAD_DIRT_1x1_STRAIGHT",
+      "kind": "road",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 0.141,
+      "min_z": 0.0,
+      "max_z": 0.141,
+      "triangles": 1096,
+      "seed": 1111,
+      "model": "ROAD_DIRT_1x1_STRAIGHT.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "variant": "straight",
+      "style": "dirt",
+      "style_variant": "refined_v2",
+      "source_asset_id": "ROAD_DIRT_1x1_STRAIGHT",
+      "collision_source": "realistic"
+    },
+    {
+      "id": "ROAD_DIRT_1x1_CORNER",
+      "kind": "road",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 0.175,
+      "min_z": 0.0,
+      "max_z": 0.175,
+      "triangles": 1096,
+      "seed": 1112,
+      "model": "ROAD_DIRT_1x1_CORNER.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "variant": "corner",
+      "style": "dirt",
+      "style_variant": "refined_v2",
+      "source_asset_id": "ROAD_DIRT_1x1_CORNER",
+      "collision_source": "realistic"
+    },
+    {
+      "id": "ROAD_DIRT_1x1_T",
+      "kind": "road",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 0.168,
+      "min_z": 0.0,
+      "max_z": 0.168,
+      "triangles": 1104,
+      "seed": 1113,
+      "model": "ROAD_DIRT_1x1_T.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "variant": "t",
+      "style": "dirt",
+      "style_variant": "refined_v2",
+      "source_asset_id": "ROAD_DIRT_1x1_T",
+      "collision_source": "realistic"
+    },
+    {
+      "id": "ROAD_DIRT_1x1_CROSS",
+      "kind": "road",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 0.174,
+      "min_z": 0.0,
+      "max_z": 0.174,
+      "triangles": 1112,
+      "seed": 1114,
+      "model": "ROAD_DIRT_1x1_CROSS.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "variant": "cross",
+      "style": "dirt",
+      "style_variant": "refined_v2",
+      "source_asset_id": "ROAD_DIRT_1x1_CROSS",
+      "collision_source": "realistic"
+    },
+    {
+      "id": "ROAD_DIRT_1x1_END",
+      "kind": "road",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 0.141,
+      "min_z": 0.0,
+      "max_z": 0.141,
+      "triangles": 1088,
+      "seed": 1115,
+      "model": "ROAD_DIRT_1x1_END.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "variant": "end",
+      "style": "dirt",
+      "style_variant": "refined_v2",
+      "source_asset_id": "ROAD_DIRT_1x1_END",
+      "collision_source": "realistic"
+    },
+    {
+      "id": "ROAD_LOCAL_SLOPE_1x1_UP_050",
+      "kind": "sloped_road",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 0.78,
+      "min_z": -0.08,
+      "max_z": 0.7,
+      "triangles": 860,
+      "seed": 1121,
+      "model": "ROAD_LOCAL_SLOPE_1x1_UP_050.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "style": "local",
+      "direction": "up",
+      "rise": 0.5,
+      "connections": {
+        "north": 0.0,
+        "south": 0.5
+      },
+      "style_variant": "refined_v2",
+      "source_asset_id": "ROAD_LOCAL_SLOPE_1x1_UP_050",
+      "collision_source": "realistic"
+    },
+    {
+      "id": "ROAD_LOCAL_SLOPE_1x1_DOWN_050",
+      "kind": "sloped_road",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 0.78,
+      "min_z": -0.08,
+      "max_z": 0.7,
+      "triangles": 860,
+      "seed": 1122,
+      "model": "ROAD_LOCAL_SLOPE_1x1_DOWN_050.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "style": "local",
+      "direction": "down",
+      "rise": 0.5,
+      "connections": {
+        "north": 0.5,
+        "south": 0.0
+      },
+      "style_variant": "refined_v2",
+      "source_asset_id": "ROAD_LOCAL_SLOPE_1x1_DOWN_050",
+      "collision_source": "realistic"
+    },
+    {
+      "id": "ROAD_LOCAL_SLOPE_1x2_UP_050",
+      "kind": "sloped_road",
+      "footprint": [
+        1,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 0.78,
+      "min_z": -0.08,
+      "max_z": 0.7,
+      "triangles": 860,
+      "seed": 1123,
+      "model": "ROAD_LOCAL_SLOPE_1x2_UP_050.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "style": "local",
+      "direction": "up",
+      "rise": 0.5,
+      "connections": {
+        "north": 0.0,
+        "south": 0.5
+      },
+      "style_variant": "refined_v2",
+      "source_asset_id": "ROAD_LOCAL_SLOPE_1x2_UP_050",
+      "collision_source": "realistic"
+    },
+    {
+      "id": "ROAD_LOCAL_SLOPE_1x2_DOWN_050",
+      "kind": "sloped_road",
+      "footprint": [
+        1,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 0.78,
+      "min_z": -0.08,
+      "max_z": 0.7,
+      "triangles": 860,
+      "seed": 1124,
+      "model": "ROAD_LOCAL_SLOPE_1x2_DOWN_050.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "style": "local",
+      "direction": "down",
+      "rise": 0.5,
+      "connections": {
+        "north": 0.5,
+        "south": 0.0
+      },
+      "style_variant": "refined_v2",
+      "source_asset_id": "ROAD_LOCAL_SLOPE_1x2_DOWN_050",
+      "collision_source": "realistic"
+    },
+    {
+      "id": "ROAD_DIRT_SLOPE_1x1_UP_050",
+      "kind": "sloped_road",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 0.78,
+      "min_z": -0.08,
+      "max_z": 0.7,
+      "triangles": 848,
+      "seed": 1131,
+      "model": "ROAD_DIRT_SLOPE_1x1_UP_050.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "style": "dirt",
+      "direction": "up",
+      "rise": 0.5,
+      "connections": {
+        "north": 0.0,
+        "south": 0.5
+      },
+      "style_variant": "refined_v2",
+      "source_asset_id": "ROAD_DIRT_SLOPE_1x1_UP_050",
+      "collision_source": "realistic"
+    },
+    {
+      "id": "ROAD_DIRT_SLOPE_1x1_DOWN_050",
+      "kind": "sloped_road",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 0.78,
+      "min_z": -0.08,
+      "max_z": 0.7,
+      "triangles": 848,
+      "seed": 1132,
+      "model": "ROAD_DIRT_SLOPE_1x1_DOWN_050.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "style": "dirt",
+      "direction": "down",
+      "rise": 0.5,
+      "connections": {
+        "north": 0.5,
+        "south": 0.0
+      },
+      "style_variant": "refined_v2",
+      "source_asset_id": "ROAD_DIRT_SLOPE_1x1_DOWN_050",
+      "collision_source": "realistic"
+    },
+    {
+      "id": "ROAD_DIRT_SLOPE_1x2_UP_050",
+      "kind": "sloped_road",
+      "footprint": [
+        1,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 0.78,
+      "min_z": -0.08,
+      "max_z": 0.7,
+      "triangles": 848,
+      "seed": 1133,
+      "model": "ROAD_DIRT_SLOPE_1x2_UP_050.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "style": "dirt",
+      "direction": "up",
+      "rise": 0.5,
+      "connections": {
+        "north": 0.0,
+        "south": 0.5
+      },
+      "style_variant": "refined_v2",
+      "source_asset_id": "ROAD_DIRT_SLOPE_1x2_UP_050",
+      "collision_source": "realistic"
+    },
+    {
+      "id": "ROAD_DIRT_SLOPE_1x2_DOWN_050",
+      "kind": "sloped_road",
+      "footprint": [
+        1,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 0.78,
+      "min_z": -0.08,
+      "max_z": 0.7,
+      "triangles": 848,
+      "seed": 1134,
+      "model": "ROAD_DIRT_SLOPE_1x2_DOWN_050.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "style": "dirt",
+      "direction": "down",
+      "rise": 0.5,
+      "connections": {
+        "north": 0.5,
+        "south": 0.0
+      },
+      "style_variant": "refined_v2",
+      "source_asset_id": "ROAD_DIRT_SLOPE_1x2_DOWN_050",
+      "collision_source": "realistic"
+    },
+    {
+      "id": "BRG_LOCAL_RAMP_1x1_UP_050",
+      "kind": "bridge",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 1.135,
+      "min_z": -0.2,
+      "max_z": 0.935,
+      "triangles": 1116,
+      "seed": 1701,
+      "model": "BRG_LOCAL_RAMP_1x1_UP_050.glb",
+      "front_axis": "-Y",
+      "origin_mode": "terrain",
+      "generator_version": 2001,
+      "variant": "ramp",
+      "style": "local",
+      "direction": "up",
+      "rise": 0.5,
+      "connections": {
+        "north": 0.0,
+        "south": 0.5
+      },
+      "style_variant": "refined_v2",
+      "source_asset_id": "BRG_LOCAL_RAMP_1x1_UP_050",
+      "collision_source": "realistic",
+      "bridge_barrier_layout": "continuous_miter_v3",
+      "bridge_barrier_road_clearance_m": 0.1625,
+      "bridge_barrier_paths": [
+        [
+          [
+            -0.665,
+            1.0
+          ],
+          [
+            -0.665,
+            -1.0
+          ]
+        ],
+        [
+          [
+            0.665,
+            -1.0
+          ],
+          [
+            0.665,
+            1.0
+          ]
+        ]
+      ],
+      "bridge_rail_height_m": 0.435,
+      "bridge_open_ports": [
+        "north",
+        "south"
+      ]
+    },
+    {
+      "id": "BRG_LOCAL_RAMP_1x1_DOWN_050",
+      "kind": "bridge",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 1.135,
+      "min_z": -0.2,
+      "max_z": 0.935,
+      "triangles": 1116,
+      "seed": 1702,
+      "model": "BRG_LOCAL_RAMP_1x1_DOWN_050.glb",
+      "front_axis": "-Y",
+      "origin_mode": "terrain",
+      "generator_version": 2001,
+      "variant": "ramp",
+      "style": "local",
+      "direction": "down",
+      "rise": 0.5,
+      "connections": {
+        "north": 0.5,
+        "south": 0.0
+      },
+      "style_variant": "refined_v2",
+      "source_asset_id": "BRG_LOCAL_RAMP_1x1_DOWN_050",
+      "collision_source": "realistic",
+      "bridge_barrier_layout": "continuous_miter_v3",
+      "bridge_barrier_road_clearance_m": 0.1625,
+      "bridge_barrier_paths": [
+        [
+          [
+            -0.665,
+            1.0
+          ],
+          [
+            -0.665,
+            -1.0
+          ]
+        ],
+        [
+          [
+            0.665,
+            -1.0
+          ],
+          [
+            0.665,
+            1.0
+          ]
+        ]
+      ],
+      "bridge_rail_height_m": 0.435,
+      "bridge_open_ports": [
+        "north",
+        "south"
+      ]
+    },
+    {
+      "id": "BRG_LOCAL_DECK_1x1_STRAIGHT",
+      "kind": "bridge",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 0.775,
+      "min_z": -0.34,
+      "max_z": 0.435,
+      "triangles": 1588,
+      "seed": 1703,
+      "model": "BRG_LOCAL_DECK_1x1_STRAIGHT.glb",
+      "front_axis": "-Y",
+      "origin_mode": "road_surface",
+      "generator_version": 2001,
+      "variant": "straight",
+      "style": "local",
+      "connections": {
+        "north": 0.0,
+        "south": 0.0
+      },
+      "style_variant": "refined_v2",
+      "source_asset_id": "BRG_LOCAL_DECK_1x1_STRAIGHT",
+      "collision_source": "realistic",
+      "bridge_barrier_layout": "continuous_miter_v3",
+      "bridge_barrier_road_clearance_m": 0.1625,
+      "bridge_barrier_paths": [
+        [
+          [
+            -0.665,
+            1.0
+          ],
+          [
+            -0.665,
+            -1.0
+          ]
+        ],
+        [
+          [
+            0.665,
+            -1.0
+          ],
+          [
+            0.665,
+            1.0
+          ]
+        ]
+      ],
+      "bridge_rail_height_m": 0.435,
+      "bridge_open_ports": [
+        "north",
+        "south"
+      ]
+    },
+    {
+      "id": "BRG_LOCAL_DECK_1x1_CORNER",
+      "kind": "bridge",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 0.775,
+      "min_z": -0.34,
+      "max_z": 0.435,
+      "triangles": 1636,
+      "seed": 1704,
+      "model": "BRG_LOCAL_DECK_1x1_CORNER.glb",
+      "front_axis": "-Y",
+      "origin_mode": "road_surface",
+      "generator_version": 2001,
+      "variant": "corner",
+      "style": "local",
+      "connections": {
+        "north": 0.0,
+        "east": 0.0
+      },
+      "style_variant": "refined_v2",
+      "source_asset_id": "BRG_LOCAL_DECK_1x1_CORNER",
+      "collision_source": "realistic",
+      "bridge_barrier_layout": "continuous_miter_v3",
+      "bridge_barrier_road_clearance_m": 0.1625,
+      "bridge_barrier_paths": [
+        [
+          [
+            0.665,
+            -1.0
+          ],
+          [
+            0.665,
+            -0.665
+          ],
+          [
+            1.0,
+            -0.665
+          ]
+        ],
+        [
+          [
+            1.0,
+            0.665
+          ],
+          [
+            -0.665,
+            0.665
+          ],
+          [
+            -0.665,
+            -1.0
+          ]
+        ]
+      ],
+      "bridge_rail_height_m": 0.435,
+      "bridge_open_ports": [
+        "north",
+        "east"
+      ]
+    },
+    {
+      "id": "BRG_LOCAL_DECK_1x1_T",
+      "kind": "bridge",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 0.775,
+      "min_z": -0.34,
+      "max_z": 0.435,
+      "triangles": 1568,
+      "seed": 1705,
+      "model": "BRG_LOCAL_DECK_1x1_T.glb",
+      "front_axis": "-Y",
+      "origin_mode": "road_surface",
+      "generator_version": 2001,
+      "variant": "t",
+      "style": "local",
+      "connections": {
+        "north": 0.0,
+        "east": 0.0,
+        "west": 0.0
+      },
+      "style_variant": "refined_v2",
+      "source_asset_id": "BRG_LOCAL_DECK_1x1_T",
+      "collision_source": "realistic",
+      "bridge_barrier_layout": "continuous_miter_v3",
+      "bridge_barrier_road_clearance_m": 0.1625,
+      "bridge_barrier_paths": [
+        [
+          [
+            -1.0,
+            -0.665
+          ],
+          [
+            -0.665,
+            -0.665
+          ],
+          [
+            -0.665,
+            -1.0
+          ]
+        ],
+        [
+          [
+            0.665,
+            -1.0
+          ],
+          [
+            0.665,
+            -0.665
+          ],
+          [
+            1.0,
+            -0.665
+          ]
+        ],
+        [
+          [
+            1.0,
+            0.665
+          ],
+          [
+            -1.0,
+            0.665
+          ]
+        ]
+      ],
+      "bridge_rail_height_m": 0.435,
+      "bridge_open_ports": [
+        "north",
+        "east",
+        "west"
+      ]
+    },
+    {
+      "id": "BRG_LOCAL_DECK_1x1_CROSS",
+      "kind": "bridge",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 0.775,
+      "min_z": -0.34,
+      "max_z": 0.435,
+      "triangles": 1548,
+      "seed": 1706,
+      "model": "BRG_LOCAL_DECK_1x1_CROSS.glb",
+      "front_axis": "-Y",
+      "origin_mode": "road_surface",
+      "generator_version": 2001,
+      "variant": "cross",
+      "style": "local",
+      "connections": {
+        "north": 0.0,
+        "east": 0.0,
+        "south": 0.0,
+        "west": 0.0
+      },
+      "style_variant": "refined_v2",
+      "source_asset_id": "BRG_LOCAL_DECK_1x1_CROSS",
+      "collision_source": "realistic",
+      "bridge_barrier_layout": "continuous_miter_v3",
+      "bridge_barrier_road_clearance_m": 0.1625,
+      "bridge_barrier_paths": [
+        [
+          [
+            -1.0,
+            -0.665
+          ],
+          [
+            -0.665,
+            -0.665
+          ],
+          [
+            -0.665,
+            -1.0
+          ]
+        ],
+        [
+          [
+            -0.665,
+            1.0
+          ],
+          [
+            -0.665,
+            0.665
+          ],
+          [
+            -1.0,
+            0.665
+          ]
+        ],
+        [
+          [
+            0.665,
+            -1.0
+          ],
+          [
+            0.665,
+            -0.665
+          ],
+          [
+            1.0,
+            -0.665
+          ]
+        ],
+        [
+          [
+            1.0,
+            0.665
+          ],
+          [
+            0.665,
+            0.665
+          ],
+          [
+            0.665,
+            1.0
+          ]
+        ]
+      ],
+      "bridge_rail_height_m": 0.435,
+      "bridge_open_ports": [
+        "north",
+        "east",
+        "south",
+        "west"
+      ]
+    },
+    {
+      "id": "BRG_LOCAL_DECK_1x1_END",
+      "kind": "bridge",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 0.775,
+      "min_z": -0.34,
+      "max_z": 0.435,
+      "triangles": 1680,
+      "seed": 1707,
+      "model": "BRG_LOCAL_DECK_1x1_END.glb",
+      "front_axis": "-Y",
+      "origin_mode": "road_surface",
+      "generator_version": 2001,
+      "variant": "end",
+      "style": "local",
+      "connections": {
+        "north": 0.0
+      },
+      "style_variant": "refined_v2",
+      "source_asset_id": "BRG_LOCAL_DECK_1x1_END",
+      "collision_source": "realistic",
+      "bridge_barrier_layout": "continuous_miter_v3",
+      "bridge_barrier_road_clearance_m": 0.1625,
+      "bridge_barrier_paths": [
+        [
+          [
+            0.665,
+            -1.0
+          ],
+          [
+            0.665,
+            0.665
+          ],
+          [
+            -0.665,
+            0.665
+          ],
+          [
+            -0.665,
+            -1.0
+          ]
+        ]
+      ],
+      "bridge_rail_height_m": 0.435,
+      "bridge_open_ports": [
+        "north"
+      ]
+    },
+    {
+      "id": "BRG_SUPPORT_PIER_1x1_LOW_050",
+      "kind": "bridge_support",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 0.5,
+      "min_z": 0.0,
+      "max_z": 0.5,
+      "triangles": 748,
+      "seed": 1711,
+      "model": "BRG_SUPPORT_PIER_1x1_LOW_050.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "variant": "pier",
+      "support_height": 0.5,
+      "style_variant": "refined_v2",
+      "source_asset_id": "BRG_SUPPORT_PIER_1x1_LOW_050",
+      "collision_source": "realistic"
+    },
+    {
+      "id": "BRG_SUPPORT_PIER_1x1_MID_100",
+      "kind": "bridge_support",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 1.0,
+      "min_z": 0.0,
+      "max_z": 1.0,
+      "triangles": 748,
+      "seed": 1712,
+      "model": "BRG_SUPPORT_PIER_1x1_MID_100.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "variant": "pier",
+      "support_height": 1.0,
+      "style_variant": "refined_v2",
+      "source_asset_id": "BRG_SUPPORT_PIER_1x1_MID_100",
+      "collision_source": "realistic"
+    },
+    {
+      "id": "BRG_SUPPORT_PIER_1x1_HIGH_150",
+      "kind": "bridge_support",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 1.5,
+      "min_z": 0.0,
+      "max_z": 1.5,
+      "triangles": 748,
+      "seed": 1713,
+      "model": "BRG_SUPPORT_PIER_1x1_HIGH_150.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "variant": "pier",
+      "support_height": 1.5,
+      "style_variant": "refined_v2",
+      "source_asset_id": "BRG_SUPPORT_PIER_1x1_HIGH_150",
+      "collision_source": "realistic"
+    },
+    {
+      "id": "BRG_SUPPORT_ABUTMENT_1x1_050",
+      "kind": "bridge_support",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 0.66,
+      "min_z": 0.0,
+      "max_z": 0.66,
+      "triangles": 812,
+      "seed": 1714,
+      "model": "BRG_SUPPORT_ABUTMENT_1x1_050.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "variant": "abutment",
+      "support_height": 0.5,
+      "style_variant": "refined_v2",
+      "source_asset_id": "BRG_SUPPORT_ABUTMENT_1x1_050",
+      "collision_source": "realistic"
+    },
+    {
+      "id": "NAT_TREE_OAK_1x1_001",
+      "kind": "tree",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 1.632,
+      "min_z": 0.0,
+      "max_z": 1.632,
+      "triangles": 3248,
+      "seed": 1201,
+      "model": "NAT_TREE_OAK_1x1_001.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "variant": "oak",
+      "style_variant": "refined_v2",
+      "source_asset_id": "NAT_TREE_OAK_1x1_001",
+      "collision_source": "realistic"
+    },
+    {
+      "id": "NAT_TREE_PINE_1x1_001",
+      "kind": "tree",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 1.484,
+      "min_z": 0.0,
+      "max_z": 1.484,
+      "triangles": 2492,
+      "seed": 1202,
+      "model": "NAT_TREE_PINE_1x1_001.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "variant": "pine",
+      "style_variant": "refined_v2",
+      "source_asset_id": "NAT_TREE_PINE_1x1_001",
+      "collision_source": "realistic"
+    },
+    {
+      "id": "NAT_TREE_BIRCH_1x1_001",
+      "kind": "tree",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 2.07,
+      "min_z": 0.0,
+      "max_z": 2.07,
+      "triangles": 1220,
+      "seed": 1203,
+      "model": "NAT_TREE_BIRCH_1x1_001.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "variant": "birch",
+      "style_variant": "refined_v2",
+      "source_asset_id": "NAT_TREE_BIRCH_1x1_001",
+      "collision_source": "realistic"
+    },
+    {
+      "id": "NAT_TREE_CYPRESS_1x1_001",
+      "kind": "tree",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 2.43,
+      "min_z": 0.0,
+      "max_z": 2.43,
+      "triangles": 522,
+      "seed": 1204,
+      "model": "NAT_TREE_CYPRESS_1x1_001.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "variant": "cypress",
+      "style_variant": "refined_v2",
+      "source_asset_id": "NAT_TREE_CYPRESS_1x1_001",
+      "collision_source": "realistic"
+    },
+    {
+      "id": "NAT_TREE_FLOWER_1x1_001",
+      "kind": "tree",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 1.758,
+      "min_z": -0.026,
+      "max_z": 1.732,
+      "triangles": 1220,
+      "seed": 1205,
+      "model": "NAT_TREE_FLOWER_1x1_001.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "variant": "flowering",
+      "style_variant": "refined_v2",
+      "source_asset_id": "NAT_TREE_FLOWER_1x1_001",
+      "collision_source": "realistic"
+    },
+    {
+      "id": "NAT_TREE_OAK_1x1_002",
+      "kind": "tree",
+      "footprint": [
+        1,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 1.529,
+      "min_z": 0.0,
+      "max_z": 1.529,
+      "triangles": 3248,
+      "seed": 1206,
+      "model": "NAT_TREE_OAK_1x1_002.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "variant": "oak",
+      "style_variant": "refined_v2",
+      "source_asset_id": "NAT_TREE_OAK_1x1_002",
+      "collision_source": "realistic"
+    },
+    {
+      "id": "EDU_SCHOOL_3x3_001",
+      "kind": "school",
+      "footprint": [
+        3,
+        3
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 1.452,
+      "min_z": 0.0,
+      "max_z": 1.452,
+      "triangles": 8664,
+      "seed": 1301,
+      "model": "EDU_SCHOOL_3x3_001.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "variant": "primary",
+      "style_variant": "refined_v2",
+      "source_asset_id": "EDU_SCHOOL_3x3_001",
+      "collision_source": "realistic",
+      "windows_by_side": {
+        "front": 9,
+        "rear": 16,
+        "left": 10,
+        "right": 10
+      }
+    },
+    {
+      "id": "EDU_SCHOOL_4x3_002",
+      "kind": "school",
+      "footprint": [
+        4,
+        3
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 2.112,
+      "min_z": 0.0,
+      "max_z": 2.112,
+      "triangles": 14448,
+      "seed": 1302,
+      "model": "EDU_SCHOOL_4x3_002.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "variant": "secondary",
+      "style_variant": "refined_v2",
+      "source_asset_id": "EDU_SCHOOL_4x3_002",
+      "collision_source": "realistic",
+      "windows_by_side": {
+        "front": 30,
+        "rear": 25,
+        "left": 18,
+        "right": 18
+      }
+    },
+    {
+      "id": "AGR_BARN_2x2_001",
+      "kind": "agriculture",
+      "footprint": [
+        2,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 2.07,
+      "min_z": 0.0,
+      "max_z": 2.07,
+      "triangles": 4154,
+      "seed": 1401,
+      "model": "AGR_BARN_2x2_001.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "variant": "barn",
+      "style_variant": "refined_v2",
+      "source_asset_id": "AGR_BARN_2x2_001",
+      "collision_source": "realistic",
+      "windows_by_side": {
+        "front": 3,
+        "rear": 3,
+        "left": 3,
+        "right": 3
+      }
+    },
+    {
+      "id": "AGR_GREENHOUSE_3x2_001",
+      "kind": "agriculture",
+      "footprint": [
+        3,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 1.151,
+      "min_z": 0.0,
+      "max_z": 1.151,
+      "triangles": 4420,
+      "seed": 1402,
+      "model": "AGR_GREENHOUSE_3x2_001.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "variant": "greenhouse",
+      "style_variant": "refined_v2",
+      "source_asset_id": "AGR_GREENHOUSE_3x2_001",
+      "collision_source": "realistic",
+      "windows_by_side": {
+        "front": 8,
+        "rear": 8,
+        "left": 10,
+        "right": 10
+      }
+    },
+    {
+      "id": "UTIL_WIND_2x2_001",
+      "kind": "utility",
+      "footprint": [
+        2,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 4.875,
+      "min_z": 0.0,
+      "max_z": 4.875,
+      "triangles": 1124,
+      "seed": 1501,
+      "model": "UTIL_WIND_2x2_001.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "variant": "wind",
+      "style_variant": "refined_v2",
+      "source_asset_id": "UTIL_WIND_2x2_001",
+      "collision_source": "realistic"
+    },
+    {
+      "id": "UTIL_WATER_2x2_001",
+      "kind": "utility",
+      "footprint": [
+        2,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 3.705,
+      "min_z": 0.0,
+      "max_z": 3.705,
+      "triangles": 1290,
+      "seed": 1502,
+      "model": "UTIL_WATER_2x2_001.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "variant": "water",
+      "style_variant": "refined_v2",
+      "source_asset_id": "UTIL_WATER_2x2_001",
+      "collision_source": "realistic"
+    },
+    {
+      "id": "UTIL_SOLAR_3x2_001",
+      "kind": "utility",
+      "footprint": [
+        3,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 0.572,
+      "min_z": 0.0,
+      "max_z": 0.572,
+      "triangles": 2832,
+      "seed": 1503,
+      "model": "UTIL_SOLAR_3x2_001.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "variant": "solar",
+      "style_variant": "refined_v2",
+      "source_asset_id": "UTIL_SOLAR_3x2_001",
+      "collision_source": "realistic"
+    },
+    {
+      "id": "SPORT_FOOTBALL_3x2_001",
+      "kind": "sport",
+      "footprint": [
+        3,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 1.784,
+      "min_z": 0.0,
+      "max_z": 1.784,
+      "triangles": 3664,
+      "seed": 1601,
+      "model": "SPORT_FOOTBALL_3x2_001.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "variant": "football",
+      "style_variant": "refined_v2",
+      "source_asset_id": "SPORT_FOOTBALL_3x2_001",
+      "collision_source": "realistic"
+    },
+    {
+      "id": "SPORT_BASKET_2x1_001",
+      "kind": "sport",
+      "footprint": [
+        2,
+        1
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 1.784,
+      "min_z": 0.0,
+      "max_z": 1.784,
+      "triangles": 3736,
+      "seed": 1602,
+      "model": "SPORT_BASKET_2x1_001.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2001,
+      "variant": "basketball",
+      "style_variant": "refined_v2",
+      "source_asset_id": "SPORT_BASKET_2x1_001",
+      "collision_source": "realistic"
+    },
+    {
+      "id": "EXP_COTTAGE",
+      "kind": "house",
+      "footprint": [
+        3,
+        3
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 2.2,
+      "min_z": 0.0,
+      "max_z": 2.2,
+      "triangles": 17788,
+      "seed": 3100,
+      "model": "EXP_COTTAGE.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2100,
+      "style": "refined_v2",
+      "name": "Cottage dei glicini",
+      "group": "residenze",
+      "description": "Intonaco avorio, persiane verdi, tetto in cotto, vialetto e aiuole fiorite.",
+      "recipe": "cottage",
+      "palette": [
+        "d1c1a4",
+        "527466",
+        "92624b"
+      ],
+      "style_variant": "refined_v2",
+      "collection": "refined_expansion",
+      "is_new_asset": true,
+      "collision_mode": "simplified_component_boxes",
+      "collision_parts": 1,
+      "windows_by_side": {
+        "front": 5,
+        "rear": 6,
+        "left": 6,
+        "right": 6
+      }
+    },
+    {
+      "id": "EXP_VILLA_LIMONAIA",
+      "kind": "villa",
+      "footprint": [
+        4,
+        3
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 2.217,
+      "min_z": 0.0,
+      "max_z": 2.217,
+      "triangles": 27320,
+      "seed": 3101,
+      "model": "EXP_VILLA_LIMONAIA.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2100,
+      "style": "refined_v2",
+      "name": "Villa della limonaia",
+      "group": "residenze",
+      "description": "Portico mediterraneo, limoni, pergolato e corte pavimentata.",
+      "recipe": "mediterranean",
+      "palette": [
+        "d1b770",
+        "62868a",
+        "ad7654"
+      ],
+      "style_variant": "refined_v2",
+      "collection": "refined_expansion",
+      "is_new_asset": true,
+      "collision_mode": "simplified_component_boxes",
+      "collision_parts": 2,
+      "windows_by_side": {
+        "front": 7,
+        "rear": 9,
+        "left": 6,
+        "right": 6
+      }
+    },
+    {
+      "id": "EXP_VILLA_POOL",
+      "kind": "villa",
+      "footprint": [
+        4,
+        4
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 2.475,
+      "min_z": 0.0,
+      "max_z": 2.475,
+      "triangles": 17744,
+      "seed": 3102,
+      "model": "EXP_VILLA_POOL.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2100,
+      "style": "refined_v2",
+      "name": "Villa orizzonte",
+      "group": "residenze",
+      "description": "Volumi sfalsati, vetrate, terrazza, piscina con scala e lettini.",
+      "recipe": "modern",
+      "palette": [
+        "d7d8cf",
+        "586d78",
+        "676e69"
+      ],
+      "style_variant": "refined_v2",
+      "collection": "refined_expansion",
+      "is_new_asset": true,
+      "collision_mode": "simplified_component_boxes",
+      "collision_parts": 2,
+      "windows_by_side": {
+        "front": 14,
+        "rear": 16,
+        "left": 13,
+        "right": 13
+      }
+    },
+    {
+      "id": "EXP_HOUSE_NORDIC",
+      "kind": "house",
+      "footprint": [
+        3,
+        3
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 2.2,
+      "min_z": 0.0,
+      "max_z": 2.2,
+      "triangles": 17560,
+      "seed": 3103,
+      "model": "EXP_HOUSE_NORDIC.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2100,
+      "style": "refined_v2",
+      "name": "Casa nordica",
+      "group": "residenze",
+      "description": "Tetto scuro, rivestimento scandito, abete e orto domestico.",
+      "recipe": "nordic",
+      "palette": [
+        "677d89",
+        "d1c7ab",
+        "4b535b"
+      ],
+      "style_variant": "refined_v2",
+      "collection": "refined_expansion",
+      "is_new_asset": true,
+      "collision_mode": "simplified_component_boxes",
+      "collision_parts": 1,
+      "windows_by_side": {
+        "front": 5,
+        "rear": 6,
+        "left": 6,
+        "right": 6
+      }
+    },
+    {
+      "id": "EXP_VILLA_FORMAL",
+      "kind": "villa",
+      "footprint": [
+        4,
+        4
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 2.798,
+      "min_z": 0.0,
+      "max_z": 2.798,
+      "triangles": 27156,
+      "seed": 3104,
+      "model": "EXP_VILLA_FORMAL.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2100,
+      "style": "refined_v2",
+      "name": "Villa del roseto",
+      "group": "residenze",
+      "description": "Villa simmetrica, ingresso colonnato, parterre e fontana.",
+      "recipe": "formal",
+      "palette": [
+        "c89b93",
+        "6f756c",
+        "786657"
+      ],
+      "style_variant": "refined_v2",
+      "collection": "refined_expansion",
+      "is_new_asset": true,
+      "collision_mode": "simplified_component_boxes",
+      "collision_parts": 1,
+      "windows_by_side": {
+        "front": 14,
+        "rear": 15,
+        "left": 9,
+        "right": 9
+      }
+    },
+    {
+      "id": "EXP_VILLA_COURT",
+      "kind": "villa",
+      "footprint": [
+        4,
+        4
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 1.998,
+      "min_z": 0.0,
+      "max_z": 1.998,
+      "triangles": 24364,
+      "seed": 3105,
+      "model": "EXP_VILLA_COURT.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2100,
+      "style": "refined_v2",
+      "name": "Villa corte degli ulivi",
+      "group": "residenze",
+      "description": "Pianta a U, corte centrale, olivo, vasca e pergola.",
+      "recipe": "courtyard",
+      "palette": [
+        "c1b49c",
+        "778465",
+        "96755d"
+      ],
+      "style_variant": "refined_v2",
+      "collection": "refined_expansion",
+      "is_new_asset": true,
+      "collision_mode": "simplified_component_boxes",
+      "collision_parts": 3,
+      "windows_by_side": {
+        "front": 6,
+        "rear": 12,
+        "left": 10,
+        "right": 10
+      }
+    },
+    {
+      "id": "EXP_CHALET",
+      "kind": "house",
+      "footprint": [
+        3,
+        3
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 2.548,
+      "min_z": 0.0,
+      "max_z": 2.548,
+      "triangles": 16648,
+      "seed": 3106,
+      "model": "EXP_CHALET.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2100,
+      "style": "refined_v2",
+      "name": "Chalet del bosco",
+      "group": "residenze",
+      "description": "Doppia falda pronunciata, balcone in legno e giardino di conifere.",
+      "recipe": "chalet",
+      "palette": [
+        "947657",
+        "57756f",
+        "595e60"
+      ],
+      "style_variant": "refined_v2",
+      "collection": "refined_expansion",
+      "is_new_asset": true,
+      "collision_mode": "simplified_component_boxes",
+      "collision_parts": 1,
+      "windows_by_side": {
+        "front": 5,
+        "rear": 6,
+        "left": 6,
+        "right": 6
+      }
+    },
+    {
+      "id": "EXP_VILLA_PATIO",
+      "kind": "villa",
+      "footprint": [
+        4,
+        3
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 1.962,
+      "min_z": 0.0,
+      "max_z": 1.962,
+      "triangles": 17396,
+      "seed": 3107,
+      "model": "EXP_VILLA_PATIO.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2100,
+      "style": "refined_v2",
+      "name": "Villa del patio",
+      "group": "residenze",
+      "description": "Mattoni caldi, tetto verde, patio con sedute e pergola a lamelle.",
+      "recipe": "patio",
+      "palette": [
+        "ad7964",
+        "547878",
+        "beb39a"
+      ],
+      "style_variant": "refined_v2",
+      "collection": "refined_expansion",
+      "is_new_asset": true,
+      "collision_mode": "simplified_component_boxes",
+      "collision_parts": 2,
+      "windows_by_side": {
+        "front": 10,
+        "rear": 11,
+        "left": 8,
+        "right": 4
+      }
+    },
+    {
+      "id": "EXP_PALAZZO_COURT",
+      "kind": "apartment",
+      "footprint": [
+        4,
+        4
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 3.825,
+      "min_z": 0.0,
+      "max_z": 3.825,
+      "triangles": 30088,
+      "seed": 3108,
+      "model": "EXP_PALAZZO_COURT.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2100,
+      "style": "refined_v2",
+      "name": "Palazzo della corte",
+      "group": "citta",
+      "description": "Quattro ali intorno a un cortile alberato, cornici e cornicione.",
+      "recipe": "court",
+      "palette": [
+        "c5b596",
+        "6c7d79",
+        "786558"
+      ],
+      "style_variant": "refined_v2",
+      "collection": "refined_expansion",
+      "is_new_asset": true,
+      "collision_mode": "simplified_component_boxes",
+      "collision_parts": 4,
+      "windows_by_side": {
+        "front": 70,
+        "rear": 72,
+        "left": 60,
+        "right": 60
+      }
+    },
+    {
+      "id": "EXP_PALAZZO_STEPS",
+      "kind": "apartment",
+      "footprint": [
+        3,
+        3
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 5.607,
+      "min_z": 0.0,
+      "max_z": 5.607,
+      "triangles": 25684,
+      "seed": 3109,
+      "model": "EXP_PALAZZO_STEPS.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2100,
+      "style": "refined_v2",
+      "name": "Residenze a terrazze",
+      "group": "citta",
+      "description": "Tre corpi degradanti, terrazze piantumate e parapetti sottili.",
+      "recipe": "steps",
+      "palette": [
+        "a7afa0",
+        "b9a881",
+        "62736a"
+      ],
+      "style_variant": "refined_v2",
+      "collection": "refined_expansion",
+      "is_new_asset": true,
+      "collision_mode": "simplified_component_boxes",
+      "collision_parts": 3,
+      "windows_by_side": {
+        "front": 34,
+        "rear": 36,
+        "left": 72,
+        "right": 72
+      }
+    },
+    {
+      "id": "EXP_PALAZZO_BRICK",
+      "kind": "apartment",
+      "footprint": [
+        3,
+        3
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 4.271,
+      "min_z": 0.0,
+      "max_z": 4.271,
+      "triangles": 17036,
+      "seed": 3110,
+      "model": "EXP_PALAZZO_BRICK.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2100,
+      "style": "refined_v2",
+      "name": "Palazzo delle officine",
+      "group": "citta",
+      "description": "Mattoni rossi, basamento in pietra e balconi metallici.",
+      "recipe": "brick",
+      "palette": [
+        "a7735d",
+        "607788",
+        "706959"
+      ],
+      "style_variant": "refined_v2",
+      "collection": "refined_expansion",
+      "is_new_asset": true,
+      "collision_mode": "simplified_component_boxes",
+      "collision_parts": 1,
+      "windows_by_side": {
+        "front": 34,
+        "rear": 36,
+        "left": 24,
+        "right": 24
+      }
+    },
+    {
+      "id": "EXP_PALAZZO_CORNER",
+      "kind": "apartment",
+      "footprint": [
+        3,
+        3
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 4.125,
+      "min_z": 0.0,
+      "max_z": 4.125,
+      "triangles": 17620,
+      "seed": 3111,
+      "model": "EXP_PALAZZO_CORNER.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2100,
+      "style": "refined_v2",
+      "name": "Palazzo angolare",
+      "group": "citta",
+      "description": "Edificio a L color malva, negozi al piano terra e terrazza comune.",
+      "recipe": "corner",
+      "palette": [
+        "b8a3b8",
+        "72847d",
+        "65636e"
+      ],
+      "style_variant": "refined_v2",
+      "collection": "refined_expansion",
+      "is_new_asset": true,
+      "collision_mode": "simplified_component_boxes",
+      "collision_parts": 2,
+      "windows_by_side": {
+        "front": 26,
+        "rear": 36,
+        "left": 42,
+        "right": 35
+      }
+    },
+    {
+      "id": "EXP_PALAZZO_LOGGIAS",
+      "kind": "apartment",
+      "footprint": [
+        3,
+        3
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 4.871,
+      "min_z": 0.0,
+      "max_z": 4.871,
+      "triangles": 19556,
+      "seed": 3112,
+      "model": "EXP_PALAZZO_LOGGIAS.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2100,
+      "style": "refined_v2",
+      "name": "Casa delle logge",
+      "group": "citta",
+      "description": "Facciate ocra con logge profonde e fioriere ritmate.",
+      "recipe": "loggias",
+      "palette": [
+        "cc9f6c",
+        "698783",
+        "a37857"
+      ],
+      "style_variant": "refined_v2",
+      "collection": "refined_expansion",
+      "is_new_asset": true,
+      "collision_mode": "simplified_component_boxes",
+      "collision_parts": 1,
+      "windows_by_side": {
+        "front": 40,
+        "rear": 42,
+        "left": 28,
+        "right": 28
+      }
+    },
+    {
+      "id": "EXP_TOWER_DECO",
+      "kind": "tower",
+      "footprint": [
+        3,
+        3
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 10.05,
+      "min_z": 0.0,
+      "max_z": 10.05,
+      "triangles": 27112,
+      "seed": 3113,
+      "model": "EXP_TOWER_DECO.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2100,
+      "style": "refined_v2",
+      "name": "Torre Aurora",
+      "group": "citta",
+      "description": "Grattacielo art déco con arretramenti, nervature verticali e guglia.",
+      "recipe": "deco",
+      "palette": [
+        "b7aa8b",
+        "74898c",
+        "656b6a"
+      ],
+      "style_variant": "refined_v2",
+      "collection": "refined_expansion",
+      "is_new_asset": true,
+      "collision_mode": "simplified_component_boxes",
+      "collision_parts": 4,
+      "windows_by_side": {
+        "front": 79,
+        "rear": 80,
+        "left": 64,
+        "right": 64
+      }
+    },
+    {
+      "id": "EXP_TOWER_TWINS",
+      "kind": "tower",
+      "footprint": [
+        4,
+        3
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 7.625,
+      "min_z": 0.0,
+      "max_z": 7.625,
+      "triangles": 34808,
+      "seed": 3114,
+      "model": "EXP_TOWER_TWINS.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2100,
+      "style": "refined_v2",
+      "name": "Torri gemelle del porto",
+      "group": "citta",
+      "description": "Due torri di altezza diversa collegate da un ponte vetrato.",
+      "recipe": "twins",
+      "palette": [
+        "6d8592",
+        "b8baa9",
+        "5b6771"
+      ],
+      "style_variant": "refined_v2",
+      "collection": "refined_expansion",
+      "is_new_asset": true,
+      "collision_mode": "simplified_component_boxes",
+      "collision_parts": 4,
+      "windows_by_side": {
+        "front": 84,
+        "rear": 85,
+        "left": 105,
+        "right": 103
+      }
+    },
+    {
+      "id": "EXP_TOWER_COPPER",
+      "kind": "tower",
+      "footprint": [
+        3,
+        3
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 9.031,
+      "min_z": 0.0,
+      "max_z": 9.031,
+      "triangles": 29944,
+      "seed": 3115,
+      "model": "EXP_TOWER_COPPER.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2100,
+      "style": "refined_v2",
+      "name": "Torre Rame",
+      "group": "citta",
+      "description": "Facciate verde rame, pinne color bronzo e coronamento tecnico.",
+      "recipe": "copper",
+      "palette": [
+        "719188",
+        "b08962",
+        "546563"
+      ],
+      "style_variant": "refined_v2",
+      "collection": "refined_expansion",
+      "is_new_asset": true,
+      "collision_mode": "simplified_component_boxes",
+      "collision_parts": 2,
+      "windows_by_side": {
+        "front": 88,
+        "rear": 89,
+        "left": 71,
+        "right": 71
+      }
+    },
+    {
+      "id": "EXP_TOWER_GARDENS",
+      "kind": "tower",
+      "footprint": [
+        3,
+        3
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 8.456,
+      "min_z": 0.0,
+      "max_z": 8.456,
+      "triangles": 31252,
+      "seed": 3116,
+      "model": "EXP_TOWER_GARDENS.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2100,
+      "style": "refined_v2",
+      "name": "Torre dei giardini",
+      "group": "citta",
+      "description": "Volumi sfalsati e arretrati, terrazze verdi e fioriere.",
+      "recipe": "gardens",
+      "palette": [
+        "c1b7a3",
+        "5d7965",
+        "78898c"
+      ],
+      "style_variant": "refined_v2",
+      "collection": "refined_expansion",
+      "is_new_asset": true,
+      "collision_mode": "simplified_component_boxes",
+      "collision_parts": 5,
+      "windows_by_side": {
+        "front": 80,
+        "rear": 81,
+        "left": 63,
+        "right": 63
+      }
+    },
+    {
+      "id": "EXP_TOWER_ROUND",
+      "kind": "tower",
+      "footprint": [
+        3,
+        3
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 9.055,
+      "min_z": 0.0,
+      "max_z": 9.055,
+      "triangles": 16172,
+      "seed": 3117,
+      "model": "EXP_TOWER_ROUND.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2100,
+      "style": "refined_v2",
+      "name": "Torre Meridian",
+      "group": "citta",
+      "description": "Pianta circolare, vetrate continue, marcapiani e coronamento arretrato.",
+      "recipe": "round",
+      "palette": [
+        "8598a5",
+        "c4b38d",
+        "586a76"
+      ],
+      "style_variant": "refined_v2",
+      "collection": "refined_expansion",
+      "is_new_asset": true,
+      "collision_mode": "simplified_component_boxes",
+      "collision_parts": 3,
+      "windows_by_side": {
+        "front": 8,
+        "rear": 9,
+        "left": 7,
+        "right": 7
+      }
+    },
+    {
+      "id": "EXP_TOWER_LANTERN",
+      "kind": "tower",
+      "footprint": [
+        3,
+        3
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 9.435,
+      "min_z": 0.0,
+      "max_z": 9.435,
+      "triangles": 24044,
+      "seed": 3118,
+      "model": "EXP_TOWER_LANTERN.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2100,
+      "style": "refined_v2",
+      "name": "Torre Lanterna",
+      "group": "citta",
+      "description": "Basamento pubblico, fusto snello e lanterna panoramica a due livelli.",
+      "recipe": "lantern",
+      "palette": [
+        "a99482",
+        "687b80",
+        "665a52"
+      ],
+      "style_variant": "refined_v2",
+      "collection": "refined_expansion",
+      "is_new_asset": true,
+      "collision_mode": "simplified_component_boxes",
+      "collision_parts": 4,
+      "windows_by_side": {
+        "front": 64,
+        "rear": 65,
+        "left": 62,
+        "right": 62
+      }
+    },
+    {
+      "id": "EXP_SHOP_BAKERY",
+      "kind": "shop",
+      "footprint": [
+        2,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 2.2,
+      "min_z": 0.0,
+      "max_z": 2.2,
+      "triangles": 4556,
+      "seed": 3119,
+      "model": "EXP_SHOP_BAKERY.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2100,
+      "style": "refined_v2",
+      "name": "Panificio del quartiere",
+      "group": "negozi",
+      "description": "Tenda rigata, vetrina con pagnotte, camino del forno e fioriere.",
+      "recipe": "bakery",
+      "palette": [
+        "cba477",
+        "7d5c49",
+        "ad7654"
+      ],
+      "style_variant": "refined_v2",
+      "collection": "refined_expansion",
+      "is_new_asset": true,
+      "collision_mode": "simplified_component_boxes",
+      "collision_parts": 1,
+      "windows_by_side": {
+        "front": 1,
+        "rear": 6,
+        "left": 6,
+        "right": 6
+      }
+    },
+    {
+      "id": "EXP_SHOP_FLORIST",
+      "kind": "shop",
+      "footprint": [
+        2,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 1.801,
+      "min_z": 0.0,
+      "max_z": 1.801,
+      "triangles": 7256,
+      "seed": 3120,
+      "model": "EXP_SHOP_FLORIST.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2100,
+      "style": "refined_v2",
+      "name": "Fiorista Serra",
+      "group": "negozi",
+      "description": "Veranda vetrata e composizioni floreali esposte all’esterno.",
+      "recipe": "florist",
+      "palette": [
+        "a1b39a",
+        "ba8d96",
+        "6c8071"
+      ],
+      "style_variant": "refined_v2",
+      "collection": "refined_expansion",
+      "is_new_asset": true,
+      "collision_mode": "simplified_component_boxes",
+      "collision_parts": 1,
+      "windows_by_side": {
+        "front": 1,
+        "rear": 6,
+        "left": 6,
+        "right": 6
+      }
+    },
+    {
+      "id": "EXP_SHOP_BOOKS",
+      "kind": "shop",
+      "footprint": [
+        2,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 1.801,
+      "min_z": 0.0,
+      "max_z": 1.801,
+      "triangles": 3316,
+      "seed": 3121,
+      "model": "EXP_SHOP_BOOKS.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2100,
+      "style": "refined_v2",
+      "name": "Libreria del corso",
+      "group": "negozi",
+      "description": "Vetrine con scaffali, insegna a libro e panchina per la lettura.",
+      "recipe": "books",
+      "palette": [
+        "b98268",
+        "608083",
+        "806b58"
+      ],
+      "style_variant": "refined_v2",
+      "collection": "refined_expansion",
+      "is_new_asset": true,
+      "collision_mode": "simplified_component_boxes",
+      "collision_parts": 1,
+      "windows_by_side": {
+        "front": 1,
+        "rear": 6,
+        "left": 6,
+        "right": 6
+      }
+    },
+    {
+      "id": "EXP_SHOP_CAFE",
+      "kind": "shop",
+      "footprint": [
+        2,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 1.801,
+      "min_z": 0.0,
+      "max_z": 1.801,
+      "triangles": 4960,
+      "seed": 3122,
+      "model": "EXP_SHOP_CAFE.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2100,
+      "style": "refined_v2",
+      "name": "Caffè del corso",
+      "group": "negozi",
+      "description": "Dehors con tavolini, sedute, ombrelloni e insegna a tazzina.",
+      "recipe": "cafe",
+      "palette": [
+        "87a8a2",
+        "bd927b",
+        "71665d"
+      ],
+      "style_variant": "refined_v2",
+      "collection": "refined_expansion",
+      "is_new_asset": true,
+      "collision_mode": "simplified_component_boxes",
+      "collision_parts": 1,
+      "windows_by_side": {
+        "front": 1,
+        "rear": 6,
+        "left": 6,
+        "right": 6
+      }
+    },
+    {
+      "id": "EXP_SHOP_MARKET",
+      "kind": "shop",
+      "footprint": [
+        3,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 1.801,
+      "min_z": 0.0,
+      "max_z": 1.801,
+      "triangles": 5584,
+      "seed": 3123,
+      "model": "EXP_SHOP_MARKET.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2100,
+      "style": "refined_v2",
+      "name": "Mercato alimentare",
+      "group": "negozi",
+      "description": "Tre ingressi, cassette di frutta, pensilina e baie di carico posteriori.",
+      "recipe": "market",
+      "palette": [
+        "cfbd86",
+        "7c956e",
+        "88715a"
+      ],
+      "style_variant": "refined_v2",
+      "collection": "refined_expansion",
+      "is_new_asset": true,
+      "collision_mode": "simplified_component_boxes",
+      "collision_parts": 1,
+      "windows_by_side": {
+        "front": 3,
+        "rear": 6,
+        "left": 6,
+        "right": 6
+      }
+    },
+    {
+      "id": "EXP_SHOP_PHARMACY",
+      "kind": "shop",
+      "footprint": [
+        2,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 1.801,
+      "min_z": 0.0,
+      "max_z": 1.801,
+      "triangles": 2692,
+      "seed": 3124,
+      "model": "EXP_SHOP_PHARMACY.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2100,
+      "style": "refined_v2",
+      "name": "Farmacia del parco",
+      "group": "negozi",
+      "description": "Facciate chiare, croce verde e ingresso accessibile sotto pensilina.",
+      "recipe": "pharmacy",
+      "palette": [
+        "c2cec6",
+        "5c8a75",
+        "728585"
+      ],
+      "style_variant": "refined_v2",
+      "collection": "refined_expansion",
+      "is_new_asset": true,
+      "collision_mode": "simplified_component_boxes",
+      "collision_parts": 1,
+      "windows_by_side": {
+        "front": 1,
+        "rear": 6,
+        "left": 6,
+        "right": 6
+      }
+    },
+    {
+      "id": "EXP_SHOP_CINEMA",
+      "kind": "shop",
+      "footprint": [
+        3,
+        3
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 3.125,
+      "min_z": 0.0,
+      "max_z": 3.125,
+      "triangles": 7364,
+      "seed": 3125,
+      "model": "EXP_SHOP_CINEMA.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2100,
+      "style": "refined_v2",
+      "name": "Cinema Odeon",
+      "group": "negozi",
+      "description": "Sala alta con torre d’ingresso, marquee, locandine e uscite laterali.",
+      "recipe": "cinema",
+      "palette": [
+        "aa7471",
+        "bfa778",
+        "665c6b"
+      ],
+      "style_variant": "refined_v2",
+      "collection": "refined_expansion",
+      "is_new_asset": true,
+      "collision_mode": "simplified_component_boxes",
+      "collision_parts": 2,
+      "windows_by_side": {
+        "front": 12,
+        "rear": 16,
+        "left": 16,
+        "right": 16
+      }
+    },
+    {
+      "id": "EXP_SHOP_CYCLES",
+      "kind": "shop",
+      "footprint": [
+        2,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 1.801,
+      "min_z": 0.0,
+      "max_z": 1.801,
+      "triangles": 5944,
+      "seed": 3126,
+      "model": "EXP_SHOP_CYCLES.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2100,
+      "style": "refined_v2",
+      "name": "Officina biciclette",
+      "group": "negozi",
+      "description": "Laboratorio con serranda, biciclette esposte e rastrelliera.",
+      "recipe": "cycles",
+      "palette": [
+        "b8ab70",
+        "557b88",
+        "6b6860"
+      ],
+      "style_variant": "refined_v2",
+      "collection": "refined_expansion",
+      "is_new_asset": true,
+      "collision_mode": "simplified_component_boxes",
+      "collision_parts": 1,
+      "windows_by_side": {
+        "front": 1,
+        "rear": 6,
+        "left": 6,
+        "right": 6
+      }
+    },
+    {
+      "id": "EXP_SHOP_TRATTORIA",
+      "kind": "shop",
+      "footprint": [
+        3,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 1.858,
+      "min_z": 0.0,
+      "max_z": 1.858,
+      "triangles": 5624,
+      "seed": 3127,
+      "model": "EXP_SHOP_TRATTORIA.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2100,
+      "style": "refined_v2",
+      "name": "Trattoria del pergolato",
+      "group": "negozi",
+      "description": "Sala a L, pergolato, tavoli e fioriere all’ingresso.",
+      "recipe": "restaurant",
+      "palette": [
+        "c09682",
+        "6c8464",
+        "986d50"
+      ],
+      "style_variant": "refined_v2",
+      "collection": "refined_expansion",
+      "is_new_asset": true,
+      "collision_mode": "simplified_component_boxes",
+      "collision_parts": 2,
+      "windows_by_side": {
+        "front": 2,
+        "rear": 11,
+        "left": 4,
+        "right": 6
+      }
+    },
+    {
+      "id": "EXP_SHOP_DESIGN",
+      "kind": "shop",
+      "footprint": [
+        3,
+        2
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 2.631,
+      "min_z": 0.0,
+      "max_z": 2.631,
+      "triangles": 6128,
+      "seed": 3128,
+      "model": "EXP_SHOP_DESIGN.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2100,
+      "style": "refined_v2",
+      "name": "Galleria di design",
+      "group": "negozi",
+      "description": "Showroom a doppia altezza, brise-soleil e mobili in esposizione.",
+      "recipe": "design",
+      "palette": [
+        "9ca9bf",
+        "ad8d73",
+        "646d7c"
+      ],
+      "style_variant": "refined_v2",
+      "collection": "refined_expansion",
+      "is_new_asset": true,
+      "collision_mode": "simplified_component_boxes",
+      "collision_parts": 1,
+      "windows_by_side": {
+        "front": 8,
+        "rear": 21,
+        "left": 12,
+        "right": 12
+      }
+    },
+    {
+      "id": "EXP_FACTORY_MILL",
+      "kind": "factory",
+      "footprint": [
+        4,
+        3
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 4.14,
+      "min_z": 0.0,
+      "max_z": 4.14,
+      "triangles": 11208,
+      "seed": 3129,
+      "model": "EXP_FACTORY_MILL.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2100,
+      "style": "refined_v2",
+      "name": "Filanda in mattoni",
+      "group": "industria",
+      "description": "Opificio lungo a più piani con torre scala, ciminiera e carico.",
+      "recipe": "mill",
+      "palette": [
+        "a57661",
+        "64817d",
+        "69645c"
+      ],
+      "style_variant": "refined_v2",
+      "collection": "refined_expansion",
+      "is_new_asset": true,
+      "collision_mode": "simplified_component_boxes",
+      "collision_parts": 3,
+      "windows_by_side": {
+        "front": 28,
+        "rear": 33,
+        "left": 17,
+        "right": 9
+      }
+    },
+    {
+      "id": "EXP_FACTORY_SAW",
+      "kind": "factory",
+      "footprint": [
+        4,
+        3
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 2.22,
+      "min_z": 0.0,
+      "max_z": 2.22,
+      "triangles": 7550,
+      "seed": 3130,
+      "model": "EXP_FACTORY_SAW.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2100,
+      "style": "refined_v2",
+      "name": "Officine a shed",
+      "group": "industria",
+      "description": "Tre campate con tetti a shed, lucernari, tubazioni e officina annessa.",
+      "recipe": "sawtooth",
+      "palette": [
+        "a9b4ae",
+        "5e7d8e",
+        "728177"
+      ],
+      "style_variant": "refined_v2",
+      "collection": "refined_expansion",
+      "is_new_asset": true,
+      "collision_mode": "simplified_component_boxes",
+      "collision_parts": 1,
+      "windows_by_side": {
+        "front": 15,
+        "rear": 18,
+        "left": 10,
+        "right": 10
+      }
+    },
+    {
+      "id": "EXP_FACTORY_LOGISTICS",
+      "kind": "factory",
+      "footprint": [
+        5,
+        3
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 1.625,
+      "min_z": 0.0,
+      "max_z": 1.625,
+      "triangles": 8532,
+      "seed": 3131,
+      "model": "EXP_FACTORY_LOGISTICS.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2100,
+      "style": "refined_v2",
+      "name": "Polo logistico",
+      "group": "industria",
+      "description": "Magazzino basso e largo, cinque baie, ribalte e container.",
+      "recipe": "logistics",
+      "palette": [
+        "b3bcc8",
+        "647f9b",
+        "637383"
+      ],
+      "style_variant": "refined_v2",
+      "collection": "refined_expansion",
+      "is_new_asset": true,
+      "collision_mode": "simplified_component_boxes",
+      "collision_parts": 2,
+      "windows_by_side": {
+        "front": 16,
+        "rear": 24,
+        "left": 10,
+        "right": 10
+      }
+    },
+    {
+      "id": "EXP_FACTORY_STEEL",
+      "kind": "factory",
+      "footprint": [
+        4,
+        4
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 3.94,
+      "min_z": 0.0,
+      "max_z": 3.94,
+      "triangles": 12968,
+      "seed": 3132,
+      "model": "EXP_FACTORY_STEEL.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2100,
+      "style": "refined_v2",
+      "name": "Acciaieria compatta",
+      "group": "industria",
+      "description": "Due capannoni, altoforno, passerelle, condotte e serbatoi.",
+      "recipe": "steel",
+      "palette": [
+        "997e6a",
+        "8b6657",
+        "5b6969"
+      ],
+      "style_variant": "refined_v2",
+      "collection": "refined_expansion",
+      "is_new_asset": true,
+      "collision_mode": "simplified_component_boxes",
+      "collision_parts": 4,
+      "windows_by_side": {
+        "front": 14,
+        "rear": 14,
+        "left": 16,
+        "right": 16
+      }
+    },
+    {
+      "id": "EXP_FACTORY_FOOD",
+      "kind": "factory",
+      "footprint": [
+        4,
+        3
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 2.68,
+      "min_z": 0.0,
+      "max_z": 2.68,
+      "triangles": 12416,
+      "seed": 3133,
+      "model": "EXP_FACTORY_FOOD.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2100,
+      "style": "refined_v2",
+      "name": "Stabilimento alimentare",
+      "group": "industria",
+      "description": "Silos inox, edificio produttivo, centrale lavaggio e carico merci.",
+      "recipe": "food",
+      "palette": [
+        "c7bb94",
+        "7e9879",
+        "84908c"
+      ],
+      "style_variant": "refined_v2",
+      "collection": "refined_expansion",
+      "is_new_asset": true,
+      "collision_mode": "simplified_component_boxes",
+      "collision_parts": 6,
+      "windows_by_side": {
+        "front": 9,
+        "rear": 12,
+        "left": 9,
+        "right": 8
+      }
+    },
+    {
+      "id": "EXP_FACTORY_TECH",
+      "kind": "factory",
+      "footprint": [
+        4,
+        3
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 2.131,
+      "min_z": 0.0,
+      "max_z": 2.131,
+      "triangles": 7200,
+      "seed": 3134,
+      "model": "EXP_FACTORY_TECH.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2100,
+      "style": "refined_v2",
+      "name": "Fabbrica di precisione",
+      "group": "industria",
+      "description": "Volumi puliti, ufficio vetrato, macchine HVAC e pannelli solari.",
+      "recipe": "tech",
+      "palette": [
+        "c0c8c5",
+        "778d9f",
+        "7c888b"
+      ],
+      "style_variant": "refined_v2",
+      "collection": "refined_expansion",
+      "is_new_asset": true,
+      "collision_mode": "simplified_component_boxes",
+      "collision_parts": 2,
+      "windows_by_side": {
+        "front": 11,
+        "rear": 14,
+        "left": 10,
+        "right": 12
+      }
+    },
+    {
+      "id": "EXP_POWER_COAL_SMALL",
+      "kind": "utility",
+      "footprint": [
+        5,
+        4
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 4.84,
+      "min_z": 0.0,
+      "max_z": 4.84,
+      "triangles": 17716,
+      "seed": 3135,
+      "model": "EXP_POWER_COAL_SMALL.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2100,
+      "style": "refined_v2",
+      "name": "Centrale a carbone urbana",
+      "group": "impianti",
+      "description": "Caldaia, ciminiera, deposito del carbone, nastro e trasformatori.",
+      "recipe": "coal_small",
+      "palette": [
+        "a59b87",
+        "9b725b",
+        "687580"
+      ],
+      "style_variant": "refined_v2",
+      "collection": "refined_expansion",
+      "is_new_asset": true,
+      "collision_mode": "simplified_component_boxes",
+      "collision_parts": 3,
+      "windows_by_side": {
+        "front": 25,
+        "rear": 25,
+        "left": 22,
+        "right": 22
+      }
+    },
+    {
+      "id": "EXP_POWER_COAL_LARGE",
+      "kind": "utility",
+      "footprint": [
+        6,
+        5
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 5.64,
+      "min_z": 0.0,
+      "max_z": 5.64,
+      "triangles": 27812,
+      "seed": 3136,
+      "model": "EXP_POWER_COAL_LARGE.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2100,
+      "style": "refined_v2",
+      "name": "Centrale termoelettrica",
+      "group": "impianti",
+      "description": "Due caldaie, due ciminiere, torre di raffreddamento e parco carbone.",
+      "recipe": "coal_large",
+      "palette": [
+        "9ba8b3",
+        "b28669",
+        "687f7b"
+      ],
+      "style_variant": "refined_v2",
+      "collection": "refined_expansion",
+      "is_new_asset": true,
+      "collision_mode": "simplified_component_boxes",
+      "collision_parts": 6,
+      "windows_by_side": {
+        "front": 44,
+        "rear": 44,
+        "left": 32,
+        "right": 32
+      }
+    },
+    {
+      "id": "EXP_POWER_NUCLEAR",
+      "kind": "utility",
+      "footprint": [
+        7,
+        6
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 4.5,
+      "min_z": 0.0,
+      "max_z": 4.5,
+      "triangles": 24356,
+      "seed": 3137,
+      "model": "EXP_POWER_NUCLEAR.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2100,
+      "style": "refined_v2",
+      "name": "Centrale nucleare",
+      "group": "impianti",
+      "description": "Due contenimenti a cupola, torri cave di raffreddamento, sala turbine e sottostazione.",
+      "recipe": "nuclear",
+      "palette": [
+        "c3c1b3",
+        "78919c",
+        "868e88"
+      ],
+      "style_variant": "refined_v2",
+      "collection": "refined_expansion",
+      "is_new_asset": true,
+      "collision_mode": "simplified_component_boxes",
+      "collision_parts": 6,
+      "windows_by_side": {
+        "front": 22,
+        "rear": 22,
+        "left": 12,
+        "right": 12
+      }
+    },
+    {
+      "id": "EXP_WATER_PUMP_URBAN",
+      "kind": "utility",
+      "footprint": [
+        3,
+        3
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 2.03,
+      "min_z": 0.0,
+      "max_z": 2.03,
+      "triangles": 10524,
+      "seed": 3138,
+      "model": "EXP_WATER_PUMP_URBAN.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2100,
+      "style": "refined_v2",
+      "name": "Stazione pompe urbana",
+      "group": "impianti",
+      "description": "Sala pompe, collettori azzurri, valvole, serbatoio e griglie di drenaggio.",
+      "recipe": "pump_urban",
+      "palette": [
+        "adbdbe",
+        "668e9b",
+        "777e73"
+      ],
+      "style_variant": "refined_v2",
+      "collection": "refined_expansion",
+      "is_new_asset": true,
+      "collision_mode": "simplified_component_boxes",
+      "collision_parts": 2,
+      "windows_by_side": {
+        "front": 5,
+        "rear": 6,
+        "left": 6,
+        "right": 6
+      }
+    },
+    {
+      "id": "EXP_WATER_PUMP_RIVER",
+      "kind": "utility",
+      "footprint": [
+        4,
+        3
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 1.575,
+      "min_z": 0.0,
+      "max_z": 1.575,
+      "triangles": 10496,
+      "seed": 3139,
+      "model": "EXP_WATER_PUMP_RIVER.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2100,
+      "style": "refined_v2",
+      "name": "Stazione di presa fluviale",
+      "group": "impianti",
+      "description": "Canale di captazione, griglie, pompe e passerella di manutenzione.",
+      "recipe": "pump_river",
+      "palette": [
+        "bea786",
+        "698b8b",
+        "78847c"
+      ],
+      "style_variant": "refined_v2",
+      "collection": "refined_expansion",
+      "is_new_asset": true,
+      "collision_mode": "simplified_component_boxes",
+      "collision_parts": 1,
+      "windows_by_side": {
+        "front": 5,
+        "rear": 6,
+        "left": 6,
+        "right": 6
+      }
+    },
+    {
+      "id": "EXP_WATER_TREATMENT",
+      "kind": "utility",
+      "footprint": [
+        5,
+        4
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 1.425,
+      "min_z": 0.0,
+      "max_z": 1.425,
+      "triangles": 6556,
+      "seed": 3140,
+      "model": "EXP_WATER_TREATMENT.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2100,
+      "style": "refined_v2",
+      "name": "Impianto di depurazione",
+      "group": "impianti",
+      "description": "Vasche circolari con ponti raschiatori, aerazione, condotte e edificio controllo.",
+      "recipe": "treatment",
+      "palette": [
+        "bcc1ad",
+        "739292",
+        "748477"
+      ],
+      "style_variant": "refined_v2",
+      "collection": "refined_expansion",
+      "is_new_asset": true,
+      "collision_mode": "simplified_component_boxes",
+      "collision_parts": 1,
+      "windows_by_side": {
+        "front": 4,
+        "rear": 4,
+        "left": 6,
+        "right": 6
+      }
+    },
+    {
+      "id": "EXP_POWER_SUBSTATION",
+      "kind": "utility",
+      "footprint": [
+        3,
+        3
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 2.04,
+      "min_z": 0.0,
+      "max_z": 2.04,
+      "triangles": 10452,
+      "seed": 3141,
+      "model": "EXP_POWER_SUBSTATION.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2100,
+      "style": "refined_v2",
+      "name": "Sottostazione elettrica",
+      "group": "impianti",
+      "description": "Tre trasformatori, radiatori, isolatori, portali e recinzione.",
+      "recipe": "substation",
+      "palette": [
+        "afada0",
+        "789198",
+        "6e7e78"
+      ],
+      "style_variant": "refined_v2",
+      "collection": "refined_expansion",
+      "is_new_asset": true,
+      "collision_mode": "simplified_component_boxes",
+      "collision_parts": 1
+    },
+    {
+      "id": "EXP_STADIUM",
+      "kind": "sport",
+      "footprint": [
+        7,
+        8
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 4.13,
+      "min_z": 0.0,
+      "max_z": 4.13,
+      "triangles": 44088,
+      "seed": 3142,
+      "model": "EXP_STADIUM.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2100,
+      "style": "refined_v2",
+      "name": "Stadio della città",
+      "group": "servizi",
+      "description": "Campo regolamentare stilizzato, anello di tribune, seggiolini, copertura e torri faro.",
+      "recipe": "stadium",
+      "palette": [
+        "c5c4b4",
+        "687e98",
+        "aa7b62"
+      ],
+      "style_variant": "refined_v2",
+      "collection": "refined_expansion",
+      "is_new_asset": true,
+      "collision_mode": "simplified_component_boxes",
+      "collision_parts": 4
+    },
+    {
+      "id": "EXP_ARENA",
+      "kind": "sport",
+      "footprint": [
+        4,
+        4
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 2.615,
+      "min_z": 0.0,
+      "max_z": 2.615,
+      "triangles": 12188,
+      "seed": 3143,
+      "model": "EXP_ARENA.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2100,
+      "style": "refined_v2",
+      "name": "Palazzetto polifunzionale",
+      "group": "servizi",
+      "description": "Grande copertura curva, ingresso vetrato, uscite e impianti sul retro.",
+      "recipe": "arena",
+      "palette": [
+        "9cacb9",
+        "b79c73",
+        "697d83"
+      ],
+      "style_variant": "refined_v2",
+      "collection": "refined_expansion",
+      "is_new_asset": true,
+      "collision_mode": "simplified_component_boxes",
+      "collision_parts": 2,
+      "windows_by_side": {
+        "front": 18,
+        "rear": 18,
+        "left": 14,
+        "right": 14
+      }
+    },
+    {
+      "id": "EXP_FIRE_STATION",
+      "kind": "service",
+      "footprint": [
+        3,
+        3
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 3.425,
+      "min_z": 0.0,
+      "max_z": 3.425,
+      "triangles": 6088,
+      "seed": 3144,
+      "model": "EXP_FIRE_STATION.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2100,
+      "style": "refined_v2",
+      "name": "Caserma dei vigili del fuoco",
+      "group": "servizi",
+      "description": "Tre autorimesse, torre di esercitazione e corte di manovra.",
+      "recipe": "fire",
+      "palette": [
+        "ac6f59",
+        "af9d80",
+        "687786"
+      ],
+      "style_variant": "refined_v2",
+      "collection": "refined_expansion",
+      "is_new_asset": true,
+      "collision_mode": "simplified_component_boxes",
+      "collision_parts": 2,
+      "windows_by_side": {
+        "front": 11,
+        "rear": 17,
+        "left": 10,
+        "right": 7
+      }
+    },
+    {
+      "id": "EXP_LIBRARY",
+      "kind": "service",
+      "footprint": [
+        3,
+        3
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 2.356,
+      "min_z": 0.0,
+      "max_z": 2.356,
+      "triangles": 9936,
+      "seed": 3145,
+      "model": "EXP_LIBRARY.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2100,
+      "style": "refined_v2",
+      "name": "Biblioteca civica",
+      "group": "servizi",
+      "description": "Volumi sovrapposti, grandi finestre, portico, lucernari e giardino di lettura.",
+      "recipe": "library",
+      "palette": [
+        "c2aa85",
+        "789491",
+        "746b62"
+      ],
+      "style_variant": "refined_v2",
+      "collection": "refined_expansion",
+      "is_new_asset": true,
+      "collision_mode": "simplified_component_boxes",
+      "collision_parts": 2,
+      "windows_by_side": {
+        "front": 22,
+        "rear": 22,
+        "left": 14,
+        "right": 14
+      }
+    },
+    {
+      "id": "EXP_RAIL_STATION",
+      "kind": "service",
+      "footprint": [
+        5,
+        3
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 2.625,
+      "min_z": 0.0,
+      "max_z": 2.625,
+      "triangles": 6188,
+      "seed": 3146,
+      "model": "EXP_RAIL_STATION.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2100,
+      "style": "refined_v2",
+      "name": "Stazione ferroviaria",
+      "group": "servizi",
+      "description": "Fabbricato con orologio, binari, banchine, pensiline e panchine.",
+      "recipe": "station",
+      "palette": [
+        "c6ad88",
+        "6a8580",
+        "9c7259"
+      ],
+      "style_variant": "refined_v2",
+      "collection": "refined_expansion",
+      "is_new_asset": true,
+      "collision_mode": "simplified_component_boxes",
+      "collision_parts": 2,
+      "windows_by_side": {
+        "front": 14,
+        "rear": 15,
+        "left": 5,
+        "right": 5
+      }
+    },
+    {
+      "id": "EXP_BOTANICAL",
+      "kind": "service",
+      "footprint": [
+        4,
+        4
+      ],
+      "grid_unit_meters": 2.0,
+      "elevation_step_meters": 0.5,
+      "height_meters": 1.925,
+      "min_z": 0.0,
+      "max_z": 1.925,
+      "triangles": 41270,
+      "seed": 3147,
+      "model": "EXP_BOTANICAL.glb",
+      "front_axis": "-Y",
+      "origin_mode": "ground",
+      "generator_version": 2100,
+      "style": "refined_v2",
+      "name": "Serra botanica",
+      "group": "servizi",
+      "description": "Padiglione a volte trasparenti, navate laterali e collezione di piante.",
+      "recipe": "botanical",
+      "palette": [
+        "adc4b8",
+        "d0c1a4",
+        "749787"
+      ],
+      "style_variant": "refined_v2",
+      "collection": "refined_expansion",
+      "is_new_asset": true,
+      "collision_mode": "simplified_component_boxes",
+      "collision_parts": 1
+    }
+  ]
+}

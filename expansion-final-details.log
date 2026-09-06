@@ -1,0 +1,42 @@
+[EXPANSION] 1/4 EXP_SHOP_MARKET
+INFO Draco is available, use library at C:\Program Files\Blender Foundation\Blender 5.2\5.2\scripts\addons_core\io_scene_gltf2\bf_intern_draco_bridge.dll
+INFO MeshOptimizer is available, use library at C:\Program Files\Blender Foundation\Blender 5.2\5.2\scripts\addons_core\io_scene_gltf2\bf_intern_meshopt_bridge.dll
+11:41:12 | INFO: Starting glTF 2.0 export
+11:41:12 | INFO: Extracting primitive: Cube.002
+11:41:12 | INFO: Primitives created: 1
+11:41:12 | INFO: Extracting primitive: Cube
+11:41:12 | INFO: Primitives created: 18
+11:41:12 | INFO: Finished glTF 2.0 export in 0.8163080215454102 s
+
+[EXPANSION] 2/4 EXP_SHOP_CYCLES
+11:41:13 | INFO: Starting glTF 2.0 export
+11:41:13 | INFO: Extracting primitive: Cube.002
+11:41:13 | INFO: Primitives created: 1
+11:41:13 | INFO: Extracting primitive: Cube
+11:41:13 | INFO: Primitives created: 14
+11:41:13 | INFO: Finished glTF 2.0 export in 0.4913785457611084 s
+
+[EXPANSION] 3/4 EXP_SHOP_TRATTORIA
+11:41:14 | INFO: Starting glTF 2.0 export
+11:41:14 | INFO: Extracting primitive: Cube.002
+11:41:14 | INFO: Primitives created: 1
+11:41:14 | INFO: Extracting primitive: Cube.005
+11:41:14 | INFO: Primitives created: 1
+11:41:14 | INFO: Extracting primitive: Cube
+11:41:15 | INFO: Primitives created: 17
+11:41:15 | INFO: Finished glTF 2.0 export in 0.6323099136352539 s
+
+[EXPANSION] 4/4 EXP_WATER_PUMP_URBAN
+11:41:16 | INFO: Starting glTF 2.0 export
+11:41:16 | INFO: Extracting primitive: Cube.002
+11:41:16 | INFO: Primitives created: 1
+11:41:16 | INFO: Extracting primitive: Cube.004
+11:41:16 | INFO: Primitives created: 1
+11:41:16 | INFO: Extracting primitive: Cube
+11:41:16 | INFO: Primitives created: 15
+11:41:16 | INFO: Finished glTF 2.0 export in 0.5448286533355713 s
+
+[EXPANSION] Complete 48
+Blender 5.2.1 LTS (hash 9e2066aef7ef built 2026-08-25 02:38:20)
+
+Blender quit

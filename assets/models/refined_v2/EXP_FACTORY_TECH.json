@@ -1,0 +1,40 @@
+{
+  "id": "EXP_FACTORY_TECH",
+  "kind": "factory",
+  "footprint": [
+    4,
+    3
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 2.131,
+  "min_z": 0.0,
+  "max_z": 2.131,
+  "triangles": 7200,
+  "seed": 3134,
+  "model": "EXP_FACTORY_TECH.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 2100,
+  "style": "refined_v2",
+  "name": "Fabbrica di precisione",
+  "group": "industria",
+  "description": "Volumi puliti, ufficio vetrato, macchine HVAC e pannelli solari.",
+  "recipe": "tech",
+  "palette": [
+    "c0c8c5",
+    "778d9f",
+    "7c888b"
+  ],
+  "style_variant": "refined_v2",
+  "collection": "refined_expansion",
+  "is_new_asset": true,
+  "collision_mode": "simplified_component_boxes",
+  "collision_parts": 2,
+  "windows_by_side": {
+    "front": 11,
+    "rear": 14,
+    "left": 10,
+    "right": 12
+  }
+}

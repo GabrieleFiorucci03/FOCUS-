@@ -155,21 +155,26 @@ func mostra_catalogo(catalogo: CityCatalog) -> void:
 		vecchio.queue_free()
 
 	for categoria in catalogo.categorie:
-		_aggiungi_scaffale(str(categoria["nome"]), str(categoria["id"]), categoria["voci"])
-	_aggiungi_scaffale("Strumenti", "strumenti", PackedStringArray())
+		_aggiungi_scaffale(str(categoria["nome"]), str(categoria["id"]), categoria["gruppi"])
+	_aggiungi_scaffale("Strumenti", "strumenti", [])
 	_aggiorna_disponibilita()
 	_scatta_i_ritratti(_generazione)
 
 
-## Uno scaffale della fila: il nome sopra, le sue schede sotto, e in testa alla
-## fascia la scorciatoia per saltarci. Il nome scorre insieme a quello che
-## contiene, così si sa sempre dentro cosa si sta guardando.
-func _aggiungi_scaffale(nome: String, id_scaffale: String, voci: PackedStringArray) -> void:
+## Uno scaffale della fila: il nome sopra, le sue schede sotto divise nei loro
+## gruppi, e in testa alla fascia la scorciatoia per saltarci. Il nome scorre
+## insieme a quello che contiene, così si sa sempre dentro cosa si sta guardando.
+##
+## I gruppi sono la ragione per cui non è una fila sola: centotrentanove schede
+## di seguito sono un muro, e le tre caserme finirebbero una in testa, una in
+## mezzo e una in fondo. Ognuno ha la sua etichetta e il suo spazio, così le
+## cose che si somigliano si guardano insieme.
+func _aggiungi_scaffale(nome: String, id_scaffale: String, gruppi: Array) -> void:
 	if _fila.get_child_count() > 0:
 		_fila.add_child(VSeparator.new())
 
 	var scaffale := VBoxContainer.new()
-	scaffale.add_theme_constant_override("separation", 4)
+	scaffale.add_theme_constant_override("separation", 2)
 	var titolo := Label.new()
 	titolo.text = nome.to_upper()
 	titolo.add_theme_font_size_override("font_size", 11)
@@ -177,12 +182,14 @@ func _aggiungi_scaffale(nome: String, id_scaffale: String, voci: PackedStringArr
 	scaffale.add_child(titolo)
 
 	var riga := HBoxContainer.new()
-	riga.add_theme_constant_override("separation", 4)
-	for id in voci:
-		riga.add_child(_crea_scheda(str(id)))
+	riga.add_theme_constant_override("separation", 12)
+	for gruppo in gruppi:
+		riga.add_child(_crea_gruppo(str(gruppo["nome"]), gruppo["voci"]))
 	if id_scaffale == "strumenti":
+		var attrezzi := PackedStringArray()
 		for id in STRUMENTI:
-			riga.add_child(_crea_attrezzo(str(id)))
+			attrezzi.append(str(id))
+		riga.add_child(_crea_gruppo("", attrezzi, true))
 	scaffale.add_child(riga)
 
 	_fila.add_child(scaffale)
@@ -196,6 +203,27 @@ func _aggiungi_scaffale(nome: String, id_scaffale: String, voci: PackedStringArr
 	salto.add_theme_font_size_override("font_size", 12)
 	salto.pressed.connect(_vai_allo_scaffale.bind(id_scaffale))
 	_scaffali.add_child(salto)
+
+
+## Un gruppo dello scaffale: la sua etichetta sopra, le sue schede in fila
+## sotto. L'etichetta resta anche quando è vuota, così le schede di gruppi
+## diversi restano allineate fra loro invece di scalare di una riga.
+func _crea_gruppo(nome: String, voci: PackedStringArray, sono_attrezzi := false) -> VBoxContainer:
+	var gruppo := VBoxContainer.new()
+	gruppo.add_theme_constant_override("separation", 2)
+
+	var etichetta := Label.new()
+	etichetta.text = nome
+	etichetta.add_theme_font_size_override("font_size", 10)
+	etichetta.add_theme_color_override("font_color", Color(1, 1, 1, 0.3))
+	gruppo.add_child(etichetta)
+
+	var riga := HBoxContainer.new()
+	riga.add_theme_constant_override("separation", 4)
+	for id in voci:
+		riga.add_child(_crea_attrezzo(str(id)) if sono_attrezzi else _crea_scheda(str(id)))
+	gruppo.add_child(riga)
+	return gruppo
 
 
 ## Una scheda è un pulsante con dentro il ritratto del modello, il nome e il
@@ -387,7 +415,7 @@ func _scatta_i_ritratti(generazione: int) -> void:
 
 ## Mette un modello nello studio, lo inquadra, scatta e lo porta via.
 func _fotografa(id: String) -> Texture2D:
-	var scena := load(CityCatalog.CARTELLA_MODELLI + str(_catalogo.voce(id)["modello"])) as PackedScene
+	var scena := load(_catalogo.percorso(id)) as PackedScene
 	if scena == null:
 		return null
 	var modello: Node3D = scena.instantiate()

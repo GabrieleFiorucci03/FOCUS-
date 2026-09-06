@@ -1,0 +1,21 @@
+Info: Deleted 5 data-block(s)
+11:11:30 | INFO: Data are loaded, start creating Blender stuff
+11:11:30 | INFO: Blender create Mesh node Cube.015
+11:11:30 | INFO: Blender create Mesh node Cube
+11:11:30 | INFO: glTF import finished in 0.03s
+C:\Users\gabri\Desktop\FOCUS!\tools\blender\render_refined_assets.py:39: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  mat=bpy.data.materials.new('StudioWarmGrey');mat.use_nodes=True
+C:\Users\gabri\Desktop\FOCUS!\tools\blender\render_refined_assets.py:44: DeprecationWarning: 'World.use_nodes' is expected to be removed in Blender 6.0
+  world.use_nodes=True;world.node_tree.nodes['Background'].inputs[0].default_value=(.72,.78,.85,1)
+00:08.453  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\AGR_GREENHOUSE_3x2_001__refined_v2__front.png'
+[RENDER] AGR_GREENHOUSE_3x2_001__refined_v2__front.png
+Info: Deleted 20 data-block(s)
+11:11:36 | INFO: Data are loaded, start creating Blender stuff
+11:11:36 | INFO: Blender create Mesh node Cube.015
+11:11:36 | INFO: Blender create Mesh node Cube
+11:11:36 | INFO: glTF import finished in 0.03s
+00:14.125  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\AGR_GREENHOUSE_3x2_001__refined_v2__rear.png'
+[RENDER] AGR_GREENHOUSE_3x2_001__refined_v2__rear.png
+Blender 5.2.1 LTS (hash 9e2066aef7ef built 2026-08-25 02:38:20)
+
+Blender quit

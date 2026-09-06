@@ -1,0 +1,29 @@
+{
+  "id": "OFF_MID_2x2_002",
+  "kind": "office",
+  "footprint": [
+    2,
+    2
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 5.549,
+  "min_z": -0.017,
+  "max_z": 5.531,
+  "triangles": 18660,
+  "seed": 702,
+  "model": "OFF_MID_2x2_002.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 2001,
+  "shape": "stepped",
+  "style_variant": "refined_v2",
+  "source_asset_id": "OFF_MID_2x2_002",
+  "collision_source": "realistic",
+  "windows_by_side": {
+    "front": 47,
+    "rear": 50,
+    "left": 43,
+    "right": 43
+  }
+}

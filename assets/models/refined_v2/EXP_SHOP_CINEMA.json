@@ -1,0 +1,40 @@
+{
+  "id": "EXP_SHOP_CINEMA",
+  "kind": "shop",
+  "footprint": [
+    3,
+    3
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 3.125,
+  "min_z": 0.0,
+  "max_z": 3.125,
+  "triangles": 7364,
+  "seed": 3125,
+  "model": "EXP_SHOP_CINEMA.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 2100,
+  "style": "refined_v2",
+  "name": "Cinema Odeon",
+  "group": "negozi",
+  "description": "Sala alta con torre d’ingresso, marquee, locandine e uscite laterali.",
+  "recipe": "cinema",
+  "palette": [
+    "aa7471",
+    "bfa778",
+    "665c6b"
+  ],
+  "style_variant": "refined_v2",
+  "collection": "refined_expansion",
+  "is_new_asset": true,
+  "collision_mode": "simplified_component_boxes",
+  "collision_parts": 2,
+  "windows_by_side": {
+    "front": 12,
+    "rear": 16,
+    "left": 16,
+    "right": 16
+  }
+}

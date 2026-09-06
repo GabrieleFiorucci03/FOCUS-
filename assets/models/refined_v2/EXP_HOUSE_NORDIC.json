@@ -1,0 +1,40 @@
+{
+  "id": "EXP_HOUSE_NORDIC",
+  "kind": "house",
+  "footprint": [
+    3,
+    3
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 2.2,
+  "min_z": 0.0,
+  "max_z": 2.2,
+  "triangles": 17560,
+  "seed": 3103,
+  "model": "EXP_HOUSE_NORDIC.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 2100,
+  "style": "refined_v2",
+  "name": "Casa nordica",
+  "group": "residenze",
+  "description": "Tetto scuro, rivestimento scandito, abete e orto domestico.",
+  "recipe": "nordic",
+  "palette": [
+    "677d89",
+    "d1c7ab",
+    "4b535b"
+  ],
+  "style_variant": "refined_v2",
+  "collection": "refined_expansion",
+  "is_new_asset": true,
+  "collision_mode": "simplified_component_boxes",
+  "collision_parts": 1,
+  "windows_by_side": {
+    "front": 5,
+    "rear": 6,
+    "left": 6,
+    "right": 6
+  }
+}

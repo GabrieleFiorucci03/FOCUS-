@@ -1,0 +1,34 @@
+{
+  "id": "EXP_STADIUM",
+  "kind": "sport",
+  "footprint": [
+    7,
+    8
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 4.13,
+  "min_z": 0.0,
+  "max_z": 4.13,
+  "triangles": 44088,
+  "seed": 3142,
+  "model": "EXP_STADIUM.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 2100,
+  "style": "refined_v2",
+  "name": "Stadio della città",
+  "group": "servizi",
+  "description": "Campo regolamentare stilizzato, anello di tribune, seggiolini, copertura e torri faro.",
+  "recipe": "stadium",
+  "palette": [
+    "c5c4b4",
+    "687e98",
+    "aa7b62"
+  ],
+  "style_variant": "refined_v2",
+  "collection": "refined_expansion",
+  "is_new_asset": true,
+  "collision_mode": "simplified_component_boxes",
+  "collision_parts": 4
+}

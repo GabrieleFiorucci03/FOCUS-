@@ -1,0 +1,40 @@
+{
+  "id": "EXP_POWER_COAL_LARGE",
+  "kind": "utility",
+  "footprint": [
+    6,
+    5
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 5.64,
+  "min_z": 0.0,
+  "max_z": 5.64,
+  "triangles": 27812,
+  "seed": 3136,
+  "model": "EXP_POWER_COAL_LARGE.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 2100,
+  "style": "refined_v2",
+  "name": "Centrale termoelettrica",
+  "group": "impianti",
+  "description": "Due caldaie, due ciminiere, torre di raffreddamento e parco carbone.",
+  "recipe": "coal_large",
+  "palette": [
+    "9ba8b3",
+    "b28669",
+    "687f7b"
+  ],
+  "style_variant": "refined_v2",
+  "collection": "refined_expansion",
+  "is_new_asset": true,
+  "collision_mode": "simplified_component_boxes",
+  "collision_parts": 6,
+  "windows_by_side": {
+    "front": 44,
+    "rear": 44,
+    "left": 32,
+    "right": 32
+  }
+}

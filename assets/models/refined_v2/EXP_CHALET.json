@@ -1,0 +1,40 @@
+{
+  "id": "EXP_CHALET",
+  "kind": "house",
+  "footprint": [
+    3,
+    3
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 2.548,
+  "min_z": 0.0,
+  "max_z": 2.548,
+  "triangles": 16648,
+  "seed": 3106,
+  "model": "EXP_CHALET.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 2100,
+  "style": "refined_v2",
+  "name": "Chalet del bosco",
+  "group": "residenze",
+  "description": "Doppia falda pronunciata, balcone in legno e giardino di conifere.",
+  "recipe": "chalet",
+  "palette": [
+    "947657",
+    "57756f",
+    "595e60"
+  ],
+  "style_variant": "refined_v2",
+  "collection": "refined_expansion",
+  "is_new_asset": true,
+  "collision_mode": "simplified_component_boxes",
+  "collision_parts": 1,
+  "windows_by_side": {
+    "front": 5,
+    "rear": 6,
+    "left": 6,
+    "right": 6
+  }
+}

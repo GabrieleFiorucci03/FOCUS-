@@ -1,0 +1,128 @@
+[REFINED] 1/10 ROAD_LOCAL_1x1_STRAIGHT
+C:\Users\gabri\Desktop\FOCUS!\tools\blender\generate_refined_assets.py:68: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  mat.use_nodes = True
+11:02:26 | INFO: Data are loaded, start creating Blender stuff
+11:02:26 | INFO: Blender create Mesh node Cube.022
+11:02:26 | INFO: Blender create Mesh node Cube
+11:02:27 | INFO: glTF import finished in 0.08s
+INFO Draco is available, use library at C:\Program Files\Blender Foundation\Blender 5.2\5.2\scripts\addons_core\io_scene_gltf2\bf_intern_draco_bridge.dll
+INFO MeshOptimizer is available, use library at C:\Program Files\Blender Foundation\Blender 5.2\5.2\scripts\addons_core\io_scene_gltf2\bf_intern_meshopt_bridge.dll
+11:02:27 | INFO: Starting glTF 2.0 export
+11:02:27 | INFO: Extracting primitive: Cube.022
+11:02:27 | INFO: Primitives created: 1
+11:02:27 | INFO: Extracting primitive: Cube
+11:02:28 | INFO: Primitives created: 6
+11:02:28 | INFO: Finished glTF 2.0 export in 0.4406287670135498 s
+
+[REFINED] 2/10 ROAD_LOCAL_1x1_CORNER
+11:02:28 | INFO: Data are loaded, start creating Blender stuff
+11:02:28 | INFO: Blender create Mesh node Cube.022
+11:02:28 | INFO: Blender create Mesh node Cube
+11:02:28 | INFO: glTF import finished in 0.07s
+11:02:28 | INFO: Starting glTF 2.0 export
+11:02:28 | INFO: Extracting primitive: Cube.022
+11:02:28 | INFO: Primitives created: 1
+11:02:28 | INFO: Extracting primitive: Cube
+11:02:28 | INFO: Primitives created: 6
+11:02:28 | INFO: Finished glTF 2.0 export in 0.20620036125183105 s
+
+[REFINED] 3/10 ROAD_LOCAL_1x1_T
+11:02:29 | INFO: Data are loaded, start creating Blender stuff
+11:02:29 | INFO: Blender create Mesh node Cube.024
+11:02:29 | INFO: Blender create Mesh node Cube
+11:02:29 | INFO: glTF import finished in 0.08s
+11:02:29 | INFO: Starting glTF 2.0 export
+11:02:29 | INFO: Extracting primitive: Cube.024
+11:02:29 | INFO: Primitives created: 1
+11:02:29 | INFO: Extracting primitive: Cube
+11:02:29 | INFO: Primitives created: 6
+11:02:29 | INFO: Finished glTF 2.0 export in 0.22535300254821777 s
+
+[REFINED] 4/10 ROAD_LOCAL_1x1_CROSS
+11:02:29 | INFO: Data are loaded, start creating Blender stuff
+11:02:29 | INFO: Blender create Mesh node Cube.026
+11:02:29 | INFO: Blender create Mesh node Cube
+11:02:29 | INFO: glTF import finished in 0.08s
+11:02:29 | INFO: Starting glTF 2.0 export
+11:02:29 | INFO: Extracting primitive: Cube.026
+11:02:29 | INFO: Primitives created: 1
+11:02:29 | INFO: Extracting primitive: Cube
+11:02:30 | INFO: Primitives created: 6
+11:02:30 | INFO: Finished glTF 2.0 export in 0.24744319915771484 s
+
+[REFINED] 5/10 ROAD_LOCAL_1x1_END
+11:02:30 | INFO: Data are loaded, start creating Blender stuff
+11:02:30 | INFO: Blender create Mesh node Cube.021
+11:02:30 | INFO: Blender create Mesh node Cube
+11:02:30 | INFO: glTF import finished in 0.06s
+11:02:30 | INFO: Starting glTF 2.0 export
+11:02:30 | INFO: Extracting primitive: Cube.021
+11:02:30 | INFO: Primitives created: 1
+11:02:30 | INFO: Extracting primitive: Cube
+11:02:30 | INFO: Primitives created: 7
+11:02:30 | INFO: Finished glTF 2.0 export in 0.22092819213867188 s
+
+[REFINED] 6/10 ROAD_DIRT_1x1_STRAIGHT
+11:02:31 | INFO: Data are loaded, start creating Blender stuff
+11:02:31 | INFO: Blender create Mesh node Cube.004
+11:02:31 | INFO: Blender create Mesh node Cube
+11:02:31 | INFO: glTF import finished in 0.05s
+11:02:31 | INFO: Starting glTF 2.0 export
+11:02:31 | INFO: Extracting primitive: Cube.004
+11:02:31 | INFO: Primitives created: 1
+11:02:31 | INFO: Extracting primitive: Cube
+11:02:31 | INFO: Primitives created: 3
+11:02:31 | INFO: Finished glTF 2.0 export in 0.16791558265686035 s
+
+[REFINED] 7/10 ROAD_DIRT_1x1_CORNER
+11:02:31 | INFO: Data are loaded, start creating Blender stuff
+11:02:31 | INFO: Blender create Mesh node Cube.004
+11:02:31 | INFO: Blender create Mesh node Cube
+11:02:31 | INFO: glTF import finished in 0.05s
+11:02:31 | INFO: Starting glTF 2.0 export
+11:02:31 | INFO: Extracting primitive: Cube.004
+11:02:31 | INFO: Primitives created: 1
+11:02:31 | INFO: Extracting primitive: Cube
+11:02:31 | INFO: Primitives created: 3
+11:02:31 | INFO: Finished glTF 2.0 export in 0.16306018829345703 s
+
+[REFINED] 8/10 ROAD_DIRT_1x1_T
+11:02:31 | INFO: Data are loaded, start creating Blender stuff
+11:02:31 | INFO: Blender create Mesh node Cube.005
+11:02:31 | INFO: Blender create Mesh node Cube
+11:02:31 | INFO: glTF import finished in 0.05s
+11:02:31 | INFO: Starting glTF 2.0 export
+11:02:31 | INFO: Extracting primitive: Cube.005
+11:02:31 | INFO: Primitives created: 1
+11:02:31 | INFO: Extracting primitive: Cube
+11:02:32 | INFO: Primitives created: 3
+11:02:32 | INFO: Finished glTF 2.0 export in 0.1447300910949707 s
+
+[REFINED] 9/10 ROAD_DIRT_1x1_CROSS
+11:02:32 | INFO: Data are loaded, start creating Blender stuff
+11:02:32 | INFO: Blender create Mesh node Cube.006
+11:02:32 | INFO: Blender create Mesh node Cube
+11:02:32 | INFO: glTF import finished in 0.06s
+11:02:32 | INFO: Starting glTF 2.0 export
+11:02:32 | INFO: Extracting primitive: Cube.006
+11:02:32 | INFO: Primitives created: 1
+11:02:32 | INFO: Extracting primitive: Cube
+11:02:32 | INFO: Primitives created: 3
+11:02:32 | INFO: Finished glTF 2.0 export in 0.1804361343383789 s
+
+[REFINED] 10/10 ROAD_DIRT_1x1_END
+11:02:32 | INFO: Data are loaded, start creating Blender stuff
+11:02:32 | INFO: Blender create Mesh node Cube.003
+11:02:32 | INFO: Blender create Mesh node Cube
+11:02:32 | INFO: glTF import finished in 0.05s
+11:02:32 | INFO: Starting glTF 2.0 export
+11:02:32 | INFO: Extracting primitive: Cube.003
+11:02:32 | INFO: Primitives created: 1
+11:02:32 | INFO: Extracting primitive: Cube
+11:02:32 | INFO: Primitives created: 3
+11:02:32 | INFO: Finished glTF 2.0 export in 0.16632628440856934 s
+
+[REFINED] Complete 91
+Blender 5.2.1 LTS (hash 9e2066aef7ef built 2026-08-25 02:38:20)
+
+Blender quit

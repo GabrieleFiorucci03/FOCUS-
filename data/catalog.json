@@ -1,19 +1,54 @@
 {
-	"_commento": "Come il negozio presenta gli asset generati da Blender: nome leggibile, scaffale e regola di piazzamento. I dati tecnici (footprint, altezza, file .glb) stanno in assets/models/generated/catalog.json e li scrive la pipeline: non si toccano a mano. I prezzi stanno in economy.json, uno per tipo.",
+	"_commento": "Come il negozio presenta gli asset generati da Blender: nome leggibile, scaffale e regola di piazzamento. I dati tecnici (footprint, altezza, file .glb) stanno in assets/models/refined_v2/catalog.json, una libreria sola per tutti e centotrentanove i modelli, e li scrive la pipeline: non si toccano a mano. I numeri stanno in economy.json.",
 
 	"_commento_nomi": "Il nome di un oggetto parte dal nome del tipo. I campi descrittivi dell'asset (style, variant, service, shape, feature, direction) lo rifiniscono: se il valore compare in 'nomi' sostituisce il nome, se compare in 'qualificatori' gli si accoda. I valori che non compaiono da nessuna parte vengono ignorati, e i nomi che restano uguali si numerano da soli.",
 
 	"_commento_regole": "terra = si posa all'asciutto e spiana il lotto al livello piu' basso. ponte = si posa su qualunque cella libera, non tocca il terreno e sta un gradino sopra la sponda a cui si aggancia (o sopra quello che scavalca, se sponde non ce ne sono). rampa = si posa su qualunque cella libera, non spiana niente e prende la quota del terreno che ha sotto; sull'acqua si mette un gradino sotto l'impalcato vicino. Ponti e rampe si girano con R: nessun verso e' vietato.",
 
+	"_commento_gruppi": "Dentro uno scaffale le voci stanno in gruppi, e ogni gruppo e' una cosa che l'utente vuole trovare tutta insieme: le tre caserme vicine, le sei centrali vicine, non sparse fra i modelli vecchi e quelli nuovi in ordine di generazione. Un gruppo si prende le voci che stanno ancora nello scaffale e che corrispondono a tutte le chiavi che dichiara — 'tipi' il kind dell'asset, 'zone' il servizio di zona che porta, 'produce' se e' un impianto di corrente o d'acqua. Si guardano in ordine e vince il primo che le prende: e' cosi' che 'Sicurezza' e 'Salute' si portano via i presidi prima che 'Trasporti' si prenda tutto quello che resta di tipo service. Quello che non entra da nessuna parte finisce in coda allo scaffale, che e' l'unico modo perche' aggiungere un modello non lo faccia sparire dal negozio.",
 	"categorie": [
-		{ "id": "abitare", "nome": "Abitare" },
-		{ "id": "lavoro", "nome": "Lavoro" },
-		{ "id": "servizi", "nome": "Servizi" },
-		{ "id": "mobilita", "nome": "Strade" },
-		{ "id": "verde", "nome": "Verde" }
+		{ "id": "abitare", "nome": "Abitare", "gruppi": [
+			{ "nome": "Case", "tipi": ["house"] },
+			{ "nome": "Ville", "tipi": ["villa"] },
+			{ "nome": "Palazzine", "tipi": ["apartment"] },
+			{ "nome": "Stecche", "tipi": ["slab"] },
+			{ "nome": "Torri", "tipi": ["tower"] }
+		] },
+		{ "id": "lavoro", "nome": "Lavoro", "gruppi": [
+			{ "nome": "Negozi", "tipi": ["shop"] },
+			{ "nome": "Uffici", "tipi": ["office"] },
+			{ "nome": "Fabbriche", "tipi": ["factory"] },
+			{ "nome": "Campagna", "tipi": ["agriculture"] }
+		] },
+		{ "id": "servizi", "nome": "Servizi", "gruppi": [
+			{ "nome": "Sicurezza", "zone": ["polizia", "pompieri"] },
+			{ "nome": "Salute", "zone": ["ospedale"] },
+			{ "nome": "Istruzione", "zone": ["elementare", "superiore"] },
+			{ "nome": "Sport", "zone": ["sport"] },
+			{ "nome": "Energia", "tipi": ["utility"], "produce": "corrente" },
+			{ "nome": "Acqua", "tipi": ["utility"], "produce": "acqua" },
+			{ "nome": "Trasporti", "tipi": ["service"] }
+		] },
+		{ "id": "mobilita", "nome": "Strade", "gruppi": [
+			{ "nome": "Percorsi", "tipi": ["road"] },
+			{ "nome": "Ponti", "tipi": ["bridge"] }
+		] },
+		{ "id": "verde", "nome": "Verde", "gruppi": [
+			{ "nome": "Alberi", "tipi": ["tree"] },
+			{ "nome": "Parchi e giardini", "tipi": ["park", "service"] }
+		] }
 	],
 
 	"tipo_predefinito": { "nome": "Oggetto", "categoria": "servizi", "regola": "terra" },
+
+	"_commento_asset": "Quello che di un singolo modello il suo tipo non riesce a dire. Serve da quando la libreria contiene presidi che non sono varianti di niente: la pipeline riconosce una caserma dal campo 'service', ma una caserma dell'espansione quel campo non ce l'ha — ha un nome proprio e basta, perche' e' un edificio disegnato e non una combinazione. Le chiavi possibili sono 'zona' (quale dei sette servizi porta), 'categoria' (in che scaffale sta), 'nome' e 'in_vendita'. Chi non compare qui prende tutto dal suo tipo, che e' la regola; questa e' l'eccezione, e sono quattro righe.",
+	"asset": {
+		"EXP_FIRE_STATION": { "zona": "pompieri" },
+		"_commento_biblioteca": "La biblioteca civica porta il servizio della scuola elementare: e' il presidio educativo di quartiere, stesso raggio corto e stesso bacino, e costa un po' meno della scuola perche' e' piu' piccola di quella grande. Non e' un ottavo servizio — i servizi di zona restano sette, e questo e' un secondo modo di coprirne uno, come le due caserme e i due presidi sanitari che esistevano gia'.",
+		"EXP_LIBRARY": { "zona": "elementare" },
+		"_commento_serra": "La serra botanica sta nello scaffale del verde e non in quello dei servizi, che e' dove uno la cerca: fa quello che fa un parco, in grande, e in piu' da' lavoro. Per questo consuma e vuole la strada, che un parco non fa.",
+		"EXP_BOTANICAL": { "zona": "verde", "categoria": "verde" }
+	},
 
 	"tipi": {
 		"house": {

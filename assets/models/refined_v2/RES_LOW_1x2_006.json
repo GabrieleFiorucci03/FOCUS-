@@ -1,0 +1,29 @@
+{
+  "id": "RES_LOW_1x2_006",
+  "kind": "house",
+  "footprint": [
+    1,
+    2
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 1.379,
+  "min_z": 0.0,
+  "max_z": 1.379,
+  "triangles": 5288,
+  "seed": 106,
+  "model": "RES_LOW_1x2_006.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 2001,
+  "feature": "garage",
+  "style_variant": "refined_v2",
+  "source_asset_id": "RES_LOW_1x2_006",
+  "collision_source": "realistic",
+  "windows_by_side": {
+    "front": 2,
+    "rear": 2,
+    "left": 4,
+    "right": 4
+  }
+}

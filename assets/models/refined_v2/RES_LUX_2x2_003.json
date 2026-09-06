@@ -1,0 +1,29 @@
+{
+  "id": "RES_LUX_2x2_003",
+  "kind": "villa",
+  "footprint": [
+    2,
+    2
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 1.26,
+  "min_z": 0.0,
+  "max_z": 1.26,
+  "triangles": 10016,
+  "seed": 403,
+  "model": "RES_LUX_2x2_003.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 2001,
+  "shape": "courtyard",
+  "style_variant": "refined_v2",
+  "source_asset_id": "RES_LUX_2x2_003",
+  "collision_source": "realistic",
+  "windows_by_side": {
+    "front": 4,
+    "rear": 5,
+    "left": 3,
+    "right": 2
+  }
+}

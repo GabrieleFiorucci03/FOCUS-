@@ -1,0 +1,24 @@
+{
+  "id": "ROAD_DIRT_1x1_CROSS",
+  "kind": "road",
+  "footprint": [
+    1,
+    1
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 0.174,
+  "min_z": 0.0,
+  "max_z": 0.174,
+  "triangles": 1112,
+  "seed": 1114,
+  "model": "ROAD_DIRT_1x1_CROSS.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 2001,
+  "variant": "cross",
+  "style": "dirt",
+  "style_variant": "refined_v2",
+  "source_asset_id": "ROAD_DIRT_1x1_CROSS",
+  "collision_source": "realistic"
+}

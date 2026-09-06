@@ -1,0 +1,40 @@
+{
+  "id": "EXP_PALAZZO_CORNER",
+  "kind": "apartment",
+  "footprint": [
+    3,
+    3
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 4.125,
+  "min_z": 0.0,
+  "max_z": 4.125,
+  "triangles": 17620,
+  "seed": 3111,
+  "model": "EXP_PALAZZO_CORNER.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 2100,
+  "style": "refined_v2",
+  "name": "Palazzo angolare",
+  "group": "citta",
+  "description": "Edificio a L color malva, negozi al piano terra e terrazza comune.",
+  "recipe": "corner",
+  "palette": [
+    "b8a3b8",
+    "72847d",
+    "65636e"
+  ],
+  "style_variant": "refined_v2",
+  "collection": "refined_expansion",
+  "is_new_asset": true,
+  "collision_mode": "simplified_component_boxes",
+  "collision_parts": 2,
+  "windows_by_side": {
+    "front": 26,
+    "rear": 36,
+    "left": 42,
+    "right": 35
+  }
+}

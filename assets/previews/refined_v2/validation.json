@@ -1,0 +1,1701 @@
+{
+  "asset_count": 91,
+  "original_files_unchanged": 550,
+  "collision_match_count": 91,
+  "triangles": 640346,
+  "previous_triangles": 358950,
+  "model_bytes": 66782260,
+  "assets": [
+    {
+      "id": "RES_LOW_1x1_001",
+      "triangles": 3092,
+      "previous_triangles": 2016,
+      "bytes": 537964,
+      "embedded_images": 16,
+      "windows_by_side": {
+        "front": 2,
+        "rear": 2,
+        "left": 1,
+        "right": 1
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "RES_LOW_1x1_002",
+      "triangles": 3246,
+      "previous_triangles": 1906,
+      "bytes": 510228,
+      "embedded_images": 14,
+      "windows_by_side": {
+        "front": 2,
+        "rear": 2,
+        "left": 2,
+        "right": 2
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "RES_LOW_1x1_003",
+      "triangles": 5492,
+      "previous_triangles": 3024,
+      "bytes": 706988,
+      "embedded_images": 16,
+      "windows_by_side": {
+        "front": 4,
+        "rear": 4,
+        "left": 4,
+        "right": 4
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "RES_LOW_1x1_004",
+      "triangles": 5580,
+      "previous_triangles": 3308,
+      "bytes": 711864,
+      "embedded_images": 16,
+      "windows_by_side": {
+        "front": 4,
+        "rear": 4,
+        "left": 4,
+        "right": 4
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "RES_LOW_1x1_005",
+      "triangles": 4476,
+      "previous_triangles": 2116,
+      "bytes": 596120,
+      "embedded_images": 14,
+      "windows_by_side": {
+        "front": 2,
+        "rear": 2,
+        "left": 2,
+        "right": 2
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "RES_LOW_1x2_006",
+      "triangles": 5288,
+      "previous_triangles": 2352,
+      "bytes": 731916,
+      "embedded_images": 18,
+      "windows_by_side": {
+        "front": 2,
+        "rear": 2,
+        "left": 4,
+        "right": 4
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "RES_LOW_2x1_007",
+      "triangles": 7760,
+      "previous_triangles": 3132,
+      "bytes": 827168,
+      "embedded_images": 14,
+      "windows_by_side": {
+        "front": 6,
+        "rear": 8,
+        "left": 4,
+        "right": 4
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "RES_LOW_1x1_008",
+      "triangles": 3696,
+      "previous_triangles": 2576,
+      "bytes": 580388,
+      "embedded_images": 16,
+      "windows_by_side": {
+        "front": 2,
+        "rear": 2,
+        "left": 2,
+        "right": 2
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.087
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "RES_LOW_1x2_009",
+      "triangles": 8214,
+      "previous_triangles": 3922,
+      "bytes": 896848,
+      "embedded_images": 16,
+      "windows_by_side": {
+        "front": 4,
+        "rear": 4,
+        "left": 8,
+        "right": 8
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "RES_LOW_2x1_010",
+      "triangles": 7548,
+      "previous_triangles": 3004,
+      "bytes": 889260,
+      "embedded_images": 18,
+      "windows_by_side": {
+        "front": 4,
+        "rear": 5,
+        "left": 2,
+        "right": 1
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "RES_MID_2x2_001",
+      "triangles": 8280,
+      "previous_triangles": 12476,
+      "bytes": 823248,
+      "embedded_images": 12,
+      "windows_by_side": {
+        "front": 14,
+        "rear": 16,
+        "left": 16,
+        "right": 16
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "RES_MID_2x2_002",
+      "triangles": 9060,
+      "previous_triangles": 14516,
+      "bytes": 878648,
+      "embedded_images": 12,
+      "windows_by_side": {
+        "front": 18,
+        "rear": 20,
+        "left": 20,
+        "right": 20
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "RES_MID_2x2_003",
+      "triangles": 11856,
+      "previous_triangles": 18284,
+      "bytes": 1074388,
+      "embedded_images": 12,
+      "windows_by_side": {
+        "front": 22,
+        "rear": 24,
+        "left": 24,
+        "right": 24
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "RES_MID_2x2_004",
+      "triangles": 11940,
+      "previous_triangles": 12584,
+      "bytes": 1118860,
+      "embedded_images": 14,
+      "windows_by_side": {
+        "front": 20,
+        "rear": 22,
+        "left": 22,
+        "right": 22
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "RES_MID_2x3_005",
+      "triangles": 15468,
+      "previous_triangles": 21344,
+      "bytes": 1327228,
+      "embedded_images": 12,
+      "windows_by_side": {
+        "front": 22,
+        "rear": 24,
+        "left": 42,
+        "right": 42
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "RES_MID_3x2_006",
+      "triangles": 16080,
+      "previous_triangles": 18956,
+      "bytes": 1408660,
+      "embedded_images": 14,
+      "windows_by_side": {
+        "front": 26,
+        "rear": 27,
+        "left": 36,
+        "right": 36
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "RES_HIGH_2x2_001",
+      "triangles": 18588,
+      "previous_triangles": 21772,
+      "bytes": 1545448,
+      "embedded_images": 12,
+      "windows_by_side": {
+        "front": 45,
+        "rear": 46,
+        "left": 36,
+        "right": 36
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "RES_HIGH_2x3_002",
+      "triangles": 31752,
+      "previous_triangles": 28936,
+      "bytes": 2506348,
+      "embedded_images": 14,
+      "windows_by_side": {
+        "front": 60,
+        "rear": 61,
+        "left": 84,
+        "right": 79
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "RES_LUX_2x2_001",
+      "triangles": 11264,
+      "previous_triangles": 3240,
+      "bytes": 1150700,
+      "embedded_images": 18,
+      "windows_by_side": {
+        "front": 8,
+        "rear": 9,
+        "left": 6,
+        "right": 5
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "RES_LUX_2x2_002",
+      "triangles": 12036,
+      "previous_triangles": 3532,
+      "bytes": 1378040,
+      "embedded_images": 24,
+      "windows_by_side": {
+        "front": 8,
+        "rear": 9,
+        "left": 6,
+        "right": 5
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "RES_LUX_2x2_003",
+      "triangles": 10016,
+      "previous_triangles": 2316,
+      "bytes": 1239860,
+      "embedded_images": 24,
+      "windows_by_side": {
+        "front": 4,
+        "rear": 5,
+        "left": 3,
+        "right": 2
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "RES_LUX_3x2_004",
+      "triangles": 11016,
+      "previous_triangles": 3340,
+      "bytes": 1052460,
+      "embedded_images": 14,
+      "windows_by_side": {
+        "front": 11,
+        "rear": 11,
+        "left": 6,
+        "right": 5
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "RES_TOWER_3x3_001",
+      "triangles": 33168,
+      "previous_triangles": 4224,
+      "bytes": 2525208,
+      "embedded_images": 10,
+      "windows_by_side": {
+        "front": 94,
+        "rear": 94,
+        "left": 92,
+        "right": 92
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "RES_TOWER_3x3_002",
+      "triangles": 37932,
+      "previous_triangles": 4764,
+      "bytes": 2857696,
+      "embedded_images": 10,
+      "windows_by_side": {
+        "front": 107,
+        "rear": 107,
+        "left": 105,
+        "right": 105
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "RES_TOWER_4x4_003",
+      "triangles": 69240,
+      "previous_triangles": 8760,
+      "bytes": 5316884,
+      "embedded_images": 10,
+      "windows_by_side": {
+        "front": 184,
+        "rear": 184,
+        "left": 206,
+        "right": 206
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "COM_LOW_1x1_001",
+      "triangles": 2484,
+      "previous_triangles": 1216,
+      "bytes": 416668,
+      "embedded_images": 12,
+      "windows_by_side": {
+        "front": 1,
+        "rear": 2,
+        "left": 2,
+        "right": 2
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.103
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "COM_LOW_1x1_002",
+      "triangles": 2484,
+      "previous_triangles": 1216,
+      "bytes": 455960,
+      "embedded_images": 14,
+      "windows_by_side": {
+        "front": 1,
+        "rear": 2,
+        "left": 2,
+        "right": 2
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.103
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "COM_LOW_1x1_003",
+      "triangles": 2724,
+      "previous_triangles": 1456,
+      "bytes": 508052,
+      "embedded_images": 16,
+      "windows_by_side": {
+        "front": 1,
+        "rear": 2,
+        "left": 2,
+        "right": 2
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.39
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "COM_LOW_2x1_004",
+      "triangles": 2880,
+      "previous_triangles": 1324,
+      "bytes": 482552,
+      "embedded_images": 14,
+      "windows_by_side": {
+        "front": 1,
+        "rear": 5,
+        "left": 2,
+        "right": 2
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.48
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "COM_MID_2x2_005",
+      "triangles": 5352,
+      "previous_triangles": 1324,
+      "bytes": 696344,
+      "embedded_images": 16,
+      "windows_by_side": {
+        "front": 6,
+        "rear": 8,
+        "left": 10,
+        "right": 10
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.103
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "COM_KIOSK_1x1_006",
+      "triangles": 2484,
+      "previous_triangles": 1216,
+      "bytes": 455004,
+      "embedded_images": 14,
+      "windows_by_side": {
+        "front": 1,
+        "rear": 2,
+        "left": 2,
+        "right": 2
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.103
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "OFF_LOW_2x2_001",
+      "triangles": 10716,
+      "previous_triangles": 1896,
+      "bytes": 913480,
+      "embedded_images": 8,
+      "windows_by_side": {
+        "front": 27,
+        "rear": 30,
+        "left": 25,
+        "right": 25
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "OFF_MID_2x2_002",
+      "triangles": 18660,
+      "previous_triangles": 2220,
+      "bytes": 1469360,
+      "embedded_images": 8,
+      "windows_by_side": {
+        "front": 47,
+        "rear": 50,
+        "left": 43,
+        "right": 43
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "OFF_MID_3x3_003",
+      "triangles": 43116,
+      "previous_triangles": 2652,
+      "bytes": 3180956,
+      "embedded_images": 8,
+      "windows_by_side": {
+        "front": 74,
+        "rear": 76,
+        "left": 145,
+        "right": 152
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "IND_LOW_2x2_001",
+      "triangles": 3748,
+      "previous_triangles": 2068,
+      "bytes": 543228,
+      "embedded_images": 14,
+      "windows_by_side": {
+        "front": 5,
+        "rear": 5,
+        "left": 4,
+        "right": 4
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "IND_LOW_3x2_002",
+      "triangles": 5644,
+      "previous_triangles": 2392,
+      "bytes": 675952,
+      "embedded_images": 14,
+      "windows_by_side": {
+        "front": 8,
+        "rear": 8,
+        "left": 4,
+        "right": 4
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "IND_MID_3x3_003",
+      "triangles": 7468,
+      "previous_triangles": 2500,
+      "bytes": 842288,
+      "embedded_images": 16,
+      "windows_by_side": {
+        "front": 8,
+        "rear": 8,
+        "left": 7,
+        "right": 7
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "PARK_2x2_001",
+      "triangles": 10416,
+      "previous_triangles": 3120,
+      "bytes": 1302712,
+      "embedded_images": 16,
+      "windows_by_side": null,
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "PARK_2x2_002",
+      "triangles": 10904,
+      "previous_triangles": 3608,
+      "bytes": 1452296,
+      "embedded_images": 22,
+      "windows_by_side": null,
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "PARK_3x3_003",
+      "triangles": 10524,
+      "previous_triangles": 3120,
+      "bytes": 1321612,
+      "embedded_images": 16,
+      "windows_by_side": null,
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "PARK_1x1_004",
+      "triangles": 6408,
+      "previous_triangles": 2670,
+      "bytes": 915660,
+      "embedded_images": 16,
+      "windows_by_side": null,
+      "lot_overhang_m": [
+        0.06,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "CIV_POLICE_2x2_001",
+      "triangles": 5208,
+      "previous_triangles": 4240,
+      "bytes": 647020,
+      "embedded_images": 14,
+      "windows_by_side": {
+        "front": 9,
+        "rear": 10,
+        "left": 8,
+        "right": 8
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.01
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "CIV_FIRE_2x2_001",
+      "triangles": 5640,
+      "previous_triangles": 4612,
+      "bytes": 677456,
+      "embedded_images": 14,
+      "windows_by_side": {
+        "front": 7,
+        "rear": 10,
+        "left": 8,
+        "right": 8
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "CIV_HEALTH_3x3_001",
+      "triangles": 10896,
+      "previous_triangles": 11788,
+      "bytes": 1045732,
+      "embedded_images": 14,
+      "windows_by_side": {
+        "front": 20,
+        "rear": 24,
+        "left": 24,
+        "right": 24
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.105
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "CIV_POLICE_3x2_002",
+      "triangles": 8568,
+      "previous_triangles": 7600,
+      "bytes": 882656,
+      "embedded_images": 14,
+      "windows_by_side": {
+        "front": 22,
+        "rear": 24,
+        "left": 12,
+        "right": 12
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.01
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "CIV_FIRE_3x2_002",
+      "triangles": 6696,
+      "previous_triangles": 5956,
+      "bytes": 752328,
+      "embedded_images": 14,
+      "windows_by_side": {
+        "front": 12,
+        "rear": 16,
+        "left": 8,
+        "right": 8
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "CIV_HEALTH_2x2_002",
+      "triangles": 5268,
+      "previous_triangles": 7084,
+      "bytes": 652556,
+      "embedded_images": 14,
+      "windows_by_side": {
+        "front": 8,
+        "rear": 10,
+        "left": 8,
+        "right": 8
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.105
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "ROAD_LOCAL_1x1_STRAIGHT",
+      "triangles": 2176,
+      "previous_triangles": 2376,
+      "bytes": 317392,
+      "embedded_images": 8,
+      "windows_by_side": null,
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "ROAD_LOCAL_1x1_CORNER",
+      "triangles": 2176,
+      "previous_triangles": 2376,
+      "bytes": 317512,
+      "embedded_images": 8,
+      "windows_by_side": null,
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "ROAD_LOCAL_1x1_T",
+      "triangles": 2340,
+      "previous_triangles": 2592,
+      "bytes": 328824,
+      "embedded_images": 8,
+      "windows_by_side": null,
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "ROAD_LOCAL_1x1_CROSS",
+      "triangles": 2504,
+      "previous_triangles": 2808,
+      "bytes": 340308,
+      "embedded_images": 8,
+      "windows_by_side": null,
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "ROAD_LOCAL_1x1_END",
+      "triangles": 2120,
+      "previous_triangles": 2268,
+      "bytes": 313884,
+      "embedded_images": 8,
+      "windows_by_side": null,
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "ROAD_DIRT_1x1_STRAIGHT",
+      "triangles": 1096,
+      "previous_triangles": 1392,
+      "bytes": 231408,
+      "embedded_images": 6,
+      "windows_by_side": null,
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "ROAD_DIRT_1x1_CORNER",
+      "triangles": 1096,
+      "previous_triangles": 1392,
+      "bytes": 231532,
+      "embedded_images": 6,
+      "windows_by_side": null,
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "ROAD_DIRT_1x1_T",
+      "triangles": 1104,
+      "previous_triangles": 1500,
+      "bytes": 231928,
+      "embedded_images": 6,
+      "windows_by_side": null,
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "ROAD_DIRT_1x1_CROSS",
+      "triangles": 1112,
+      "previous_triangles": 1608,
+      "bytes": 232488,
+      "embedded_images": 6,
+      "windows_by_side": null,
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "ROAD_DIRT_1x1_END",
+      "triangles": 1088,
+      "previous_triangles": 1284,
+      "bytes": 231104,
+      "embedded_images": 6,
+      "windows_by_side": null,
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "ROAD_LOCAL_SLOPE_1x1_UP_050",
+      "triangles": 860,
+      "previous_triangles": 860,
+      "bytes": 180704,
+      "embedded_images": 6,
+      "windows_by_side": null,
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "ROAD_LOCAL_SLOPE_1x1_DOWN_050",
+      "triangles": 860,
+      "previous_triangles": 860,
+      "bytes": 180712,
+      "embedded_images": 6,
+      "windows_by_side": null,
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "ROAD_LOCAL_SLOPE_1x2_UP_050",
+      "triangles": 860,
+      "previous_triangles": 860,
+      "bytes": 180700,
+      "embedded_images": 6,
+      "windows_by_side": null,
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "ROAD_LOCAL_SLOPE_1x2_DOWN_050",
+      "triangles": 860,
+      "previous_triangles": 860,
+      "bytes": 180712,
+      "embedded_images": 6,
+      "windows_by_side": null,
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "ROAD_DIRT_SLOPE_1x1_UP_050",
+      "triangles": 848,
+      "previous_triangles": 848,
+      "bytes": 179880,
+      "embedded_images": 6,
+      "windows_by_side": null,
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "ROAD_DIRT_SLOPE_1x1_DOWN_050",
+      "triangles": 848,
+      "previous_triangles": 848,
+      "bytes": 179888,
+      "embedded_images": 6,
+      "windows_by_side": null,
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "ROAD_DIRT_SLOPE_1x2_UP_050",
+      "triangles": 848,
+      "previous_triangles": 848,
+      "bytes": 179876,
+      "embedded_images": 6,
+      "windows_by_side": null,
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "ROAD_DIRT_SLOPE_1x2_DOWN_050",
+      "triangles": 848,
+      "previous_triangles": 848,
+      "bytes": 179884,
+      "embedded_images": 6,
+      "windows_by_side": null,
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "BRG_LOCAL_RAMP_1x1_UP_050",
+      "triangles": 540,
+      "previous_triangles": 636,
+      "bytes": 163416,
+      "embedded_images": 6,
+      "windows_by_side": null,
+      "lot_overhang_m": [
+        0.0,
+        0.016
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "BRG_LOCAL_RAMP_1x1_DOWN_050",
+      "triangles": 540,
+      "previous_triangles": 636,
+      "bytes": 163424,
+      "embedded_images": 6,
+      "windows_by_side": null,
+      "lot_overhang_m": [
+        0.0,
+        0.016
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "BRG_LOCAL_DECK_1x1_STRAIGHT",
+      "triangles": 1084,
+      "previous_triangles": 1724,
+      "bytes": 234592,
+      "embedded_images": 8,
+      "windows_by_side": null,
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "BRG_LOCAL_DECK_1x1_CORNER",
+      "triangles": 1084,
+      "previous_triangles": 2108,
+      "bytes": 234808,
+      "embedded_images": 8,
+      "windows_by_side": null,
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "BRG_LOCAL_DECK_1x1_T",
+      "triangles": 1268,
+      "previous_triangles": 2708,
+      "bytes": 247380,
+      "embedded_images": 8,
+      "windows_by_side": null,
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "BRG_LOCAL_DECK_1x1_CROSS",
+      "triangles": 1452,
+      "previous_triangles": 3308,
+      "bytes": 260280,
+      "embedded_images": 8,
+      "windows_by_side": null,
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "BRG_LOCAL_DECK_1x1_END",
+      "triangles": 1020,
+      "previous_triangles": 1700,
+      "bytes": 230576,
+      "embedded_images": 8,
+      "windows_by_side": null,
+      "lot_overhang_m": [
+        0.0,
+        0.007
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "BRG_SUPPORT_PIER_1x1_LOW_050",
+      "triangles": 748,
+      "previous_triangles": 952,
+      "bytes": 166548,
+      "embedded_images": 6,
+      "windows_by_side": null,
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "BRG_SUPPORT_PIER_1x1_MID_100",
+      "triangles": 748,
+      "previous_triangles": 952,
+      "bytes": 166588,
+      "embedded_images": 6,
+      "windows_by_side": null,
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "BRG_SUPPORT_PIER_1x1_HIGH_150",
+      "triangles": 748,
+      "previous_triangles": 952,
+      "bytes": 166548,
+      "embedded_images": 6,
+      "windows_by_side": null,
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "BRG_SUPPORT_ABUTMENT_1x1_050",
+      "triangles": 812,
+      "previous_triangles": 1016,
+      "bytes": 173156,
+      "embedded_images": 6,
+      "windows_by_side": null,
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "NAT_TREE_OAK_1x1_001",
+      "triangles": 3248,
+      "previous_triangles": 1220,
+      "bytes": 473012,
+      "embedded_images": 8,
+      "windows_by_side": null,
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "NAT_TREE_PINE_1x1_001",
+      "triangles": 2492,
+      "previous_triangles": 1070,
+      "bytes": 397044,
+      "embedded_images": 8,
+      "windows_by_side": null,
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "NAT_TREE_BIRCH_1x1_001",
+      "triangles": 1220,
+      "previous_triangles": 1220,
+      "bytes": 192000,
+      "embedded_images": 4,
+      "windows_by_side": null,
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "NAT_TREE_CYPRESS_1x1_001",
+      "triangles": 522,
+      "previous_triangles": 522,
+      "bytes": 155032,
+      "embedded_images": 6,
+      "windows_by_side": null,
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "NAT_TREE_FLOWER_1x1_001",
+      "triangles": 1220,
+      "previous_triangles": 1220,
+      "bytes": 309384,
+      "embedded_images": 10,
+      "windows_by_side": null,
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "NAT_TREE_OAK_1x1_002",
+      "triangles": 3248,
+      "previous_triangles": 1220,
+      "bytes": 473008,
+      "embedded_images": 8,
+      "windows_by_side": null,
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "EDU_SCHOOL_3x3_001",
+      "triangles": 8664,
+      "previous_triangles": 5432,
+      "bytes": 890324,
+      "embedded_images": 14,
+      "windows_by_side": {
+        "front": 9,
+        "rear": 16,
+        "left": 10,
+        "right": 10
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "EDU_SCHOOL_4x3_002",
+      "triangles": 14448,
+      "previous_triangles": 9572,
+      "bytes": 1326076,
+      "embedded_images": 16,
+      "windows_by_side": {
+        "front": 30,
+        "rear": 25,
+        "left": 18,
+        "right": 18
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "AGR_BARN_2x2_001",
+      "triangles": 4154,
+      "previous_triangles": 1754,
+      "bytes": 651244,
+      "embedded_images": 18,
+      "windows_by_side": {
+        "front": 3,
+        "rear": 3,
+        "left": 3,
+        "right": 3
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "AGR_GREENHOUSE_3x2_001",
+      "triangles": 4420,
+      "previous_triangles": 1636,
+      "bytes": 451176,
+      "embedded_images": 6,
+      "windows_by_side": {
+        "front": 8,
+        "rear": 8,
+        "left": 10,
+        "right": 10
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "UTIL_WIND_2x2_001",
+      "triangles": 1124,
+      "previous_triangles": 908,
+      "bytes": 241736,
+      "embedded_images": 8,
+      "windows_by_side": null,
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "UTIL_WATER_2x2_001",
+      "triangles": 1290,
+      "previous_triangles": 978,
+      "bytes": 290132,
+      "embedded_images": 10,
+      "windows_by_side": null,
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "UTIL_SOLAR_3x2_001",
+      "triangles": 2832,
+      "previous_triangles": 1776,
+      "bytes": 318844,
+      "embedded_images": 6,
+      "windows_by_side": null,
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "SPORT_FOOTBALL_3x2_001",
+      "triangles": 3664,
+      "previous_triangles": 2488,
+      "bytes": 331972,
+      "embedded_images": 4,
+      "windows_by_side": null,
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "SPORT_BASKET_2x1_001",
+      "triangles": 3736,
+      "previous_triangles": 3136,
+      "bytes": 372932,
+      "embedded_images": 6,
+      "windows_by_side": null,
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ],
+      "new_overhang_m": [
+        0.0,
+        0.0
+      ]
+    }
+  ]
+}

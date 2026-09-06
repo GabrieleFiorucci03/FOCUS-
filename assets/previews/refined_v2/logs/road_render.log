@@ -1,0 +1,147 @@
+Info: Deleted 5 data-block(s)
+11:02:43 | INFO: Data are loaded, start creating Blender stuff
+11:02:43 | INFO: Blender create Mesh node Cube.022
+11:02:43 | INFO: Blender create Mesh node Cube
+11:02:43 | INFO: glTF import finished in 0.08s
+C:\Users\gabri\Desktop\FOCUS!\tools\blender\render_refined_assets.py:39: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  mat=bpy.data.materials.new('StudioWarmGrey');mat.use_nodes=True
+C:\Users\gabri\Desktop\FOCUS!\tools\blender\render_refined_assets.py:44: DeprecationWarning: 'World.use_nodes' is expected to be removed in Blender 6.0
+  world.use_nodes=True;world.node_tree.nodes['Background'].inputs[0].default_value=(.72,.78,.85,1)
+00:20.313  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\ROAD_LOCAL_1x1_STRAIGHT__refined_v2__front.png'
+[RENDER] ROAD_LOCAL_1x1_STRAIGHT__refined_v2__front.png
+Info: Deleted 23 data-block(s)
+11:02:53 | INFO: Data are loaded, start creating Blender stuff
+11:02:53 | INFO: Blender create Mesh node Cube.022
+11:02:53 | INFO: Blender create Mesh node Cube
+11:02:54 | INFO: glTF import finished in 0.10s
+00:31.188  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\ROAD_LOCAL_1x1_STRAIGHT__refined_v2__rear.png'
+[RENDER] ROAD_LOCAL_1x1_STRAIGHT__refined_v2__rear.png
+Info: Deleted 23 data-block(s)
+11:03:04 | INFO: Data are loaded, start creating Blender stuff
+11:03:04 | INFO: Blender create Mesh node Cube.022
+11:03:04 | INFO: Blender create Mesh node Cube
+11:03:04 | INFO: glTF import finished in 0.08s
+00:42.313  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\ROAD_LOCAL_1x1_CORNER__refined_v2__front.png'
+[RENDER] ROAD_LOCAL_1x1_CORNER__refined_v2__front.png
+Info: Deleted 23 data-block(s)
+11:03:15 | INFO: Data are loaded, start creating Blender stuff
+11:03:15 | INFO: Blender create Mesh node Cube.022
+11:03:15 | INFO: Blender create Mesh node Cube
+11:03:16 | INFO: glTF import finished in 0.07s
+00:52.219  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\ROAD_LOCAL_1x1_CORNER__refined_v2__rear.png'
+[RENDER] ROAD_LOCAL_1x1_CORNER__refined_v2__rear.png
+Info: Deleted 23 data-block(s)
+11:03:25 | INFO: Data are loaded, start creating Blender stuff
+11:03:25 | INFO: Blender create Mesh node Cube.024
+11:03:25 | INFO: Blender create Mesh node Cube
+11:03:25 | INFO: glTF import finished in 0.07s
+01:01.844  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\ROAD_LOCAL_1x1_T__refined_v2__front.png'
+[RENDER] ROAD_LOCAL_1x1_T__refined_v2__front.png
+Info: Deleted 23 data-block(s)
+11:03:35 | INFO: Data are loaded, start creating Blender stuff
+11:03:35 | INFO: Blender create Mesh node Cube.024
+11:03:35 | INFO: Blender create Mesh node Cube
+11:03:35 | INFO: glTF import finished in 0.07s
+01:11.391  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\ROAD_LOCAL_1x1_T__refined_v2__rear.png'
+[RENDER] ROAD_LOCAL_1x1_T__refined_v2__rear.png
+Info: Deleted 23 data-block(s)
+11:03:45 | INFO: Data are loaded, start creating Blender stuff
+11:03:45 | INFO: Blender create Mesh node Cube.026
+11:03:45 | INFO: Blender create Mesh node Cube
+11:03:45 | INFO: glTF import finished in 0.08s
+01:21.516  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\ROAD_LOCAL_1x1_CROSS__refined_v2__front.png'
+[RENDER] ROAD_LOCAL_1x1_CROSS__refined_v2__front.png
+Info: Deleted 23 data-block(s)
+11:03:55 | INFO: Data are loaded, start creating Blender stuff
+11:03:55 | INFO: Blender create Mesh node Cube.026
+11:03:55 | INFO: Blender create Mesh node Cube
+11:03:55 | INFO: glTF import finished in 0.09s
+01:31.688  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\ROAD_LOCAL_1x1_CROSS__refined_v2__rear.png'
+[RENDER] ROAD_LOCAL_1x1_CROSS__refined_v2__rear.png
+Info: Deleted 23 data-block(s)
+11:04:05 | INFO: Data are loaded, start creating Blender stuff
+11:04:05 | INFO: Blender create Mesh node Cube.021
+11:04:05 | INFO: Blender create Mesh node Cube
+11:04:05 | INFO: glTF import finished in 0.08s
+01:40.828  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\ROAD_LOCAL_1x1_END__refined_v2__front.png'
+[RENDER] ROAD_LOCAL_1x1_END__refined_v2__front.png
+Info: Deleted 24 data-block(s)
+11:04:14 | INFO: Data are loaded, start creating Blender stuff
+11:04:14 | INFO: Blender create Mesh node Cube.021
+11:04:14 | INFO: Blender create Mesh node Cube
+11:04:14 | INFO: glTF import finished in 0.06s
+01:50.281  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\ROAD_LOCAL_1x1_END__refined_v2__rear.png'
+[RENDER] ROAD_LOCAL_1x1_END__refined_v2__rear.png
+Info: Deleted 24 data-block(s)
+11:04:23 | INFO: Data are loaded, start creating Blender stuff
+11:04:23 | INFO: Blender create Mesh node Cube.004
+11:04:23 | INFO: Blender create Mesh node Cube
+11:04:23 | INFO: glTF import finished in 0.04s
+01:59.734  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\ROAD_DIRT_1x1_STRAIGHT__refined_v2__front.png'
+[RENDER] ROAD_DIRT_1x1_STRAIGHT__refined_v2__front.png
+Info: Deleted 18 data-block(s)
+11:04:33 | INFO: Data are loaded, start creating Blender stuff
+11:04:33 | INFO: Blender create Mesh node Cube.004
+11:04:33 | INFO: Blender create Mesh node Cube
+11:04:33 | INFO: glTF import finished in 0.06s
+02:10.141  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\ROAD_DIRT_1x1_STRAIGHT__refined_v2__rear.png'
+[RENDER] ROAD_DIRT_1x1_STRAIGHT__refined_v2__rear.png
+Info: Deleted 18 data-block(s)
+11:04:43 | INFO: Data are loaded, start creating Blender stuff
+11:04:43 | INFO: Blender create Mesh node Cube.004
+11:04:43 | INFO: Blender create Mesh node Cube
+11:04:43 | INFO: glTF import finished in 0.06s
+02:20.297  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\ROAD_DIRT_1x1_CORNER__refined_v2__front.png'
+[RENDER] ROAD_DIRT_1x1_CORNER__refined_v2__front.png
+Info: Deleted 18 data-block(s)
+11:04:53 | INFO: Data are loaded, start creating Blender stuff
+11:04:53 | INFO: Blender create Mesh node Cube.004
+11:04:53 | INFO: Blender create Mesh node Cube
+11:04:54 | INFO: glTF import finished in 0.07s
+02:31.766  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\ROAD_DIRT_1x1_CORNER__refined_v2__rear.png'
+[RENDER] ROAD_DIRT_1x1_CORNER__refined_v2__rear.png
+Info: Deleted 18 data-block(s)
+11:05:05 | INFO: Data are loaded, start creating Blender stuff
+11:05:05 | INFO: Blender create Mesh node Cube.005
+11:05:05 | INFO: Blender create Mesh node Cube
+11:05:05 | INFO: glTF import finished in 0.05s
+02:44.016  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\ROAD_DIRT_1x1_T__refined_v2__front.png'
+[RENDER] ROAD_DIRT_1x1_T__refined_v2__front.png
+Info: Deleted 18 data-block(s)
+11:05:17 | INFO: Data are loaded, start creating Blender stuff
+11:05:17 | INFO: Blender create Mesh node Cube.005
+11:05:17 | INFO: Blender create Mesh node Cube
+11:05:17 | INFO: glTF import finished in 0.04s
+02:55.469  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\ROAD_DIRT_1x1_T__refined_v2__rear.png'
+[RENDER] ROAD_DIRT_1x1_T__refined_v2__rear.png
+Info: Deleted 18 data-block(s)
+11:05:29 | INFO: Data are loaded, start creating Blender stuff
+11:05:29 | INFO: Blender create Mesh node Cube.006
+11:05:29 | INFO: Blender create Mesh node Cube
+11:05:29 | INFO: glTF import finished in 0.07s
+03:05.313  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\ROAD_DIRT_1x1_CROSS__refined_v2__front.png'
+[RENDER] ROAD_DIRT_1x1_CROSS__refined_v2__front.png
+Info: Deleted 18 data-block(s)
+11:05:38 | INFO: Data are loaded, start creating Blender stuff
+11:05:38 | INFO: Blender create Mesh node Cube.006
+11:05:38 | INFO: Blender create Mesh node Cube
+11:05:39 | INFO: glTF import finished in 0.05s
+03:15.250  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\ROAD_DIRT_1x1_CROSS__refined_v2__rear.png'
+[RENDER] ROAD_DIRT_1x1_CROSS__refined_v2__rear.png
+Info: Deleted 18 data-block(s)
+11:05:48 | INFO: Data are loaded, start creating Blender stuff
+11:05:48 | INFO: Blender create Mesh node Cube.003
+11:05:48 | INFO: Blender create Mesh node Cube
+11:05:48 | INFO: glTF import finished in 0.05s
+03:28.406  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\ROAD_DIRT_1x1_END__refined_v2__front.png'
+[RENDER] ROAD_DIRT_1x1_END__refined_v2__front.png
+Info: Deleted 18 data-block(s)
+11:06:02 | INFO: Data are loaded, start creating Blender stuff
+11:06:02 | INFO: Blender create Mesh node Cube.003
+11:06:02 | INFO: Blender create Mesh node Cube
+11:06:02 | INFO: glTF import finished in 0.09s
+03:38.531  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\ROAD_DIRT_1x1_END__refined_v2__rear.png'
+[RENDER] ROAD_DIRT_1x1_END__refined_v2__rear.png
+Blender 5.2.1 LTS (hash 9e2066aef7ef built 2026-08-25 02:38:20)
+
+Blender quit

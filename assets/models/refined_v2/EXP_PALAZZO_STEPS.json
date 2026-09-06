@@ -1,0 +1,40 @@
+{
+  "id": "EXP_PALAZZO_STEPS",
+  "kind": "apartment",
+  "footprint": [
+    3,
+    3
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 5.607,
+  "min_z": 0.0,
+  "max_z": 5.607,
+  "triangles": 25684,
+  "seed": 3109,
+  "model": "EXP_PALAZZO_STEPS.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 2100,
+  "style": "refined_v2",
+  "name": "Residenze a terrazze",
+  "group": "citta",
+  "description": "Tre corpi degradanti, terrazze piantumate e parapetti sottili.",
+  "recipe": "steps",
+  "palette": [
+    "a7afa0",
+    "b9a881",
+    "62736a"
+  ],
+  "style_variant": "refined_v2",
+  "collection": "refined_expansion",
+  "is_new_asset": true,
+  "collision_mode": "simplified_component_boxes",
+  "collision_parts": 3,
+  "windows_by_side": {
+    "front": 34,
+    "rear": 36,
+    "left": 72,
+    "right": 72
+  }
+}

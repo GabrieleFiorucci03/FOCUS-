@@ -1,0 +1,1050 @@
+Info: Deleted 5 data-block(s)
+10:49:22 | INFO: Data are loaded, start creating Blender stuff
+10:49:22 | INFO: Blender create Mesh node Cube.128
+10:49:22 | INFO: Blender create Mesh node Cube
+10:49:22 | INFO: glTF import finished in 0.09s
+C:\Users\gabri\Desktop\FOCUS!\tools\blender\render_refined_assets.py:39: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  mat=bpy.data.materials.new('StudioWarmGrey');mat.use_nodes=True
+C:\Users\gabri\Desktop\FOCUS!\tools\blender\render_refined_assets.py:44: DeprecationWarning: 'World.use_nodes' is expected to be removed in Blender 6.0
+  world.use_nodes=True;world.node_tree.nodes['Background'].inputs[0].default_value=(.72,.78,.85,1)
+00:07.422  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\RES_MID_2x3_005__refined_v2__rear.png'
+[RENDER] RES_MID_2x3_005__refined_v2__rear.png
+Info: Deleted 33 data-block(s)
+10:49:26 | INFO: Data are loaded, start creating Blender stuff
+10:49:26 | INFO: Blender create Mesh node Cube.131
+10:49:26 | INFO: Blender create Mesh node Cube
+10:49:26 | INFO: glTF import finished in 0.14s
+00:14.422  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\RES_HIGH_2x2_001__realistic__front.png'
+[RENDER] RES_HIGH_2x2_001__realistic__front.png
+Info: Deleted 17 data-block(s)
+10:49:33 | INFO: Data are loaded, start creating Blender stuff
+10:49:33 | INFO: Blender create Mesh node Cube.131
+10:49:33 | INFO: Blender create Mesh node Cube
+10:49:34 | INFO: glTF import finished in 0.31s
+00:22.281  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\RES_HIGH_2x2_001__realistic__rear.png'
+[RENDER] RES_HIGH_2x2_001__realistic__rear.png
+Info: Deleted 17 data-block(s)
+10:49:41 | INFO: Data are loaded, start creating Blender stuff
+10:49:41 | INFO: Blender create Mesh node Cube.131
+10:49:41 | INFO: Blender create Mesh node Cube
+10:49:41 | INFO: glTF import finished in 0.27s
+00:30.765  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\RES_HIGH_2x2_001__refined_v2__front.png'
+[RENDER] RES_HIGH_2x2_001__refined_v2__front.png
+Info: Deleted 33 data-block(s)
+10:49:50 | INFO: Data are loaded, start creating Blender stuff
+10:49:50 | INFO: Blender create Mesh node Cube.131
+10:49:50 | INFO: Blender create Mesh node Cube
+10:49:50 | INFO: glTF import finished in 0.34s
+00:39.562  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\RES_HIGH_2x2_001__refined_v2__rear.png'
+[RENDER] RES_HIGH_2x2_001__refined_v2__rear.png
+Info: Deleted 33 data-block(s)
+10:49:58 | INFO: Data are loaded, start creating Blender stuff
+10:49:58 | INFO: Blender create Mesh node Cube.021
+10:49:58 | INFO: Blender create Mesh node Cube
+10:49:58 | INFO: glTF import finished in 0.06s
+00:47.484  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\RES_LUX_2x2_001__realistic__front.png'
+[RENDER] RES_LUX_2x2_001__realistic__front.png
+Info: Deleted 20 data-block(s)
+10:50:06 | INFO: Data are loaded, start creating Blender stuff
+10:50:06 | INFO: Blender create Mesh node Cube.021
+10:50:06 | INFO: Blender create Mesh node Cube
+10:50:06 | INFO: glTF import finished in 0.09s
+00:54.922  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\RES_LUX_2x2_001__realistic__rear.png'
+[RENDER] RES_LUX_2x2_001__realistic__rear.png
+Info: Deleted 20 data-block(s)
+10:50:14 | INFO: Data are loaded, start creating Blender stuff
+10:50:14 | INFO: Blender create Mesh node Cube.021
+10:50:14 | INFO: Blender create Mesh node Cube
+10:50:14 | INFO: glTF import finished in 0.21s
+01:02.812  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\RES_LUX_2x2_001__refined_v2__front.png'
+[RENDER] RES_LUX_2x2_001__refined_v2__front.png
+Info: Deleted 44 data-block(s)
+10:50:22 | INFO: Data are loaded, start creating Blender stuff
+10:50:22 | INFO: Blender create Mesh node Cube.021
+10:50:22 | INFO: Blender create Mesh node Cube
+10:50:22 | INFO: glTF import finished in 0.21s
+01:10.406  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\RES_LUX_2x2_001__refined_v2__rear.png'
+[RENDER] RES_LUX_2x2_001__refined_v2__rear.png
+Info: Deleted 44 data-block(s)
+10:50:29 | INFO: Data are loaded, start creating Blender stuff
+10:50:29 | INFO: Blender create Mesh node Cube.013
+10:50:29 | INFO: Blender create Mesh node Cube
+10:50:29 | INFO: glTF import finished in 0.06s
+01:17.093  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\RES_LUX_2x2_003__realistic__front.png'
+[RENDER] RES_LUX_2x2_003__realistic__front.png
+Info: Deleted 22 data-block(s)
+10:50:36 | INFO: Data are loaded, start creating Blender stuff
+10:50:36 | INFO: Blender create Mesh node Cube.013
+10:50:36 | INFO: Blender create Mesh node Cube
+10:50:36 | INFO: glTF import finished in 0.06s
+01:23.953  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\RES_LUX_2x2_003__realistic__rear.png'
+[RENDER] RES_LUX_2x2_003__realistic__rear.png
+Info: Deleted 22 data-block(s)
+10:50:43 | INFO: Data are loaded, start creating Blender stuff
+10:50:43 | INFO: Blender create Mesh node Cube.013
+10:50:43 | INFO: Blender create Mesh node Cube
+10:50:43 | INFO: glTF import finished in 0.20s
+01:31.187  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\RES_LUX_2x2_003__refined_v2__front.png'
+[RENDER] RES_LUX_2x2_003__refined_v2__front.png
+Info: Deleted 51 data-block(s)
+10:50:50 | INFO: Data are loaded, start creating Blender stuff
+10:50:50 | INFO: Blender create Mesh node Cube.013
+10:50:50 | INFO: Blender create Mesh node Cube
+10:50:50 | INFO: glTF import finished in 0.20s
+01:38.328  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\RES_LUX_2x2_003__refined_v2__rear.png'
+[RENDER] RES_LUX_2x2_003__refined_v2__rear.png
+Info: Deleted 51 data-block(s)
+10:50:57 | INFO: Data are loaded, start creating Blender stuff
+10:50:57 | INFO: Blender create Mesh node Cube.036
+10:50:57 | INFO: Blender create Mesh node Cube
+10:50:57 | INFO: glTF import finished in 0.07s
+01:45.343  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\RES_TOWER_3x3_001__realistic__front.png'
+[RENDER] RES_TOWER_3x3_001__realistic__front.png
+Info: Deleted 18 data-block(s)
+10:51:04 | INFO: Data are loaded, start creating Blender stuff
+10:51:04 | INFO: Blender create Mesh node Cube.036
+10:51:04 | INFO: Blender create Mesh node Cube
+10:51:04 | INFO: glTF import finished in 0.09s
+01:53.218  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\RES_TOWER_3x3_001__realistic__rear.png'
+[RENDER] RES_TOWER_3x3_001__realistic__rear.png
+Info: Deleted 18 data-block(s)
+10:51:12 | INFO: Data are loaded, start creating Blender stuff
+10:51:12 | INFO: Blender create Mesh node Cube.036
+10:51:12 | INFO: Blender create Mesh node Cube
+10:51:13 | INFO: glTF import finished in 0.55s
+02:01.437  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\RES_TOWER_3x3_001__refined_v2__front.png'
+[RENDER] RES_TOWER_3x3_001__refined_v2__front.png
+Info: Deleted 30 data-block(s)
+10:51:20 | INFO: Data are loaded, start creating Blender stuff
+10:51:20 | INFO: Blender create Mesh node Cube.036
+10:51:20 | INFO: Blender create Mesh node Cube
+10:51:21 | INFO: glTF import finished in 0.44s
+02:09.578  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\RES_TOWER_3x3_001__refined_v2__rear.png'
+[RENDER] RES_TOWER_3x3_001__refined_v2__rear.png
+Info: Deleted 30 data-block(s)
+10:51:28 | INFO: Data are loaded, start creating Blender stuff
+10:51:28 | INFO: Blender create Mesh node Cube.009
+10:51:28 | INFO: Blender create Mesh node Cube
+10:51:28 | INFO: glTF import finished in 0.03s
+02:17.687  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\COM_LOW_1x1_002__realistic__front.png'
+[RENDER] COM_LOW_1x1_002__realistic__front.png
+Info: Deleted 17 data-block(s)
+10:51:36 | INFO: Data are loaded, start creating Blender stuff
+10:51:36 | INFO: Blender create Mesh node Cube.009
+10:51:36 | INFO: Blender create Mesh node Cube
+10:51:37 | INFO: glTF import finished in 0.05s
+02:25.343  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\COM_LOW_1x1_002__realistic__rear.png'
+[RENDER] COM_LOW_1x1_002__realistic__rear.png
+Info: Deleted 17 data-block(s)
+10:51:44 | INFO: Data are loaded, start creating Blender stuff
+10:51:44 | INFO: Blender create Mesh node Cube.009
+10:51:44 | INFO: Blender create Mesh node Cube
+10:51:44 | INFO: glTF import finished in 0.07s
+02:32.734  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\COM_LOW_1x1_002__refined_v2__front.png'
+[RENDER] COM_LOW_1x1_002__refined_v2__front.png
+Info: Deleted 36 data-block(s)
+10:51:52 | INFO: Data are loaded, start creating Blender stuff
+10:51:52 | INFO: Blender create Mesh node Cube.009
+10:51:52 | INFO: Blender create Mesh node Cube
+10:51:52 | INFO: glTF import finished in 0.08s
+02:40.218  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\COM_LOW_1x1_002__refined_v2__rear.png'
+[RENDER] COM_LOW_1x1_002__refined_v2__rear.png
+Info: Deleted 36 data-block(s)
+10:51:59 | INFO: Data are loaded, start creating Blender stuff
+10:51:59 | INFO: Blender create Mesh node Cube.010
+10:51:59 | INFO: Blender create Mesh node Cube
+10:51:59 | INFO: glTF import finished in 0.04s
+02:48.297  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\COM_LOW_2x1_004__realistic__front.png'
+[RENDER] COM_LOW_2x1_004__realistic__front.png
+Info: Deleted 19 data-block(s)
+10:52:07 | INFO: Data are loaded, start creating Blender stuff
+10:52:07 | INFO: Blender create Mesh node Cube.010
+10:52:07 | INFO: Blender create Mesh node Cube
+10:52:07 | INFO: glTF import finished in 0.04s
+02:55.984  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\COM_LOW_2x1_004__realistic__rear.png'
+[RENDER] COM_LOW_2x1_004__realistic__rear.png
+Info: Deleted 19 data-block(s)
+10:52:15 | INFO: Data are loaded, start creating Blender stuff
+10:52:15 | INFO: Blender create Mesh node Cube.010
+10:52:15 | INFO: Blender create Mesh node Cube
+10:52:15 | INFO: glTF import finished in 0.08s
+03:03.047  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\COM_LOW_2x1_004__refined_v2__front.png'
+[RENDER] COM_LOW_2x1_004__refined_v2__front.png
+Info: Deleted 35 data-block(s)
+10:52:22 | INFO: Data are loaded, start creating Blender stuff
+10:52:22 | INFO: Blender create Mesh node Cube.010
+10:52:22 | INFO: Blender create Mesh node Cube
+10:52:22 | INFO: glTF import finished in 0.09s
+03:10.250  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\COM_LOW_2x1_004__refined_v2__rear.png'
+[RENDER] COM_LOW_2x1_004__refined_v2__rear.png
+Info: Deleted 35 data-block(s)
+10:52:29 | INFO: Data are loaded, start creating Blender stuff
+10:52:29 | INFO: Blender create Mesh node Cube.009
+10:52:29 | INFO: Blender create Mesh node Cube
+10:52:29 | INFO: glTF import finished in 0.03s
+03:17.812  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\COM_KIOSK_1x1_006__realistic__front.png'
+[RENDER] COM_KIOSK_1x1_006__realistic__front.png
+Info: Deleted 18 data-block(s)
+10:52:37 | INFO: Data are loaded, start creating Blender stuff
+10:52:37 | INFO: Blender create Mesh node Cube.009
+10:52:37 | INFO: Blender create Mesh node Cube
+10:52:37 | INFO: glTF import finished in 0.04s
+03:26.265  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\COM_KIOSK_1x1_006__realistic__rear.png'
+[RENDER] COM_KIOSK_1x1_006__realistic__rear.png
+Info: Deleted 18 data-block(s)
+10:52:45 | INFO: Data are loaded, start creating Blender stuff
+10:52:45 | INFO: Blender create Mesh node Cube.009
+10:52:45 | INFO: Blender create Mesh node Cube
+10:52:45 | INFO: glTF import finished in 0.07s
+03:34.937  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\COM_KIOSK_1x1_006__refined_v2__front.png'
+[RENDER] COM_KIOSK_1x1_006__refined_v2__front.png
+Info: Deleted 35 data-block(s)
+10:52:54 | INFO: Data are loaded, start creating Blender stuff
+10:52:54 | INFO: Blender create Mesh node Cube.009
+10:52:54 | INFO: Blender create Mesh node Cube
+10:52:54 | INFO: glTF import finished in 0.08s
+03:43.593  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\COM_KIOSK_1x1_006__refined_v2__rear.png'
+[RENDER] COM_KIOSK_1x1_006__refined_v2__rear.png
+Info: Deleted 35 data-block(s)
+10:53:02 | INFO: Data are loaded, start creating Blender stuff
+10:53:02 | INFO: Blender create Mesh node Cube.018
+10:53:02 | INFO: Blender create Mesh node Cube
+10:53:02 | INFO: glTF import finished in 0.07s
+03:51.812  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\OFF_MID_2x2_002__realistic__front.png'
+[RENDER] OFF_MID_2x2_002__realistic__front.png
+Info: Deleted 18 data-block(s)
+10:53:11 | INFO: Data are loaded, start creating Blender stuff
+10:53:11 | INFO: Blender create Mesh node Cube.018
+10:53:11 | INFO: Blender create Mesh node Cube
+10:53:11 | INFO: glTF import finished in 0.05s
+04:00.031  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\OFF_MID_2x2_002__realistic__rear.png'
+[RENDER] OFF_MID_2x2_002__realistic__rear.png
+Info: Deleted 18 data-block(s)
+10:53:19 | INFO: Data are loaded, start creating Blender stuff
+10:53:19 | INFO: Blender create Mesh node Cube.018
+10:53:19 | INFO: Blender create Mesh node Cube
+10:53:19 | INFO: glTF import finished in 0.30s
+04:09.156  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\OFF_MID_2x2_002__refined_v2__front.png'
+[RENDER] OFF_MID_2x2_002__refined_v2__front.png
+Info: Deleted 25 data-block(s)
+10:53:28 | INFO: Data are loaded, start creating Blender stuff
+10:53:28 | INFO: Blender create Mesh node Cube.018
+10:53:28 | INFO: Blender create Mesh node Cube
+10:53:28 | INFO: glTF import finished in 0.27s
+04:18.218  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\OFF_MID_2x2_002__refined_v2__rear.png'
+[RENDER] OFF_MID_2x2_002__refined_v2__rear.png
+Info: Deleted 25 data-block(s)
+10:53:37 | INFO: Data are loaded, start creating Blender stuff
+10:53:37 | INFO: Blender create Mesh node Cube.016
+10:53:37 | INFO: Blender create Mesh node Cube
+10:53:37 | INFO: glTF import finished in 0.04s
+04:26.297  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\IND_LOW_2x2_001__realistic__front.png'
+[RENDER] IND_LOW_2x2_001__realistic__front.png
+Info: Deleted 18 data-block(s)
+10:53:45 | INFO: Data are loaded, start creating Blender stuff
+10:53:45 | INFO: Blender create Mesh node Cube.016
+10:53:45 | INFO: Blender create Mesh node Cube
+10:53:45 | INFO: glTF import finished in 0.05s
+04:34.140  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\IND_LOW_2x2_001__realistic__rear.png'
+[RENDER] IND_LOW_2x2_001__realistic__rear.png
+Info: Deleted 18 data-block(s)
+10:53:53 | INFO: Data are loaded, start creating Blender stuff
+10:53:53 | INFO: Blender create Mesh node Cube.016
+10:53:53 | INFO: Blender create Mesh node Cube
+10:53:53 | INFO: glTF import finished in 0.10s
+04:41.656  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\IND_LOW_2x2_001__refined_v2__front.png'
+[RENDER] IND_LOW_2x2_001__refined_v2__front.png
+Info: Deleted 36 data-block(s)
+10:54:00 | INFO: Data are loaded, start creating Blender stuff
+10:54:00 | INFO: Blender create Mesh node Cube.016
+10:54:00 | INFO: Blender create Mesh node Cube
+10:54:01 | INFO: glTF import finished in 0.08s
+04:48.797  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\IND_LOW_2x2_001__refined_v2__rear.png'
+[RENDER] IND_LOW_2x2_001__refined_v2__rear.png
+Info: Deleted 36 data-block(s)
+10:54:08 | INFO: Data are loaded, start creating Blender stuff
+10:54:08 | INFO: Blender create Mesh node Cube.020
+10:54:08 | INFO: Blender create Mesh node Cube
+10:54:08 | INFO: glTF import finished in 0.04s
+04:55.906  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\IND_MID_3x3_003__realistic__front.png'
+[RENDER] IND_MID_3x3_003__realistic__front.png
+Info: Deleted 19 data-block(s)
+10:54:15 | INFO: Data are loaded, start creating Blender stuff
+10:54:15 | INFO: Blender create Mesh node Cube.020
+10:54:15 | INFO: Blender create Mesh node Cube
+10:54:15 | INFO: glTF import finished in 0.07s
+05:03.531  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\IND_MID_3x3_003__realistic__rear.png'
+[RENDER] IND_MID_3x3_003__realistic__rear.png
+Info: Deleted 19 data-block(s)
+10:54:22 | INFO: Data are loaded, start creating Blender stuff
+10:54:22 | INFO: Blender create Mesh node Cube.020
+10:54:22 | INFO: Blender create Mesh node Cube
+10:54:23 | INFO: glTF import finished in 0.18s
+05:11.593  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\IND_MID_3x3_003__refined_v2__front.png'
+[RENDER] IND_MID_3x3_003__refined_v2__front.png
+Info: Deleted 39 data-block(s)
+10:54:30 | INFO: Data are loaded, start creating Blender stuff
+10:54:30 | INFO: Blender create Mesh node Cube.020
+10:54:30 | INFO: Blender create Mesh node Cube
+10:54:31 | INFO: glTF import finished in 0.17s
+05:19.328  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\IND_MID_3x3_003__refined_v2__rear.png'
+[RENDER] IND_MID_3x3_003__refined_v2__rear.png
+Info: Deleted 39 data-block(s)
+10:54:38 | INFO: Data are loaded, start creating Blender stuff
+10:54:38 | INFO: Blender create Mesh node Cube.011
+10:54:38 | INFO: Blender create Mesh node Cube
+10:54:38 | INFO: glTF import finished in 0.10s
+05:26.797  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\PARK_2x2_002__realistic__front.png'
+[RENDER] PARK_2x2_002__realistic__front.png
+Info: Deleted 19 data-block(s)
+10:54:46 | INFO: Data are loaded, start creating Blender stuff
+10:54:46 | INFO: Blender create Mesh node Cube.011
+10:54:46 | INFO: Blender create Mesh node Cube
+10:54:46 | INFO: glTF import finished in 0.10s
+05:37.140  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\PARK_2x2_002__realistic__rear.png'
+[RENDER] PARK_2x2_002__realistic__rear.png
+Info: Deleted 19 data-block(s)
+10:54:56 | INFO: Data are loaded, start creating Blender stuff
+10:54:56 | INFO: Blender create Mesh node Cube.011
+10:54:56 | INFO: Blender create Mesh node Cube
+10:54:56 | INFO: glTF import finished in 0.41s
+05:46.797  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\PARK_2x2_002__refined_v2__front.png'
+[RENDER] PARK_2x2_002__refined_v2__front.png
+Info: Deleted 43 data-block(s)
+10:55:06 | INFO: Data are loaded, start creating Blender stuff
+10:55:06 | INFO: Blender create Mesh node Cube.011
+10:55:06 | INFO: Blender create Mesh node Cube
+10:55:06 | INFO: glTF import finished in 0.34s
+05:56.937  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\PARK_2x2_002__refined_v2__rear.png'
+[RENDER] PARK_2x2_002__refined_v2__rear.png
+Info: Deleted 43 data-block(s)
+10:55:16 | INFO: Data are loaded, start creating Blender stuff
+10:55:16 | INFO: Blender create Mesh node Cube.007
+10:55:16 | INFO: Blender create Mesh node Cube
+10:55:16 | INFO: glTF import finished in 0.09s
+06:07.500  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\PARK_1x1_004__realistic__front.png'
+[RENDER] PARK_1x1_004__realistic__front.png
+Info: Deleted 18 data-block(s)
+10:55:26 | INFO: Data are loaded, start creating Blender stuff
+10:55:26 | INFO: Blender create Mesh node Cube.007
+10:55:26 | INFO: Blender create Mesh node Cube
+10:55:26 | INFO: glTF import finished in 0.10s
+06:18.828  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\PARK_1x1_004__realistic__rear.png'
+[RENDER] PARK_1x1_004__realistic__rear.png
+Info: Deleted 18 data-block(s)
+10:55:38 | INFO: Data are loaded, start creating Blender stuff
+10:55:38 | INFO: Blender create Mesh node Cube.007
+10:55:38 | INFO: Blender create Mesh node Cube
+10:55:38 | INFO: glTF import finished in 0.23s
+06:30.234  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\PARK_1x1_004__refined_v2__front.png'
+[RENDER] PARK_1x1_004__refined_v2__front.png
+Info: Deleted 36 data-block(s)
+10:55:49 | INFO: Data are loaded, start creating Blender stuff
+10:55:49 | INFO: Blender create Mesh node Cube.007
+10:55:49 | INFO: Blender create Mesh node Cube
+10:55:49 | INFO: glTF import finished in 0.26s
+06:41.172  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\PARK_1x1_004__refined_v2__rear.png'
+[RENDER] PARK_1x1_004__refined_v2__rear.png
+Info: Deleted 36 data-block(s)
+10:56:00 | INFO: Data are loaded, start creating Blender stuff
+10:56:00 | INFO: Blender create Mesh node Cube.029
+10:56:00 | INFO: Blender create Mesh node Cube
+10:56:00 | INFO: glTF import finished in 0.15s
+06:51.218  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\CIV_FIRE_2x2_001__realistic__front.png'
+[RENDER] CIV_FIRE_2x2_001__realistic__front.png
+Info: Deleted 17 data-block(s)
+10:56:10 | INFO: Data are loaded, start creating Blender stuff
+10:56:10 | INFO: Blender create Mesh node Cube.029
+10:56:10 | INFO: Blender create Mesh node Cube
+10:56:10 | INFO: glTF import finished in 0.11s
+07:01.156  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\CIV_FIRE_2x2_001__realistic__rear.png'
+[RENDER] CIV_FIRE_2x2_001__realistic__rear.png
+Info: Deleted 17 data-block(s)
+10:56:20 | INFO: Data are loaded, start creating Blender stuff
+10:56:20 | INFO: Blender create Mesh node Cube.029
+10:56:20 | INFO: Blender create Mesh node Cube
+10:56:20 | INFO: glTF import finished in 0.16s
+07:09.312  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\CIV_FIRE_2x2_001__refined_v2__front.png'
+[RENDER] CIV_FIRE_2x2_001__refined_v2__front.png
+Info: Deleted 35 data-block(s)
+10:56:28 | INFO: Data are loaded, start creating Blender stuff
+10:56:28 | INFO: Blender create Mesh node Cube.029
+10:56:28 | INFO: Blender create Mesh node Cube
+10:56:28 | INFO: glTF import finished in 0.14s
+07:17.547  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\CIV_FIRE_2x2_001__refined_v2__rear.png'
+[RENDER] CIV_FIRE_2x2_001__refined_v2__rear.png
+Info: Deleted 35 data-block(s)
+10:56:36 | INFO: Data are loaded, start creating Blender stuff
+10:56:36 | INFO: Blender create Mesh node Cube.045
+10:56:36 | INFO: Blender create Mesh node Cube
+10:56:36 | INFO: glTF import finished in 0.14s
+07:24.703  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\CIV_POLICE_3x2_002__realistic__front.png'
+[RENDER] CIV_POLICE_3x2_002__realistic__front.png
+Info: Deleted 17 data-block(s)
+10:56:43 | INFO: Data are loaded, start creating Blender stuff
+10:56:43 | INFO: Blender create Mesh node Cube.045
+10:56:43 | INFO: Blender create Mesh node Cube
+10:56:44 | INFO: glTF import finished in 0.13s
+07:31.625  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\CIV_POLICE_3x2_002__realistic__rear.png'
+[RENDER] CIV_POLICE_3x2_002__realistic__rear.png
+Info: Deleted 17 data-block(s)
+10:56:50 | INFO: Data are loaded, start creating Blender stuff
+10:56:50 | INFO: Blender create Mesh node Cube.045
+10:56:50 | INFO: Blender create Mesh node Cube
+10:56:51 | INFO: glTF import finished in 0.15s
+07:38.890  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\CIV_POLICE_3x2_002__refined_v2__front.png'
+[RENDER] CIV_POLICE_3x2_002__refined_v2__front.png
+Info: Deleted 36 data-block(s)
+10:56:58 | INFO: Data are loaded, start creating Blender stuff
+10:56:58 | INFO: Blender create Mesh node Cube.045
+10:56:58 | INFO: Blender create Mesh node Cube
+10:56:58 | INFO: glTF import finished in 0.14s
+07:46.203  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\CIV_POLICE_3x2_002__refined_v2__rear.png'
+[RENDER] CIV_POLICE_3x2_002__refined_v2__rear.png
+Info: Deleted 36 data-block(s)
+10:57:05 | INFO: Data are loaded, start creating Blender stuff
+10:57:05 | INFO: Blender create Mesh node Cube.043
+10:57:05 | INFO: Blender create Mesh node Cube
+10:57:05 | INFO: glTF import finished in 0.12s
+07:53.859  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\CIV_HEALTH_2x2_002__realistic__front.png'
+[RENDER] CIV_HEALTH_2x2_002__realistic__front.png
+Info: Deleted 19 data-block(s)
+10:57:13 | INFO: Data are loaded, start creating Blender stuff
+10:57:13 | INFO: Blender create Mesh node Cube.043
+10:57:13 | INFO: Blender create Mesh node Cube
+10:57:13 | INFO: glTF import finished in 0.14s
+08:01.656  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\CIV_HEALTH_2x2_002__realistic__rear.png'
+[RENDER] CIV_HEALTH_2x2_002__realistic__rear.png
+Info: Deleted 19 data-block(s)
+10:57:20 | INFO: Data are loaded, start creating Blender stuff
+10:57:20 | INFO: Blender create Mesh node Cube.043
+10:57:20 | INFO: Blender create Mesh node Cube
+10:57:21 | INFO: glTF import finished in 0.13s
+08:17.250  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\CIV_HEALTH_2x2_002__refined_v2__front.png'
+[RENDER] CIV_HEALTH_2x2_002__refined_v2__front.png
+Info: Deleted 36 data-block(s)
+10:57:36 | INFO: Data are loaded, start creating Blender stuff
+10:57:36 | INFO: Blender create Mesh node Cube.043
+10:57:36 | INFO: Blender create Mesh node Cube
+10:57:36 | INFO: glTF import finished in 0.07s
+08:23.359  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\CIV_HEALTH_2x2_002__refined_v2__rear.png'
+[RENDER] CIV_HEALTH_2x2_002__refined_v2__rear.png
+Info: Deleted 36 data-block(s)
+10:57:42 | INFO: Data are loaded, start creating Blender stuff
+10:57:42 | INFO: Blender create Mesh node Cube.022
+10:57:42 | INFO: Blender create Mesh node Cube
+10:57:42 | INFO: glTF import finished in 0.07s
+08:30.953  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\ROAD_LOCAL_1x1_CORNER__realistic__front.png'
+[RENDER] ROAD_LOCAL_1x1_CORNER__realistic__front.png
+Info: Deleted 14 data-block(s)
+10:57:50 | INFO: Data are loaded, start creating Blender stuff
+10:57:50 | INFO: Blender create Mesh node Cube.022
+10:57:50 | INFO: Blender create Mesh node Cube
+10:57:50 | INFO: glTF import finished in 0.06s
+08:41.406  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\ROAD_LOCAL_1x1_CORNER__realistic__rear.png'
+[RENDER] ROAD_LOCAL_1x1_CORNER__realistic__rear.png
+Info: Deleted 14 data-block(s)
+10:58:00 | INFO: Data are loaded, start creating Blender stuff
+10:58:00 | INFO: Blender create Mesh node Cube.022
+10:58:00 | INFO: Blender create Mesh node Cube
+10:58:00 | INFO: glTF import finished in 0.17s
+08:52.687  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\ROAD_LOCAL_1x1_CORNER__refined_v2__front.png'
+[RENDER] ROAD_LOCAL_1x1_CORNER__refined_v2__front.png
+Info: Deleted 23 data-block(s)
+10:58:11 | INFO: Data are loaded, start creating Blender stuff
+10:58:11 | INFO: Blender create Mesh node Cube.022
+10:58:11 | INFO: Blender create Mesh node Cube
+10:58:12 | INFO: glTF import finished in 0.14s
+09:03.140  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\ROAD_LOCAL_1x1_CORNER__refined_v2__rear.png'
+[RENDER] ROAD_LOCAL_1x1_CORNER__refined_v2__rear.png
+Info: Deleted 23 data-block(s)
+10:58:22 | INFO: Data are loaded, start creating Blender stuff
+10:58:22 | INFO: Blender create Mesh node Cube.026
+10:58:22 | INFO: Blender create Mesh node Cube
+10:58:22 | INFO: glTF import finished in 0.09s
+09:13.593  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\ROAD_LOCAL_1x1_CROSS__realistic__front.png'
+[RENDER] ROAD_LOCAL_1x1_CROSS__realistic__front.png
+Info: Deleted 14 data-block(s)
+10:58:32 | INFO: Data are loaded, start creating Blender stuff
+10:58:32 | INFO: Blender create Mesh node Cube.026
+10:58:32 | INFO: Blender create Mesh node Cube
+10:58:32 | INFO: glTF import finished in 0.08s
+09:23.406  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\ROAD_LOCAL_1x1_CROSS__realistic__rear.png'
+[RENDER] ROAD_LOCAL_1x1_CROSS__realistic__rear.png
+Info: Deleted 14 data-block(s)
+10:58:42 | INFO: Data are loaded, start creating Blender stuff
+10:58:42 | INFO: Blender create Mesh node Cube.026
+10:58:42 | INFO: Blender create Mesh node Cube
+10:58:42 | INFO: glTF import finished in 0.10s
+09:31.625  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\ROAD_LOCAL_1x1_CROSS__refined_v2__front.png'
+[RENDER] ROAD_LOCAL_1x1_CROSS__refined_v2__front.png
+Info: Deleted 23 data-block(s)
+10:58:50 | INFO: Data are loaded, start creating Blender stuff
+10:58:50 | INFO: Blender create Mesh node Cube.026
+10:58:50 | INFO: Blender create Mesh node Cube
+10:58:50 | INFO: glTF import finished in 0.07s
+09:38.750  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\ROAD_LOCAL_1x1_CROSS__refined_v2__rear.png'
+[RENDER] ROAD_LOCAL_1x1_CROSS__refined_v2__rear.png
+Info: Deleted 23 data-block(s)
+10:58:58 | INFO: Data are loaded, start creating Blender stuff
+10:58:58 | INFO: Blender create Mesh node Cube.004
+10:58:58 | INFO: Blender create Mesh node Cube
+10:58:58 | INFO: glTF import finished in 0.05s
+09:45.906  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\ROAD_DIRT_1x1_STRAIGHT__realistic__front.png'
+[RENDER] ROAD_DIRT_1x1_STRAIGHT__realistic__front.png
+Info: Deleted 12 data-block(s)
+10:59:05 | INFO: Data are loaded, start creating Blender stuff
+10:59:05 | INFO: Blender create Mesh node Cube.004
+10:59:05 | INFO: Blender create Mesh node Cube
+10:59:05 | INFO: glTF import finished in 0.04s
+09:52.750  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\ROAD_DIRT_1x1_STRAIGHT__realistic__rear.png'
+[RENDER] ROAD_DIRT_1x1_STRAIGHT__realistic__rear.png
+Info: Deleted 12 data-block(s)
+10:59:12 | INFO: Data are loaded, start creating Blender stuff
+10:59:12 | INFO: Blender create Mesh node Cube.004
+10:59:12 | INFO: Blender create Mesh node Cube
+10:59:12 | INFO: glTF import finished in 0.03s
+09:59.406  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\ROAD_DIRT_1x1_STRAIGHT__refined_v2__front.png'
+[RENDER] ROAD_DIRT_1x1_STRAIGHT__refined_v2__front.png
+Info: Deleted 18 data-block(s)
+10:59:18 | INFO: Data are loaded, start creating Blender stuff
+10:59:18 | INFO: Blender create Mesh node Cube.004
+10:59:18 | INFO: Blender create Mesh node Cube
+10:59:18 | INFO: glTF import finished in 0.04s
+10:06.140  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\ROAD_DIRT_1x1_STRAIGHT__refined_v2__rear.png'
+[RENDER] ROAD_DIRT_1x1_STRAIGHT__refined_v2__rear.png
+Info: Deleted 18 data-block(s)
+10:59:25 | INFO: Data are loaded, start creating Blender stuff
+10:59:25 | INFO: Blender create Mesh node Cube.005
+10:59:25 | INFO: Blender create Mesh node Cube
+10:59:25 | INFO: glTF import finished in 0.04s
+10:12.984  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\ROAD_DIRT_1x1_T__realistic__front.png'
+[RENDER] ROAD_DIRT_1x1_T__realistic__front.png
+Info: Deleted 12 data-block(s)
+10:59:32 | INFO: Data are loaded, start creating Blender stuff
+10:59:32 | INFO: Blender create Mesh node Cube.005
+10:59:32 | INFO: Blender create Mesh node Cube
+10:59:32 | INFO: glTF import finished in 0.04s
+10:45.531  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\ROAD_DIRT_1x1_T__realistic__rear.png'
+[RENDER] ROAD_DIRT_1x1_T__realistic__rear.png
+Info: Deleted 12 data-block(s)
+11:00:04 | INFO: Data are loaded, start creating Blender stuff
+11:00:04 | INFO: Blender create Mesh node Cube.005
+11:00:04 | INFO: Blender create Mesh node Cube
+11:00:04 | INFO: glTF import finished in 0.15s
+11:05.109  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\ROAD_DIRT_1x1_T__refined_v2__front.png'
+[RENDER] ROAD_DIRT_1x1_T__refined_v2__front.png
+Info: Deleted 18 data-block(s)
+11:00:24 | INFO: Data are loaded, start creating Blender stuff
+11:00:24 | INFO: Blender create Mesh node Cube.005
+11:00:24 | INFO: Blender create Mesh node Cube
+11:00:24 | INFO: glTF import finished in 0.02s
+11:09.312  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\ROAD_DIRT_1x1_T__refined_v2__rear.png'
+[RENDER] ROAD_DIRT_1x1_T__refined_v2__rear.png
+Info: Deleted 18 data-block(s)
+11:00:28 | INFO: Data are loaded, start creating Blender stuff
+11:00:28 | INFO: Blender create Mesh node Cube.003
+11:00:28 | INFO: Blender create Mesh node Cube
+11:00:28 | INFO: glTF import finished in 0.02s
+11:13.187  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\ROAD_DIRT_1x1_END__realistic__front.png'
+[RENDER] ROAD_DIRT_1x1_END__realistic__front.png
+Info: Deleted 12 data-block(s)
+11:00:32 | INFO: Data are loaded, start creating Blender stuff
+11:00:32 | INFO: Blender create Mesh node Cube.003
+11:00:32 | INFO: Blender create Mesh node Cube
+11:00:32 | INFO: glTF import finished in 0.02s
+11:20.828  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\ROAD_DIRT_1x1_END__realistic__rear.png'
+[RENDER] ROAD_DIRT_1x1_END__realistic__rear.png
+Info: Deleted 12 data-block(s)
+11:00:40 | INFO: Data are loaded, start creating Blender stuff
+11:00:40 | INFO: Blender create Mesh node Cube.003
+11:00:40 | INFO: Blender create Mesh node Cube
+11:00:40 | INFO: glTF import finished in 0.05s
+11:48.625  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\ROAD_DIRT_1x1_END__refined_v2__front.png'
+[RENDER] ROAD_DIRT_1x1_END__refined_v2__front.png
+Info: Deleted 18 data-block(s)
+11:01:07 | INFO: Data are loaded, start creating Blender stuff
+11:01:07 | INFO: Blender create Mesh node Cube.003
+11:01:07 | INFO: Blender create Mesh node Cube
+11:01:08 | INFO: glTF import finished in 0.16s
+12:01.156  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\ROAD_DIRT_1x1_END__refined_v2__rear.png'
+[RENDER] ROAD_DIRT_1x1_END__refined_v2__rear.png
+Info: Deleted 18 data-block(s)
+11:01:20 | INFO: Data are loaded, start creating Blender stuff
+11:01:20 | INFO: Blender create Mesh node ROAD_LOCAL_SLOPE_1x1_DOWN_050-colonly_Mesh
+11:01:20 | INFO: Blender create Mesh node SlopeBase_Mesh
+11:01:20 | INFO: glTF import finished in 0.01s
+12:05.172  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\ROAD_LOCAL_SLOPE_1x1_DOWN_050__realistic__front.png'
+[RENDER] ROAD_LOCAL_SLOPE_1x1_DOWN_050__realistic__front.png
+Info: Deleted 14 data-block(s)
+11:01:24 | INFO: Data are loaded, start creating Blender stuff
+11:01:24 | INFO: Blender create Mesh node ROAD_LOCAL_SLOPE_1x1_DOWN_050-colonly_Mesh
+11:01:24 | INFO: Blender create Mesh node SlopeBase_Mesh
+11:01:24 | INFO: glTF import finished in 0.01s
+12:09.031  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\ROAD_LOCAL_SLOPE_1x1_DOWN_050__realistic__rear.png'
+[RENDER] ROAD_LOCAL_SLOPE_1x1_DOWN_050__realistic__rear.png
+Info: Deleted 14 data-block(s)
+11:01:28 | INFO: Data are loaded, start creating Blender stuff
+11:01:28 | INFO: Blender create Mesh node ROAD_LOCAL_SLOPE_1x1_DOWN_050-colonly_Mesh.001
+11:01:28 | INFO: Blender create Mesh node SlopeBase_Mesh
+11:01:28 | INFO: glTF import finished in 0.01s
+12:14.797  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\ROAD_LOCAL_SLOPE_1x1_DOWN_050__refined_v2__front.png'
+[RENDER] ROAD_LOCAL_SLOPE_1x1_DOWN_050__refined_v2__front.png
+Info: Deleted 20 data-block(s)
+11:01:34 | INFO: Data are loaded, start creating Blender stuff
+11:01:34 | INFO: Blender create Mesh node ROAD_LOCAL_SLOPE_1x1_DOWN_050-colonly_Mesh.001
+11:01:34 | INFO: Blender create Mesh node SlopeBase_Mesh
+11:01:34 | INFO: glTF import finished in 0.03s
+12:22.093  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\ROAD_LOCAL_SLOPE_1x1_DOWN_050__refined_v2__rear.png'
+[RENDER] ROAD_LOCAL_SLOPE_1x1_DOWN_050__refined_v2__rear.png
+Info: Deleted 20 data-block(s)
+11:01:41 | INFO: Data are loaded, start creating Blender stuff
+11:01:41 | INFO: Blender create Mesh node ROAD_LOCAL_SLOPE_1x2_DOWN_050-colonly_Mesh
+11:01:41 | INFO: Blender create Mesh node SlopeBase_Mesh
+11:01:41 | INFO: glTF import finished in 0.03s
+12:29.687  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\ROAD_LOCAL_SLOPE_1x2_DOWN_050__realistic__front.png'
+[RENDER] ROAD_LOCAL_SLOPE_1x2_DOWN_050__realistic__front.png
+Info: Deleted 14 data-block(s)
+11:01:48 | INFO: Data are loaded, start creating Blender stuff
+11:01:48 | INFO: Blender create Mesh node ROAD_LOCAL_SLOPE_1x2_DOWN_050-colonly_Mesh
+11:01:48 | INFO: Blender create Mesh node SlopeBase_Mesh
+11:01:49 | INFO: glTF import finished in 0.03s
+12:36.797  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\ROAD_LOCAL_SLOPE_1x2_DOWN_050__realistic__rear.png'
+[RENDER] ROAD_LOCAL_SLOPE_1x2_DOWN_050__realistic__rear.png
+Info: Deleted 14 data-block(s)
+11:01:56 | INFO: Data are loaded, start creating Blender stuff
+11:01:56 | INFO: Blender create Mesh node ROAD_LOCAL_SLOPE_1x2_DOWN_050-colonly_Mesh.001
+11:01:56 | INFO: Blender create Mesh node SlopeBase_Mesh
+11:01:56 | INFO: glTF import finished in 0.03s
+12:43.656  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\ROAD_LOCAL_SLOPE_1x2_DOWN_050__refined_v2__front.png'
+[RENDER] ROAD_LOCAL_SLOPE_1x2_DOWN_050__refined_v2__front.png
+Info: Deleted 20 data-block(s)
+11:02:02 | INFO: Data are loaded, start creating Blender stuff
+11:02:02 | INFO: Blender create Mesh node ROAD_LOCAL_SLOPE_1x2_DOWN_050-colonly_Mesh.001
+11:02:02 | INFO: Blender create Mesh node SlopeBase_Mesh
+11:02:02 | INFO: glTF import finished in 0.04s
+12:50.515  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\ROAD_LOCAL_SLOPE_1x2_DOWN_050__refined_v2__rear.png'
+[RENDER] ROAD_LOCAL_SLOPE_1x2_DOWN_050__refined_v2__rear.png
+Info: Deleted 20 data-block(s)
+11:02:09 | INFO: Data are loaded, start creating Blender stuff
+11:02:09 | INFO: Blender create Mesh node ROAD_DIRT_SLOPE_1x1_DOWN_050-colonly_Mesh
+11:02:09 | INFO: Blender create Mesh node SlopeBase_Mesh
+11:02:09 | INFO: glTF import finished in 0.03s
+12:57.718  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\ROAD_DIRT_SLOPE_1x1_DOWN_050__realistic__front.png'
+[RENDER] ROAD_DIRT_SLOPE_1x1_DOWN_050__realistic__front.png
+Info: Deleted 14 data-block(s)
+11:02:17 | INFO: Data are loaded, start creating Blender stuff
+11:02:17 | INFO: Blender create Mesh node ROAD_DIRT_SLOPE_1x1_DOWN_050-colonly_Mesh
+11:02:17 | INFO: Blender create Mesh node SlopeBase_Mesh
+11:02:17 | INFO: glTF import finished in 0.03s
+13:04.922  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\ROAD_DIRT_SLOPE_1x1_DOWN_050__realistic__rear.png'
+[RENDER] ROAD_DIRT_SLOPE_1x1_DOWN_050__realistic__rear.png
+Info: Deleted 14 data-block(s)
+11:02:24 | INFO: Data are loaded, start creating Blender stuff
+11:02:24 | INFO: Blender create Mesh node ROAD_DIRT_SLOPE_1x1_DOWN_050-colonly_Mesh.001
+11:02:24 | INFO: Blender create Mesh node SlopeBase_Mesh
+11:02:24 | INFO: glTF import finished in 0.03s
+13:12.609  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\ROAD_DIRT_SLOPE_1x1_DOWN_050__refined_v2__front.png'
+[RENDER] ROAD_DIRT_SLOPE_1x1_DOWN_050__refined_v2__front.png
+Info: Deleted 20 data-block(s)
+11:02:31 | INFO: Data are loaded, start creating Blender stuff
+11:02:31 | INFO: Blender create Mesh node ROAD_DIRT_SLOPE_1x1_DOWN_050-colonly_Mesh.001
+11:02:31 | INFO: Blender create Mesh node SlopeBase_Mesh
+11:02:31 | INFO: glTF import finished in 0.04s
+13:20.125  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\ROAD_DIRT_SLOPE_1x1_DOWN_050__refined_v2__rear.png'
+[RENDER] ROAD_DIRT_SLOPE_1x1_DOWN_050__refined_v2__rear.png
+Info: Deleted 20 data-block(s)
+11:02:39 | INFO: Data are loaded, start creating Blender stuff
+11:02:39 | INFO: Blender create Mesh node ROAD_DIRT_SLOPE_1x2_DOWN_050-colonly_Mesh
+11:02:39 | INFO: Blender create Mesh node SlopeBase_Mesh
+11:02:39 | INFO: glTF import finished in 0.03s
+13:28.093  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\ROAD_DIRT_SLOPE_1x2_DOWN_050__realistic__front.png'
+[RENDER] ROAD_DIRT_SLOPE_1x2_DOWN_050__realistic__front.png
+Info: Deleted 14 data-block(s)
+11:02:47 | INFO: Data are loaded, start creating Blender stuff
+11:02:47 | INFO: Blender create Mesh node ROAD_DIRT_SLOPE_1x2_DOWN_050-colonly_Mesh
+11:02:47 | INFO: Blender create Mesh node SlopeBase_Mesh
+11:02:47 | INFO: glTF import finished in 0.03s
+13:37.562  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\ROAD_DIRT_SLOPE_1x2_DOWN_050__realistic__rear.png'
+[RENDER] ROAD_DIRT_SLOPE_1x2_DOWN_050__realistic__rear.png
+Info: Deleted 14 data-block(s)
+11:02:56 | INFO: Data are loaded, start creating Blender stuff
+11:02:56 | INFO: Blender create Mesh node ROAD_DIRT_SLOPE_1x2_DOWN_050-colonly_Mesh.001
+11:02:56 | INFO: Blender create Mesh node SlopeBase_Mesh
+11:02:56 | INFO: glTF import finished in 0.04s
+13:47.062  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\ROAD_DIRT_SLOPE_1x2_DOWN_050__refined_v2__front.png'
+[RENDER] ROAD_DIRT_SLOPE_1x2_DOWN_050__refined_v2__front.png
+Info: Deleted 20 data-block(s)
+11:03:06 | INFO: Data are loaded, start creating Blender stuff
+11:03:06 | INFO: Blender create Mesh node ROAD_DIRT_SLOPE_1x2_DOWN_050-colonly_Mesh.001
+11:03:06 | INFO: Blender create Mesh node SlopeBase_Mesh
+11:03:06 | INFO: glTF import finished in 0.04s
+13:55.953  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\ROAD_DIRT_SLOPE_1x2_DOWN_050__refined_v2__rear.png'
+[RENDER] ROAD_DIRT_SLOPE_1x2_DOWN_050__refined_v2__rear.png
+Info: Deleted 20 data-block(s)
+11:03:15 | INFO: Data are loaded, start creating Blender stuff
+11:03:15 | INFO: Blender create Mesh node BRG_LOCAL_RAMP_1x1_DOWN_050-colonly_Mesh
+11:03:15 | INFO: Blender create Mesh node BridgeRampSlab_Mesh
+11:03:15 | INFO: glTF import finished in 0.03s
+14:06.047  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\BRG_LOCAL_RAMP_1x1_DOWN_050__realistic__front.png'
+[RENDER] BRG_LOCAL_RAMP_1x1_DOWN_050__realistic__front.png
+Info: Deleted 14 data-block(s)
+11:03:25 | INFO: Data are loaded, start creating Blender stuff
+11:03:25 | INFO: Blender create Mesh node BRG_LOCAL_RAMP_1x1_DOWN_050-colonly_Mesh
+11:03:25 | INFO: Blender create Mesh node BridgeRampSlab_Mesh
+11:03:25 | INFO: glTF import finished in 0.04s
+14:15.640  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\BRG_LOCAL_RAMP_1x1_DOWN_050__realistic__rear.png'
+[RENDER] BRG_LOCAL_RAMP_1x1_DOWN_050__realistic__rear.png
+Info: Deleted 14 data-block(s)
+11:03:34 | INFO: Data are loaded, start creating Blender stuff
+11:03:34 | INFO: Blender create Mesh node BRG_LOCAL_RAMP_1x1_DOWN_050-colonly_Mesh.001
+11:03:34 | INFO: Blender create Mesh node BridgeRampSlab_Mesh
+11:03:34 | INFO: glTF import finished in 0.05s
+14:26.359  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\BRG_LOCAL_RAMP_1x1_DOWN_050__refined_v2__front.png'
+[RENDER] BRG_LOCAL_RAMP_1x1_DOWN_050__refined_v2__front.png
+Info: Deleted 21 data-block(s)
+11:03:45 | INFO: Data are loaded, start creating Blender stuff
+11:03:45 | INFO: Blender create Mesh node BRG_LOCAL_RAMP_1x1_DOWN_050-colonly_Mesh.001
+11:03:45 | INFO: Blender create Mesh node BridgeRampSlab_Mesh
+11:03:45 | INFO: glTF import finished in 0.05s
+14:37.062  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\BRG_LOCAL_RAMP_1x1_DOWN_050__refined_v2__rear.png'
+[RENDER] BRG_LOCAL_RAMP_1x1_DOWN_050__refined_v2__rear.png
+Info: Deleted 21 data-block(s)
+11:03:56 | INFO: Data are loaded, start creating Blender stuff
+11:03:56 | INFO: Blender create Mesh node Cube.013
+11:03:56 | INFO: Blender create Mesh node Cube
+11:03:56 | INFO: glTF import finished in 0.07s
+14:47.125  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\BRG_LOCAL_DECK_1x1_CORNER__realistic__front.png'
+[RENDER] BRG_LOCAL_DECK_1x1_CORNER__realistic__front.png
+Info: Deleted 14 data-block(s)
+11:04:06 | INFO: Data are loaded, start creating Blender stuff
+11:04:06 | INFO: Blender create Mesh node Cube.013
+11:04:06 | INFO: Blender create Mesh node Cube
+11:04:06 | INFO: glTF import finished in 0.06s
+14:56.953  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\BRG_LOCAL_DECK_1x1_CORNER__realistic__rear.png'
+[RENDER] BRG_LOCAL_DECK_1x1_CORNER__realistic__rear.png
+Info: Deleted 14 data-block(s)
+11:04:16 | INFO: Data are loaded, start creating Blender stuff
+11:04:16 | INFO: Blender create Mesh node Cube.013
+11:04:16 | INFO: Blender create Mesh node Cube
+11:04:16 | INFO: glTF import finished in 0.07s
+15:07.062  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\BRG_LOCAL_DECK_1x1_CORNER__refined_v2__front.png'
+[RENDER] BRG_LOCAL_DECK_1x1_CORNER__refined_v2__front.png
+Info: Deleted 23 data-block(s)
+11:04:26 | INFO: Data are loaded, start creating Blender stuff
+11:04:26 | INFO: Blender create Mesh node Cube.013
+11:04:26 | INFO: Blender create Mesh node Cube
+11:04:26 | INFO: glTF import finished in 0.07s
+15:17.468  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\BRG_LOCAL_DECK_1x1_CORNER__refined_v2__rear.png'
+[RENDER] BRG_LOCAL_DECK_1x1_CORNER__refined_v2__rear.png
+Info: Deleted 23 data-block(s)
+11:04:36 | INFO: Data are loaded, start creating Blender stuff
+11:04:36 | INFO: Blender create Mesh node Cube.021
+11:04:36 | INFO: Blender create Mesh node Cube
+11:04:36 | INFO: glTF import finished in 0.10s
+15:27.187  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\BRG_LOCAL_DECK_1x1_CROSS__realistic__front.png'
+[RENDER] BRG_LOCAL_DECK_1x1_CROSS__realistic__front.png
+Info: Deleted 14 data-block(s)
+11:04:46 | INFO: Data are loaded, start creating Blender stuff
+11:04:46 | INFO: Blender create Mesh node Cube.021
+11:04:46 | INFO: Blender create Mesh node Cube
+11:04:46 | INFO: glTF import finished in 0.09s
+15:39.031  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\BRG_LOCAL_DECK_1x1_CROSS__realistic__rear.png'
+[RENDER] BRG_LOCAL_DECK_1x1_CROSS__realistic__rear.png
+Info: Deleted 14 data-block(s)
+11:04:58 | INFO: Data are loaded, start creating Blender stuff
+11:04:58 | INFO: Blender create Mesh node Cube.021
+11:04:58 | INFO: Blender create Mesh node Cube
+11:04:58 | INFO: glTF import finished in 0.15s
+15:52.578  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\BRG_LOCAL_DECK_1x1_CROSS__refined_v2__front.png'
+[RENDER] BRG_LOCAL_DECK_1x1_CROSS__refined_v2__front.png
+Info: Deleted 23 data-block(s)
+11:05:11 | INFO: Data are loaded, start creating Blender stuff
+11:05:11 | INFO: Blender create Mesh node Cube.021
+11:05:11 | INFO: Blender create Mesh node Cube
+11:05:12 | INFO: glTF import finished in 0.15s
+16:04.265  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\BRG_LOCAL_DECK_1x1_CROSS__refined_v2__rear.png'
+[RENDER] BRG_LOCAL_DECK_1x1_CROSS__refined_v2__rear.png
+Info: Deleted 23 data-block(s)
+11:05:23 | INFO: Data are loaded, start creating Blender stuff
+11:05:23 | INFO: Blender create Mesh node Cube.004
+11:05:23 | INFO: Blender create Mesh node Cube
+11:05:23 | INFO: glTF import finished in 0.04s
+16:15.484  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\BRG_SUPPORT_PIER_1x1_LOW_050__realistic__front.png'
+[RENDER] BRG_SUPPORT_PIER_1x1_LOW_050__realistic__front.png
+Info: Deleted 12 data-block(s)
+11:05:34 | INFO: Data are loaded, start creating Blender stuff
+11:05:34 | INFO: Blender create Mesh node Cube.004
+11:05:34 | INFO: Blender create Mesh node Cube
+11:05:34 | INFO: glTF import finished in 0.05s
+16:25.843  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\BRG_SUPPORT_PIER_1x1_LOW_050__realistic__rear.png'
+[RENDER] BRG_SUPPORT_PIER_1x1_LOW_050__realistic__rear.png
+Info: Deleted 12 data-block(s)
+11:05:45 | INFO: Data are loaded, start creating Blender stuff
+11:05:45 | INFO: Blender create Mesh node Cube.004
+11:05:45 | INFO: Blender create Mesh node Cube
+11:05:45 | INFO: glTF import finished in 0.03s
+16:37.062  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\BRG_SUPPORT_PIER_1x1_LOW_050__refined_v2__front.png'
+[RENDER] BRG_SUPPORT_PIER_1x1_LOW_050__refined_v2__front.png
+Info: Deleted 19 data-block(s)
+11:05:56 | INFO: Data are loaded, start creating Blender stuff
+11:05:56 | INFO: Blender create Mesh node Cube.004
+11:05:56 | INFO: Blender create Mesh node Cube
+11:05:56 | INFO: glTF import finished in 0.04s
+16:48.406  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\BRG_SUPPORT_PIER_1x1_LOW_050__refined_v2__rear.png'
+[RENDER] BRG_SUPPORT_PIER_1x1_LOW_050__refined_v2__rear.png
+Info: Deleted 19 data-block(s)
+11:06:07 | INFO: Data are loaded, start creating Blender stuff
+11:06:07 | INFO: Blender create Mesh node Cube.004
+11:06:07 | INFO: Blender create Mesh node Cube
+11:06:07 | INFO: glTF import finished in 0.04s
+16:57.297  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\BRG_SUPPORT_PIER_1x1_HIGH_150__realistic__front.png'
+[RENDER] BRG_SUPPORT_PIER_1x1_HIGH_150__realistic__front.png
+Info: Deleted 12 data-block(s)
+11:06:16 | INFO: Data are loaded, start creating Blender stuff
+11:06:16 | INFO: Blender create Mesh node Cube.004
+11:06:16 | INFO: Blender create Mesh node Cube
+11:06:16 | INFO: glTF import finished in 0.04s
+17:06.640  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\BRG_SUPPORT_PIER_1x1_HIGH_150__realistic__rear.png'
+[RENDER] BRG_SUPPORT_PIER_1x1_HIGH_150__realistic__rear.png
+Info: Deleted 12 data-block(s)
+11:06:25 | INFO: Data are loaded, start creating Blender stuff
+11:06:25 | INFO: Blender create Mesh node Cube.004
+11:06:25 | INFO: Blender create Mesh node Cube
+11:06:25 | INFO: glTF import finished in 0.05s
+17:15.734  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\BRG_SUPPORT_PIER_1x1_HIGH_150__refined_v2__front.png'
+[RENDER] BRG_SUPPORT_PIER_1x1_HIGH_150__refined_v2__front.png
+Info: Deleted 19 data-block(s)
+11:06:35 | INFO: Data are loaded, start creating Blender stuff
+11:06:35 | INFO: Blender create Mesh node Cube.004
+11:06:35 | INFO: Blender create Mesh node Cube
+11:06:35 | INFO: glTF import finished in 0.03s
+17:24.281  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\BRG_SUPPORT_PIER_1x1_HIGH_150__refined_v2__rear.png'
+[RENDER] BRG_SUPPORT_PIER_1x1_HIGH_150__refined_v2__rear.png
+Info: Deleted 19 data-block(s)
+11:06:43 | INFO: Data are loaded, start creating Blender stuff
+11:06:43 | INFO: Blender create Mesh node Cube.006
+11:06:43 | INFO: Blender create Mesh node Cylinder
+11:06:43 | INFO: glTF import finished in 0.05s
+17:33.484  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\NAT_TREE_OAK_1x1_001__realistic__front.png'
+[RENDER] NAT_TREE_OAK_1x1_001__realistic__front.png
+Info: Deleted 13 data-block(s)
+11:06:52 | INFO: Data are loaded, start creating Blender stuff
+11:06:52 | INFO: Blender create Mesh node Cube.006
+11:06:52 | INFO: Blender create Mesh node Cylinder
+11:06:52 | INFO: glTF import finished in 0.05s
+17:41.375  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\NAT_TREE_OAK_1x1_001__realistic__rear.png'
+[RENDER] NAT_TREE_OAK_1x1_001__realistic__rear.png
+Info: Deleted 13 data-block(s)
+11:07:00 | INFO: Data are loaded, start creating Blender stuff
+11:07:00 | INFO: Blender create Mesh node Cube.006
+11:07:00 | INFO: Blender create Mesh node Cylinder
+11:07:00 | INFO: glTF import finished in 0.09s
+17:48.468  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\NAT_TREE_OAK_1x1_001__refined_v2__front.png'
+[RENDER] NAT_TREE_OAK_1x1_001__refined_v2__front.png
+Info: Deleted 21 data-block(s)
+11:07:07 | INFO: Data are loaded, start creating Blender stuff
+11:07:07 | INFO: Blender create Mesh node Cube.006
+11:07:07 | INFO: Blender create Mesh node Cylinder
+11:07:07 | INFO: glTF import finished in 0.08s
+17:55.359  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\NAT_TREE_OAK_1x1_001__refined_v2__rear.png'
+[RENDER] NAT_TREE_OAK_1x1_001__refined_v2__rear.png
+Info: Deleted 21 data-block(s)
+11:07:14 | INFO: Data are loaded, start creating Blender stuff
+11:07:14 | INFO: Blender create Mesh node Cube.006
+11:07:14 | INFO: Blender create Mesh node Cylinder
+11:07:14 | INFO: glTF import finished in 0.03s
+18:02.422  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\NAT_TREE_BIRCH_1x1_001__realistic__front.png'
+[RENDER] NAT_TREE_BIRCH_1x1_001__realistic__front.png
+Info: Deleted 12 data-block(s)
+11:07:21 | INFO: Data are loaded, start creating Blender stuff
+11:07:21 | INFO: Blender create Mesh node Cube.006
+11:07:21 | INFO: Blender create Mesh node Cylinder
+11:07:21 | INFO: glTF import finished in 0.03s
+18:09.234  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\NAT_TREE_BIRCH_1x1_001__realistic__rear.png'
+[RENDER] NAT_TREE_BIRCH_1x1_001__realistic__rear.png
+Info: Deleted 12 data-block(s)
+11:07:28 | INFO: Data are loaded, start creating Blender stuff
+11:07:28 | INFO: Blender create Mesh node Cube.006
+11:07:28 | INFO: Blender create Mesh node Cylinder
+11:07:28 | INFO: glTF import finished in 0.04s
+18:16.328  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\NAT_TREE_BIRCH_1x1_001__refined_v2__front.png'
+[RENDER] NAT_TREE_BIRCH_1x1_001__refined_v2__front.png
+Info: Deleted 16 data-block(s)
+11:07:35 | INFO: Data are loaded, start creating Blender stuff
+11:07:35 | INFO: Blender create Mesh node Cube.006
+11:07:35 | INFO: Blender create Mesh node Cylinder
+11:07:35 | INFO: glTF import finished in 0.03s
+18:23.156  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\NAT_TREE_BIRCH_1x1_001__refined_v2__rear.png'
+[RENDER] NAT_TREE_BIRCH_1x1_001__refined_v2__rear.png
+Info: Deleted 16 data-block(s)
+11:07:42 | INFO: Data are loaded, start creating Blender stuff
+11:07:42 | INFO: Blender create Mesh node Cube.006
+11:07:42 | INFO: Blender create Mesh node Cylinder
+11:07:42 | INFO: glTF import finished in 0.03s
+18:29.797  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\NAT_TREE_FLOWER_1x1_001__realistic__front.png'
+[RENDER] NAT_TREE_FLOWER_1x1_001__realistic__front.png
+Info: Deleted 14 data-block(s)
+11:07:49 | INFO: Data are loaded, start creating Blender stuff
+11:07:49 | INFO: Blender create Mesh node Cube.006
+11:07:49 | INFO: Blender create Mesh node Cylinder
+11:07:49 | INFO: glTF import finished in 0.03s
+18:36.937  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\NAT_TREE_FLOWER_1x1_001__realistic__rear.png'
+[RENDER] NAT_TREE_FLOWER_1x1_001__realistic__rear.png
+Info: Deleted 14 data-block(s)
+11:07:56 | INFO: Data are loaded, start creating Blender stuff
+11:07:56 | INFO: Blender create Mesh node Cube.006
+11:07:56 | INFO: Blender create Mesh node Cylinder
+11:07:56 | INFO: glTF import finished in 0.05s
+18:46.703  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\NAT_TREE_FLOWER_1x1_001__refined_v2__front.png'
+[RENDER] NAT_TREE_FLOWER_1x1_001__refined_v2__front.png
+Info: Deleted 24 data-block(s)
+11:08:05 | INFO: Data are loaded, start creating Blender stuff
+11:08:05 | INFO: Blender create Mesh node Cube.006
+11:08:05 | INFO: Blender create Mesh node Cylinder
+11:08:06 | INFO: glTF import finished in 0.06s
+18:54.672  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\NAT_TREE_FLOWER_1x1_001__refined_v2__rear.png'
+[RENDER] NAT_TREE_FLOWER_1x1_001__refined_v2__rear.png
+Info: Deleted 24 data-block(s)
+11:08:13 | INFO: Data are loaded, start creating Blender stuff
+11:08:13 | INFO: Blender create Mesh node Cube.033
+11:08:13 | INFO: Blender create Mesh node Cube
+11:08:14 | INFO: glTF import finished in 0.10s
+19:01.703  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\EDU_SCHOOL_3x3_001__realistic__front.png'
+[RENDER] EDU_SCHOOL_3x3_001__realistic__front.png
+Info: Deleted 20 data-block(s)
+11:08:20 | INFO: Data are loaded, start creating Blender stuff
+11:08:20 | INFO: Blender create Mesh node Cube.033
+11:08:20 | INFO: Blender create Mesh node Cube
+11:08:21 | INFO: glTF import finished in 0.11s
+19:08.515  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\EDU_SCHOOL_3x3_001__realistic__rear.png'
+[RENDER] EDU_SCHOOL_3x3_001__realistic__rear.png
+Info: Deleted 20 data-block(s)
+11:08:27 | INFO: Data are loaded, start creating Blender stuff
+11:08:27 | INFO: Blender create Mesh node Cube.034
+11:08:27 | INFO: Blender create Mesh node Cube
+11:08:27 | INFO: glTF import finished in 0.15s
+19:15.687  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\EDU_SCHOOL_3x3_001__refined_v2__front.png'
+[RENDER] EDU_SCHOOL_3x3_001__refined_v2__front.png
+Info: Deleted 36 data-block(s)
+11:08:34 | INFO: Data are loaded, start creating Blender stuff
+11:08:34 | INFO: Blender create Mesh node Cube.034
+11:08:34 | INFO: Blender create Mesh node Cube
+11:08:35 | INFO: glTF import finished in 0.19s
+19:23.000  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\EDU_SCHOOL_3x3_001__refined_v2__rear.png'
+[RENDER] EDU_SCHOOL_3x3_001__refined_v2__rear.png
+Info: Deleted 36 data-block(s)
+11:08:42 | INFO: Data are loaded, start creating Blender stuff
+11:08:42 | INFO: Blender create Mesh node Cube.013
+11:08:42 | INFO: Blender create Mesh node Cube
+11:08:42 | INFO: glTF import finished in 0.05s
+19:31.187  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\AGR_BARN_2x2_001__realistic__front.png'
+[RENDER] AGR_BARN_2x2_001__realistic__front.png
+Info: Deleted 18 data-block(s)
+11:08:50 | INFO: Data are loaded, start creating Blender stuff
+11:08:50 | INFO: Blender create Mesh node Cube.013
+11:08:50 | INFO: Blender create Mesh node Cube
+11:08:50 | INFO: glTF import finished in 0.05s
+19:38.547  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\AGR_BARN_2x2_001__realistic__rear.png'
+[RENDER] AGR_BARN_2x2_001__realistic__rear.png
+Info: Deleted 18 data-block(s)
+11:08:57 | INFO: Data are loaded, start creating Blender stuff
+11:08:57 | INFO: Blender create Mesh node Cube.013
+11:08:57 | INFO: Blender create Mesh node Cube
+11:08:57 | INFO: glTF import finished in 0.14s
+19:48.265  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\AGR_BARN_2x2_001__refined_v2__front.png'
+[RENDER] AGR_BARN_2x2_001__refined_v2__front.png
+Info: Deleted 41 data-block(s)
+11:09:07 | INFO: Data are loaded, start creating Blender stuff
+11:09:07 | INFO: Blender create Mesh node Cube.013
+11:09:07 | INFO: Blender create Mesh node Cube
+11:09:07 | INFO: glTF import finished in 0.12s
+19:58.062  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\AGR_BARN_2x2_001__refined_v2__rear.png'
+[RENDER] AGR_BARN_2x2_001__refined_v2__rear.png
+Info: Deleted 41 data-block(s)
+11:09:17 | INFO: Data are loaded, start creating Blender stuff
+11:09:17 | INFO: Blender create Mesh node Cube.007
+11:09:17 | INFO: Blender create Mesh node Cube
+11:09:17 | INFO: glTF import finished in 0.04s
+20:07.750  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\UTIL_WIND_2x2_001__realistic__front.png'
+[RENDER] UTIL_WIND_2x2_001__realistic__front.png
+Info: Deleted 15 data-block(s)
+11:09:27 | INFO: Data are loaded, start creating Blender stuff
+11:09:27 | INFO: Blender create Mesh node Cube.007
+11:09:27 | INFO: Blender create Mesh node Cube
+11:09:27 | INFO: glTF import finished in 0.04s
+20:17.297  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\UTIL_WIND_2x2_001__realistic__rear.png'
+[RENDER] UTIL_WIND_2x2_001__realistic__rear.png
+Info: Deleted 15 data-block(s)
+11:09:36 | INFO: Data are loaded, start creating Blender stuff
+11:09:36 | INFO: Blender create Mesh node Cube.009
+11:09:36 | INFO: Blender create Mesh node Cube
+11:09:36 | INFO: glTF import finished in 0.04s
+20:26.109  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\UTIL_WIND_2x2_001__refined_v2__front.png'
+[RENDER] UTIL_WIND_2x2_001__refined_v2__front.png
+Info: Deleted 24 data-block(s)
+11:09:45 | INFO: Data are loaded, start creating Blender stuff
+11:09:45 | INFO: Blender create Mesh node Cube.009
+11:09:45 | INFO: Blender create Mesh node Cube
+11:09:45 | INFO: glTF import finished in 0.05s
+20:36.359  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\UTIL_WIND_2x2_001__refined_v2__rear.png'
+[RENDER] UTIL_WIND_2x2_001__refined_v2__rear.png
+Info: Deleted 24 data-block(s)
+11:09:55 | INFO: Data are loaded, start creating Blender stuff
+11:09:55 | INFO: Blender create Mesh node Cube.012
+11:09:55 | INFO: Blender create Mesh node Cube
+11:09:55 | INFO: glTF import finished in 0.06s
+20:46.125  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\UTIL_SOLAR_3x2_001__realistic__front.png'
+[RENDER] UTIL_SOLAR_3x2_001__realistic__front.png
+Info: Deleted 14 data-block(s)
+11:10:05 | INFO: Data are loaded, start creating Blender stuff
+11:10:05 | INFO: Blender create Mesh node Cube.012
+11:10:05 | INFO: Blender create Mesh node Cube
+11:10:05 | INFO: glTF import finished in 0.05s
+20:56.281  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\UTIL_SOLAR_3x2_001__realistic__rear.png'
+[RENDER] UTIL_SOLAR_3x2_001__realistic__rear.png
+Info: Deleted 14 data-block(s)
+11:10:15 | INFO: Data are loaded, start creating Blender stuff
+11:10:15 | INFO: Blender create Mesh node Cube.012
+11:10:15 | INFO: Blender create Mesh node Cube
+11:10:15 | INFO: glTF import finished in 0.07s
+21:06.750  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\UTIL_SOLAR_3x2_001__refined_v2__front.png'
+[RENDER] UTIL_SOLAR_3x2_001__refined_v2__front.png
+Info: Deleted 21 data-block(s)
+11:10:26 | INFO: Data are loaded, start creating Blender stuff
+11:10:26 | INFO: Blender create Mesh node Cube.012
+11:10:26 | INFO: Blender create Mesh node Cube
+11:10:26 | INFO: glTF import finished in 0.08s
+21:16.109  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\UTIL_SOLAR_3x2_001__refined_v2__rear.png'
+[RENDER] UTIL_SOLAR_3x2_001__refined_v2__rear.png
+Info: Deleted 21 data-block(s)
+11:10:35 | INFO: Data are loaded, start creating Blender stuff
+11:10:35 | INFO: Blender create Mesh node Cube.014
+11:10:35 | INFO: Blender create Mesh node Cube
+11:10:35 | INFO: glTF import finished in 0.08s
+21:24.906  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\SPORT_BASKET_2x1_001__realistic__front.png'
+[RENDER] SPORT_BASKET_2x1_001__realistic__front.png
+Info: Deleted 15 data-block(s)
+11:10:44 | INFO: Data are loaded, start creating Blender stuff
+11:10:44 | INFO: Blender create Mesh node Cube.014
+11:10:44 | INFO: Blender create Mesh node Cube
+11:10:44 | INFO: glTF import finished in 0.06s
+21:33.687  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\SPORT_BASKET_2x1_001__realistic__rear.png'
+[RENDER] SPORT_BASKET_2x1_001__realistic__rear.png
+Info: Deleted 15 data-block(s)
+11:10:52 | INFO: Data are loaded, start creating Blender stuff
+11:10:52 | INFO: Blender create Mesh node Cube.014
+11:10:52 | INFO: Blender create Mesh node Cube
+11:10:53 | INFO: glTF import finished in 0.10s
+21:42.890  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\SPORT_BASKET_2x1_001__refined_v2__front.png'
+[RENDER] SPORT_BASKET_2x1_001__refined_v2__front.png
+Info: Deleted 21 data-block(s)
+11:11:02 | INFO: Data are loaded, start creating Blender stuff
+11:11:02 | INFO: Blender create Mesh node Cube.014
+11:11:02 | INFO: Blender create Mesh node Cube
+11:11:02 | INFO: glTF import finished in 0.09s
+21:52.422  render           | Saved: 'C:\Users\gabri\Desktop\FOCUS!\assets\previews\refined_v2\renders\SPORT_BASKET_2x1_001__refined_v2__rear.png'
+[RENDER] SPORT_BASKET_2x1_001__refined_v2__rear.png
+Blender 5.2.1 LTS (hash 9e2066aef7ef built 2026-08-25 02:38:20)
+
+Blender quit

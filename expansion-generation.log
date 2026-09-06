@@ -1,0 +1,510 @@
+[EXPANSION] 1/48 EXP_COTTAGE
+INFO Draco is available, use library at C:\Program Files\Blender Foundation\Blender 5.2\5.2\scripts\addons_core\io_scene_gltf2\bf_intern_draco_bridge.dll
+INFO MeshOptimizer is available, use library at C:\Program Files\Blender Foundation\Blender 5.2\5.2\scripts\addons_core\io_scene_gltf2\bf_intern_meshopt_bridge.dll
+11:31:27 | INFO: Starting glTF 2.0 export
+11:31:27 | INFO: Extracting primitive: Cube.008
+11:31:27 | INFO: Primitives created: 1
+11:31:27 | INFO: Extracting primitive: Cube
+11:31:28 | INFO: Primitives created: 22
+11:31:28 | INFO: Finished glTF 2.0 export in 0.4421093463897705 s
+
+[EXPANSION] 2/48 EXP_VILLA_LIMONAIA
+11:31:30 | INFO: Starting glTF 2.0 export
+11:31:30 | INFO: Extracting primitive: Cube.008
+11:31:30 | INFO: Primitives created: 1
+11:31:30 | INFO: Extracting primitive: Cube.010
+11:31:30 | INFO: Primitives created: 1
+11:31:30 | INFO: Extracting primitive: Cube
+11:31:31 | INFO: Primitives created: 22
+11:31:31 | INFO: Finished glTF 2.0 export in 0.43378305435180664 s
+
+[EXPANSION] 3/48 EXP_VILLA_POOL
+11:31:32 | INFO: Starting glTF 2.0 export
+11:31:32 | INFO: Extracting primitive: Cube.008
+11:31:32 | INFO: Primitives created: 1
+11:31:32 | INFO: Extracting primitive: Cube.010
+11:31:32 | INFO: Primitives created: 1
+11:31:32 | INFO: Extracting primitive: Cube
+11:31:32 | INFO: Primitives created: 20
+11:31:32 | INFO: Finished glTF 2.0 export in 0.33739686012268066 s
+
+[EXPANSION] 4/48 EXP_HOUSE_NORDIC
+11:31:34 | INFO: Starting glTF 2.0 export
+11:31:34 | INFO: Extracting primitive: Cube.008
+11:31:34 | INFO: Primitives created: 1
+11:31:34 | INFO: Extracting primitive: Cube
+11:31:34 | INFO: Primitives created: 22
+11:31:34 | INFO: Finished glTF 2.0 export in 0.3659200668334961 s
+
+[EXPANSION] 5/48 EXP_VILLA_FORMAL
+11:31:36 | INFO: Starting glTF 2.0 export
+11:31:36 | INFO: Extracting primitive: Cube.008
+11:31:36 | INFO: Primitives created: 1
+11:31:36 | INFO: Extracting primitive: Cube
+11:31:36 | INFO: Primitives created: 25
+11:31:36 | INFO: Finished glTF 2.0 export in 0.49605798721313477 s
+
+[EXPANSION] 6/48 EXP_VILLA_COURT
+11:31:38 | INFO: Starting glTF 2.0 export
+11:31:38 | INFO: Extracting primitive: Cube.008
+11:31:38 | INFO: Primitives created: 1
+11:31:38 | INFO: Extracting primitive: Cube.010
+11:31:38 | INFO: Primitives created: 1
+11:31:38 | INFO: Extracting primitive: Cube.012
+11:31:38 | INFO: Primitives created: 1
+11:31:38 | INFO: Extracting primitive: Cube
+11:31:38 | INFO: Primitives created: 24
+11:31:38 | INFO: Finished glTF 2.0 export in 0.4975745677947998 s
+
+[EXPANSION] 7/48 EXP_CHALET
+11:31:39 | INFO: Starting glTF 2.0 export
+11:31:39 | INFO: Extracting primitive: Cube.008
+11:31:39 | INFO: Primitives created: 1
+11:31:39 | INFO: Extracting primitive: Cube
+11:31:40 | INFO: Primitives created: 22
+11:31:40 | INFO: Finished glTF 2.0 export in 0.3958747386932373 s
+
+[EXPANSION] 8/48 EXP_VILLA_PATIO
+11:31:41 | INFO: Starting glTF 2.0 export
+11:31:41 | INFO: Extracting primitive: Cube.008
+11:31:41 | INFO: Primitives created: 1
+11:31:41 | INFO: Extracting primitive: Cube.010
+11:31:41 | INFO: Primitives created: 1
+11:31:41 | INFO: Extracting primitive: Cube
+11:31:42 | INFO: Primitives created: 22
+11:31:42 | INFO: Finished glTF 2.0 export in 0.55074143409729 s
+
+[EXPANSION] 9/48 EXP_PALAZZO_COURT
+11:31:42 | INFO: Starting glTF 2.0 export
+11:31:42 | INFO: Extracting primitive: Cube.002
+11:31:42 | INFO: Primitives created: 1
+11:31:42 | INFO: Extracting primitive: Cube.004
+11:31:42 | INFO: Primitives created: 1
+11:31:42 | INFO: Extracting primitive: Cube.006
+11:31:42 | INFO: Primitives created: 1
+11:31:42 | INFO: Extracting primitive: Cube.008
+11:31:42 | INFO: Primitives created: 1
+11:31:42 | INFO: Extracting primitive: Cube
+11:31:43 | INFO: Primitives created: 19
+11:31:43 | INFO: Finished glTF 2.0 export in 0.34632039070129395 s
+
+[EXPANSION] 10/48 EXP_PALAZZO_STEPS
+11:31:43 | INFO: Starting glTF 2.0 export
+11:31:43 | INFO: Extracting primitive: Cube.002
+11:31:43 | INFO: Primitives created: 1
+11:31:43 | INFO: Extracting primitive: Cube.004
+11:31:43 | INFO: Primitives created: 1
+11:31:43 | INFO: Extracting primitive: Cube.006
+11:31:43 | INFO: Primitives created: 1
+11:31:43 | INFO: Extracting primitive: Cube
+11:31:43 | INFO: Primitives created: 16
+11:31:43 | INFO: Finished glTF 2.0 export in 0.24270129203796387 s
+
+[EXPANSION] 11/48 EXP_PALAZZO_BRICK
+11:31:44 | INFO: Starting glTF 2.0 export
+11:31:44 | INFO: Extracting primitive: Cube.002
+11:31:44 | INFO: Primitives created: 1
+11:31:44 | INFO: Extracting primitive: Cube
+11:31:44 | INFO: Primitives created: 17
+11:31:44 | INFO: Finished glTF 2.0 export in 0.3240652084350586 s
+
+[EXPANSION] 12/48 EXP_PALAZZO_CORNER
+11:31:45 | INFO: Starting glTF 2.0 export
+11:31:45 | INFO: Extracting primitive: Cube.002
+11:31:45 | INFO: Primitives created: 1
+11:31:45 | INFO: Extracting primitive: Cube.004
+11:31:45 | INFO: Primitives created: 1
+11:31:45 | INFO: Extracting primitive: Cube
+11:31:45 | INFO: Primitives created: 19
+11:31:45 | INFO: Finished glTF 2.0 export in 0.3045029640197754 s
+
+[EXPANSION] 13/48 EXP_PALAZZO_LOGGIAS
+11:31:45 | INFO: Starting glTF 2.0 export
+11:31:45 | INFO: Extracting primitive: Cube.002
+11:31:45 | INFO: Primitives created: 1
+11:31:45 | INFO: Extracting primitive: Cube
+11:31:45 | INFO: Primitives created: 16
+11:31:45 | INFO: Finished glTF 2.0 export in 0.27289319038391113 s
+
+[EXPANSION] 14/48 EXP_TOWER_DECO
+11:31:46 | INFO: Starting glTF 2.0 export
+11:31:46 | INFO: Extracting primitive: Cube.002
+11:31:46 | INFO: Primitives created: 1
+11:31:46 | INFO: Extracting primitive: Cube.004
+11:31:46 | INFO: Primitives created: 1
+11:31:46 | INFO: Extracting primitive: Cube.006
+11:31:46 | INFO: Primitives created: 1
+11:31:46 | INFO: Extracting primitive: Cube.008
+11:31:46 | INFO: Primitives created: 1
+11:31:46 | INFO: Extracting primitive: Cube
+11:31:46 | INFO: Primitives created: 12
+11:31:46 | INFO: Finished glTF 2.0 export in 0.21797513961791992 s
+
+[EXPANSION] 15/48 EXP_TOWER_TWINS
+11:31:46 | INFO: Starting glTF 2.0 export
+11:31:46 | INFO: Extracting primitive: Cube.002
+11:31:46 | INFO: Primitives created: 1
+11:31:46 | INFO: Extracting primitive: Cube.004
+11:31:46 | INFO: Primitives created: 1
+11:31:46 | INFO: Extracting primitive: Cube.006
+11:31:46 | INFO: Primitives created: 1
+11:31:46 | INFO: Extracting primitive: Cube.008
+11:31:46 | INFO: Primitives created: 1
+11:31:46 | INFO: Extracting primitive: Cube
+11:31:47 | INFO: Primitives created: 12
+11:31:47 | INFO: Finished glTF 2.0 export in 0.23662757873535156 s
+
+[EXPANSION] 16/48 EXP_TOWER_COPPER
+11:31:47 | INFO: Starting glTF 2.0 export
+11:31:47 | INFO: Extracting primitive: Cube.002
+11:31:47 | INFO: Primitives created: 1
+11:31:47 | INFO: Extracting primitive: Cube.004
+11:31:47 | INFO: Primitives created: 1
+11:31:47 | INFO: Extracting primitive: Cube
+11:31:47 | INFO: Primitives created: 12
+11:31:47 | INFO: Finished glTF 2.0 export in 0.22057080268859863 s
+
+[EXPANSION] 17/48 EXP_TOWER_GARDENS
+11:31:48 | INFO: Starting glTF 2.0 export
+11:31:48 | INFO: Extracting primitive: Cube.002
+11:31:48 | INFO: Primitives created: 1
+11:31:48 | INFO: Extracting primitive: Cube.004
+11:31:48 | INFO: Primitives created: 1
+11:31:48 | INFO: Extracting primitive: Cube.006
+11:31:48 | INFO: Primitives created: 1
+11:31:48 | INFO: Extracting primitive: Cube.008
+11:31:48 | INFO: Primitives created: 1
+11:31:48 | INFO: Extracting primitive: Cube.010
+11:31:48 | INFO: Primitives created: 1
+11:31:48 | INFO: Extracting primitive: Cube
+11:31:48 | INFO: Primitives created: 12
+11:31:48 | INFO: Finished glTF 2.0 export in 0.23047733306884766 s
+
+[EXPANSION] 18/48 EXP_TOWER_ROUND
+11:31:48 | INFO: Starting glTF 2.0 export
+11:31:48 | INFO: Extracting primitive: Cube.002
+11:31:48 | INFO: Primitives created: 1
+11:31:48 | INFO: Extracting primitive: Cube.003
+11:31:48 | INFO: Primitives created: 1
+11:31:48 | INFO: Extracting primitive: Cube.004
+11:31:48 | INFO: Primitives created: 1
+11:31:48 | INFO: Extracting primitive: Cube
+11:31:49 | INFO: Primitives created: 13
+11:31:49 | INFO: Finished glTF 2.0 export in 0.22802042961120605 s
+
+[EXPANSION] 19/48 EXP_TOWER_LANTERN
+11:31:49 | INFO: Starting glTF 2.0 export
+11:31:49 | INFO: Extracting primitive: Cube.002
+11:31:49 | INFO: Primitives created: 1
+11:31:49 | INFO: Extracting primitive: Cube.004
+11:31:49 | INFO: Primitives created: 1
+11:31:49 | INFO: Extracting primitive: Cube.006
+11:31:49 | INFO: Primitives created: 1
+11:31:49 | INFO: Extracting primitive: Cube.008
+11:31:49 | INFO: Primitives created: 1
+11:31:49 | INFO: Extracting primitive: Cube
+11:31:49 | INFO: Primitives created: 12
+11:31:49 | INFO: Finished glTF 2.0 export in 0.2472395896911621 s
+
+[EXPANSION] 20/48 EXP_SHOP_BAKERY
+11:31:49 | INFO: Starting glTF 2.0 export
+11:31:49 | INFO: Extracting primitive: Cube.002
+11:31:49 | INFO: Primitives created: 1
+11:31:49 | INFO: Extracting primitive: Cube
+11:31:50 | INFO: Primitives created: 18
+11:31:50 | INFO: Finished glTF 2.0 export in 0.3358950614929199 s
+
+[EXPANSION] 21/48 EXP_SHOP_FLORIST
+11:31:50 | INFO: Starting glTF 2.0 export
+11:31:50 | INFO: Extracting primitive: Cube.002
+11:31:50 | INFO: Primitives created: 1
+11:31:50 | INFO: Extracting primitive: Cube
+11:31:50 | INFO: Primitives created: 17
+11:31:50 | INFO: Finished glTF 2.0 export in 0.28400111198425293 s
+
+[EXPANSION] 22/48 EXP_SHOP_BOOKS
+11:31:50 | INFO: Starting glTF 2.0 export
+11:31:50 | INFO: Extracting primitive: Cube.002
+11:31:50 | INFO: Primitives created: 1
+11:31:50 | INFO: Extracting primitive: Cube
+11:31:51 | INFO: Primitives created: 17
+11:31:51 | INFO: Finished glTF 2.0 export in 0.28479480743408203 s
+
+[EXPANSION] 23/48 EXP_SHOP_CAFE
+11:31:51 | INFO: Starting glTF 2.0 export
+11:31:51 | INFO: Extracting primitive: Cube.002
+11:31:51 | INFO: Primitives created: 1
+11:31:51 | INFO: Extracting primitive: Cube
+11:31:51 | INFO: Primitives created: 15
+11:31:51 | INFO: Finished glTF 2.0 export in 0.2454395294189453 s
+
+[EXPANSION] 24/48 EXP_SHOP_MARKET
+11:31:51 | INFO: Starting glTF 2.0 export
+11:31:51 | INFO: Extracting primitive: Cube.002
+11:31:51 | INFO: Primitives created: 1
+11:31:51 | INFO: Extracting primitive: Cube
+11:31:52 | INFO: Primitives created: 19
+11:31:52 | INFO: Finished glTF 2.0 export in 0.3461894989013672 s
+
+[EXPANSION] 25/48 EXP_SHOP_PHARMACY
+11:31:52 | INFO: Starting glTF 2.0 export
+11:31:52 | INFO: Extracting primitive: Cube.002
+11:31:52 | INFO: Primitives created: 1
+11:31:52 | INFO: Extracting primitive: Cube
+11:31:52 | INFO: Primitives created: 14
+11:31:52 | INFO: Finished glTF 2.0 export in 0.179948091506958 s
+
+[EXPANSION] 26/48 EXP_SHOP_CINEMA
+11:31:52 | INFO: Starting glTF 2.0 export
+11:31:52 | INFO: Extracting primitive: Cube.002
+11:31:52 | INFO: Primitives created: 1
+11:31:52 | INFO: Extracting primitive: Cube.005
+11:31:52 | INFO: Primitives created: 1
+11:31:52 | INFO: Extracting primitive: Cube
+11:31:52 | INFO: Primitives created: 15
+11:31:52 | INFO: Finished glTF 2.0 export in 0.22719430923461914 s
+
+[EXPANSION] 27/48 EXP_SHOP_CYCLES
+11:31:53 | INFO: Starting glTF 2.0 export
+11:31:53 | INFO: Extracting primitive: Cube.002
+11:31:53 | INFO: Primitives created: 1
+11:31:53 | INFO: Extracting primitive: Cube
+11:31:53 | INFO: Primitives created: 13
+11:31:53 | INFO: Finished glTF 2.0 export in 0.2451014518737793 s
+
+[EXPANSION] 28/48 EXP_SHOP_TRATTORIA
+11:31:53 | INFO: Starting glTF 2.0 export
+11:31:53 | INFO: Extracting primitive: Cube.002
+11:31:53 | INFO: Primitives created: 1
+11:31:53 | INFO: Extracting primitive: Cube
+11:31:53 | INFO: Primitives created: 17
+11:31:53 | INFO: Finished glTF 2.0 export in 0.34671473503112793 s
+
+[EXPANSION] 29/48 EXP_SHOP_DESIGN
+11:31:53 | INFO: Starting glTF 2.0 export
+11:31:53 | INFO: Extracting primitive: Cube.002
+11:31:53 | INFO: Primitives created: 1
+11:31:53 | INFO: Extracting primitive: Cube
+11:31:54 | INFO: Primitives created: 12
+11:31:54 | INFO: Finished glTF 2.0 export in 0.19573736190795898 s
+
+[EXPANSION] 30/48 EXP_FACTORY_MILL
+11:31:54 | INFO: Starting glTF 2.0 export
+11:31:54 | INFO: Extracting primitive: Cube.002
+11:31:54 | INFO: Primitives created: 1
+11:31:54 | INFO: Extracting primitive: Cube.004
+11:31:54 | INFO: Primitives created: 1
+11:31:54 | INFO: Extracting primitive: Cube.005
+11:31:54 | INFO: Primitives created: 1
+11:31:54 | INFO: Extracting primitive: Cube
+11:31:54 | INFO: Primitives created: 17
+11:31:54 | INFO: Finished glTF 2.0 export in 0.2794196605682373 s
+
+[EXPANSION] 31/48 EXP_FACTORY_SAW
+11:31:54 | INFO: Starting glTF 2.0 export
+11:31:54 | INFO: Extracting primitive: Cube.002
+11:31:54 | INFO: Primitives created: 1
+11:31:54 | INFO: Extracting primitive: Cube
+11:31:54 | INFO: Primitives created: 14
+11:31:55 | INFO: Finished glTF 2.0 export in 0.19441986083984375 s
+
+[EXPANSION] 32/48 EXP_FACTORY_LOGISTICS
+11:31:55 | INFO: Starting glTF 2.0 export
+11:31:55 | INFO: Extracting primitive: Cube.002
+11:31:55 | INFO: Primitives created: 1
+11:31:55 | INFO: Extracting primitive: Cube.004
+11:31:55 | INFO: Primitives created: 1
+11:31:55 | INFO: Extracting primitive: Cube
+11:31:55 | INFO: Primitives created: 15
+11:31:55 | INFO: Finished glTF 2.0 export in 0.21493196487426758 s
+
+[EXPANSION] 33/48 EXP_FACTORY_STEEL
+11:31:55 | INFO: Starting glTF 2.0 export
+11:31:55 | INFO: Extracting primitive: Cube.002
+11:31:55 | INFO: Primitives created: 1
+11:31:55 | INFO: Extracting primitive: Cube.004
+11:31:55 | INFO: Primitives created: 1
+11:31:55 | INFO: Extracting primitive: Cube.005
+11:31:55 | INFO: Primitives created: 1
+11:31:55 | INFO: Extracting primitive: Cube.006
+11:31:55 | INFO: Primitives created: 1
+11:31:55 | INFO: Extracting primitive: Cube
+11:31:55 | INFO: Primitives created: 18
+11:31:55 | INFO: Finished glTF 2.0 export in 0.2869696617126465 s
+
+[EXPANSION] 34/48 EXP_FACTORY_FOOD
+11:31:56 | INFO: Starting glTF 2.0 export
+11:31:56 | INFO: Extracting primitive: Cube.002
+11:31:56 | INFO: Primitives created: 1
+11:31:56 | INFO: Extracting primitive: Cube.004
+11:31:56 | INFO: Primitives created: 1
+11:31:56 | INFO: Extracting primitive: Cube.005
+11:31:56 | INFO: Primitives created: 1
+11:31:56 | INFO: Extracting primitive: Cube.006
+11:31:56 | INFO: Primitives created: 1
+11:31:56 | INFO: Extracting primitive: Cube.007
+11:31:56 | INFO: Primitives created: 1
+11:31:56 | INFO: Extracting primitive: Cube.008
+11:31:56 | INFO: Primitives created: 1
+11:31:56 | INFO: Extracting primitive: Cube
+11:31:56 | INFO: Primitives created: 15
+11:31:56 | INFO: Finished glTF 2.0 export in 0.2181863784790039 s
+
+[EXPANSION] 35/48 EXP_FACTORY_TECH
+11:31:56 | INFO: Starting glTF 2.0 export
+11:31:56 | INFO: Extracting primitive: Cube.002
+11:31:56 | INFO: Primitives created: 1
+11:31:56 | INFO: Extracting primitive: Cube.004
+11:31:56 | INFO: Primitives created: 1
+11:31:56 | INFO: Extracting primitive: Cube
+11:31:56 | INFO: Primitives created: 15
+11:31:56 | INFO: Finished glTF 2.0 export in 0.20639610290527344 s
+
+[EXPANSION] 36/48 EXP_POWER_COAL_SMALL
+11:31:57 | INFO: Starting glTF 2.0 export
+11:31:57 | INFO: Extracting primitive: Cube.002
+11:31:57 | INFO: Primitives created: 1
+11:31:57 | INFO: Extracting primitive: Cube.004
+11:31:57 | INFO: Primitives created: 1
+11:31:57 | INFO: Extracting primitive: Cube.005
+11:31:57 | INFO: Primitives created: 1
+11:31:57 | INFO: Extracting primitive: Cube
+11:31:57 | INFO: Primitives created: 15
+11:31:57 | INFO: Finished glTF 2.0 export in 0.238572359085083 s
+
+[EXPANSION] 37/48 EXP_POWER_COAL_LARGE
+11:31:57 | INFO: Starting glTF 2.0 export
+11:31:57 | INFO: Extracting primitive: Cube.002
+11:31:57 | INFO: Primitives created: 1
+11:31:57 | INFO: Extracting primitive: Cube.004
+11:31:57 | INFO: Primitives created: 1
+11:31:57 | INFO: Extracting primitive: Cube.006
+11:31:57 | INFO: Primitives created: 1
+11:31:57 | INFO: Extracting primitive: Cube.007
+11:31:57 | INFO: Primitives created: 1
+11:31:57 | INFO: Extracting primitive: Cube.008
+11:31:57 | INFO: Primitives created: 1
+11:31:57 | INFO: Extracting primitive: Cube.009
+11:31:57 | INFO: Primitives created: 1
+11:31:57 | INFO: Extracting primitive: Cube
+11:31:58 | INFO: Primitives created: 15
+11:31:58 | INFO: Finished glTF 2.0 export in 0.22530031204223633 s
+
+[EXPANSION] 38/48 EXP_POWER_NUCLEAR
+11:31:58 | INFO: Starting glTF 2.0 export
+11:31:58 | INFO: Extracting primitive: Cube.001
+11:31:58 | INFO: Primitives created: 1
+11:31:58 | INFO: Extracting primitive: Cube.002
+11:31:58 | INFO: Primitives created: 1
+11:31:58 | INFO: Extracting primitive: Cube.004
+11:31:58 | INFO: Primitives created: 1
+11:31:58 | INFO: Extracting primitive: Cube.006
+11:31:58 | INFO: Primitives created: 1
+11:31:58 | INFO: Extracting primitive: Cube.007
+11:31:58 | INFO: Primitives created: 1
+11:31:58 | INFO: Extracting primitive: Cube.008
+11:31:58 | INFO: Primitives created: 1
+11:31:58 | INFO: Extracting primitive: Cube
+11:31:58 | INFO: Primitives created: 14
+11:31:59 | INFO: Finished glTF 2.0 export in 0.24035072326660156 s
+
+[EXPANSION] 39/48 EXP_WATER_PUMP_URBAN
+11:31:59 | INFO: Starting glTF 2.0 export
+11:31:59 | INFO: Extracting primitive: Cube.002
+11:31:59 | INFO: Primitives created: 1
+11:31:59 | INFO: Extracting primitive: Cube.004
+11:31:59 | INFO: Primitives created: 1
+11:31:59 | INFO: Extracting primitive: Cube
+11:31:59 | INFO: Primitives created: 15
+11:31:59 | INFO: Finished glTF 2.0 export in 0.20328712463378906 s
+
+[EXPANSION] 40/48 EXP_WATER_PUMP_RIVER
+11:31:59 | INFO: Starting glTF 2.0 export
+11:31:59 | INFO: Extracting primitive: Cube.002
+11:31:59 | INFO: Primitives created: 1
+11:31:59 | INFO: Extracting primitive: Cube
+11:31:59 | INFO: Primitives created: 15
+11:31:59 | INFO: Finished glTF 2.0 export in 0.2105388641357422 s
+
+[EXPANSION] 41/48 EXP_WATER_TREATMENT
+11:31:59 | INFO: Starting glTF 2.0 export
+11:31:59 | INFO: Extracting primitive: Cube.002
+11:31:59 | INFO: Primitives created: 1
+11:31:59 | INFO: Extracting primitive: Cube
+11:32:00 | INFO: Primitives created: 14
+11:32:00 | INFO: Finished glTF 2.0 export in 0.20306038856506348 s
+
+[EXPANSION] 42/48 EXP_POWER_SUBSTATION
+11:32:00 | INFO: Starting glTF 2.0 export
+11:32:00 | INFO: Extracting primitive: Cube.004
+11:32:00 | INFO: Primitives created: 1
+11:32:00 | INFO: Extracting primitive: Cube
+11:32:00 | INFO: Primitives created: 6
+11:32:00 | INFO: Finished glTF 2.0 export in 0.10431361198425293 s
+
+[EXPANSION] 43/48 EXP_STADIUM
+11:32:01 | INFO: Starting glTF 2.0 export
+11:32:01 | INFO: Extracting primitive: Cube.001
+11:32:01 | INFO: Primitives created: 1
+11:32:01 | INFO: Extracting primitive: Cube.002
+11:32:01 | INFO: Primitives created: 1
+11:32:01 | INFO: Extracting primitive: Cube.003
+11:32:01 | INFO: Primitives created: 1
+11:32:01 | INFO: Extracting primitive: Cube.004
+11:32:01 | INFO: Primitives created: 1
+11:32:01 | INFO: Extracting primitive: Cube
+11:32:01 | INFO: Primitives created: 17
+11:32:01 | INFO: Finished glTF 2.0 export in 0.3636956214904785 s
+
+[EXPANSION] 44/48 EXP_ARENA
+11:32:01 | INFO: Starting glTF 2.0 export
+11:32:01 | INFO: Extracting primitive: Cube.002
+11:32:01 | INFO: Primitives created: 1
+11:32:01 | INFO: Extracting primitive: Cube.004
+11:32:01 | INFO: Primitives created: 1
+11:32:01 | INFO: Extracting primitive: Cube
+11:32:01 | INFO: Primitives created: 12
+11:32:02 | INFO: Finished glTF 2.0 export in 0.2037031650543213 s
+
+[EXPANSION] 45/48 EXP_FIRE_STATION
+11:32:02 | INFO: Starting glTF 2.0 export
+11:32:02 | INFO: Extracting primitive: Cube.002
+11:32:02 | INFO: Primitives created: 1
+11:32:02 | INFO: Extracting primitive: Cube.004
+11:32:02 | INFO: Primitives created: 1
+11:32:02 | INFO: Extracting primitive: Cube
+11:32:02 | INFO: Primitives created: 15
+11:32:02 | INFO: Finished glTF 2.0 export in 0.17583823204040527 s
+
+[EXPANSION] 46/48 EXP_LIBRARY
+11:32:02 | INFO: Starting glTF 2.0 export
+11:32:02 | INFO: Extracting primitive: Cube.002
+11:32:02 | INFO: Primitives created: 1
+11:32:02 | INFO: Extracting primitive: Cube.004
+11:32:02 | INFO: Primitives created: 1
+11:32:02 | INFO: Extracting primitive: Cube
+11:32:02 | INFO: Primitives created: 14
+11:32:02 | INFO: Finished glTF 2.0 export in 0.2118968963623047 s
+
+[EXPANSION] 47/48 EXP_RAIL_STATION
+11:32:02 | INFO: Starting glTF 2.0 export
+11:32:02 | INFO: Extracting primitive: Cube.002
+11:32:02 | INFO: Primitives created: 1
+11:32:02 | INFO: Extracting primitive: Cube.004
+11:32:02 | INFO: Primitives created: 1
+11:32:02 | INFO: Extracting primitive: Cube
+11:32:03 | INFO: Primitives created: 15
+11:32:03 | INFO: Finished glTF 2.0 export in 0.27211427688598633 s
+
+[EXPANSION] 48/48 EXP_BOTANICAL
+11:32:08 | INFO: Starting glTF 2.0 export
+11:32:08 | INFO: Extracting primitive: Cube.011
+11:32:08 | INFO: Primitives created: 1
+11:32:08 | INFO: Extracting primitive: Cube
+11:32:08 | INFO: Primitives created: 14
+11:32:08 | INFO: Finished glTF 2.0 export in 0.2915222644805908 s
+
+[EXPANSION] Complete 48
+Blender 5.2.1 LTS (hash 9e2066aef7ef built 2026-08-25 02:38:20)
+
+Blender quit

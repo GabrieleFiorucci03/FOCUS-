@@ -1,0 +1,40 @@
+{
+  "id": "EXP_ARENA",
+  "kind": "sport",
+  "footprint": [
+    4,
+    4
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 2.615,
+  "min_z": 0.0,
+  "max_z": 2.615,
+  "triangles": 12188,
+  "seed": 3143,
+  "model": "EXP_ARENA.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 2100,
+  "style": "refined_v2",
+  "name": "Palazzetto polifunzionale",
+  "group": "servizi",
+  "description": "Grande copertura curva, ingresso vetrato, uscite e impianti sul retro.",
+  "recipe": "arena",
+  "palette": [
+    "9cacb9",
+    "b79c73",
+    "697d83"
+  ],
+  "style_variant": "refined_v2",
+  "collection": "refined_expansion",
+  "is_new_asset": true,
+  "collision_mode": "simplified_component_boxes",
+  "collision_parts": 2,
+  "windows_by_side": {
+    "front": 18,
+    "rear": 18,
+    "left": 14,
+    "right": 14
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "id": "RES_LOW_2x1_007",
+  "kind": "house",
+  "footprint": [
+    2,
+    1
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 2.133,
+  "min_z": 0.0,
+  "max_z": 2.133,
+  "triangles": 7760,
+  "seed": 107,
+  "model": "RES_LOW_2x1_007.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 2001,
+  "feature": "duplex",
+  "style_variant": "refined_v2",
+  "source_asset_id": "RES_LOW_2x1_007",
+  "collision_source": "realistic",
+  "windows_by_side": {
+    "front": 6,
+    "rear": 8,
+    "left": 4,
+    "right": 4
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "id": "EXP_SHOP_BAKERY",
+  "kind": "shop",
+  "footprint": [
+    2,
+    2
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 2.2,
+  "min_z": 0.0,
+  "max_z": 2.2,
+  "triangles": 4556,
+  "seed": 3119,
+  "model": "EXP_SHOP_BAKERY.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 2100,
+  "style": "refined_v2",
+  "name": "Panificio del quartiere",
+  "group": "negozi",
+  "description": "Tenda rigata, vetrina con pagnotte, camino del forno e fioriere.",
+  "recipe": "bakery",
+  "palette": [
+    "cba477",
+    "7d5c49",
+    "ad7654"
+  ],
+  "style_variant": "refined_v2",
+  "collection": "refined_expansion",
+  "is_new_asset": true,
+  "collision_mode": "simplified_component_boxes",
+  "collision_parts": 1,
+  "windows_by_side": {
+    "front": 1,
+    "rear": 6,
+    "left": 6,
+    "right": 6
+  }
+}

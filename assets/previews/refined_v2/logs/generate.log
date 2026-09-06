@@ -1,0 +1,1100 @@
+[REFINED] 1/91 RES_LOW_1x1_001
+C:\Users\gabri\Desktop\FOCUS!\tools\blender\generate_refined_assets.py:68: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  mat.use_nodes = True
+10:41:19 | INFO: Data are loaded, start creating Blender stuff
+10:41:19 | INFO: Blender create Mesh node Cube.013
+10:41:19 | INFO: Blender create Mesh node Cube
+10:41:19 | INFO: glTF import finished in 0.08s
+INFO Draco is available, use library at C:\Program Files\Blender Foundation\Blender 5.2\5.2\scripts\addons_core\io_scene_gltf2\bf_intern_draco_bridge.dll
+INFO MeshOptimizer is available, use library at C:\Program Files\Blender Foundation\Blender 5.2\5.2\scripts\addons_core\io_scene_gltf2\bf_intern_meshopt_bridge.dll
+10:41:20 | INFO: Starting glTF 2.0 export
+10:41:20 | INFO: Extracting primitive: Cube.013
+10:41:20 | INFO: Primitives created: 1
+10:41:20 | INFO: Extracting primitive: Cube
+10:41:20 | INFO: Primitives created: 13
+10:41:20 | INFO: Finished glTF 2.0 export in 0.6960310935974121 s
+
+[REFINED] 2/91 RES_LOW_1x1_002
+10:41:21 | INFO: Data are loaded, start creating Blender stuff
+10:41:21 | INFO: Blender create Mesh node Cube.012
+10:41:21 | INFO: Blender create Mesh node Cube
+10:41:21 | INFO: glTF import finished in 0.07s
+10:41:21 | INFO: Starting glTF 2.0 export
+10:41:21 | INFO: Extracting primitive: Cube.012
+10:41:21 | INFO: Primitives created: 1
+10:41:21 | INFO: Extracting primitive: Cube
+10:41:21 | INFO: Primitives created: 12
+10:41:21 | INFO: Finished glTF 2.0 export in 0.40199732780456543 s
+
+[REFINED] 3/91 RES_LOW_1x1_003
+10:41:22 | INFO: Data are loaded, start creating Blender stuff
+10:41:22 | INFO: Blender create Mesh node Cube.019
+10:41:22 | INFO: Blender create Mesh node Cube
+10:41:22 | INFO: glTF import finished in 0.10s
+10:41:22 | INFO: Starting glTF 2.0 export
+10:41:22 | INFO: Extracting primitive: Cube.019
+10:41:22 | INFO: Primitives created: 1
+10:41:22 | INFO: Extracting primitive: Cube
+10:41:22 | INFO: Primitives created: 14
+10:41:22 | INFO: Finished glTF 2.0 export in 0.49949026107788086 s
+
+[REFINED] 4/91 RES_LOW_1x1_004
+10:41:23 | INFO: Data are loaded, start creating Blender stuff
+10:41:23 | INFO: Blender create Mesh node Cube.020
+10:41:23 | INFO: Blender create Mesh node Cube
+10:41:23 | INFO: glTF import finished in 0.10s
+10:41:23 | INFO: Starting glTF 2.0 export
+10:41:23 | INFO: Extracting primitive: Cube.020
+10:41:23 | INFO: Primitives created: 1
+10:41:23 | INFO: Extracting primitive: Cube
+10:41:23 | INFO: Primitives created: 14
+10:41:24 | INFO: Finished glTF 2.0 export in 0.33167600631713867 s
+
+[REFINED] 5/91 RES_LOW_1x1_005
+10:41:24 | INFO: Data are loaded, start creating Blender stuff
+10:41:24 | INFO: Blender create Mesh node Cube.014
+10:41:24 | INFO: Blender create Mesh node Cube
+10:41:24 | INFO: glTF import finished in 0.08s
+10:41:24 | INFO: Starting glTF 2.0 export
+10:41:24 | INFO: Extracting primitive: Cube.014
+10:41:24 | INFO: Primitives created: 1
+10:41:24 | INFO: Extracting primitive: Cube
+10:41:24 | INFO: Primitives created: 12
+10:41:25 | INFO: Finished glTF 2.0 export in 0.45157504081726074 s
+
+[REFINED] 6/91 RES_LOW_1x2_006
+10:41:25 | INFO: Data are loaded, start creating Blender stuff
+10:41:25 | INFO: Blender create Mesh node Cube.015
+10:41:25 | INFO: Blender create Mesh node Cube
+10:41:25 | INFO: glTF import finished in 0.09s
+10:41:25 | INFO: Starting glTF 2.0 export
+10:41:25 | INFO: Extracting primitive: Cube.015
+10:41:25 | INFO: Primitives created: 1
+10:41:25 | INFO: Extracting primitive: Cube
+10:41:26 | INFO: Primitives created: 15
+10:41:26 | INFO: Finished glTF 2.0 export in 0.5873150825500488 s
+
+[REFINED] 7/91 RES_LOW_2x1_007
+10:41:27 | INFO: Data are loaded, start creating Blender stuff
+10:41:27 | INFO: Blender create Mesh node Cube.020
+10:41:27 | INFO: Blender create Mesh node Cube
+10:41:27 | INFO: glTF import finished in 0.11s
+10:41:27 | INFO: Starting glTF 2.0 export
+10:41:27 | INFO: Extracting primitive: Cube.020
+10:41:27 | INFO: Primitives created: 1
+10:41:27 | INFO: Extracting primitive: Cube
+10:41:27 | INFO: Primitives created: 13
+10:41:27 | INFO: Finished glTF 2.0 export in 0.46872854232788086 s
+
+[REFINED] 8/91 RES_LOW_1x1_008
+10:41:28 | INFO: Data are loaded, start creating Blender stuff
+10:41:28 | INFO: Blender create Mesh node Cube.016
+10:41:28 | INFO: Blender create Mesh node Cube
+10:41:28 | INFO: glTF import finished in 0.11s
+10:41:28 | INFO: Starting glTF 2.0 export
+10:41:28 | INFO: Extracting primitive: Cube.016
+10:41:28 | INFO: Primitives created: 1
+10:41:28 | INFO: Extracting primitive: Cube
+10:41:28 | INFO: Primitives created: 14
+10:41:28 | INFO: Finished glTF 2.0 export in 0.5052618980407715 s
+
+[REFINED] 9/91 RES_LOW_1x2_009
+10:41:29 | INFO: Data are loaded, start creating Blender stuff
+10:41:29 | INFO: Blender create Mesh node Cube.024
+10:41:29 | INFO: Blender create Mesh node Cube
+10:41:29 | INFO: glTF import finished in 0.13s
+10:41:29 | INFO: Starting glTF 2.0 export
+10:41:29 | INFO: Extracting primitive: Cube.024
+10:41:29 | INFO: Primitives created: 1
+10:41:29 | INFO: Extracting primitive: Cube
+10:41:30 | INFO: Primitives created: 14
+10:41:30 | INFO: Finished glTF 2.0 export in 0.4465656280517578 s
+
+[REFINED] 10/91 RES_LOW_2x1_010
+10:41:30 | INFO: Data are loaded, start creating Blender stuff
+10:41:30 | INFO: Blender create Mesh node Cube.020
+10:41:30 | INFO: Blender create Mesh node Cube
+10:41:31 | INFO: glTF import finished in 0.11s
+10:41:31 | INFO: Starting glTF 2.0 export
+10:41:31 | INFO: Extracting primitive: Cube.020
+10:41:31 | INFO: Primitives created: 1
+10:41:31 | INFO: Extracting primitive: Cube
+10:41:31 | INFO: Primitives created: 15
+10:41:31 | INFO: Finished glTF 2.0 export in 0.5680727958679199 s
+
+[REFINED] 11/91 RES_MID_2x2_001
+10:41:33 | INFO: Data are loaded, start creating Blender stuff
+10:41:33 | INFO: Blender create Mesh node Cube.077
+10:41:33 | INFO: Blender create Mesh node Cube
+10:41:34 | INFO: glTF import finished in 0.32s
+10:41:34 | INFO: Starting glTF 2.0 export
+10:41:34 | INFO: Extracting primitive: Cube.077
+10:41:34 | INFO: Primitives created: 1
+10:41:34 | INFO: Extracting primitive: Cube
+10:41:34 | INFO: Primitives created: 12
+10:41:34 | INFO: Finished glTF 2.0 export in 0.3543705940246582 s
+
+[REFINED] 12/91 RES_MID_2x2_002
+10:41:36 | INFO: Data are loaded, start creating Blender stuff
+10:41:36 | INFO: Blender create Mesh node Cube.087
+10:41:36 | INFO: Blender create Mesh node Cube
+10:41:37 | INFO: glTF import finished in 0.37s
+10:41:37 | INFO: Starting glTF 2.0 export
+10:41:37 | INFO: Extracting primitive: Cube.087
+10:41:37 | INFO: Primitives created: 1
+10:41:37 | INFO: Extracting primitive: Cube
+10:41:37 | INFO: Primitives created: 12
+10:41:37 | INFO: Finished glTF 2.0 export in 0.30570244789123535 s
+
+[REFINED] 13/91 RES_MID_2x2_003
+10:41:41 | INFO: Data are loaded, start creating Blender stuff
+10:41:41 | INFO: Blender create Mesh node Cube.113
+10:41:41 | INFO: Blender create Mesh node Cube
+10:41:41 | INFO: glTF import finished in 0.43s
+10:41:41 | INFO: Starting glTF 2.0 export
+10:41:41 | INFO: Extracting primitive: Cube.113
+10:41:41 | INFO: Primitives created: 1
+10:41:41 | INFO: Extracting primitive: Cube
+10:41:41 | INFO: Primitives created: 12
+10:41:41 | INFO: Finished glTF 2.0 export in 0.41449689865112305 s
+
+[REFINED] 14/91 RES_MID_2x2_004
+10:41:44 | INFO: Data are loaded, start creating Blender stuff
+10:41:44 | INFO: Blender create Mesh node Cube.078
+10:41:44 | INFO: Blender create Mesh node Cube
+10:41:44 | INFO: glTF import finished in 0.32s
+10:41:44 | INFO: Starting glTF 2.0 export
+10:41:45 | INFO: Extracting primitive: Cube.078
+10:41:45 | INFO: Primitives created: 1
+10:41:45 | INFO: Extracting primitive: Cube
+10:41:45 | INFO: Primitives created: 13
+10:41:45 | INFO: Finished glTF 2.0 export in 0.39209437370300293 s
+
+[REFINED] 15/91 RES_MID_2x3_005
+10:41:50 | INFO: Data are loaded, start creating Blender stuff
+10:41:50 | INFO: Blender create Mesh node Cube.128
+10:41:50 | INFO: Blender create Mesh node Cube
+10:41:50 | INFO: glTF import finished in 0.47s
+10:41:50 | INFO: Starting glTF 2.0 export
+10:41:50 | INFO: Extracting primitive: Cube.128
+10:41:50 | INFO: Primitives created: 1
+10:41:50 | INFO: Extracting primitive: Cube
+10:41:51 | INFO: Primitives created: 12
+10:41:51 | INFO: Finished glTF 2.0 export in 0.3608849048614502 s
+
+[REFINED] 16/91 RES_MID_3x2_006
+10:41:55 | INFO: Data are loaded, start creating Blender stuff
+10:41:55 | INFO: Blender create Mesh node Cube.117
+10:41:55 | INFO: Blender create Mesh node Cube
+10:41:55 | INFO: glTF import finished in 0.41s
+10:41:55 | INFO: Starting glTF 2.0 export
+10:41:55 | INFO: Extracting primitive: Cube.117
+10:41:55 | INFO: Primitives created: 1
+10:41:55 | INFO: Extracting primitive: Cube
+10:41:56 | INFO: Primitives created: 13
+10:41:56 | INFO: Finished glTF 2.0 export in 0.42796754837036133 s
+
+[REFINED] 17/91 RES_HIGH_2x2_001
+10:42:01 | INFO: Data are loaded, start creating Blender stuff
+10:42:01 | INFO: Blender create Mesh node Cube.131
+10:42:01 | INFO: Blender create Mesh node Cube
+10:42:02 | INFO: glTF import finished in 0.51s
+10:42:02 | INFO: Starting glTF 2.0 export
+10:42:02 | INFO: Extracting primitive: Cube.131
+10:42:02 | INFO: Primitives created: 1
+10:42:02 | INFO: Extracting primitive: Cube
+10:42:02 | INFO: Primitives created: 12
+10:42:02 | INFO: Finished glTF 2.0 export in 0.45734119415283203 s
+
+[REFINED] 18/91 RES_HIGH_2x3_002
+10:42:11 | INFO: Data are loaded, start creating Blender stuff
+10:42:11 | INFO: Blender create Mesh node Cube.174
+10:42:11 | INFO: Blender create Mesh node Cube
+10:42:11 | INFO: glTF import finished in 0.61s
+10:42:11 | INFO: Starting glTF 2.0 export
+10:42:11 | INFO: Extracting primitive: Cube.174
+10:42:11 | INFO: Primitives created: 1
+10:42:11 | INFO: Extracting primitive: Cube
+10:42:12 | INFO: Primitives created: 13
+10:42:12 | INFO: Finished glTF 2.0 export in 0.5139470100402832 s
+
+[REFINED] 19/91 RES_LUX_2x2_001
+10:42:13 | INFO: Data are loaded, start creating Blender stuff
+10:42:13 | INFO: Blender create Mesh node Cube.021
+10:42:13 | INFO: Blender create Mesh node Cube
+10:42:13 | INFO: glTF import finished in 0.13s
+10:42:13 | INFO: Starting glTF 2.0 export
+10:42:13 | INFO: Extracting primitive: Cube.021
+10:42:13 | INFO: Primitives created: 1
+10:42:13 | INFO: Extracting primitive: Cube
+10:42:14 | INFO: Primitives created: 17
+10:42:14 | INFO: Finished glTF 2.0 export in 0.6094939708709717 s
+
+[REFINED] 20/91 RES_LUX_2x2_002
+10:42:15 | INFO: Data are loaded, start creating Blender stuff
+10:42:15 | INFO: Blender create Mesh node Cube.021
+10:42:15 | INFO: Blender create Mesh node Cube
+10:42:15 | INFO: glTF import finished in 0.13s
+10:42:16 | INFO: Starting glTF 2.0 export
+10:42:16 | INFO: Extracting primitive: Cube.021
+10:42:16 | INFO: Primitives created: 1
+10:42:16 | INFO: Extracting primitive: Cube
+10:42:16 | INFO: Primitives created: 18
+10:42:16 | INFO: Finished glTF 2.0 export in 0.7498178482055664 s
+
+[REFINED] 21/91 RES_LUX_2x2_003
+10:42:17 | INFO: Data are loaded, start creating Blender stuff
+10:42:17 | INFO: Blender create Mesh node Cube.013
+10:42:17 | INFO: Blender create Mesh node Cube
+10:42:18 | INFO: glTF import finished in 0.12s
+10:42:18 | INFO: Starting glTF 2.0 export
+10:42:18 | INFO: Extracting primitive: Cube.013
+10:42:18 | INFO: Primitives created: 1
+10:42:18 | INFO: Extracting primitive: Cube
+10:42:18 | INFO: Primitives created: 18
+10:42:18 | INFO: Finished glTF 2.0 export in 0.7491593360900879 s
+
+[REFINED] 22/91 RES_LUX_3x2_004
+10:42:19 | INFO: Data are loaded, start creating Blender stuff
+10:42:19 | INFO: Blender create Mesh node Cube.022
+10:42:19 | INFO: Blender create Mesh node Cube
+10:42:20 | INFO: glTF import finished in 0.12s
+10:42:20 | INFO: Starting glTF 2.0 export
+10:42:20 | INFO: Extracting primitive: Cube.022
+10:42:20 | INFO: Primitives created: 1
+10:42:20 | INFO: Extracting primitive: Cube
+10:42:20 | INFO: Primitives created: 15
+10:42:20 | INFO: Finished glTF 2.0 export in 0.5102536678314209 s
+
+[REFINED] 23/91 RES_TOWER_3x3_001
+10:42:23 | INFO: Data are loaded, start creating Blender stuff
+10:42:23 | INFO: Blender create Mesh node Cube.036
+10:42:23 | INFO: Blender create Mesh node Cube
+10:42:23 | INFO: glTF import finished in 0.13s
+10:42:23 | INFO: Starting glTF 2.0 export
+10:42:23 | INFO: Extracting primitive: Cube.036
+10:42:23 | INFO: Primitives created: 1
+10:42:23 | INFO: Extracting primitive: Cube
+10:42:23 | INFO: Primitives created: 11
+10:42:23 | INFO: Finished glTF 2.0 export in 0.40628576278686523 s
+
+[REFINED] 24/91 RES_TOWER_3x3_002
+10:42:26 | INFO: Data are loaded, start creating Blender stuff
+10:42:26 | INFO: Blender create Mesh node Cube.041
+10:42:26 | INFO: Blender create Mesh node Cube
+10:42:26 | INFO: glTF import finished in 0.14s
+10:42:26 | INFO: Starting glTF 2.0 export
+10:42:26 | INFO: Extracting primitive: Cube.041
+10:42:26 | INFO: Primitives created: 1
+10:42:26 | INFO: Extracting primitive: Cube
+10:42:27 | INFO: Primitives created: 10
+10:42:27 | INFO: Finished glTF 2.0 export in 0.40741991996765137 s
+
+[REFINED] 25/91 RES_TOWER_4x4_003
+10:42:32 | INFO: Data are loaded, start creating Blender stuff
+10:42:32 | INFO: Blender create Mesh node Cube.078
+10:42:32 | INFO: Blender create Mesh node Cube
+10:42:32 | INFO: glTF import finished in 0.23s
+10:42:32 | INFO: Starting glTF 2.0 export
+10:42:32 | INFO: Extracting primitive: Cube.078
+10:42:32 | INFO: Primitives created: 1
+10:42:32 | INFO: Extracting primitive: Cube
+10:42:32 | INFO: Primitives created: 11
+10:42:32 | INFO: Finished glTF 2.0 export in 0.6139705181121826 s
+
+[REFINED] 26/91 COM_LOW_1x1_001
+10:42:33 | INFO: Data are loaded, start creating Blender stuff
+10:42:33 | INFO: Blender create Mesh node Cube.009
+10:42:33 | INFO: Blender create Mesh node Cube
+10:42:33 | INFO: glTF import finished in 0.07s
+10:42:33 | INFO: Starting glTF 2.0 export
+10:42:33 | INFO: Extracting primitive: Cube.009
+10:42:33 | INFO: Primitives created: 1
+10:42:33 | INFO: Extracting primitive: Cube
+10:42:33 | INFO: Primitives created: 12
+10:42:33 | INFO: Finished glTF 2.0 export in 0.2917449474334717 s
+
+[REFINED] 27/91 COM_LOW_1x1_002
+10:42:34 | INFO: Data are loaded, start creating Blender stuff
+10:42:34 | INFO: Blender create Mesh node Cube.009
+10:42:34 | INFO: Blender create Mesh node Cube
+10:42:34 | INFO: glTF import finished in 0.07s
+10:42:34 | INFO: Starting glTF 2.0 export
+10:42:34 | INFO: Extracting primitive: Cube.009
+10:42:34 | INFO: Primitives created: 1
+10:42:34 | INFO: Extracting primitive: Cube
+10:42:34 | INFO: Primitives created: 13
+10:42:34 | INFO: Finished glTF 2.0 export in 0.39506101608276367 s
+
+[REFINED] 28/91 COM_LOW_1x1_003
+10:42:34 | INFO: Data are loaded, start creating Blender stuff
+10:42:34 | INFO: Blender create Mesh node Cube.009
+10:42:34 | INFO: Blender create Mesh node Cube
+10:42:34 | INFO: glTF import finished in 0.08s
+10:42:35 | INFO: Starting glTF 2.0 export
+10:42:35 | INFO: Extracting primitive: Cube.009
+10:42:35 | INFO: Primitives created: 1
+10:42:35 | INFO: Extracting primitive: Cube
+10:42:35 | INFO: Primitives created: 14
+10:42:35 | INFO: Finished glTF 2.0 export in 0.4538462162017822 s
+
+[REFINED] 29/91 COM_LOW_2x1_004
+10:42:35 | INFO: Data are loaded, start creating Blender stuff
+10:42:35 | INFO: Blender create Mesh node Cube.010
+10:42:35 | INFO: Blender create Mesh node Cube
+10:42:35 | INFO: glTF import finished in 0.09s
+10:42:35 | INFO: Starting glTF 2.0 export
+10:42:35 | INFO: Extracting primitive: Cube.010
+10:42:35 | INFO: Primitives created: 1
+10:42:35 | INFO: Extracting primitive: Cube
+10:42:36 | INFO: Primitives created: 12
+10:42:36 | INFO: Finished glTF 2.0 export in 0.4082515239715576 s
+
+[REFINED] 30/91 COM_MID_2x2_005
+10:42:36 | INFO: Data are loaded, start creating Blender stuff
+10:42:36 | INFO: Blender create Mesh node Cube.010
+10:42:36 | INFO: Blender create Mesh node Cube
+10:42:36 | INFO: glTF import finished in 0.07s
+10:42:36 | INFO: Starting glTF 2.0 export
+10:42:36 | INFO: Extracting primitive: Cube.010
+10:42:36 | INFO: Primitives created: 1
+10:42:37 | INFO: Extracting primitive: Cube
+10:42:37 | INFO: Primitives created: 14
+10:42:37 | INFO: Finished glTF 2.0 export in 0.3853447437286377 s
+
+[REFINED] 31/91 COM_KIOSK_1x1_006
+10:42:37 | INFO: Data are loaded, start creating Blender stuff
+10:42:37 | INFO: Blender create Mesh node Cube.009
+10:42:37 | INFO: Blender create Mesh node Cube
+10:42:37 | INFO: glTF import finished in 0.07s
+10:42:37 | INFO: Starting glTF 2.0 export
+10:42:37 | INFO: Extracting primitive: Cube.009
+10:42:37 | INFO: Primitives created: 1
+10:42:37 | INFO: Extracting primitive: Cube
+10:42:38 | INFO: Primitives created: 12
+10:42:38 | INFO: Finished glTF 2.0 export in 0.4268827438354492 s
+
+[REFINED] 32/91 OFF_LOW_2x2_001
+10:42:39 | INFO: Data are loaded, start creating Blender stuff
+10:42:39 | INFO: Blender create Mesh node Cube.015
+10:42:39 | INFO: Blender create Mesh node Cube
+10:42:39 | INFO: glTF import finished in 0.10s
+10:42:39 | INFO: Starting glTF 2.0 export
+10:42:39 | INFO: Extracting primitive: Cube.015
+10:42:39 | INFO: Primitives created: 1
+10:42:39 | INFO: Extracting primitive: Cube
+10:42:39 | INFO: Primitives created: 8
+10:42:39 | INFO: Finished glTF 2.0 export in 0.2929501533508301 s
+
+[REFINED] 33/91 OFF_MID_2x2_002
+10:42:41 | INFO: Data are loaded, start creating Blender stuff
+10:42:41 | INFO: Blender create Mesh node Cube.018
+10:42:41 | INFO: Blender create Mesh node Cube
+10:42:41 | INFO: glTF import finished in 0.10s
+10:42:41 | INFO: Starting glTF 2.0 export
+10:42:41 | INFO: Extracting primitive: Cube.018
+10:42:41 | INFO: Primitives created: 1
+10:42:41 | INFO: Extracting primitive: Cube
+10:42:41 | INFO: Primitives created: 8
+10:42:41 | INFO: Finished glTF 2.0 export in 0.3628733158111572 s
+
+[REFINED] 34/91 OFF_MID_3x3_003
+10:42:44 | INFO: Data are loaded, start creating Blender stuff
+10:42:44 | INFO: Blender create Mesh node Cube.022
+10:42:44 | INFO: Blender create Mesh node Cube
+10:42:44 | INFO: glTF import finished in 0.10s
+10:42:44 | INFO: Starting glTF 2.0 export
+10:42:44 | INFO: Extracting primitive: Cube.022
+10:42:44 | INFO: Primitives created: 1
+10:42:44 | INFO: Extracting primitive: Cube
+10:42:45 | INFO: Primitives created: 8
+10:42:45 | INFO: Finished glTF 2.0 export in 0.39499497413635254 s
+
+[REFINED] 35/91 IND_LOW_2x2_001
+10:42:45 | INFO: Data are loaded, start creating Blender stuff
+10:42:45 | INFO: Blender create Mesh node Cube.016
+10:42:45 | INFO: Blender create Mesh node Cube
+10:42:45 | INFO: glTF import finished in 0.09s
+10:42:45 | INFO: Starting glTF 2.0 export
+10:42:45 | INFO: Extracting primitive: Cube.016
+10:42:45 | INFO: Primitives created: 1
+10:42:45 | INFO: Extracting primitive: Cube
+10:42:45 | INFO: Primitives created: 13
+10:42:45 | INFO: Finished glTF 2.0 export in 0.30091333389282227 s
+
+[REFINED] 36/91 IND_LOW_3x2_002
+10:42:46 | INFO: Data are loaded, start creating Blender stuff
+10:42:46 | INFO: Blender create Mesh node Cube.019
+10:42:46 | INFO: Blender create Mesh node Cube
+10:42:46 | INFO: glTF import finished in 0.10s
+10:42:46 | INFO: Starting glTF 2.0 export
+10:42:46 | INFO: Extracting primitive: Cube.019
+10:42:46 | INFO: Primitives created: 1
+10:42:46 | INFO: Extracting primitive: Cube
+10:42:47 | INFO: Primitives created: 13
+10:42:47 | INFO: Finished glTF 2.0 export in 0.44213438034057617 s
+
+[REFINED] 37/91 IND_MID_3x3_003
+10:42:47 | INFO: Data are loaded, start creating Blender stuff
+10:42:47 | INFO: Blender create Mesh node Cube.020
+10:42:47 | INFO: Blender create Mesh node Cube
+10:42:47 | INFO: glTF import finished in 0.10s
+10:42:47 | INFO: Starting glTF 2.0 export
+10:42:47 | INFO: Extracting primitive: Cube.020
+10:42:48 | INFO: Primitives created: 1
+10:42:48 | INFO: Extracting primitive: Cube
+10:42:48 | INFO: Primitives created: 14
+10:42:48 | INFO: Finished glTF 2.0 export in 0.504683256149292 s
+
+[REFINED] 38/91 PARK_2x2_001
+10:42:52 | INFO: Data are loaded, start creating Blender stuff
+10:42:52 | INFO: Blender create Mesh node Cube.007
+10:42:52 | INFO: Blender create Mesh node Cube
+10:42:52 | INFO: glTF import finished in 0.17s
+10:42:52 | INFO: Starting glTF 2.0 export
+10:42:52 | INFO: Extracting primitive: Cube.007
+10:42:52 | INFO: Primitives created: 1
+10:42:52 | INFO: Extracting primitive: Cube
+10:42:53 | INFO: Primitives created: 11
+10:42:53 | INFO: Finished glTF 2.0 export in 0.4545609951019287 s
+
+[REFINED] 39/91 PARK_2x2_002
+10:42:57 | INFO: Data are loaded, start creating Blender stuff
+10:42:57 | INFO: Blender create Mesh node Cube.011
+10:42:57 | INFO: Blender create Mesh node Cube
+10:42:57 | INFO: glTF import finished in 0.15s
+10:42:57 | INFO: Starting glTF 2.0 export
+10:42:57 | INFO: Extracting primitive: Cube.011
+10:42:57 | INFO: Primitives created: 1
+10:42:57 | INFO: Extracting primitive: Cube
+10:42:58 | INFO: Primitives created: 12
+10:42:58 | INFO: Finished glTF 2.0 export in 0.482755184173584 s
+
+[REFINED] 40/91 PARK_3x3_003
+10:43:01 | INFO: Data are loaded, start creating Blender stuff
+10:43:01 | INFO: Blender create Mesh node Cube.007
+10:43:01 | INFO: Blender create Mesh node Cube
+10:43:01 | INFO: glTF import finished in 0.14s
+10:43:02 | INFO: Starting glTF 2.0 export
+10:43:02 | INFO: Extracting primitive: Cube.007
+10:43:02 | INFO: Primitives created: 1
+10:43:02 | INFO: Extracting primitive: Cube
+10:43:02 | INFO: Primitives created: 11
+10:43:02 | INFO: Finished glTF 2.0 export in 0.46302199363708496 s
+
+[REFINED] 41/91 PARK_1x1_004
+10:43:04 | INFO: Data are loaded, start creating Blender stuff
+10:43:04 | INFO: Blender create Mesh node Cube.007
+10:43:04 | INFO: Blender create Mesh node Cube
+10:43:04 | INFO: glTF import finished in 0.14s
+10:43:04 | INFO: Starting glTF 2.0 export
+10:43:04 | INFO: Extracting primitive: Cube.007
+10:43:04 | INFO: Primitives created: 1
+10:43:04 | INFO: Extracting primitive: Cube
+10:43:05 | INFO: Primitives created: 11
+10:43:05 | INFO: Finished glTF 2.0 export in 0.4021778106689453 s
+
+[REFINED] 42/91 CIV_POLICE_2x2_001
+10:43:06 | INFO: Data are loaded, start creating Blender stuff
+10:43:06 | INFO: Blender create Mesh node Cube.025
+10:43:06 | INFO: Blender create Mesh node Cube
+10:43:06 | INFO: glTF import finished in 0.13s
+10:43:06 | INFO: Starting glTF 2.0 export
+10:43:06 | INFO: Extracting primitive: Cube.025
+10:43:06 | INFO: Primitives created: 1
+10:43:06 | INFO: Extracting primitive: Cube
+10:43:06 | INFO: Primitives created: 13
+10:43:06 | INFO: Finished glTF 2.0 export in 0.47423577308654785 s
+
+[REFINED] 43/91 CIV_FIRE_2x2_001
+10:43:07 | INFO: Data are loaded, start creating Blender stuff
+10:43:07 | INFO: Blender create Mesh node Cube.029
+10:43:07 | INFO: Blender create Mesh node Cube
+10:43:07 | INFO: glTF import finished in 0.16s
+10:43:07 | INFO: Starting glTF 2.0 export
+10:43:07 | INFO: Extracting primitive: Cube.029
+10:43:07 | INFO: Primitives created: 1
+10:43:07 | INFO: Extracting primitive: Cube
+10:43:08 | INFO: Primitives created: 12
+10:43:08 | INFO: Finished glTF 2.0 export in 0.382462739944458 s
+
+[REFINED] 44/91 CIV_HEALTH_3x3_001
+10:43:10 | INFO: Data are loaded, start creating Blender stuff
+10:43:10 | INFO: Blender create Mesh node Cube.071
+10:43:10 | INFO: Blender create Mesh node Cube
+10:43:10 | INFO: glTF import finished in 0.31s
+10:43:10 | INFO: Starting glTF 2.0 export
+10:43:10 | INFO: Extracting primitive: Cube.071
+10:43:10 | INFO: Primitives created: 1
+10:43:10 | INFO: Extracting primitive: Cube
+10:43:11 | INFO: Primitives created: 13
+10:43:11 | INFO: Finished glTF 2.0 export in 0.2463397979736328 s
+
+[REFINED] 45/91 CIV_POLICE_3x2_002
+10:43:11 | INFO: Data are loaded, start creating Blender stuff
+10:43:11 | INFO: Blender create Mesh node Cube.045
+10:43:11 | INFO: Blender create Mesh node Cube
+10:43:11 | INFO: glTF import finished in 0.05s
+10:43:11 | INFO: Starting glTF 2.0 export
+10:43:11 | INFO: Extracting primitive: Cube.045
+10:43:11 | INFO: Primitives created: 1
+10:43:11 | INFO: Extracting primitive: Cube
+10:43:11 | INFO: Primitives created: 13
+10:43:11 | INFO: Finished glTF 2.0 export in 0.1919262409210205 s
+
+[REFINED] 46/91 CIV_FIRE_3x2_002
+10:43:11 | INFO: Data are loaded, start creating Blender stuff
+10:43:11 | INFO: Blender create Mesh node Cube.037
+10:43:11 | INFO: Blender create Mesh node Cube
+10:43:12 | INFO: glTF import finished in 0.05s
+10:43:12 | INFO: Starting glTF 2.0 export
+10:43:12 | INFO: Extracting primitive: Cube.037
+10:43:12 | INFO: Primitives created: 1
+10:43:12 | INFO: Extracting primitive: Cube
+10:43:12 | INFO: Primitives created: 13
+10:43:12 | INFO: Finished glTF 2.0 export in 0.2486286163330078 s
+
+[REFINED] 47/91 CIV_HEALTH_2x2_002
+10:43:12 | INFO: Data are loaded, start creating Blender stuff
+10:43:12 | INFO: Blender create Mesh node Cube.043
+10:43:12 | INFO: Blender create Mesh node Cube
+10:43:12 | INFO: glTF import finished in 0.06s
+10:43:12 | INFO: Starting glTF 2.0 export
+10:43:12 | INFO: Extracting primitive: Cube.043
+10:43:12 | INFO: Primitives created: 1
+10:43:12 | INFO: Extracting primitive: Cube
+10:43:12 | INFO: Primitives created: 13
+10:43:12 | INFO: Finished glTF 2.0 export in 0.21060943603515625 s
+
+[REFINED] 48/91 ROAD_LOCAL_1x1_STRAIGHT
+10:43:13 | INFO: Data are loaded, start creating Blender stuff
+10:43:13 | INFO: Blender create Mesh node Cube.022
+10:43:13 | INFO: Blender create Mesh node Cube
+10:43:13 | INFO: glTF import finished in 0.02s
+10:43:13 | INFO: Starting glTF 2.0 export
+10:43:13 | INFO: Extracting primitive: Cube.022
+10:43:13 | INFO: Primitives created: 1
+10:43:13 | INFO: Extracting primitive: Cube
+10:43:13 | INFO: Primitives created: 6
+10:43:13 | INFO: Finished glTF 2.0 export in 0.12143802642822266 s
+
+[REFINED] 49/91 ROAD_LOCAL_1x1_CORNER
+10:43:13 | INFO: Data are loaded, start creating Blender stuff
+10:43:13 | INFO: Blender create Mesh node Cube.022
+10:43:13 | INFO: Blender create Mesh node Cube
+10:43:13 | INFO: glTF import finished in 0.02s
+10:43:13 | INFO: Starting glTF 2.0 export
+10:43:13 | INFO: Extracting primitive: Cube.022
+10:43:13 | INFO: Primitives created: 1
+10:43:13 | INFO: Extracting primitive: Cube
+10:43:13 | INFO: Primitives created: 6
+10:43:13 | INFO: Finished glTF 2.0 export in 0.12021017074584961 s
+
+[REFINED] 50/91 ROAD_LOCAL_1x1_T
+10:43:13 | INFO: Data are loaded, start creating Blender stuff
+10:43:13 | INFO: Blender create Mesh node Cube.024
+10:43:13 | INFO: Blender create Mesh node Cube
+10:43:13 | INFO: glTF import finished in 0.03s
+10:43:13 | INFO: Starting glTF 2.0 export
+10:43:13 | INFO: Extracting primitive: Cube.024
+10:43:13 | INFO: Primitives created: 1
+10:43:13 | INFO: Extracting primitive: Cube
+10:43:13 | INFO: Primitives created: 6
+10:43:13 | INFO: Finished glTF 2.0 export in 0.10675334930419922 s
+
+[REFINED] 51/91 ROAD_LOCAL_1x1_CROSS
+10:43:14 | INFO: Data are loaded, start creating Blender stuff
+10:43:14 | INFO: Blender create Mesh node Cube.026
+10:43:14 | INFO: Blender create Mesh node Cube
+10:43:14 | INFO: glTF import finished in 0.03s
+10:43:14 | INFO: Starting glTF 2.0 export
+10:43:14 | INFO: Extracting primitive: Cube.026
+10:43:14 | INFO: Primitives created: 1
+10:43:14 | INFO: Extracting primitive: Cube
+10:43:14 | INFO: Primitives created: 6
+10:43:14 | INFO: Finished glTF 2.0 export in 0.14437031745910645 s
+
+[REFINED] 52/91 ROAD_LOCAL_1x1_END
+10:43:14 | INFO: Data are loaded, start creating Blender stuff
+10:43:14 | INFO: Blender create Mesh node Cube.021
+10:43:14 | INFO: Blender create Mesh node Cube
+10:43:14 | INFO: glTF import finished in 0.03s
+10:43:14 | INFO: Starting glTF 2.0 export
+10:43:14 | INFO: Extracting primitive: Cube.021
+10:43:14 | INFO: Primitives created: 1
+10:43:14 | INFO: Extracting primitive: Cube
+10:43:14 | INFO: Primitives created: 7
+10:43:14 | INFO: Finished glTF 2.0 export in 0.12705540657043457 s
+
+[REFINED] 53/91 ROAD_DIRT_1x1_STRAIGHT
+10:43:14 | INFO: Data are loaded, start creating Blender stuff
+10:43:14 | INFO: Blender create Mesh node Cube.004
+10:43:14 | INFO: Blender create Mesh node Cube
+10:43:14 | INFO: glTF import finished in 0.03s
+10:43:15 | INFO: Starting glTF 2.0 export
+10:43:15 | INFO: Extracting primitive: Cube.004
+10:43:15 | INFO: Primitives created: 1
+10:43:15 | INFO: Extracting primitive: Cube
+10:43:15 | INFO: Primitives created: 3
+10:43:15 | INFO: Finished glTF 2.0 export in 0.06409168243408203 s
+
+[REFINED] 54/91 ROAD_DIRT_1x1_CORNER
+10:43:15 | INFO: Data are loaded, start creating Blender stuff
+10:43:15 | INFO: Blender create Mesh node Cube.004
+10:43:15 | INFO: Blender create Mesh node Cube
+10:43:15 | INFO: glTF import finished in 0.02s
+10:43:15 | INFO: Starting glTF 2.0 export
+10:43:15 | INFO: Extracting primitive: Cube.004
+10:43:15 | INFO: Primitives created: 1
+10:43:15 | INFO: Extracting primitive: Cube
+10:43:15 | INFO: Primitives created: 3
+10:43:15 | INFO: Finished glTF 2.0 export in 0.07098388671875 s
+
+[REFINED] 55/91 ROAD_DIRT_1x1_T
+10:43:15 | INFO: Data are loaded, start creating Blender stuff
+10:43:15 | INFO: Blender create Mesh node Cube.005
+10:43:15 | INFO: Blender create Mesh node Cube
+10:43:15 | INFO: glTF import finished in 0.02s
+10:43:15 | INFO: Starting glTF 2.0 export
+10:43:15 | INFO: Extracting primitive: Cube.005
+10:43:15 | INFO: Primitives created: 1
+10:43:15 | INFO: Extracting primitive: Cube
+10:43:15 | INFO: Primitives created: 3
+10:43:15 | INFO: Finished glTF 2.0 export in 0.0756998062133789 s
+
+[REFINED] 56/91 ROAD_DIRT_1x1_CROSS
+10:43:15 | INFO: Data are loaded, start creating Blender stuff
+10:43:15 | INFO: Blender create Mesh node Cube.006
+10:43:15 | INFO: Blender create Mesh node Cube
+10:43:15 | INFO: glTF import finished in 0.02s
+10:43:15 | INFO: Starting glTF 2.0 export
+10:43:15 | INFO: Extracting primitive: Cube.006
+10:43:15 | INFO: Primitives created: 1
+10:43:15 | INFO: Extracting primitive: Cube
+10:43:15 | INFO: Primitives created: 3
+10:43:15 | INFO: Finished glTF 2.0 export in 0.06562423706054688 s
+
+[REFINED] 57/91 ROAD_DIRT_1x1_END
+10:43:15 | INFO: Data are loaded, start creating Blender stuff
+10:43:15 | INFO: Blender create Mesh node Cube.003
+10:43:15 | INFO: Blender create Mesh node Cube
+10:43:15 | INFO: glTF import finished in 0.02s
+10:43:15 | INFO: Starting glTF 2.0 export
+10:43:15 | INFO: Extracting primitive: Cube.003
+10:43:15 | INFO: Primitives created: 1
+10:43:15 | INFO: Extracting primitive: Cube
+10:43:15 | INFO: Primitives created: 3
+10:43:15 | INFO: Finished glTF 2.0 export in 0.09135913848876953 s
+
+[REFINED] 58/91 ROAD_LOCAL_SLOPE_1x1_UP_050
+10:43:15 | INFO: Data are loaded, start creating Blender stuff
+10:43:15 | INFO: Blender create Mesh node ROAD_LOCAL_SLOPE_1x1_UP_050-colonly_Mesh
+10:43:15 | INFO: Blender create Mesh node SlopeBase_Mesh
+10:43:15 | INFO: glTF import finished in 0.02s
+10:43:15 | INFO: Starting glTF 2.0 export
+10:43:15 | INFO: Extracting primitive: ROAD_LOCAL_SLOPE_1x1_UP_050-colonly_Mesh.001
+10:43:15 | INFO: Primitives created: 1
+10:43:15 | INFO: Extracting primitive: SlopeBase_Mesh
+10:43:16 | INFO: Primitives created: 5
+10:43:16 | INFO: Finished glTF 2.0 export in 0.11564779281616211 s
+
+[REFINED] 59/91 ROAD_LOCAL_SLOPE_1x1_DOWN_050
+10:43:16 | INFO: Data are loaded, start creating Blender stuff
+10:43:16 | INFO: Blender create Mesh node ROAD_LOCAL_SLOPE_1x1_DOWN_050-colonly_Mesh
+10:43:16 | INFO: Blender create Mesh node SlopeBase_Mesh
+10:43:16 | INFO: glTF import finished in 0.01s
+10:43:16 | INFO: Starting glTF 2.0 export
+10:43:16 | INFO: Extracting primitive: ROAD_LOCAL_SLOPE_1x1_DOWN_050-colonly_Mesh.001
+10:43:16 | INFO: Primitives created: 1
+10:43:16 | INFO: Extracting primitive: SlopeBase_Mesh
+10:43:16 | INFO: Primitives created: 5
+10:43:16 | INFO: Finished glTF 2.0 export in 0.08434796333312988 s
+
+[REFINED] 60/91 ROAD_LOCAL_SLOPE_1x2_UP_050
+10:43:16 | INFO: Data are loaded, start creating Blender stuff
+10:43:16 | INFO: Blender create Mesh node ROAD_LOCAL_SLOPE_1x2_UP_050-colonly_Mesh
+10:43:16 | INFO: Blender create Mesh node SlopeBase_Mesh
+10:43:16 | INFO: glTF import finished in 0.01s
+10:43:16 | INFO: Starting glTF 2.0 export
+10:43:16 | INFO: Extracting primitive: ROAD_LOCAL_SLOPE_1x2_UP_050-colonly_Mesh.001
+10:43:16 | INFO: Primitives created: 1
+10:43:16 | INFO: Extracting primitive: SlopeBase_Mesh
+10:43:16 | INFO: Primitives created: 5
+10:43:16 | INFO: Finished glTF 2.0 export in 0.08461952209472656 s
+
+[REFINED] 61/91 ROAD_LOCAL_SLOPE_1x2_DOWN_050
+10:43:16 | INFO: Data are loaded, start creating Blender stuff
+10:43:16 | INFO: Blender create Mesh node ROAD_LOCAL_SLOPE_1x2_DOWN_050-colonly_Mesh
+10:43:16 | INFO: Blender create Mesh node SlopeBase_Mesh
+10:43:16 | INFO: glTF import finished in 0.02s
+10:43:16 | INFO: Starting glTF 2.0 export
+10:43:16 | INFO: Extracting primitive: ROAD_LOCAL_SLOPE_1x2_DOWN_050-colonly_Mesh.001
+10:43:16 | INFO: Primitives created: 1
+10:43:16 | INFO: Extracting primitive: SlopeBase_Mesh
+10:43:16 | INFO: Primitives created: 5
+10:43:16 | INFO: Finished glTF 2.0 export in 0.0805504322052002 s
+
+[REFINED] 62/91 ROAD_DIRT_SLOPE_1x1_UP_050
+10:43:16 | INFO: Data are loaded, start creating Blender stuff
+10:43:16 | INFO: Blender create Mesh node ROAD_DIRT_SLOPE_1x1_UP_050-colonly_Mesh
+10:43:16 | INFO: Blender create Mesh node SlopeBase_Mesh
+10:43:16 | INFO: glTF import finished in 0.03s
+10:43:16 | INFO: Starting glTF 2.0 export
+10:43:16 | INFO: Extracting primitive: ROAD_DIRT_SLOPE_1x1_UP_050-colonly_Mesh.001
+10:43:16 | INFO: Primitives created: 1
+10:43:16 | INFO: Extracting primitive: SlopeBase_Mesh
+10:43:16 | INFO: Primitives created: 5
+10:43:16 | INFO: Finished glTF 2.0 export in 0.07632112503051758 s
+
+[REFINED] 63/91 ROAD_DIRT_SLOPE_1x1_DOWN_050
+10:43:16 | INFO: Data are loaded, start creating Blender stuff
+10:43:16 | INFO: Blender create Mesh node ROAD_DIRT_SLOPE_1x1_DOWN_050-colonly_Mesh
+10:43:16 | INFO: Blender create Mesh node SlopeBase_Mesh
+10:43:16 | INFO: glTF import finished in 0.03s
+10:43:17 | INFO: Starting glTF 2.0 export
+10:43:17 | INFO: Extracting primitive: ROAD_DIRT_SLOPE_1x1_DOWN_050-colonly_Mesh.001
+10:43:17 | INFO: Primitives created: 1
+10:43:17 | INFO: Extracting primitive: SlopeBase_Mesh
+10:43:17 | INFO: Primitives created: 5
+10:43:17 | INFO: Finished glTF 2.0 export in 0.08299517631530762 s
+
+[REFINED] 64/91 ROAD_DIRT_SLOPE_1x2_UP_050
+10:43:17 | INFO: Data are loaded, start creating Blender stuff
+10:43:17 | INFO: Blender create Mesh node ROAD_DIRT_SLOPE_1x2_UP_050-colonly_Mesh
+10:43:17 | INFO: Blender create Mesh node SlopeBase_Mesh
+10:43:17 | INFO: glTF import finished in 0.02s
+10:43:17 | INFO: Starting glTF 2.0 export
+10:43:17 | INFO: Extracting primitive: ROAD_DIRT_SLOPE_1x2_UP_050-colonly_Mesh.001
+10:43:17 | INFO: Primitives created: 1
+10:43:17 | INFO: Extracting primitive: SlopeBase_Mesh
+10:43:17 | INFO: Primitives created: 5
+10:43:17 | INFO: Finished glTF 2.0 export in 0.1002659797668457 s
+
+[REFINED] 65/91 ROAD_DIRT_SLOPE_1x2_DOWN_050
+10:43:17 | INFO: Data are loaded, start creating Blender stuff
+10:43:17 | INFO: Blender create Mesh node ROAD_DIRT_SLOPE_1x2_DOWN_050-colonly_Mesh
+10:43:17 | INFO: Blender create Mesh node SlopeBase_Mesh
+10:43:17 | INFO: glTF import finished in 0.03s
+10:43:17 | INFO: Starting glTF 2.0 export
+10:43:17 | INFO: Extracting primitive: ROAD_DIRT_SLOPE_1x2_DOWN_050-colonly_Mesh.001
+10:43:17 | INFO: Primitives created: 1
+10:43:17 | INFO: Extracting primitive: SlopeBase_Mesh
+10:43:17 | INFO: Primitives created: 5
+10:43:17 | INFO: Finished glTF 2.0 export in 0.10538434982299805 s
+
+[REFINED] 66/91 BRG_LOCAL_RAMP_1x1_UP_050
+10:43:17 | INFO: Data are loaded, start creating Blender stuff
+10:43:17 | INFO: Blender create Mesh node BRG_LOCAL_RAMP_1x1_UP_050-colonly_Mesh
+10:43:17 | INFO: Blender create Mesh node BridgeRampSlab_Mesh
+10:43:17 | INFO: glTF import finished in 0.02s
+10:43:17 | INFO: Starting glTF 2.0 export
+10:43:17 | INFO: Extracting primitive: BRG_LOCAL_RAMP_1x1_UP_050-colonly_Mesh.001
+10:43:17 | INFO: Primitives created: 1
+10:43:17 | INFO: Extracting primitive: BridgeRampSlab_Mesh
+10:43:17 | INFO: Primitives created: 6
+10:43:17 | INFO: Finished glTF 2.0 export in 0.10124063491821289 s
+
+[REFINED] 67/91 BRG_LOCAL_RAMP_1x1_DOWN_050
+10:43:17 | INFO: Data are loaded, start creating Blender stuff
+10:43:17 | INFO: Blender create Mesh node BRG_LOCAL_RAMP_1x1_DOWN_050-colonly_Mesh
+10:43:17 | INFO: Blender create Mesh node BridgeRampSlab_Mesh
+10:43:17 | INFO: glTF import finished in 0.02s
+10:43:18 | INFO: Starting glTF 2.0 export
+10:43:18 | INFO: Extracting primitive: BRG_LOCAL_RAMP_1x1_DOWN_050-colonly_Mesh.001
+10:43:18 | INFO: Primitives created: 1
+10:43:18 | INFO: Extracting primitive: BridgeRampSlab_Mesh
+10:43:18 | INFO: Primitives created: 6
+10:43:18 | INFO: Finished glTF 2.0 export in 0.10560989379882812 s
+
+[REFINED] 68/91 BRG_LOCAL_DECK_1x1_STRAIGHT
+10:43:18 | INFO: Data are loaded, start creating Blender stuff
+10:43:18 | INFO: Blender create Mesh node Cube.011
+10:43:18 | INFO: Blender create Mesh node Cube
+10:43:18 | INFO: glTF import finished in 0.03s
+10:43:18 | INFO: Starting glTF 2.0 export
+10:43:18 | INFO: Extracting primitive: Cube.011
+10:43:18 | INFO: Primitives created: 1
+10:43:18 | INFO: Extracting primitive: Cube
+10:43:18 | INFO: Primitives created: 6
+10:43:18 | INFO: Finished glTF 2.0 export in 0.1220085620880127 s
+
+[REFINED] 69/91 BRG_LOCAL_DECK_1x1_CORNER
+10:43:18 | INFO: Data are loaded, start creating Blender stuff
+10:43:18 | INFO: Blender create Mesh node Cube.013
+10:43:18 | INFO: Blender create Mesh node Cube
+10:43:18 | INFO: glTF import finished in 0.04s
+10:43:18 | INFO: Starting glTF 2.0 export
+10:43:18 | INFO: Extracting primitive: Cube.013
+10:43:18 | INFO: Primitives created: 1
+10:43:18 | INFO: Extracting primitive: Cube
+10:43:18 | INFO: Primitives created: 6
+10:43:18 | INFO: Finished glTF 2.0 export in 0.10482192039489746 s
+
+[REFINED] 70/91 BRG_LOCAL_DECK_1x1_T
+10:43:19 | INFO: Data are loaded, start creating Blender stuff
+10:43:19 | INFO: Blender create Mesh node Cube.017
+10:43:19 | INFO: Blender create Mesh node Cube
+10:43:19 | INFO: glTF import finished in 0.03s
+10:43:19 | INFO: Starting glTF 2.0 export
+10:43:19 | INFO: Extracting primitive: Cube.017
+10:43:19 | INFO: Primitives created: 1
+10:43:19 | INFO: Extracting primitive: Cube
+10:43:19 | INFO: Primitives created: 6
+10:43:19 | INFO: Finished glTF 2.0 export in 0.1037294864654541 s
+
+[REFINED] 71/91 BRG_LOCAL_DECK_1x1_CROSS
+10:43:19 | INFO: Data are loaded, start creating Blender stuff
+10:43:19 | INFO: Blender create Mesh node Cube.021
+10:43:19 | INFO: Blender create Mesh node Cube
+10:43:19 | INFO: glTF import finished in 0.03s
+10:43:19 | INFO: Starting glTF 2.0 export
+10:43:19 | INFO: Extracting primitive: Cube.021
+10:43:19 | INFO: Primitives created: 1
+10:43:19 | INFO: Extracting primitive: Cube
+10:43:19 | INFO: Primitives created: 6
+10:43:19 | INFO: Finished glTF 2.0 export in 0.11417937278747559 s
+
+[REFINED] 72/91 BRG_LOCAL_DECK_1x1_END
+10:43:20 | INFO: Data are loaded, start creating Blender stuff
+10:43:20 | INFO: Blender create Mesh node Cube.010
+10:43:20 | INFO: Blender create Mesh node Cube
+10:43:20 | INFO: glTF import finished in 0.02s
+10:43:20 | INFO: Starting glTF 2.0 export
+10:43:20 | INFO: Extracting primitive: Cube.010
+10:43:20 | INFO: Primitives created: 1
+10:43:20 | INFO: Extracting primitive: Cube
+10:43:20 | INFO: Primitives created: 6
+10:43:20 | INFO: Finished glTF 2.0 export in 0.09135580062866211 s
+
+[REFINED] 73/91 BRG_SUPPORT_PIER_1x1_LOW_050
+10:43:20 | INFO: Data are loaded, start creating Blender stuff
+10:43:20 | INFO: Blender create Mesh node Cube.004
+10:43:20 | INFO: Blender create Mesh node Cube
+10:43:20 | INFO: glTF import finished in 0.02s
+10:43:20 | INFO: Starting glTF 2.0 export
+10:43:20 | INFO: Extracting primitive: Cube.004
+10:43:20 | INFO: Primitives created: 1
+10:43:20 | INFO: Extracting primitive: Cube
+10:43:20 | INFO: Primitives created: 4
+10:43:20 | INFO: Finished glTF 2.0 export in 0.09553050994873047 s
+
+[REFINED] 74/91 BRG_SUPPORT_PIER_1x1_MID_100
+10:43:20 | INFO: Data are loaded, start creating Blender stuff
+10:43:20 | INFO: Blender create Mesh node Cube.004
+10:43:20 | INFO: Blender create Mesh node Cube
+10:43:20 | INFO: glTF import finished in 0.01s
+10:43:20 | INFO: Starting glTF 2.0 export
+10:43:20 | INFO: Extracting primitive: Cube.004
+10:43:20 | INFO: Primitives created: 1
+10:43:20 | INFO: Extracting primitive: Cube
+10:43:20 | INFO: Primitives created: 4
+10:43:20 | INFO: Finished glTF 2.0 export in 0.07941412925720215 s
+
+[REFINED] 75/91 BRG_SUPPORT_PIER_1x1_HIGH_150
+10:43:20 | INFO: Data are loaded, start creating Blender stuff
+10:43:20 | INFO: Blender create Mesh node Cube.004
+10:43:20 | INFO: Blender create Mesh node Cube
+10:43:20 | INFO: glTF import finished in 0.02s
+10:43:20 | INFO: Starting glTF 2.0 export
+10:43:20 | INFO: Extracting primitive: Cube.004
+10:43:20 | INFO: Primitives created: 1
+10:43:20 | INFO: Extracting primitive: Cube
+10:43:20 | INFO: Primitives created: 4
+10:43:20 | INFO: Finished glTF 2.0 export in 0.09092545509338379 s
+
+[REFINED] 76/91 BRG_SUPPORT_ABUTMENT_1x1_050
+10:43:20 | INFO: Data are loaded, start creating Blender stuff
+10:43:20 | INFO: Blender create Mesh node Cube.006
+10:43:20 | INFO: Blender create Mesh node Cube
+10:43:20 | INFO: glTF import finished in 0.02s
+10:43:20 | INFO: Starting glTF 2.0 export
+10:43:20 | INFO: Extracting primitive: Cube.006
+10:43:20 | INFO: Primitives created: 1
+10:43:20 | INFO: Extracting primitive: Cube
+10:43:20 | INFO: Primitives created: 4
+10:43:20 | INFO: Finished glTF 2.0 export in 0.08998537063598633 s
+
+[REFINED] 77/91 NAT_TREE_OAK_1x1_001
+10:43:21 | INFO: Data are loaded, start creating Blender stuff
+10:43:21 | INFO: Blender create Mesh node Cube.006
+10:43:21 | INFO: Blender create Mesh node Cylinder
+10:43:21 | INFO: glTF import finished in 0.02s
+10:43:21 | INFO: Starting glTF 2.0 export
+10:43:21 | INFO: Extracting primitive: Cube.006
+10:43:21 | INFO: Primitives created: 1
+10:43:21 | INFO: Extracting primitive: Cylinder
+10:43:21 | INFO: Primitives created: 4
+10:43:21 | INFO: Finished glTF 2.0 export in 0.14200925827026367 s
+
+[REFINED] 78/91 NAT_TREE_PINE_1x1_001
+10:43:21 | INFO: Data are loaded, start creating Blender stuff
+10:43:21 | INFO: Blender create Mesh node Cube.006
+10:43:21 | INFO: Blender create Mesh node Cylinder
+10:43:21 | INFO: glTF import finished in 0.02s
+10:43:21 | INFO: Starting glTF 2.0 export
+10:43:21 | INFO: Extracting primitive: Cube.006
+10:43:21 | INFO: Primitives created: 1
+10:43:21 | INFO: Extracting primitive: Cylinder
+10:43:21 | INFO: Primitives created: 4
+10:43:21 | INFO: Finished glTF 2.0 export in 0.1016850471496582 s
+
+[REFINED] 79/91 NAT_TREE_BIRCH_1x1_001
+10:43:21 | INFO: Data are loaded, start creating Blender stuff
+10:43:21 | INFO: Blender create Mesh node Cube.006
+10:43:21 | INFO: Blender create Mesh node Cylinder
+10:43:22 | INFO: glTF import finished in 0.02s
+10:43:22 | INFO: Starting glTF 2.0 export
+10:43:22 | INFO: Extracting primitive: Cube.006
+10:43:22 | INFO: Primitives created: 1
+10:43:22 | INFO: Extracting primitive: Cylinder
+10:43:22 | INFO: Primitives created: 3
+10:43:22 | INFO: Finished glTF 2.0 export in 0.05772662162780762 s
+
+[REFINED] 80/91 NAT_TREE_CYPRESS_1x1_001
+10:43:22 | INFO: Data are loaded, start creating Blender stuff
+10:43:22 | INFO: Blender create Mesh node Cube.006
+10:43:22 | INFO: Blender create Mesh node Cylinder
+10:43:22 | INFO: glTF import finished in 0.01s
+10:43:22 | INFO: Starting glTF 2.0 export
+10:43:22 | INFO: Extracting primitive: Cube.006
+10:43:22 | INFO: Primitives created: 1
+10:43:22 | INFO: Extracting primitive: Cylinder
+10:43:22 | INFO: Primitives created: 3
+10:43:22 | INFO: Finished glTF 2.0 export in 0.09994244575500488 s
+
+[REFINED] 81/91 NAT_TREE_FLOWER_1x1_001
+10:43:22 | INFO: Data are loaded, start creating Blender stuff
+10:43:22 | INFO: Blender create Mesh node Cube.006
+10:43:22 | INFO: Blender create Mesh node Cylinder
+10:43:22 | INFO: glTF import finished in 0.02s
+10:43:22 | INFO: Starting glTF 2.0 export
+10:43:22 | INFO: Extracting primitive: Cube.006
+10:43:22 | INFO: Primitives created: 1
+10:43:22 | INFO: Extracting primitive: Cylinder
+10:43:22 | INFO: Primitives created: 5
+10:43:22 | INFO: Finished glTF 2.0 export in 0.1331775188446045 s
+
+[REFINED] 82/91 NAT_TREE_OAK_1x1_002
+10:43:22 | INFO: Data are loaded, start creating Blender stuff
+10:43:22 | INFO: Blender create Mesh node Cube.006
+10:43:22 | INFO: Blender create Mesh node Cylinder
+10:43:22 | INFO: glTF import finished in 0.03s
+10:43:22 | INFO: Starting glTF 2.0 export
+10:43:22 | INFO: Extracting primitive: Cube.006
+10:43:22 | INFO: Primitives created: 1
+10:43:22 | INFO: Extracting primitive: Cylinder
+10:43:23 | INFO: Primitives created: 4
+10:43:23 | INFO: Finished glTF 2.0 export in 0.11199665069580078 s
+
+[REFINED] 83/91 EDU_SCHOOL_3x3_001
+10:43:23 | INFO: Data are loaded, start creating Blender stuff
+10:43:23 | INFO: Blender create Mesh node Cube.033
+10:43:23 | INFO: Blender create Mesh node Cube
+10:43:23 | INFO: glTF import finished in 0.05s
+10:43:23 | INFO: Starting glTF 2.0 export
+10:43:23 | INFO: Extracting primitive: Cube.034
+10:43:23 | INFO: Primitives created: 1
+10:43:23 | INFO: Extracting primitive: Cube
+10:43:23 | INFO: Primitives created: 13
+10:43:23 | INFO: Finished glTF 2.0 export in 0.2070915699005127 s
+
+[REFINED] 84/91 EDU_SCHOOL_4x3_002
+10:43:24 | INFO: Data are loaded, start creating Blender stuff
+10:43:24 | INFO: Blender create Mesh node Cube.058
+10:43:24 | INFO: Blender create Mesh node Cube
+10:43:24 | INFO: glTF import finished in 0.07s
+10:43:24 | INFO: Starting glTF 2.0 export
+10:43:24 | INFO: Extracting primitive: Cube.060
+10:43:24 | INFO: Primitives created: 1
+10:43:24 | INFO: Extracting primitive: Cube
+10:43:24 | INFO: Primitives created: 14
+10:43:24 | INFO: Finished glTF 2.0 export in 0.25889039039611816 s
+
+[REFINED] 85/91 AGR_BARN_2x2_001
+10:43:24 | INFO: Data are loaded, start creating Blender stuff
+10:43:24 | INFO: Blender create Mesh node Cube.013
+10:43:24 | INFO: Blender create Mesh node Cube
+10:43:24 | INFO: glTF import finished in 0.03s
+10:43:24 | INFO: Starting glTF 2.0 export
+10:43:24 | INFO: Extracting primitive: Cube.013
+10:43:24 | INFO: Primitives created: 1
+10:43:24 | INFO: Extracting primitive: Cube
+10:43:25 | INFO: Primitives created: 14
+10:43:25 | INFO: Finished glTF 2.0 export in 0.297454833984375 s
+
+[REFINED] 86/91 AGR_GREENHOUSE_3x2_001
+10:43:25 | INFO: Data are loaded, start creating Blender stuff
+10:43:25 | INFO: Blender create Mesh node Cube.015
+10:43:25 | INFO: Blender create Mesh node Cube
+10:43:25 | INFO: glTF import finished in 0.02s
+10:43:25 | INFO: Starting glTF 2.0 export
+10:43:25 | INFO: Extracting primitive: Cube.015
+10:43:25 | INFO: Primitives created: 1
+10:43:25 | INFO: Extracting primitive: Cube
+10:43:25 | INFO: Primitives created: 8
+10:43:25 | INFO: Finished glTF 2.0 export in 0.1528770923614502 s
+
+[REFINED] 87/91 UTIL_WIND_2x2_001
+10:43:25 | INFO: Data are loaded, start creating Blender stuff
+10:43:25 | INFO: Blender create Mesh node Cube.007
+10:43:25 | INFO: Blender create Mesh node Cube
+10:43:25 | INFO: glTF import finished in 0.02s
+10:43:25 | INFO: Starting glTF 2.0 export
+10:43:25 | INFO: Extracting primitive: Cube.009
+10:43:25 | INFO: Primitives created: 1
+10:43:25 | INFO: Extracting primitive: Cube
+10:43:25 | INFO: Primitives created: 7
+10:43:25 | INFO: Finished glTF 2.0 export in 0.11095976829528809 s
+
+[REFINED] 88/91 UTIL_WATER_2x2_001
+10:43:25 | INFO: Data are loaded, start creating Blender stuff
+10:43:25 | INFO: Blender create Mesh node Cube.005
+10:43:25 | INFO: Blender create Mesh node Cube
+10:43:25 | INFO: glTF import finished in 0.02s
+10:43:26 | INFO: Starting glTF 2.0 export
+10:43:26 | INFO: Extracting primitive: Cube.005
+10:43:26 | INFO: Primitives created: 1
+10:43:26 | INFO: Extracting primitive: Cube
+10:43:26 | INFO: Primitives created: 7
+10:43:26 | INFO: Finished glTF 2.0 export in 0.13037657737731934 s
+
+[REFINED] 89/91 UTIL_SOLAR_3x2_001
+10:43:26 | INFO: Data are loaded, start creating Blender stuff
+10:43:26 | INFO: Blender create Mesh node Cube.012
+10:43:26 | INFO: Blender create Mesh node Cube
+10:43:26 | INFO: glTF import finished in 0.02s
+10:43:26 | INFO: Starting glTF 2.0 export
+10:43:26 | INFO: Extracting primitive: Cube.012
+10:43:26 | INFO: Primitives created: 1
+10:43:26 | INFO: Extracting primitive: Cube
+10:43:26 | INFO: Primitives created: 6
+10:43:26 | INFO: Finished glTF 2.0 export in 0.07584595680236816 s
+
+[REFINED] 90/91 SPORT_FOOTBALL_3x2_001
+10:43:26 | INFO: Data are loaded, start creating Blender stuff
+10:43:26 | INFO: Blender create Mesh node Cube.014
+10:43:26 | INFO: Blender create Mesh node Cube
+10:43:26 | INFO: glTF import finished in 0.03s
+10:43:26 | INFO: Starting glTF 2.0 export
+10:43:26 | INFO: Extracting primitive: Cube.014
+10:43:26 | INFO: Primitives created: 1
+10:43:26 | INFO: Extracting primitive: Cube
+10:43:26 | INFO: Primitives created: 6
+10:43:26 | INFO: Finished glTF 2.0 export in 0.07333707809448242 s
+
+[REFINED] 91/91 SPORT_BASKET_2x1_001
+10:43:26 | INFO: Data are loaded, start creating Blender stuff
+10:43:26 | INFO: Blender create Mesh node Cube.014
+10:43:26 | INFO: Blender create Mesh node Cube
+10:43:27 | INFO: glTF import finished in 0.04s
+10:43:27 | INFO: Starting glTF 2.0 export
+10:43:27 | INFO: Extracting primitive: Cube.014
+10:43:27 | INFO: Primitives created: 1
+10:43:27 | INFO: Extracting primitive: Cube
+10:43:27 | INFO: Primitives created: 6
+10:43:27 | INFO: Finished glTF 2.0 export in 0.10210204124450684 s
+
+[REFINED] Complete 91
+Blender 5.2.1 LTS (hash 9e2066aef7ef built 2026-08-25 02:38:20)
+
+Blender quit

@@ -1,0 +1,40 @@
+{
+  "id": "EXP_VILLA_COURT",
+  "kind": "villa",
+  "footprint": [
+    4,
+    4
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 1.998,
+  "min_z": 0.0,
+  "max_z": 1.998,
+  "triangles": 24364,
+  "seed": 3105,
+  "model": "EXP_VILLA_COURT.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 2100,
+  "style": "refined_v2",
+  "name": "Villa corte degli ulivi",
+  "group": "residenze",
+  "description": "Pianta a U, corte centrale, olivo, vasca e pergola.",
+  "recipe": "courtyard",
+  "palette": [
+    "c1b49c",
+    "778465",
+    "96755d"
+  ],
+  "style_variant": "refined_v2",
+  "collection": "refined_expansion",
+  "is_new_asset": true,
+  "collision_mode": "simplified_component_boxes",
+  "collision_parts": 3,
+  "windows_by_side": {
+    "front": 6,
+    "rear": 12,
+    "left": 10,
+    "right": 10
+  }
+}

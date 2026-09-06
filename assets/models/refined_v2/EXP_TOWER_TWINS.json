@@ -1,0 +1,40 @@
+{
+  "id": "EXP_TOWER_TWINS",
+  "kind": "tower",
+  "footprint": [
+    4,
+    3
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 7.625,
+  "min_z": 0.0,
+  "max_z": 7.625,
+  "triangles": 34808,
+  "seed": 3114,
+  "model": "EXP_TOWER_TWINS.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 2100,
+  "style": "refined_v2",
+  "name": "Torri gemelle del porto",
+  "group": "citta",
+  "description": "Due torri di altezza diversa collegate da un ponte vetrato.",
+  "recipe": "twins",
+  "palette": [
+    "6d8592",
+    "b8baa9",
+    "5b6771"
+  ],
+  "style_variant": "refined_v2",
+  "collection": "refined_expansion",
+  "is_new_asset": true,
+  "collision_mode": "simplified_component_boxes",
+  "collision_parts": 4,
+  "windows_by_side": {
+    "front": 84,
+    "rear": 85,
+    "left": 105,
+    "right": 103
+  }
+}

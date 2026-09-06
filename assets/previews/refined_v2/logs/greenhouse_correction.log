@@ -1,0 +1,20 @@
+[REFINED] 1/1 AGR_GREENHOUSE_3x2_001
+C:\Users\gabri\Desktop\FOCUS!\tools\blender\generate_refined_assets.py:68: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  mat.use_nodes = True
+11:11:26 | INFO: Data are loaded, start creating Blender stuff
+11:11:26 | INFO: Blender create Mesh node Cube.015
+11:11:26 | INFO: Blender create Mesh node Cube
+11:11:26 | INFO: glTF import finished in 0.03s
+INFO Draco is available, use library at C:\Program Files\Blender Foundation\Blender 5.2\5.2\scripts\addons_core\io_scene_gltf2\bf_intern_draco_bridge.dll
+INFO MeshOptimizer is available, use library at C:\Program Files\Blender Foundation\Blender 5.2\5.2\scripts\addons_core\io_scene_gltf2\bf_intern_meshopt_bridge.dll
+11:11:27 | INFO: Starting glTF 2.0 export
+11:11:27 | INFO: Extracting primitive: Cube.015
+11:11:27 | INFO: Primitives created: 1
+11:11:27 | INFO: Extracting primitive: Cube
+11:11:27 | INFO: Primitives created: 5
+11:11:27 | INFO: Finished glTF 2.0 export in 0.23891496658325195 s
+
+[REFINED] Complete 91
+Blender 5.2.1 LTS (hash 9e2066aef7ef built 2026-08-25 02:38:20)
+
+Blender quit

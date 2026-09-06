@@ -528,7 +528,7 @@ func _costruisci(id: String, ancora: Vector2i, rotazione: int, livello: int,
 
 
 func _istanzia(voce: Dictionary, ancora: Vector2i, rotazione: int, livello: int) -> Node3D:
-	var scena := load(CityCatalog.CARTELLA_MODELLI + str(voce["modello"])) as PackedScene
+	var scena := load(str(voce["percorso"])) as PackedScene
 	if scena == null:
 		push_error("CityView: modello mancante per %s" % voce["id"])
 		return null
@@ -551,7 +551,7 @@ func _appoggia_la_campata(campata: Node3D, ancora: Vector2i, livello: int) -> vo
 	var id_pila := catalogo.sostegno_per_luce(luce)
 	if id_pila.is_empty():
 		return
-	var scena := load(CityCatalog.CARTELLA_MODELLI + str(catalogo.voce(id_pila)["modello"])) as PackedScene
+	var scena := load(catalogo.percorso(id_pila)) as PackedScene
 	if scena == null:
 		return
 	var pila: Node3D = scena.instantiate()
@@ -2406,7 +2406,9 @@ func _mostra_bersaglio_terreno() -> void:
 func _crea_fantasma() -> void:
 	_libera_fantasma()
 	var voce := catalogo.voce(_scelto)
-	var scena := load(CityCatalog.CARTELLA_MODELLI + str(voce["modello"])) as PackedScene
+	if voce.is_empty():
+		return
+	var scena := load(str(voce["percorso"])) as PackedScene
 	if scena == null:
 		return
 	_fantasma = scena.instantiate()

@@ -95,7 +95,7 @@ text = "×"
 
 [node name="Scorrimento" type="ScrollContainer" parent="Fascia/Margine/Colonna"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 116)
+custom_minimum_size = Vector2(0, 134)
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 3

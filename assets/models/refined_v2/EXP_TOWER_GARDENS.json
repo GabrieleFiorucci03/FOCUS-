@@ -1,0 +1,40 @@
+{
+  "id": "EXP_TOWER_GARDENS",
+  "kind": "tower",
+  "footprint": [
+    3,
+    3
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 8.456,
+  "min_z": 0.0,
+  "max_z": 8.456,
+  "triangles": 31252,
+  "seed": 3116,
+  "model": "EXP_TOWER_GARDENS.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 2100,
+  "style": "refined_v2",
+  "name": "Torre dei giardini",
+  "group": "citta",
+  "description": "Volumi sfalsati e arretrati, terrazze verdi e fioriere.",
+  "recipe": "gardens",
+  "palette": [
+    "c1b7a3",
+    "5d7965",
+    "78898c"
+  ],
+  "style_variant": "refined_v2",
+  "collection": "refined_expansion",
+  "is_new_asset": true,
+  "collision_mode": "simplified_component_boxes",
+  "collision_parts": 5,
+  "windows_by_side": {
+    "front": 80,
+    "rear": 81,
+    "left": 63,
+    "right": 63
+  }
+}

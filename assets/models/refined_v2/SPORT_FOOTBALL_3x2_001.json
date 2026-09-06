@@ -1,0 +1,23 @@
+{
+  "id": "SPORT_FOOTBALL_3x2_001",
+  "kind": "sport",
+  "footprint": [
+    3,
+    2
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 1.784,
+  "min_z": 0.0,
+  "max_z": 1.784,
+  "triangles": 3664,
+  "seed": 1601,
+  "model": "SPORT_FOOTBALL_3x2_001.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 2001,
+  "variant": "football",
+  "style_variant": "refined_v2",
+  "source_asset_id": "SPORT_FOOTBALL_3x2_001",
+  "collision_source": "realistic"
+}

@@ -1,0 +1,40 @@
+{
+  "id": "EXP_VILLA_LIMONAIA",
+  "kind": "villa",
+  "footprint": [
+    4,
+    3
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 2.217,
+  "min_z": 0.0,
+  "max_z": 2.217,
+  "triangles": 27320,
+  "seed": 3101,
+  "model": "EXP_VILLA_LIMONAIA.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 2100,
+  "style": "refined_v2",
+  "name": "Villa della limonaia",
+  "group": "residenze",
+  "description": "Portico mediterraneo, limoni, pergolato e corte pavimentata.",
+  "recipe": "mediterranean",
+  "palette": [
+    "d1b770",
+    "62868a",
+    "ad7654"
+  ],
+  "style_variant": "refined_v2",
+  "collection": "refined_expansion",
+  "is_new_asset": true,
+  "collision_mode": "simplified_component_boxes",
+  "collision_parts": 2,
+  "windows_by_side": {
+    "front": 7,
+    "rear": 9,
+    "left": 6,
+    "right": 6
+  }
+}

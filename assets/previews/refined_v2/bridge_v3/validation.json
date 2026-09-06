@@ -1,0 +1,87 @@
+{
+  "bridge_count": 7,
+  "road_intrusions": 0,
+  "continuous_paths": 16,
+  "ramp_port_transitions_checked": 4,
+  "assets": [
+    {
+      "id": "BRG_LOCAL_RAMP_1x1_UP_050",
+      "continuous_paths": 2,
+      "open_ports": [
+        "north",
+        "south"
+      ],
+      "rail_triangles": 800,
+      "road_overlap_area": 0,
+      "matched_port_endpoints": 4
+    },
+    {
+      "id": "BRG_LOCAL_RAMP_1x1_DOWN_050",
+      "continuous_paths": 2,
+      "open_ports": [
+        "north",
+        "south"
+      ],
+      "rail_triangles": 800,
+      "road_overlap_area": 0,
+      "matched_port_endpoints": 4
+    },
+    {
+      "id": "BRG_LOCAL_DECK_1x1_STRAIGHT",
+      "continuous_paths": 2,
+      "open_ports": [
+        "north",
+        "south"
+      ],
+      "rail_triangles": 800,
+      "road_overlap_area": 0,
+      "matched_port_endpoints": 4
+    },
+    {
+      "id": "BRG_LOCAL_DECK_1x1_CORNER",
+      "continuous_paths": 2,
+      "open_ports": [
+        "north",
+        "east"
+      ],
+      "rail_triangles": 824,
+      "road_overlap_area": 0.0,
+      "matched_port_endpoints": 4
+    },
+    {
+      "id": "BRG_LOCAL_DECK_1x1_T",
+      "continuous_paths": 3,
+      "open_ports": [
+        "north",
+        "east",
+        "west"
+      ],
+      "rail_triangles": 720,
+      "road_overlap_area": 0.0,
+      "matched_port_endpoints": 6
+    },
+    {
+      "id": "BRG_LOCAL_DECK_1x1_CROSS",
+      "continuous_paths": 4,
+      "open_ports": [
+        "north",
+        "east",
+        "south",
+        "west"
+      ],
+      "rail_triangles": 640,
+      "road_overlap_area": 0.0,
+      "matched_port_endpoints": 8
+    },
+    {
+      "id": "BRG_LOCAL_DECK_1x1_END",
+      "continuous_paths": 1,
+      "open_ports": [
+        "north"
+      ],
+      "rail_triangles": 904,
+      "road_overlap_area": 0.0,
+      "matched_port_endpoints": 2
+    }
+  ]
+}

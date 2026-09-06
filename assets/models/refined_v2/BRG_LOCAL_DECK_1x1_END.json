@@ -1,0 +1,53 @@
+{
+  "id": "BRG_LOCAL_DECK_1x1_END",
+  "kind": "bridge",
+  "footprint": [
+    1,
+    1
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 0.775,
+  "min_z": -0.34,
+  "max_z": 0.435,
+  "triangles": 1680,
+  "seed": 1707,
+  "model": "BRG_LOCAL_DECK_1x1_END.glb",
+  "front_axis": "-Y",
+  "origin_mode": "road_surface",
+  "generator_version": 2001,
+  "variant": "end",
+  "style": "local",
+  "connections": {
+    "north": 0.0
+  },
+  "style_variant": "refined_v2",
+  "source_asset_id": "BRG_LOCAL_DECK_1x1_END",
+  "collision_source": "realistic",
+  "bridge_barrier_layout": "continuous_miter_v3",
+  "bridge_barrier_road_clearance_m": 0.1625,
+  "bridge_barrier_paths": [
+    [
+      [
+        0.665,
+        -1.0
+      ],
+      [
+        0.665,
+        0.665
+      ],
+      [
+        -0.665,
+        0.665
+      ],
+      [
+        -0.665,
+        -1.0
+      ]
+    ]
+  ],
+  "bridge_rail_height_m": 0.435,
+  "bridge_open_ports": [
+    "north"
+  ]
+}

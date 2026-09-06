@@ -1,0 +1,40 @@
+{
+  "id": "EXP_VILLA_PATIO",
+  "kind": "villa",
+  "footprint": [
+    4,
+    3
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 1.962,
+  "min_z": 0.0,
+  "max_z": 1.962,
+  "triangles": 17396,
+  "seed": 3107,
+  "model": "EXP_VILLA_PATIO.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 2100,
+  "style": "refined_v2",
+  "name": "Villa del patio",
+  "group": "residenze",
+  "description": "Mattoni caldi, tetto verde, patio con sedute e pergola a lamelle.",
+  "recipe": "patio",
+  "palette": [
+    "ad7964",
+    "547878",
+    "beb39a"
+  ],
+  "style_variant": "refined_v2",
+  "collection": "refined_expansion",
+  "is_new_asset": true,
+  "collision_mode": "simplified_component_boxes",
+  "collision_parts": 2,
+  "windows_by_side": {
+    "front": 10,
+    "rear": 11,
+    "left": 8,
+    "right": 4
+  }
+}

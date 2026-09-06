@@ -1,0 +1,29 @@
+{
+  "id": "RES_LUX_3x2_004",
+  "kind": "villa",
+  "footprint": [
+    3,
+    2
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 1.622,
+  "min_z": 0.0,
+  "max_z": 1.622,
+  "triangles": 11016,
+  "seed": 404,
+  "model": "RES_LUX_3x2_004.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 2001,
+  "shape": "modern",
+  "style_variant": "refined_v2",
+  "source_asset_id": "RES_LUX_3x2_004",
+  "collision_source": "realistic",
+  "windows_by_side": {
+    "front": 11,
+    "rear": 11,
+    "left": 6,
+    "right": 5
+  }
+}

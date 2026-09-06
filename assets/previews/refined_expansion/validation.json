@@ -1,0 +1,772 @@
+{
+  "asset_count": 48,
+  "existing_files_unchanged": 735,
+  "accepted_models_unchanged": 91,
+  "unique_palette_sets": 48,
+  "render_count": 96,
+  "triangles": 780260,
+  "model_bytes": 78011604,
+  "groups": {
+    "residenze": 8,
+    "citta": 11,
+    "negozi": 10,
+    "industria": 6,
+    "impianti": 7,
+    "servizi": 6
+  },
+  "assets": [
+    {
+      "id": "EXP_COTTAGE",
+      "triangles": 17788,
+      "bytes": 2194916,
+      "embedded_images": 34,
+      "windows_by_side": {
+        "front": 5,
+        "rear": 6,
+        "left": 6,
+        "right": 6
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "EXP_VILLA_LIMONAIA",
+      "triangles": 27320,
+      "bytes": 3067112,
+      "embedded_images": 34,
+      "windows_by_side": {
+        "front": 7,
+        "rear": 9,
+        "left": 6,
+        "right": 6
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "EXP_VILLA_POOL",
+      "triangles": 17744,
+      "bytes": 2117268,
+      "embedded_images": 30,
+      "windows_by_side": {
+        "front": 14,
+        "rear": 16,
+        "left": 13,
+        "right": 13
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "EXP_HOUSE_NORDIC",
+      "triangles": 17560,
+      "bytes": 2149948,
+      "embedded_images": 34,
+      "windows_by_side": {
+        "front": 5,
+        "rear": 6,
+        "left": 6,
+        "right": 6
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "EXP_VILLA_FORMAL",
+      "triangles": 27156,
+      "bytes": 2931460,
+      "embedded_images": 36,
+      "windows_by_side": {
+        "front": 14,
+        "rear": 15,
+        "left": 9,
+        "right": 9
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "EXP_VILLA_COURT",
+      "triangles": 24364,
+      "bytes": 2763348,
+      "embedded_images": 36,
+      "windows_by_side": {
+        "front": 6,
+        "rear": 12,
+        "left": 10,
+        "right": 10
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "EXP_CHALET",
+      "triangles": 16648,
+      "bytes": 2077600,
+      "embedded_images": 34,
+      "windows_by_side": {
+        "front": 5,
+        "rear": 6,
+        "left": 6,
+        "right": 6
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "EXP_VILLA_PATIO",
+      "triangles": 17396,
+      "bytes": 2213784,
+      "embedded_images": 34,
+      "windows_by_side": {
+        "front": 10,
+        "rear": 11,
+        "left": 8,
+        "right": 4
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "EXP_PALAZZO_COURT",
+      "triangles": 30088,
+      "bytes": 2701936,
+      "embedded_images": 26,
+      "windows_by_side": {
+        "front": 70,
+        "rear": 72,
+        "left": 60,
+        "right": 60
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "EXP_PALAZZO_STEPS",
+      "triangles": 25684,
+      "bytes": 2222524,
+      "embedded_images": 20,
+      "windows_by_side": {
+        "front": 34,
+        "rear": 36,
+        "left": 72,
+        "right": 72
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "EXP_PALAZZO_BRICK",
+      "triangles": 17036,
+      "bytes": 1659684,
+      "embedded_images": 22,
+      "windows_by_side": {
+        "front": 34,
+        "rear": 36,
+        "left": 24,
+        "right": 24
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "EXP_PALAZZO_CORNER",
+      "triangles": 17620,
+      "bytes": 1836184,
+      "embedded_images": 26,
+      "windows_by_side": {
+        "front": 26,
+        "rear": 36,
+        "left": 42,
+        "right": 35
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "EXP_PALAZZO_LOGGIAS",
+      "triangles": 19556,
+      "bytes": 1796852,
+      "embedded_images": 20,
+      "windows_by_side": {
+        "front": 40,
+        "rear": 42,
+        "left": 28,
+        "right": 28
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "EXP_TOWER_DECO",
+      "triangles": 27112,
+      "bytes": 2222436,
+      "embedded_images": 16,
+      "windows_by_side": {
+        "front": 79,
+        "rear": 80,
+        "left": 64,
+        "right": 64
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "EXP_TOWER_TWINS",
+      "triangles": 34808,
+      "bytes": 2763336,
+      "embedded_images": 16,
+      "windows_by_side": {
+        "front": 84,
+        "rear": 85,
+        "left": 105,
+        "right": 103
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "EXP_TOWER_COPPER",
+      "triangles": 29944,
+      "bytes": 2417152,
+      "embedded_images": 16,
+      "windows_by_side": {
+        "front": 88,
+        "rear": 89,
+        "left": 71,
+        "right": 71
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "EXP_TOWER_GARDENS",
+      "triangles": 31252,
+      "bytes": 2526028,
+      "embedded_images": 16,
+      "windows_by_side": {
+        "front": 80,
+        "rear": 81,
+        "left": 63,
+        "right": 63
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "EXP_TOWER_ROUND",
+      "triangles": 16172,
+      "bytes": 1480016,
+      "embedded_images": 18,
+      "windows_by_side": {
+        "front": 8,
+        "rear": 9,
+        "left": 7,
+        "right": 7
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "EXP_TOWER_LANTERN",
+      "triangles": 24044,
+      "bytes": 2010328,
+      "embedded_images": 16,
+      "windows_by_side": {
+        "front": 64,
+        "rear": 65,
+        "left": 62,
+        "right": 62
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "EXP_SHOP_BAKERY",
+      "triangles": 4556,
+      "bytes": 874304,
+      "embedded_images": 26,
+      "windows_by_side": {
+        "front": 1,
+        "rear": 6,
+        "left": 6,
+        "right": 6
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "EXP_SHOP_FLORIST",
+      "triangles": 7256,
+      "bytes": 1058808,
+      "embedded_images": 22,
+      "windows_by_side": {
+        "front": 1,
+        "rear": 6,
+        "left": 6,
+        "right": 6
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "EXP_SHOP_BOOKS",
+      "triangles": 3316,
+      "bytes": 708368,
+      "embedded_images": 24,
+      "windows_by_side": {
+        "front": 1,
+        "rear": 6,
+        "left": 6,
+        "right": 6
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "EXP_SHOP_CAFE",
+      "triangles": 4960,
+      "bytes": 723416,
+      "embedded_images": 20,
+      "windows_by_side": {
+        "front": 1,
+        "rear": 6,
+        "left": 6,
+        "right": 6
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "EXP_SHOP_MARKET",
+      "triangles": 5584,
+      "bytes": 968712,
+      "embedded_images": 26,
+      "windows_by_side": {
+        "front": 3,
+        "rear": 6,
+        "left": 6,
+        "right": 6
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "EXP_SHOP_PHARMACY",
+      "triangles": 2692,
+      "bytes": 547424,
+      "embedded_images": 18,
+      "windows_by_side": {
+        "front": 1,
+        "rear": 6,
+        "left": 6,
+        "right": 6
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "EXP_SHOP_CINEMA",
+      "triangles": 7364,
+      "bytes": 870560,
+      "embedded_images": 18,
+      "windows_by_side": {
+        "front": 12,
+        "rear": 16,
+        "left": 16,
+        "right": 16
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "EXP_SHOP_CYCLES",
+      "triangles": 5944,
+      "bytes": 775328,
+      "embedded_images": 18,
+      "windows_by_side": {
+        "front": 1,
+        "rear": 6,
+        "left": 6,
+        "right": 6
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "EXP_SHOP_TRATTORIA",
+      "triangles": 5624,
+      "bytes": 875140,
+      "embedded_images": 24,
+      "windows_by_side": {
+        "front": 2,
+        "rear": 11,
+        "left": 4,
+        "right": 6
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "EXP_SHOP_DESIGN",
+      "triangles": 6128,
+      "bytes": 742160,
+      "embedded_images": 16,
+      "windows_by_side": {
+        "front": 8,
+        "rear": 21,
+        "left": 12,
+        "right": 12
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "EXP_FACTORY_MILL",
+      "triangles": 11208,
+      "bytes": 1184476,
+      "embedded_images": 20,
+      "windows_by_side": {
+        "front": 28,
+        "rear": 33,
+        "left": 17,
+        "right": 9
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "EXP_FACTORY_SAW",
+      "triangles": 7550,
+      "bytes": 798512,
+      "embedded_images": 14,
+      "windows_by_side": {
+        "front": 15,
+        "rear": 18,
+        "left": 10,
+        "right": 10
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "EXP_FACTORY_LOGISTICS",
+      "triangles": 8532,
+      "bytes": 922312,
+      "embedded_images": 16,
+      "windows_by_side": {
+        "front": 16,
+        "rear": 24,
+        "left": 10,
+        "right": 10
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "EXP_FACTORY_STEEL",
+      "triangles": 12968,
+      "bytes": 1321460,
+      "embedded_images": 22,
+      "windows_by_side": {
+        "front": 14,
+        "rear": 14,
+        "left": 16,
+        "right": 16
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "EXP_FACTORY_FOOD",
+      "triangles": 12416,
+      "bytes": 1200972,
+      "embedded_images": 18,
+      "windows_by_side": {
+        "front": 9,
+        "rear": 12,
+        "left": 9,
+        "right": 8
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "EXP_FACTORY_TECH",
+      "triangles": 7200,
+      "bytes": 823508,
+      "embedded_images": 16,
+      "windows_by_side": {
+        "front": 11,
+        "rear": 14,
+        "left": 10,
+        "right": 12
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "EXP_POWER_COAL_SMALL",
+      "triangles": 17716,
+      "bytes": 1527344,
+      "embedded_images": 18,
+      "windows_by_side": {
+        "front": 25,
+        "rear": 25,
+        "left": 22,
+        "right": 22
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "EXP_POWER_COAL_LARGE",
+      "triangles": 27812,
+      "bytes": 2222740,
+      "embedded_images": 18,
+      "windows_by_side": {
+        "front": 44,
+        "rear": 44,
+        "left": 32,
+        "right": 32
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "EXP_POWER_NUCLEAR",
+      "triangles": 24356,
+      "bytes": 1953620,
+      "embedded_images": 18,
+      "windows_by_side": {
+        "front": 22,
+        "rear": 22,
+        "left": 12,
+        "right": 12
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "EXP_WATER_PUMP_URBAN",
+      "triangles": 10524,
+      "bytes": 1065460,
+      "embedded_images": 20,
+      "windows_by_side": {
+        "front": 5,
+        "rear": 6,
+        "left": 6,
+        "right": 6
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "EXP_WATER_PUMP_RIVER",
+      "triangles": 10496,
+      "bytes": 1020828,
+      "embedded_images": 18,
+      "windows_by_side": {
+        "front": 5,
+        "rear": 6,
+        "left": 6,
+        "right": 6
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "EXP_WATER_TREATMENT",
+      "triangles": 6556,
+      "bytes": 744268,
+      "embedded_images": 16,
+      "windows_by_side": {
+        "front": 4,
+        "rear": 4,
+        "left": 6,
+        "right": 6
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "EXP_POWER_SUBSTATION",
+      "triangles": 10452,
+      "bytes": 785900,
+      "embedded_images": 8,
+      "windows_by_side": null,
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "EXP_STADIUM",
+      "triangles": 44088,
+      "bytes": 3251964,
+      "embedded_images": 18,
+      "windows_by_side": null,
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "EXP_ARENA",
+      "triangles": 12188,
+      "bytes": 1134008,
+      "embedded_images": 14,
+      "windows_by_side": {
+        "front": 18,
+        "rear": 18,
+        "left": 14,
+        "right": 14
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "EXP_FIRE_STATION",
+      "triangles": 6088,
+      "bytes": 749088,
+      "embedded_images": 16,
+      "windows_by_side": {
+        "front": 11,
+        "rear": 17,
+        "left": 10,
+        "right": 7
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "EXP_LIBRARY",
+      "triangles": 9936,
+      "bytes": 1155676,
+      "embedded_images": 20,
+      "windows_by_side": {
+        "front": 22,
+        "rear": 22,
+        "left": 14,
+        "right": 14
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "EXP_RAIL_STATION",
+      "triangles": 6188,
+      "bytes": 831952,
+      "embedded_images": 20,
+      "windows_by_side": {
+        "front": 14,
+        "rear": 15,
+        "left": 5,
+        "right": 5
+      },
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "EXP_BOTANICAL",
+      "triangles": 41270,
+      "bytes": 4021384,
+      "embedded_images": 22,
+      "windows_by_side": null,
+      "lot_overhang_m": [
+        0.0,
+        0.0
+      ]
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "id": "EXP_TOWER_LANTERN",
+  "kind": "tower",
+  "footprint": [
+    3,
+    3
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 9.435,
+  "min_z": 0.0,
+  "max_z": 9.435,
+  "triangles": 24044,
+  "seed": 3118,
+  "model": "EXP_TOWER_LANTERN.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 2100,
+  "style": "refined_v2",
+  "name": "Torre Lanterna",
+  "group": "citta",
+  "description": "Basamento pubblico, fusto snello e lanterna panoramica a due livelli.",
+  "recipe": "lantern",
+  "palette": [
+    "a99482",
+    "687b80",
+    "665a52"
+  ],
+  "style_variant": "refined_v2",
+  "collection": "refined_expansion",
+  "is_new_asset": true,
+  "collision_mode": "simplified_component_boxes",
+  "collision_parts": 4,
+  "windows_by_side": {
+    "front": 64,
+    "rear": 65,
+    "left": 62,
+    "right": 62
+  }
+}

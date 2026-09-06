@@ -1,0 +1,29 @@
+{
+  "id": "CIV_FIRE_2x2_001",
+  "kind": "service",
+  "footprint": [
+    2,
+    2
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 1.512,
+  "min_z": 0.0,
+  "max_z": 1.512,
+  "triangles": 5640,
+  "seed": 1002,
+  "model": "CIV_FIRE_2x2_001.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 2001,
+  "service": "fire",
+  "style_variant": "refined_v2",
+  "source_asset_id": "CIV_FIRE_2x2_001",
+  "collision_source": "realistic",
+  "windows_by_side": {
+    "front": 7,
+    "rear": 10,
+    "left": 8,
+    "right": 8
+  }
+}

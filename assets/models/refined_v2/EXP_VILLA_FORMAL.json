@@ -1,0 +1,40 @@
+{
+  "id": "EXP_VILLA_FORMAL",
+  "kind": "villa",
+  "footprint": [
+    4,
+    4
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 2.798,
+  "min_z": 0.0,
+  "max_z": 2.798,
+  "triangles": 27156,
+  "seed": 3104,
+  "model": "EXP_VILLA_FORMAL.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 2100,
+  "style": "refined_v2",
+  "name": "Villa del roseto",
+  "group": "residenze",
+  "description": "Villa simmetrica, ingresso colonnato, parterre e fontana.",
+  "recipe": "formal",
+  "palette": [
+    "c89b93",
+    "6f756c",
+    "786657"
+  ],
+  "style_variant": "refined_v2",
+  "collection": "refined_expansion",
+  "is_new_asset": true,
+  "collision_mode": "simplified_component_boxes",
+  "collision_parts": 1,
+  "windows_by_side": {
+    "front": 14,
+    "rear": 15,
+    "left": 9,
+    "right": 9
+  }
+}

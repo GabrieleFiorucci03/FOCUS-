@@ -1,0 +1,59 @@
+{
+  "id": "BRG_LOCAL_RAMP_1x1_DOWN_050",
+  "kind": "bridge",
+  "footprint": [
+    1,
+    1
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 1.135,
+  "min_z": -0.2,
+  "max_z": 0.935,
+  "triangles": 1116,
+  "seed": 1702,
+  "model": "BRG_LOCAL_RAMP_1x1_DOWN_050.glb",
+  "front_axis": "-Y",
+  "origin_mode": "terrain",
+  "generator_version": 2001,
+  "variant": "ramp",
+  "style": "local",
+  "direction": "down",
+  "rise": 0.5,
+  "connections": {
+    "north": 0.5,
+    "south": 0.0
+  },
+  "style_variant": "refined_v2",
+  "source_asset_id": "BRG_LOCAL_RAMP_1x1_DOWN_050",
+  "collision_source": "realistic",
+  "bridge_barrier_layout": "continuous_miter_v3",
+  "bridge_barrier_road_clearance_m": 0.1625,
+  "bridge_barrier_paths": [
+    [
+      [
+        -0.665,
+        1.0
+      ],
+      [
+        -0.665,
+        -1.0
+      ]
+    ],
+    [
+      [
+        0.665,
+        -1.0
+      ],
+      [
+        0.665,
+        1.0
+      ]
+    ]
+  ],
+  "bridge_rail_height_m": 0.435,
+  "bridge_open_ports": [
+    "north",
+    "south"
+  ]
+}

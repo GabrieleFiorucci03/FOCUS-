@@ -29,6 +29,80 @@
 		"slab": 96,
 		"tower": 120
 	},
+	"_commento_prezzi_modello": "Un prezzo per tipo regge finche' i modelli di un tipo si somigliano. Con l'espansione non si somigliano piu': dentro 'utility' ci stanno una pala eolica e una centrale nucleare, dentro 'sport' un campo da basket e uno stadio da settemila metri quadri, e farli costare uguale non e' una semplificazione, e' un errore. Qui sotto il prezzo di quei modelli, uno per uno; quello che non compare continua a costare quanto il suo tipo, e la maggior parte del catalogo non compare. La scala e' sempre la stessa: 24 crediti sono un'ora di concentrazione.",
+	"_commento_scala_prezzi_modello": "Le residenze grandi restano sul costo per abitante della loro tipologia — 1,25 crediti per un palazzo, poco meno di 1 per una torre, quasi 4 per una villa, che e' un lusso e deve costare piu' di quello che ospita. Le fabbriche stanno intorno a 1,3 crediti per posto di lavoro. Gli impianti seguono una curva sola: quanta corrente o acqua danno per credito speso cresce con la taglia, da 1,67 della pala eolica a 1,88 del nucleare, cosi' l'impianto grosso conviene ma chiede un anticipo — 640 crediti sono ventisei ore — e mezza zona di terreno. Lo stadio (240) e il nucleare (640) sono i due traguardi lunghi del listino.",
+	"prices_by_asset": {
+		"EXP_COTTAGE": 24,
+		"EXP_HOUSE_NORDIC": 24,
+		"EXP_CHALET": 26,
+		"EXP_VILLA_LIMONAIA": 44,
+		"EXP_VILLA_PATIO": 44,
+		"EXP_VILLA_POOL": 48,
+		"EXP_VILLA_COURT": 50,
+		"EXP_VILLA_FORMAL": 52,
+		"EXP_PALAZZO_BRICK": 58,
+		"EXP_PALAZZO_CORNER": 58,
+		"EXP_PALAZZO_STEPS": 60,
+		"EXP_PALAZZO_LOGGIAS": 62,
+		"EXP_PALAZZO_COURT": 90,
+		"EXP_TOWER_GARDENS": 120,
+		"EXP_TOWER_ROUND": 122,
+		"EXP_TOWER_COPPER": 124,
+		"EXP_TOWER_LANTERN": 128,
+		"EXP_TOWER_DECO": 132,
+		"EXP_TOWER_TWINS": 140,
+		"EXP_SHOP_BAKERY": 22,
+		"EXP_SHOP_FLORIST": 22,
+		"EXP_SHOP_BOOKS": 22,
+		"EXP_SHOP_CAFE": 22,
+		"EXP_SHOP_PHARMACY": 22,
+		"EXP_SHOP_CYCLES": 22,
+		"EXP_SHOP_MARKET": 30,
+		"EXP_SHOP_TRATTORIA": 30,
+		"EXP_SHOP_DESIGN": 32,
+		"EXP_SHOP_CINEMA": 52,
+		"EXP_FACTORY_SAW": 92,
+		"EXP_FACTORY_MILL": 96,
+		"EXP_FACTORY_FOOD": 96,
+		"EXP_FACTORY_TECH": 100,
+		"EXP_FACTORY_LOGISTICS": 104,
+		"EXP_FACTORY_STEEL": 120,
+		"EXP_POWER_SUBSTATION": 42,
+		"EXP_POWER_COAL_SMALL": 170,
+		"EXP_POWER_COAL_LARGE": 290,
+		"EXP_POWER_NUCLEAR": 640,
+		"EXP_WATER_PUMP_URBAN": 80,
+		"EXP_WATER_PUMP_RIVER": 120,
+		"EXP_WATER_TREATMENT": 220,
+		"EXP_ARENA": 90,
+		"EXP_STADIUM": 240,
+		"EXP_BOTANICAL": 40,
+		"EXP_FIRE_STATION": 54,
+		"EXP_LIBRARY": 64,
+		"EXP_RAIL_STATION": 90
+	},
+	"_commento_costruito": "Abitanti, posti di lavoro e consumi si contano a cella occupata, e finche' un edificio riempie il suo rettangolo il conto torna da solo. Non torna piu' con i modelli dell'espansione, che dentro l'ingombro si portano il giardino, la corte, il piazzale o il campo da gioco: contando il prato come fosse casa, un cottage 3x3 ospiterebbe ventisette persone e una serra botanica 4x4 berrebbe come trentadue appartamenti. Qui sotto quante celle, di quell'ingombro, sono davvero costruito. Chi non compare conta tutto il suo rettangolo, com'e' sempre stato: e' il caso di tutto il kit di base e dei modelli dell'espansione che il rettangolo lo riempiono per davvero.",
+	"built_cells": {
+		"EXP_COTTAGE": 2,
+		"EXP_HOUSE_NORDIC": 2,
+		"EXP_CHALET": 2,
+		"EXP_VILLA_LIMONAIA": 5,
+		"EXP_VILLA_PATIO": 5,
+		"EXP_VILLA_POOL": 5,
+		"EXP_VILLA_COURT": 6,
+		"EXP_VILLA_FORMAL": 6,
+		"EXP_PALAZZO_STEPS": 8,
+		"EXP_PALAZZO_BRICK": 8,
+		"EXP_PALAZZO_CORNER": 8,
+		"EXP_PALAZZO_LOGGIAS": 8,
+		"EXP_PALAZZO_COURT": 12,
+		"EXP_TOWER_TWINS": 10,
+		"EXP_FACTORY_LOGISTICS": 12,
+		"EXP_ARENA": 10,
+		"EXP_STADIUM": 24,
+		"EXP_BOTANICAL": 8,
+		"EXP_RAIL_STATION": 12
+	},
 	"_commento_servizi": "Corrente e acqua. Ogni edificio ne prende un tanto a cella occupata, cosi' un palazzo 3x3 pesa nove volte una casetta senza doverlo scrivere modello per modello; strade, ponti, alberi e parchi non ne prendono. Gli impianti ne danno un tanto ciascuno, fisso: una pala eolica e' una pala eolica, che stia stretta o larga. 'base' e' quanto la citta' ha addosso senza aver costruito niente: sta a zero, perche' senza impianti non deve risultare servito nulla. Alzarlo vuol dire regalare un allacciamento di partenza.",
 	"_commento_scala_servizi": "Numeri scelti su un primo quartiere plausibile (14 strade, 10 alberi, 6 case, 2 parchi, 2 negozi, 2 palazzine, 1 scuola): chiede 35 di corrente e 35 di acqua. Senza impianti non e' servito niente: si costruisce lo stesso, ma le costruzioni restano al buio finche' non arriva la pala o la torre. Un impianto per servizio (90 ciascuno) copre quel quartiere e i due successivi, quindi i 108 crediti dei due impianti si pagano una volta sola e poi si diluiscono. Per rifare i conti: python tools/balance/simula_economia.py",
 	"services": {
@@ -45,6 +119,30 @@
 			},
 			"water": {
 				"water": 90
+			}
+		},
+		"_commento_impianti_modello": "La variante bastava a dire quanto da' un impianto finche' gli impianti erano tre, uno per servizio. Adesso sono dieci e quanto danno e' una cosa del singolo impianto: una sottostazione 3x3 (60) e' il primo allacciamento che ci si puo' permettere, una centrale nucleare 7x6 (1200) tiene accesa una citta' intera. Il rapporto fra quello che danno e quello che costano cresce con la taglia — 1,67 la pala, 1,76 la centrale a carbone urbana, 1,88 il nucleare — cosi' crescere conviene, ma l'anticipo e il terreno che chiede l'impianto grosso fanno di quando prenderlo una scelta. Lo stesso sull'acqua: pompe urbane, presa fluviale, depuratore. Quello che non compare qui torna a leggersi la sua variante.",
+		"plants_by_asset": {
+			"EXP_POWER_SUBSTATION": {
+				"power": 60
+			},
+			"EXP_POWER_COAL_SMALL": {
+				"power": 300
+			},
+			"EXP_POWER_COAL_LARGE": {
+				"power": 520
+			},
+			"EXP_POWER_NUCLEAR": {
+				"power": 1200
+			},
+			"EXP_WATER_PUMP_URBAN": {
+				"water": 140
+			},
+			"EXP_WATER_PUMP_RIVER": {
+				"water": 220
+			},
+			"EXP_WATER_TREATMENT": {
+				"water": 420
 			}
 		},
 		"per_cell": {
