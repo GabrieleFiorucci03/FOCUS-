@@ -17,6 +17,9 @@ import bmesh
 import numpy as np
 from mathutils import Vector, Matrix
 
+# Shared detail/material state when the civic kit imports this entry point.
+sys.modules.setdefault('generate_refined_assets', sys.modules[__name__])
+
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 sys.path.insert(0, str(HERE))
@@ -601,6 +604,15 @@ def preserve_collision(spec):
         if obj not in collision:bpy.data.objects.remove(obj,do_unlink=True)
 
 def generate(spec):
+    if spec['kind'] in {'service', 'school'}:
+        import generate_refined_expansion as expansion
+        from refined_civic_geometry import base_spec
+        meta = expansion.generate(base_spec(spec))
+        for field in ('collection', 'is_new_asset'):
+            meta.pop(field, None)
+        meta.update(source_asset_id=spec['id'], generator_version=2200)
+        (OUT/(spec['id']+'.json')).write_text(json.dumps(meta,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+        return meta
     old._reset_scene(); DETAILS.clear(); AUDIT.clear()
     rng=random.Random(spec['seed'])
     base.GENERATORS[spec['kind']](spec,rng)

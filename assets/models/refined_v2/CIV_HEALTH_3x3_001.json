@@ -7,23 +7,34 @@
   ],
   "grid_unit_meters": 2.0,
   "elevation_step_meters": 0.5,
-  "height_meters": 2.171,
+  "height_meters": 3.241,
   "min_z": 0.0,
-  "max_z": 2.171,
-  "triangles": 10896,
+  "max_z": 3.241,
+  "triangles": 14600,
   "seed": 1003,
   "model": "CIV_HEALTH_3x3_001.glb",
   "front_axis": "-Y",
   "origin_mode": "ground",
-  "generator_version": 2001,
+  "generator_version": 2200,
   "service": "health",
+  "name": "Ospedale",
+  "group": "servizi",
+  "description": "Architettura civica con volumi funzionali e dettagli riconoscibili.",
+  "recipe": "hospital",
+  "palette": [
+    "dedbd1",
+    "546d68",
+    "747b79"
+  ],
   "style_variant": "refined_v2",
-  "source_asset_id": "CIV_HEALTH_3x3_001",
-  "collision_source": "realistic",
+  "collision_mode": "simplified_component_boxes",
+  "collision_parts": 4,
+  "architecture_revision": "civic_v3",
   "windows_by_side": {
-    "front": 20,
-    "rear": 24,
-    "left": 24,
-    "right": 24
-  }
+    "front": 21,
+    "rear": 28,
+    "left": 27,
+    "right": 27
+  },
+  "source_asset_id": "CIV_HEALTH_3x3_001"
 }

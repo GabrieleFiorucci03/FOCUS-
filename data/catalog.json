@@ -23,7 +23,7 @@
 		{ "id": "servizi", "nome": "Servizi", "gruppi": [
 			{ "nome": "Sicurezza", "zone": ["polizia", "pompieri"] },
 			{ "nome": "Salute", "zone": ["ospedale"] },
-			{ "nome": "Istruzione", "zone": ["elementare", "superiore"] },
+			{ "nome": "Istruzione", "zone": ["elementare", "superiore", "universita"] },
 			{ "nome": "Sport", "zone": ["sport"] },
 			{ "nome": "Energia", "tipi": ["utility"], "produce": "corrente" },
 			{ "nome": "Acqua", "tipi": ["utility"], "produce": "acqua" },
@@ -41,10 +41,11 @@
 
 	"tipo_predefinito": { "nome": "Oggetto", "categoria": "servizi", "regola": "terra" },
 
-	"_commento_asset": "Quello che di un singolo modello il suo tipo non riesce a dire. Serve da quando la libreria contiene presidi che non sono varianti di niente: la pipeline riconosce una caserma dal campo 'service', ma una caserma dell'espansione quel campo non ce l'ha — ha un nome proprio e basta, perche' e' un edificio disegnato e non una combinazione. Le chiavi possibili sono 'zona' (quale dei sette servizi porta), 'categoria' (in che scaffale sta), 'nome' e 'in_vendita'. Chi non compare qui prende tutto dal suo tipo, che e' la regola; questa e' l'eccezione, e sono quattro righe.",
+	"_commento_asset": "Quello che di un singolo modello il suo tipo non riesce a dire. Serve da quando la libreria contiene presidi che non sono varianti di niente: la pipeline riconosce una caserma dal campo 'service', ma una caserma dell'espansione quel campo non ce l'ha — ha un nome proprio e basta, perche' e' un edificio disegnato e non una combinazione. Le chiavi possibili sono 'zona' (quale degli otto servizi porta), 'categoria' (in che scaffale sta), 'nome' e 'in_vendita'. Chi non compare qui prende tutto dal suo tipo, che e' la regola; questa e' l'eccezione, e sono quattro righe.",
 	"asset": {
 		"EXP_FIRE_STATION": { "zona": "pompieri" },
-		"_commento_biblioteca": "La biblioteca civica porta il servizio della scuola elementare: e' il presidio educativo di quartiere, stesso raggio corto e stesso bacino, e costa un po' meno della scuola perche' e' piu' piccola di quella grande. Non e' un ottavo servizio — i servizi di zona restano sette, e questo e' un secondo modo di coprirne uno, come le due caserme e i due presidi sanitari che esistevano gia'.",
+		"EXP_UNIVERSITY": { "nome": "Università", "zona": "universita" },
+		"_commento_biblioteca": "La biblioteca civica porta il servizio della scuola elementare: e' il presidio educativo di quartiere, stesso raggio corto e stesso bacino, e costa un po' meno della scuola perche' e' piu' piccola di quella grande. Condivide il servizio elementare: questo e' un secondo modo di coprirne uno, come le due caserme e i due presidi sanitari che esistevano gia'.",
 		"EXP_LIBRARY": { "zona": "elementare" },
 		"_commento_serra": "La serra botanica sta nello scaffale del verde e non in quello dei servizi, che e' dove uno la cerca: fa quello che fa un parco, in grande, e in piu' da' lavoro. Per questo consuma e vuole la strada, che un parco non fa.",
 		"EXP_BOTANICAL": { "zona": "verde", "categoria": "verde" }

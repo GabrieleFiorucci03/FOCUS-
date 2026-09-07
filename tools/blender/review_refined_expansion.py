@@ -18,7 +18,7 @@ MODELS=ROOT/'assets/models/refined_v2'
 GROUPS={'residenze':'Ville e giardini','citta':'Palazzi e grattacieli','negozi':'Negozi e locali','industria':'Fabbriche','impianti':'Energia e acqua','servizi':'Sport e servizi'}
 
 def validate(catalog,complete=True):
-    assert len(catalog)==48 and len({a['id'] for a in catalog})==48
+    assert len(catalog)==49 and len({a['id'] for a in catalog})==49
     # La libreria e' una cartella sola: il kit di base sono le voci senza
     # 'collection', l'espansione quelle che lo dichiarano.
     previous=[a for a in json.loads((ROOT/'assets/models/refined_v2/catalog.json').read_text(encoding='utf-8'))['assets']
@@ -45,7 +45,7 @@ def validate(catalog,complete=True):
                 with Image.open(p) as im:im.verify()
                 renders+=1
         rows.append(dict(id=a['id'],triangles=tri,bytes=(MODELS/a['model']).stat().st_size,embedded_images=len(doc.get('images',[])),windows_by_side=counts,lot_overhang_m=over.round(4).tolist()))
-    report=dict(asset_count=len(rows),existing_files_unchanged=len(hashes),accepted_models_unchanged=91,unique_palette_sets=len({tuple(a['palette']) for a in catalog}),render_count=renders,triangles=sum(r['triangles'] for r in rows),model_bytes=sum(r['bytes'] for r in rows),groups=dict(Counter(a['group'] for a in catalog)),assets=rows)
+    report=dict(asset_count=len(rows),existing_files_unchanged=len(hashes),accepted_models_unchanged=sum(a.get('architecture_revision')!='civic_v3' for a in previous),unique_palette_sets=len({tuple(a['palette']) for a in catalog}),render_count=renders,triangles=sum(r['triangles'] for r in rows),model_bytes=sum(r['bytes'] for r in rows),groups=dict(Counter(a['group'] for a in catalog)),assets=rows)
     (OUT/'validation.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8')
     return report
 

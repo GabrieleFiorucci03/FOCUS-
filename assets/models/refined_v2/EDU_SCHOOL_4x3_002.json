@@ -7,23 +7,34 @@
   ],
   "grid_unit_meters": 2.0,
   "elevation_step_meters": 0.5,
-  "height_meters": 2.112,
+  "height_meters": 2.691,
   "min_z": 0.0,
-  "max_z": 2.112,
-  "triangles": 14448,
+  "max_z": 2.691,
+  "triangles": 14724,
   "seed": 1302,
   "model": "EDU_SCHOOL_4x3_002.glb",
   "front_axis": "-Y",
   "origin_mode": "ground",
-  "generator_version": 2001,
+  "generator_version": 2200,
   "variant": "secondary",
+  "name": "Scuola superiore",
+  "group": "servizi",
+  "description": "Architettura civica con volumi funzionali e dettagli riconoscibili.",
+  "recipe": "secondary",
+  "palette": [
+    "c9bea9",
+    "748679",
+    "865947"
+  ],
   "style_variant": "refined_v2",
-  "source_asset_id": "EDU_SCHOOL_4x3_002",
-  "collision_source": "realistic",
+  "collision_mode": "simplified_component_boxes",
+  "collision_parts": 4,
+  "architecture_revision": "civic_v3",
   "windows_by_side": {
-    "front": 30,
-    "rear": 25,
-    "left": 18,
-    "right": 18
-  }
+    "front": 17,
+    "rear": 30,
+    "left": 20,
+    "right": 20
+  },
+  "source_asset_id": "EDU_SCHOOL_4x3_002"
 }

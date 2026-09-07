@@ -75,6 +75,7 @@ spec('FIRE_STATION','Caserma dei vigili del fuoco','servizi','service','fire',[3
 spec('LIBRARY','Biblioteca civica','servizi','service','library',[3,3],['c2aa85','789491','746b62'],'Volumi sovrapposti, grandi finestre, portico, lucernari e giardino di lettura.')
 spec('RAIL_STATION','Stazione ferroviaria','servizi','service','station',[5,3],['c6ad88','6a8580','9c7259'],'Fabbricato con orologio, binari, banchine, pensiline e panchine.')
 spec('BOTANICAL','Serra botanica','servizi','service','botanical',[4,4],['adc4b8','d0c1a4','749787'],'Padiglione a volte trasparenti, navate laterali e collezione di piante.')
+spec('UNIVERSITY','Università','servizi','school','university',[5,4],['c9bea9','546d68','865947'],'Campus a corte con colonnato, frontone, cupola in rame e ali didattiche con portici.')
 
 BODIES=[]
 RNG=None
@@ -740,7 +741,9 @@ def generate(s):
     box('LotBase',(2*fx-.08,2*fy-.08,.10),(0,0,.05),'sidewalk',.025)
     if s['group'] not in {'residenze','servizi'}:
         add((2*fx-.2,2*fy-.2,.018),(0,0,.109),'concrete' if s['group'] in {'industria','impianti'} else 'stone')
-    if s['group']=='residenze':houses()
+    from refined_civic_geometry import RECIPES, build
+    if s['recipe'] in RECIPES:build(sys.modules[__name__],s)
+    elif s['group']=='residenze':houses()
     elif s['group']=='citta':towers() if s['kind']=='tower' else apartments()
     elif s['group']=='negozi':shops()
     elif s['group']=='industria':factories()
@@ -751,7 +754,12 @@ def generate(s):
         facade_spec=dict(s,kind='office' if s['kind']=='utility' else s['kind'])
         r.facades(facade_spec,BODIES)
     r.flush();bpy.context.view_layer.update();r.project_uv_and_normals()
-    meta=base.finalize_and_export(s,OUT)
+    previous_version=base.GENERATOR_VERSION
+    if s['recipe'] in RECIPES:base.GENERATOR_VERSION=2200
+    try:
+        meta=base.finalize_and_export(s,OUT)
+    finally:
+        base.GENERATOR_VERSION=previous_version
     meta.update(name=s['name'],group=s['group'],description=s['description'],recipe=s['recipe'],palette=s['palette'],
         style_variant='refined_v2',collection='refined_expansion',is_new_asset=True,collision_mode='simplified_component_boxes',collision_parts=max(1,COLLISION_COUNT),**r.AUDIT)
     (OUT/(s['id']+'.json')).write_text(json.dumps(meta,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')

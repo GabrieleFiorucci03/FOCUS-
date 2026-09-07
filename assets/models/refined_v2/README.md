@@ -1,6 +1,6 @@
 # FOCUS! — la libreria del gioco
 
-139 modelli GLB: è **questa** la libreria che il gioco carica, l'unica.
+140 modelli GLB: è **questa** la libreria che il gioco carica, l'unica.
 `CityCatalog.CARTELLA_MODELLI` punta qui e `catalog.json` le tiene tutte
 insieme. Le librerie precedenti — `generated` e `realistic` — restano su disco
 come storia del progetto, ma nessuno le legge più.
@@ -12,10 +12,26 @@ voce di catalogo e nient'altro:
   footprint, orientamento e collisioni della vecchia libreria `realistic`: una
   città salvata si riapre identica e cambia solo di aspetto. Li genera
   `tools/blender/generate_refined_assets.py`.
-- **l'espansione**, 48 modelli con ID `EXP_*` e `collection:
+- **l'espansione**, 49 modelli con ID `EXP_*` e `collection:
   refined_expansion`: case e ville con giardino, palazzi, grattacieli, negozi,
   fabbriche, centrali, stadio e presidi civici. Li genera
   `tools/blender/generate_refined_expansion.py`.
+
+La revisione civica `civic_v3` sostituisce otto presidi del kit di base e
+`EXP_FIRE_STATION`, e aggiunge `EXP_UNIVERSITY`. Conserva ID e lotti degli
+edifici esistenti; le collisioni sono ora scatole dei singoli corpi, per seguire
+ali e cortili. La geometria condivisa è in `tools/blender/refined_civic_geometry.py`.
+Materiali, UV metriche e mappe incorporate usano la stessa pipeline refined.
+
+L'università occupa 5×4 celle, costa 144 crediti e fornisce il nuovo servizio
+`universita`: raggio base 18 + 4 del lotto = 22 celle, contributo alla felicità
+12,5%, attivo con strada, corrente e acqua. I consumi e i posti di lavoro sono
+calcolati sulle 12 celle costruite. Le città precedenti restano caricabili;
+con i sette servizi precedenti la felicità è ora 87,5%.
+
+[Galleria civica aggiornata](../../previews/civic_v3/index.html) ·
+[Verifica dei dieci modelli](../../previews/civic_v3/validation.json).
+Le statistiche e le gallerie qui sotto documentano la revisione precedente.
 
 I due generatori restano due perché sono due liste di modelli diverse, ma
 scrivono nella stessa cartella: ognuno rimette a posto le proprie voci di

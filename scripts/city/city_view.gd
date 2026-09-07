@@ -56,7 +56,7 @@ const RAGGIO_SEGNALE := 22.0
 
 ## I servizi di cui la città tiene il conto, nell'ordine in cui si leggono. Le
 ## chiavi sono quelle che il pannello rimanda indietro quando se ne clicca uno.
-## Prima i quattro allacciamenti, poi i sette servizi di zona: undici righe, e
+## Prima i quattro allacciamenti, poi gli otto servizi di zona: dodici righe, e
 ## l'ordine è quello di SERVIZI_VITALI seguito da SERVIZI_ZONA.
 const SERVIZI := [
 	{ "id": "strada", "nome": "Strada" },
@@ -70,6 +70,7 @@ const SERVIZI := [
 	{ "id": "sport", "nome": "Sport" },
 	{ "id": "elementare", "nome": "Elementare" },
 	{ "id": "superiore", "nome": "Superiore" },
+	{ "id": "universita", "nome": "Università" },
 ]
 
 ## Gli allacciamenti: o ci sono o non ci sono. Il lavoro non è fra questi di
@@ -79,11 +80,11 @@ const SERVIZI := [
 const SERVIZI_RETE := ["strada", "corrente", "acqua"]
 
 ## I servizi di zona: ognuno vale una frazione uguale della felicità di
-## un'abitazione, e nessuno da solo basta a spegnerla. Le due scuole contano
-## separate perché servono bacini diversi, e averne una sola non è come averle
-## tutte e due.
+## un'abitazione, e nessuno da solo basta a spegnerla. Elementare, superiore e università contano
+## separatamente perché servono bacini diversi.
 const SERVIZI_ZONA := [
 	"polizia", "pompieri", "ospedale", "verde", "sport", "elementare", "superiore",
+	"universita",
 ]
 
 ## Quello che spegne un edificio appena manca: gli allacciamenti e il lavoro.
@@ -917,7 +918,7 @@ static func _dentro_la_zona(celle: Array[Vector2i], coperte: Dictionary) -> bool
 	return false
 
 
-## Quanti dei sette servizi di zona arrivano a ogni abitazione, come frazione
+## Quanti dei servizi di zona arrivano a ogni abitazione, come frazione
 ## da 0 a 1. Restituisce id del piazzamento -> felicità.
 ##
 ## Solo le abitazioni: la felicità è di chi ci vive, e chiedere a una pala eolica
@@ -1007,7 +1008,7 @@ func _aggiorna_i_conti() -> void:
 		var id_servizio := str(servizio["id"])
 		var conto := _copertura(id_servizio)
 		# Un servizio di zona che manca non spegne niente da solo: pesa un
-		# settimo sulla felicità, ed è la felicità a decidere. La riga nel
+		# ottavo sulla felicità, ed è la felicità a decidere. La riga nel
 		# pannello c'è lo stesso, perché serve a sapere dove mettere il prossimo.
 		if SERVIZI_VITALI.has(id_servizio):
 			for id_piazzamento in conto["scoperti"]:

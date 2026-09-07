@@ -7,24 +7,35 @@
   ],
   "grid_unit_meters": 2.0,
   "elevation_step_meters": 0.5,
-  "height_meters": 1.512,
+  "height_meters": 3.275,
   "min_z": 0.0,
-  "max_z": 1.512,
-  "triangles": 6696,
+  "max_z": 3.275,
+  "triangles": 7628,
   "seed": 1005,
   "model": "CIV_FIRE_3x2_002.glb",
   "front_axis": "-Y",
   "origin_mode": "ground",
-  "generator_version": 2001,
+  "generator_version": 2200,
   "variant": "central",
   "service": "fire",
+  "name": "Comando dei pompieri",
+  "group": "servizi",
+  "description": "Architettura civica con volumi funzionali e dettagli riconoscibili.",
+  "recipe": "fire_central",
+  "palette": [
+    "b79c88",
+    "91594d",
+    "656863"
+  ],
   "style_variant": "refined_v2",
-  "source_asset_id": "CIV_FIRE_3x2_002",
-  "collision_source": "realistic",
+  "collision_mode": "simplified_component_boxes",
+  "collision_parts": 2,
+  "architecture_revision": "civic_v3",
   "windows_by_side": {
-    "front": 12,
-    "rear": 16,
-    "left": 8,
-    "right": 8
-  }
+    "front": 1,
+    "rear": 14,
+    "left": 14,
+    "right": 14
+  },
+  "source_asset_id": "CIV_FIRE_3x2_002"
 }

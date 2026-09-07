@@ -58,6 +58,7 @@ const DEFAULTS := {
 		"radius": {
 			"polizia": 13, "pompieri": 13, "ospedale": 13,
 			"verde": 9, "sport": 12, "elementare": 10, "superiore": 14,
+			"universita": 18,
 		},
 	},
 }

@@ -7,23 +7,34 @@
   ],
   "grid_unit_meters": 2.0,
   "elevation_step_meters": 0.5,
-  "height_meters": 2.49,
+  "height_meters": 3.42,
   "min_z": 0.0,
-  "max_z": 2.49,
-  "triangles": 5208,
+  "max_z": 3.42,
+  "triangles": 7004,
   "seed": 1001,
   "model": "CIV_POLICE_2x2_001.glb",
   "front_axis": "-Y",
   "origin_mode": "ground",
-  "generator_version": 2001,
+  "generator_version": 2200,
   "service": "police",
+  "name": "Stazione di polizia",
+  "group": "servizi",
+  "description": "Architettura civica con volumi funzionali e dettagli riconoscibili.",
+  "recipe": "police_local",
+  "palette": [
+    "bbb9ae",
+    "485b70",
+    "656863"
+  ],
   "style_variant": "refined_v2",
-  "source_asset_id": "CIV_POLICE_2x2_001",
-  "collision_source": "realistic",
+  "collision_mode": "simplified_component_boxes",
+  "collision_parts": 4,
+  "architecture_revision": "civic_v3",
   "windows_by_side": {
-    "front": 9,
-    "rear": 10,
-    "left": 8,
-    "right": 8
-  }
+    "front": 8,
+    "rear": 12,
+    "left": 12,
+    "right": 10
+  },
+  "source_asset_id": "CIV_POLICE_2x2_001"
 }

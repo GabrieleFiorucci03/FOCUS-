@@ -26,10 +26,10 @@ extends RefCounted
 ## italiano, in che scaffale sta e con che regola si piazza.
 ## I prezzi stanno in `data/economy.json` e li legge Config.
 
-## Dove stanno i .glb che la pipeline ha generato, tutti e centotrentanove: le
+## Dove stanno i .glb che la pipeline ha generato, tutti e centoquaranta: le
 ## novantuno voci del kit di base, rifatte con la geometria nuova — stessi id e
 ## stessi tipi, così una città salvata si riapre identica e cambia solo di
-## aspetto — e i quarantotto modelli dell'espansione, che portano id nuovi e non
+## aspetto — e i quarantanove modelli dell'espansione, che portano id nuovi e non
 ## ne toccano nessuno di quelli vecchi.
 ##
 ## I due generatori Blender restano due, perché sono due liste di modelli

@@ -7,24 +7,35 @@
   ],
   "grid_unit_meters": 2.0,
   "elevation_step_meters": 0.5,
-  "height_meters": 1.512,
+  "height_meters": 2.081,
   "min_z": 0.0,
-  "max_z": 1.512,
-  "triangles": 5268,
+  "max_z": 2.081,
+  "triangles": 4716,
   "seed": 1006,
   "model": "CIV_HEALTH_2x2_002.glb",
   "front_axis": "-Y",
   "origin_mode": "ground",
-  "generator_version": 2001,
+  "generator_version": 2200,
   "variant": "clinic",
   "service": "health",
+  "name": "Poliambulatorio",
+  "group": "servizi",
+  "description": "Architettura civica con volumi funzionali e dettagli riconoscibili.",
+  "recipe": "clinic",
+  "palette": [
+    "dedbd1",
+    "546d68",
+    "747b79"
+  ],
   "style_variant": "refined_v2",
-  "source_asset_id": "CIV_HEALTH_2x2_002",
-  "collision_source": "realistic",
+  "collision_mode": "simplified_component_boxes",
+  "collision_parts": 3,
+  "architecture_revision": "civic_v3",
   "windows_by_side": {
-    "front": 8,
-    "rear": 10,
-    "left": 8,
-    "right": 8
-  }
+    "front": 3,
+    "rear": 5,
+    "left": 6,
+    "right": 5
+  },
+  "source_asset_id": "CIV_HEALTH_2x2_002"
 }

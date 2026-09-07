@@ -7,23 +7,34 @@
   ],
   "grid_unit_meters": 2.0,
   "elevation_step_meters": 0.5,
-  "height_meters": 1.452,
+  "height_meters": 2.158,
   "min_z": 0.0,
-  "max_z": 1.452,
-  "triangles": 8664,
+  "max_z": 2.158,
+  "triangles": 12372,
   "seed": 1301,
   "model": "EDU_SCHOOL_3x3_001.glb",
   "front_axis": "-Y",
   "origin_mode": "ground",
-  "generator_version": 2001,
+  "generator_version": 2200,
   "variant": "primary",
+  "name": "Scuola elementare",
+  "group": "servizi",
+  "description": "Architettura civica con volumi funzionali e dettagli riconoscibili.",
+  "recipe": "primary",
+  "palette": [
+    "c9bea9",
+    "748679",
+    "865947"
+  ],
   "style_variant": "refined_v2",
-  "source_asset_id": "EDU_SCHOOL_3x3_001",
-  "collision_source": "realistic",
+  "collision_mode": "simplified_component_boxes",
+  "collision_parts": 4,
+  "architecture_revision": "civic_v3",
   "windows_by_side": {
-    "front": 9,
-    "rear": 16,
-    "left": 10,
-    "right": 10
-  }
+    "front": 4,
+    "rear": 14,
+    "left": 9,
+    "right": 9
+  },
+  "source_asset_id": "EDU_SCHOOL_3x3_001"
 }

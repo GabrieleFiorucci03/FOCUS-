@@ -22,7 +22,7 @@ extends Node
 const SCENA_CITTA := preload("res://scenes/city/CityView.tscn")
 
 ## Il quartiere di prova: una strada dritta, la casa che ci si affaccia sopra e
-## i sette presidi in fila sotto, tutti dentro il raggio della casa. I due
+## gli otto presidi, tutti dentro il raggio della casa. I due
 ## impianti servono a tenerli allacciati: un presidio senza corrente è chiuso e
 ## la sua area sparisce, e non è quello che si sta misurando qui.
 const QUOTA := 4
@@ -43,6 +43,7 @@ const PRESIDI := [
 	["elementare", "EDU_SCHOOL_3x3_001", Vector2i(25, 11)],
 	["ospedale", "CIV_HEALTH_3x3_001", Vector2i(9, 11)],
 	["superiore", "EDU_SCHOOL_4x3_002", Vector2i(29, 11)],
+	["universita", "EXP_UNIVERSITY", Vector2i(0, 6)],
 ]
 
 var _citta
@@ -64,7 +65,8 @@ func _ready() -> void:
 	_prova_i_conti_dichiarati()
 	_prepara_il_quartiere()
 	_prova_chi_porta_cosa()
-	_prova_i_sette_gradini()
+	_prova_gli_otto_gradini()
+	_prova_il_raggio_universita()
 	_prova_la_media_pesata()
 	_prova_la_strada_tolta()
 	_prova_il_presidio_demolito()
@@ -126,7 +128,7 @@ func _demolisci(cella: Vector2i) -> void:
 
 
 func _prepara_il_quartiere() -> void:
-	_spiana(Vector2i(0, RIGA_STRADA - 2), Vector2i(34, RIGA_STRADA + 4))
+	_spiana(Vector2i(0, RIGA_STRADA - 4), Vector2i(34, RIGA_STRADA + 4))
 	_spiana(TORRE, TORRE + Vector2i(3, 3))
 	for x in range(0, 35):
 		_posa("ROAD_LOCAL_1x1_STRAIGHT", Vector2i(x, RIGA_STRADA))
@@ -147,9 +149,9 @@ func _prepara_il_quartiere() -> void:
 ## Le tre voci che raccontano la stessa cosa devono dire lo stesso numero.
 func _prova_i_conti_dichiarati() -> void:
 	var zona: Array = _citta.SERVIZI_ZONA
-	_verifica(zona.size() == 7, "I servizi di zona sono %d, non sette." % zona.size())
+	_verifica(zona.size() == 8, "I servizi di zona sono %d, non otto." % zona.size())
 	for atteso in ["polizia", "pompieri", "ospedale", "verde", "sport",
-			"elementare", "superiore"]:
+			"elementare", "superiore", "universita"]:
 		_verifica(zona.has(atteso), "Manca il servizio di zona %s." % atteso)
 	for vitale in _citta.SERVIZI_VITALI:
 		_verifica(not zona.has(vitale),
@@ -177,9 +179,9 @@ func _prova_chi_porta_cosa() -> void:
 			"%s porta un servizio di zona che non dovrebbe portare." % id)
 
 
-## Un presidio per volta: la felicità sale di un settimo a colpo, e la casa si
-## ripopola appena arriva a quattro su sette.
-func _prova_i_sette_gradini() -> void:
+## Un presidio per volta: la felicità sale di un ottavo a colpo, e la casa si
+## ripopola appena arriva a quattro su otto.
+func _prova_gli_otto_gradini() -> void:
 	var soglia := Config.abandon_below()
 	_verifica(is_equal_approx(_felicita_casa(), 0.0),
 		"Senza presidi la casa non è a zero: %f" % _felicita_casa())
@@ -198,7 +200,32 @@ func _prova_i_sette_gradini() -> void:
 			"Con %d presidi su %d l'abbandono non segue la soglia %.2f." % [
 				i + 1, quanti, soglia])
 	_verifica(is_equal_approx(_felicita_casa(), 1.0),
-		"Con tutti e sette i presidi la casa non arriva al pieno.")
+		"Con tutti e otto i presidi la casa non arriva al pieno.")
+
+
+## Raggio circolare, stesso centro usato nell'anteprima, anche ruotando il campus.
+func _prova_il_raggio_universita() -> void:
+	var copertura: Dictionary = _citta._celle_coperte("universita")
+	_verifica(copertura.has(CASA), "L'università non copre la casa nel suo raggio.")
+	_verifica(not copertura.has(TORRE), "L'università copre anche la torre fuori raggio.")
+	var raggio := Config.service_radius("universita") + 4.0
+	_verifica(is_equal_approx(raggio, 22.0), "Il campus deve avere raggio 22 celle.")
+	for rotazione in range(4):
+		var ancora := Vector2i(0, 6)
+		var f := CityGrid.footprint_ruotato(Vector2i(5, 4), rotazione)
+		var centro := Vector2(ancora) + Vector2(f - Vector2i.ONE) * 0.5
+		var area: Array[Vector2i] = _citta._area_di("universita", ancora, Vector2i(5, 4), rotazione)
+		for x in range(-24, 28):
+			for y in range(-18, 34):
+				var cella := Vector2i(x, y)
+				_verifica(area.has(cella) == (Vector2(cella).distance_to(centro) <= raggio),
+					"Copertura universitaria incoerente in %s, rotazione %d." % [cella, rotazione])
+	_demolisci(Vector2i(0, 6))
+	_verifica(is_equal_approx(_felicita_casa(), 7.0 / 8.0),
+		"Senza università devono restare sette ottavi di felicità.")
+	_verifica(_citta._celle_coperte("universita").is_empty(), "Resta copertura dopo la demolizione.")
+	_posa("EXP_UNIVERSITY", Vector2i(0, 6))
+	_verifica(is_equal_approx(_felicita_casa(), 1.0), "Ricostruire il campus non ripristina la felicità.")
 
 
 ## La felicità della città pesa sugli abitanti, non sugli edifici: la torre
@@ -223,7 +250,7 @@ func _prova_la_strada_tolta() -> void:
 	]
 	for cella in sotto_la_polizia:
 		_demolisci(cella)
-	_verifica(is_equal_approx(_felicita_casa(), 6.0 / 7.0),
+	_verifica(is_equal_approx(_felicita_casa(), 7.0 / 8.0),
 		"Togliendo la strada alla polizia la felicità è %f." % _felicita_casa())
 	for cella in sotto_la_polizia:
 		_posa("ROAD_LOCAL_1x1_STRAIGHT", cella)
@@ -234,14 +261,14 @@ func _prova_la_strada_tolta() -> void:
 ## Demolire presidi riporta la casa sotto la soglia, e la casa viene
 ## riabbandonata.
 func _prova_il_presidio_demolito() -> void:
-	for i in range(4):
+	for i in range(5):
 		var presidio: Array = PRESIDI[PRESIDI.size() - 1 - i]
 		_demolisci(presidio[2])
 		var atteso := float(PRESIDI.size() - 1 - i) / float(PRESIDI.size())
 		_verifica(is_equal_approx(_felicita_casa(), atteso),
 			"Demolito %s la felicità è %f invece di %f." % [
 				presidio[0], _felicita_casa(), atteso])
-	_verifica(_abbandonata(), "Tornata a tre su sette, la casa non viene riabbandonata.")
+	_verifica(_abbandonata(), "Tornata a tre su otto, la casa non viene riabbandonata.")
 	_citta._aggiorna_i_conti()
 
 

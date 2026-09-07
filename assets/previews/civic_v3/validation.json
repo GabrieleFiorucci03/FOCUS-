@@ -1,0 +1,196 @@
+{
+  "asset_count": 10,
+  "render_count": 20,
+  "assets": [
+    {
+      "id": "CIV_POLICE_2x2_001",
+      "triangles": 7004,
+      "bytes": 1004248,
+      "bounds": [
+        [
+          -1.96,
+          -1.96,
+          0.0
+        ],
+        [
+          1.96,
+          1.96,
+          3.42
+        ]
+      ],
+      "embedded_images": 26,
+      "collision_vertices": 96
+    },
+    {
+      "id": "CIV_FIRE_2x2_001",
+      "triangles": 6944,
+      "bytes": 880204,
+      "bounds": [
+        [
+          -1.96,
+          -1.96,
+          0.0
+        ],
+        [
+          1.96,
+          1.96,
+          2.845
+        ]
+      ],
+      "embedded_images": 20,
+      "collision_vertices": 48
+    },
+    {
+      "id": "CIV_HEALTH_3x3_001",
+      "triangles": 14600,
+      "bytes": 1613252,
+      "bounds": [
+        [
+          -2.96,
+          -2.96,
+          0.0
+        ],
+        [
+          2.96,
+          2.96,
+          3.241
+        ]
+      ],
+      "embedded_images": 30,
+      "collision_vertices": 96
+    },
+    {
+      "id": "CIV_POLICE_3x2_002",
+      "triangles": 8936,
+      "bytes": 1139900,
+      "bounds": [
+        [
+          -2.96,
+          -1.96,
+          0.0
+        ],
+        [
+          2.96,
+          1.96,
+          3.77
+        ]
+      ],
+      "embedded_images": 26,
+      "collision_vertices": 96
+    },
+    {
+      "id": "CIV_FIRE_3x2_002",
+      "triangles": 7628,
+      "bytes": 928292,
+      "bounds": [
+        [
+          -2.96,
+          -1.96,
+          0.0
+        ],
+        [
+          2.96,
+          1.96,
+          3.275
+        ]
+      ],
+      "embedded_images": 20,
+      "collision_vertices": 48
+    },
+    {
+      "id": "CIV_HEALTH_2x2_002",
+      "triangles": 4716,
+      "bytes": 845536,
+      "bounds": [
+        [
+          -1.96,
+          -1.96,
+          0.0
+        ],
+        [
+          1.96,
+          1.96,
+          2.081
+        ]
+      ],
+      "embedded_images": 26,
+      "collision_vertices": 72
+    },
+    {
+      "id": "EDU_SCHOOL_3x3_001",
+      "triangles": 12372,
+      "bytes": 1675028,
+      "bounds": [
+        [
+          -2.96,
+          -2.96,
+          0.0
+        ],
+        [
+          2.96,
+          2.96,
+          2.1575
+        ]
+      ],
+      "embedded_images": 34,
+      "collision_vertices": 96
+    },
+    {
+      "id": "EDU_SCHOOL_4x3_002",
+      "triangles": 14724,
+      "bytes": 1498476,
+      "bounds": [
+        [
+          -3.96,
+          -2.96,
+          0.0
+        ],
+        [
+          3.96,
+          2.96,
+          2.691
+        ]
+      ],
+      "embedded_images": 24,
+      "collision_vertices": 96
+    },
+    {
+      "id": "EXP_FIRE_STATION",
+      "triangles": 8760,
+      "bytes": 1084908,
+      "bounds": [
+        [
+          -2.96,
+          -2.96,
+          0.0
+        ],
+        [
+          2.96,
+          2.96,
+          3.275
+        ]
+      ],
+      "embedded_images": 24,
+      "collision_vertices": 72
+    },
+    {
+      "id": "EXP_UNIVERSITY",
+      "triangles": 31784,
+      "bytes": 3091824,
+      "bounds": [
+        [
+          -4.96,
+          -3.96,
+          0.0
+        ],
+        [
+          4.96,
+          3.96,
+          3.92
+        ]
+      ],
+      "embedded_images": 32,
+      "collision_vertices": 96
+    }
+  ]
+}

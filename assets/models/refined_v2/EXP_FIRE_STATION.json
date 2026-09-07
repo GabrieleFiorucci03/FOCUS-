@@ -7,15 +7,15 @@
   ],
   "grid_unit_meters": 2.0,
   "elevation_step_meters": 0.5,
-  "height_meters": 3.425,
+  "height_meters": 3.275,
   "min_z": 0.0,
-  "max_z": 3.425,
-  "triangles": 6088,
+  "max_z": 3.275,
+  "triangles": 8760,
   "seed": 3144,
   "model": "EXP_FIRE_STATION.glb",
   "front_axis": "-Y",
   "origin_mode": "ground",
-  "generator_version": 2100,
+  "generator_version": 2200,
   "style": "refined_v2",
   "name": "Caserma dei vigili del fuoco",
   "group": "servizi",
@@ -30,11 +30,12 @@
   "collection": "refined_expansion",
   "is_new_asset": true,
   "collision_mode": "simplified_component_boxes",
-  "collision_parts": 2,
+  "collision_parts": 3,
+  "architecture_revision": "civic_v3",
   "windows_by_side": {
-    "front": 11,
-    "rear": 17,
-    "left": 10,
-    "right": 7
+    "front": 1,
+    "rear": 10,
+    "left": 15,
+    "right": 15
   }
 }

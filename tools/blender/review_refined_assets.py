@@ -81,7 +81,13 @@ def validate(catalog):
             assert a.get(k)==old.get(k),(a['id'],k)
         d,b=glb(MODELS/a['model']);od,ob=glb(ROOT/'assets/models/realistic'/a['model'])
         v,c,tri=geometry(d,b);ov,oc,_=geometry(od,ob)
-        assert signature(c)==signature(oc),(a['id'],'collision changed')
+        collision_match=signature(c)==signature(oc)
+        if a.get('architecture_revision')=='civic_v3':
+            assert a['collision_mode']=='simplified_component_boxes'
+            assert len(c)>0 and np.isfinite(c).all()
+            assert np.max(np.abs(c[:,[0,2]])-np.array(a['footprint']))<=.01
+        else:
+            assert collision_match,(a['id'],'collision changed')
         assert len(v)>0 and len(c)>0
         assert tri==a['triangles'],(a['id'],tri,a['triangles'])
         for img in d.get('images',[]):assert 'bufferView' in img and 'uri' not in img
@@ -92,8 +98,8 @@ def validate(catalog):
         counts=a.get('windows_by_side')
         if counts:assert all(v>0 for v in counts.values()),(a['id'],'missing facade glazing')
         assert np.max(np.maximum(0,xy-np.maximum(oxy,a['footprint'])))<=.01,(a['id'],'new lot overhang')
-        rows.append(dict(id=a['id'],triangles=tri,previous_triangles=old['triangles'],bytes=(MODELS/a['model']).stat().st_size,embedded_images=len(d.get('images',[])),windows_by_side=counts,lot_overhang_m=np.round(over,3).tolist(),new_overhang_m=np.round(np.maximum(0,xy-np.maximum(oxy,a['footprint'])),3).tolist()))
-    report=dict(asset_count=len(rows),original_files_unchanged=len(originals),collision_match_count=len(rows),triangles=sum(r['triangles'] for r in rows),previous_triangles=sum(r['previous_triangles'] for r in rows),model_bytes=sum(r['bytes'] for r in rows),assets=rows)
+        rows.append(dict(id=a['id'],collision_matches_source=collision_match,triangles=tri,previous_triangles=old['triangles'],bytes=(MODELS/a['model']).stat().st_size,embedded_images=len(d.get('images',[])),windows_by_side=counts,lot_overhang_m=np.round(over,3).tolist(),new_overhang_m=np.round(np.maximum(0,xy-np.maximum(oxy,a['footprint'])),3).tolist()))
+    report=dict(asset_count=len(rows),original_files_unchanged=len(originals),collision_match_count=sum(r['collision_matches_source'] for r in rows),triangles=sum(r['triangles'] for r in rows),previous_triangles=sum(r['previous_triangles'] for r in rows),model_bytes=sum(r['bytes'] for r in rows),assets=rows)
     (OUT/'validation.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8')
     return report
 

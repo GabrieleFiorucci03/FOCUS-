@@ -7,24 +7,35 @@
   ],
   "grid_unit_meters": 2.0,
   "elevation_step_meters": 0.5,
-  "height_meters": 3.15,
+  "height_meters": 3.77,
   "min_z": 0.0,
-  "max_z": 3.15,
-  "triangles": 8568,
+  "max_z": 3.77,
+  "triangles": 8936,
   "seed": 1004,
   "model": "CIV_POLICE_3x2_002.glb",
   "front_axis": "-Y",
   "origin_mode": "ground",
-  "generator_version": 2001,
+  "generator_version": 2200,
   "variant": "central",
   "service": "police",
+  "name": "Questura",
+  "group": "servizi",
+  "description": "Architettura civica con volumi funzionali e dettagli riconoscibili.",
+  "recipe": "police_central",
+  "palette": [
+    "bbb9ae",
+    "485b70",
+    "656863"
+  ],
   "style_variant": "refined_v2",
-  "source_asset_id": "CIV_POLICE_3x2_002",
-  "collision_source": "realistic",
+  "collision_mode": "simplified_component_boxes",
+  "collision_parts": 4,
+  "architecture_revision": "civic_v3",
   "windows_by_side": {
-    "front": 22,
-    "rear": 24,
-    "left": 12,
-    "right": 12
-  }
+    "front": 15,
+    "rear": 19,
+    "left": 15,
+    "right": 13
+  },
+  "source_asset_id": "CIV_POLICE_3x2_002"
 }

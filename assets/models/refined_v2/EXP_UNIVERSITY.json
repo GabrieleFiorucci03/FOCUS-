@@ -1,0 +1,41 @@
+{
+  "id": "EXP_UNIVERSITY",
+  "kind": "school",
+  "footprint": [
+    5,
+    4
+  ],
+  "grid_unit_meters": 2.0,
+  "elevation_step_meters": 0.5,
+  "height_meters": 3.92,
+  "min_z": 0.0,
+  "max_z": 3.92,
+  "triangles": 31784,
+  "seed": 3148,
+  "model": "EXP_UNIVERSITY.glb",
+  "front_axis": "-Y",
+  "origin_mode": "ground",
+  "generator_version": 2200,
+  "style": "refined_v2",
+  "name": "Università",
+  "group": "servizi",
+  "description": "Campus a corte con colonnato, frontone, cupola in rame e ali didattiche con portici.",
+  "recipe": "university",
+  "palette": [
+    "c9bea9",
+    "546d68",
+    "865947"
+  ],
+  "style_variant": "refined_v2",
+  "collection": "refined_expansion",
+  "is_new_asset": true,
+  "collision_mode": "simplified_component_boxes",
+  "collision_parts": 4,
+  "architecture_revision": "civic_v3",
+  "windows_by_side": {
+    "front": 42,
+    "rear": 48,
+    "left": 32,
+    "right": 32
+  }
+}
