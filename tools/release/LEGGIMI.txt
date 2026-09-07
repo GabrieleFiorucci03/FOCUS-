@@ -1,0 +1,29 @@
+FOCUS! v1.2 - Il tempo di concentrazione diventa una citta'
+
+AVVIO
+Non serve installazione: avvia FOCUS.exe su Windows a 64 bit.
+Il salvataggio si trova in %APPDATA%\Godot\app_userdata\FOCUS!\.
+
+COMANDI
+Esc: menu; B: costruzioni; C: conti della citta'; WASD: spostamento;
+Q/E: rotazione della vista; rotella: zoom; H: torna sulla citta';
+R: ruota il pezzo; tasto destro: annulla il posizionamento.
+Per costruire una strada, premi sul punto iniziale e trascina.
+
+LICENZA DEL PROGETTO E SORGENTI
+Copyright (c) 2026 Gabriele Fiorucci. Licenza GNU GPL-3.0.
+Il testo completo e' in LICENSE.txt.
+Sorgenti corrispondenti all'eseguibile:
+https://github.com/GabrieleFiorucci03/FOCUS-/tree/v1.2
+
+GODOT E DIPENDENZE
+Questo programma usa Godot Engine 4.7.2, sotto licenza MIT:
+https://godotengine.org/license/
+THIRD_PARTY_NOTICES.txt contiene gli avvisi di copyright e i testi delle
+licenze del motore e dei suoi componenti. Conserva questo file e LICENSE.txt
+insieme all'eseguibile quando lo ridistribuisci.
+Sono inclusi nello ZIP e scaricabili anche separatamente dalla release:
+https://github.com/GabrieleFiorucci03/FOCUS-/releases/tag/v1.2
+
+La documentazione delle licenze e della verifica degli strumenti di sviluppo:
+https://github.com/GabrieleFiorucci03/FOCUS-/blob/main/licenses/README.md

@@ -414,3 +414,14 @@ parla senza scrivere.
 Sei libero di usare, studiare, modificare e ridistribuire questo progetto. Se ne
 distribuisci una versione modificata, devi rilasciarne il codice sorgente sotto
 la stessa licenza.
+
+FOCUS! usa [Godot Engine](https://godotengine.org/license/), distribuito sotto
+licenza MIT, e le sue dipendenze. Gli avvisi di copyright e i testi delle
+licenze sono in [THIRD_PARTY_NOTICES.txt](licenses/THIRD_PARTY_NOTICES.txt),
+incluso nello ZIP e disponibile separatamente tra gli allegati della release.
+Chi scarica il solo eseguibile deve conservare anche gli avvisi e la licenza
+del progetto quando lo ridistribuisce.
+
+La [documentazione delle licenze](licenses/README.md) descrive come rigenerare
+gli avvisi e riporta la verifica delle condizioni di Claude, utilizzato come
+supporto durante lo sviluppo.
