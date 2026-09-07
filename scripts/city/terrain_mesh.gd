@@ -25,21 +25,28 @@ extends RefCounted
 ## Godot considera fronte le facce con avvolgimento orario.
 const AVVOLGIMENTO_ORARIO := true
 
+## Stessa palette sRGB del kit refined_v2 (generate_refined_assets.py):
+## grass, leaf, grass_light, cream, soil e water. I fondali riprendono pietra
+## e limo con una tinta fredda, senza cambiare la classificazione dei biomi.
 const COLORI := {
-	CityTerrain.Bioma.LAGO: Color(0.232, 0.315, 0.353),
-	CityTerrain.Bioma.FIUME: Color(0.416, 0.404, 0.353),
-	CityTerrain.Bioma.SPIAGGIA: Color(0.816, 0.741, 0.545),
-	CityTerrain.Bioma.PIANURA: Color(0.353, 0.510, 0.271),
-	CityTerrain.Bioma.COLLINA: Color(0.259, 0.396, 0.220),
-	CityTerrain.Bioma.PRATERIA: Color(0.612, 0.596, 0.353),
+	CityTerrain.Bioma.LAGO: Color("495e60"),
+	CityTerrain.Bioma.FIUME: Color("777868"),
+	CityTerrain.Bioma.SPIAGGIA: Color("cebc86"),
+	CityTerrain.Bioma.PIANURA: Color("737f54"),
+	CityTerrain.Bioma.COLLINA: Color("586b43"),
+	CityTerrain.Bioma.PRATERIA: Color("8c9368"),
 }
 
 ## Terra battuta esposta sul fianco dei gradini.
-const COLORE_SCARPATA := Color(0.443, 0.376, 0.286)
-const COLORE_ACQUA := Color(0.153, 0.435, 0.549, 0.88)
+const COLORE_SCARPATA := Color("70624f")
+## Variante piu profonda di water (#547e85), con il fondale appena visibile.
+const COLORE_ACQUA := Color("365c64c2")
+
+const SHADER_TERRENO := preload("res://assets/shaders/terreno.gdshader")
+const SHADER_ACQUA := preload("res://assets/shaders/acqua.gdshader")
 
 ## Quanto il colore di una cella può scostarsi, per non avere campiture piatte.
-const VARIAZIONE := 0.05
+const VARIAZIONE := 0.018
 
 # I colori qui sopra sono scritti in sRGB, come si leggono da un color picker,
 # ma Godot usa i colori dei vertici come se fossero già lineari: senza
@@ -254,21 +261,15 @@ static func costruisci_gruppi(gruppi: Array) -> Mesh:
 
 # --- Dettagli ---------------------------------------------------------------
 
-static func _materiale_terreno() -> StandardMaterial3D:
-	var m := StandardMaterial3D.new()
-	m.vertex_color_use_as_albedo = true
-	m.roughness = 1.0
-	m.specular_mode = BaseMaterial3D.SPECULAR_DISABLED
+static func _materiale_terreno() -> ShaderMaterial:
+	var m := ShaderMaterial.new()
+	m.shader = SHADER_TERRENO
 	return m
 
 
-static func _materiale_acqua() -> StandardMaterial3D:
-	var m := StandardMaterial3D.new()
-	m.vertex_color_use_as_albedo = true
-	m.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	m.albedo_color = Color(1.0, 1.0, 1.0, 1.0)
-	m.roughness = 0.15
-	m.metallic = 0.2
+static func _materiale_acqua() -> ShaderMaterial:
+	var m := ShaderMaterial.new()
+	m.shader = SHADER_ACQUA
 	return m
 
 
