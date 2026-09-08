@@ -29,6 +29,8 @@ extends RefCounted
 
 const CELL_SIZE := 2.0
 
+signal changed
+
 ## Vector2i -> id del piazzamento che occupa quella cella.
 var _occupanti: Dictionary = {}
 ## id -> { id, ancora, footprint, rotazione, modello }
@@ -75,6 +77,7 @@ func piazza(ancora: Vector2i, footprint: Vector2i, rotazione: int, modello: Stri
 	}
 	for cella in celle_occupate(ancora, footprint, rotazione):
 		_occupanti[cella] = id
+	changed.emit()
 	return id
 
 
@@ -87,6 +90,7 @@ func rimuovi(cella: Vector2i) -> bool:
 	for c in celle_occupate(p["ancora"], p["footprint"], p["rotazione"]):
 		_occupanti.erase(c)
 	_piazzamenti.erase(id)
+	changed.emit()
 	return true
 
 

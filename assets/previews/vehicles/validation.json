@@ -1,0 +1,38 @@
+[
+  {
+    "id": "VEH_COMPACT_TEAL",
+    "passed": true,
+    "triangles": 352,
+    "bytes": 35104
+  },
+  {
+    "id": "VEH_SEDAN_CORAL",
+    "passed": true,
+    "triangles": 352,
+    "bytes": 35100
+  },
+  {
+    "id": "VEH_WAGON_OCHRE",
+    "passed": true,
+    "triangles": 408,
+    "bytes": 39288
+  },
+  {
+    "id": "VEH_AMBULANCE",
+    "passed": true,
+    "triangles": 604,
+    "bytes": 56692
+  },
+  {
+    "id": "VEH_FIRE_ENGINE",
+    "passed": true,
+    "triangles": 688,
+    "bytes": 61236
+  },
+  {
+    "id": "VEH_POLICE",
+    "passed": true,
+    "triangles": 512,
+    "bytes": 49316
+  }
+]

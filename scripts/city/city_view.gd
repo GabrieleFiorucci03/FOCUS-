@@ -116,6 +116,7 @@ enum Attrezzo { ALZA, ABBASSA, LIVELLA }
 var griglia: CityGrid
 var terreno: CityTerrain
 var catalogo: CityCatalog
+var traffico: TrafficoDecorativo
 
 var _modo: Modo = Modo.NAVIGA
 ## Cosa si sta per costruire, e come.
@@ -210,6 +211,10 @@ func _ready() -> void:
 	# Si guarda dove si comincia, non il centro della mappa: la prima zona è
 	# quella con più terra, e può stare in un angolo.
 	_torna_a_casa()
+	traffico = TrafficoDecorativo.new()
+	traffico.name = "TrafficoDecorativo"
+	add_child(traffico)
+	traffico.configura(griglia, catalogo, _costruzioni, _camera)
 
 	if costruiti == 0:
 		_messaggio("Mondo %d · %s · la città è tutta da fare." % [terreno.seme, _riepilogo_biomi()])

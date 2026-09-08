@@ -202,6 +202,14 @@ Blender. Il volume sta nel menu.
 
 ## Il kit di asset
 
+La citta ospita anche **traffico decorativo e piccoli pedoni**: tre auto civili,
+ambulanza, pompieri e polizia percorrono le strade con velocita diverse,
+ruote animate e lampeggianti. I mezzi mantengono le distanze e attendono il
+passaggio libero agli incroci; le persone camminano sui marciapiedi. Percorsi
+e quote seguono strade, rampe e ponti gia costruiti. Il sistema usa geometrie
+condivise e un massimo di 32 veicoli e 64 pedoni vicino alla camera.
+Non modifica servizi, economia o salvataggi.
+
 91 modelli low-poly, nessuno modellato a mano: sono tutti **generati da script
 Python in Blender**, con una direzione visiva condivisa chiamata *Focus Grove* —
 volumi morbidi, materiali flat, pareti calde, tetti in terracotta, accenti teal.

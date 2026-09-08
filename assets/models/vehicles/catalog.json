@@ -1,0 +1,188 @@
+{
+  "collection": "vehicles",
+  "assets": [
+    {
+      "id": "VEH_COMPACT_TEAL",
+      "label": "Auto compatta",
+      "kind": "compact",
+      "model": "VEH_COMPACT_TEAL.glb",
+      "dimensions_blender_xyz": [
+        0.324,
+        0.566,
+        0.265
+      ],
+      "triangles": 352,
+      "mesh_nodes": 5,
+      "wheel_nodes": [
+        "Wheel_FL",
+        "Wheel_RL",
+        "Wheel_FR",
+        "Wheel_RR"
+      ],
+      "beacon_nodes": [],
+      "wheel_radius": 0.054,
+      "wheel_rotation_axis": "X",
+      "forward_godot": [
+        0,
+        0,
+        1
+      ],
+      "origin": "ground_center",
+      "textures": 0
+    },
+    {
+      "id": "VEH_SEDAN_CORAL",
+      "label": "Berlina",
+      "kind": "sedan",
+      "model": "VEH_SEDAN_CORAL.glb",
+      "dimensions_blender_xyz": [
+        0.324,
+        0.656,
+        0.265
+      ],
+      "triangles": 352,
+      "mesh_nodes": 5,
+      "wheel_nodes": [
+        "Wheel_FL",
+        "Wheel_RL",
+        "Wheel_FR",
+        "Wheel_RR"
+      ],
+      "beacon_nodes": [],
+      "wheel_radius": 0.054,
+      "wheel_rotation_axis": "X",
+      "forward_godot": [
+        0,
+        0,
+        1
+      ],
+      "origin": "ground_center",
+      "textures": 0
+    },
+    {
+      "id": "VEH_WAGON_OCHRE",
+      "label": "Station wagon",
+      "kind": "wagon",
+      "model": "VEH_WAGON_OCHRE.glb",
+      "dimensions_blender_xyz": [
+        0.324,
+        0.686,
+        0.265
+      ],
+      "triangles": 408,
+      "mesh_nodes": 5,
+      "wheel_nodes": [
+        "Wheel_FL",
+        "Wheel_RL",
+        "Wheel_FR",
+        "Wheel_RR"
+      ],
+      "beacon_nodes": [],
+      "wheel_radius": 0.054,
+      "wheel_rotation_axis": "X",
+      "forward_godot": [
+        0,
+        0,
+        1
+      ],
+      "origin": "ground_center",
+      "textures": 0
+    },
+    {
+      "id": "VEH_AMBULANCE",
+      "label": "Ambulanza",
+      "kind": "ambulance",
+      "model": "VEH_AMBULANCE.glb",
+      "dimensions_blender_xyz": [
+        0.354,
+        0.746,
+        0.3375
+      ],
+      "triangles": 604,
+      "mesh_nodes": 7,
+      "wheel_nodes": [
+        "Wheel_FL",
+        "Wheel_RL",
+        "Wheel_FR",
+        "Wheel_RR"
+      ],
+      "beacon_nodes": [
+        "Beacon_L",
+        "Beacon_R"
+      ],
+      "wheel_radius": 0.054,
+      "wheel_rotation_axis": "X",
+      "forward_godot": [
+        0,
+        0,
+        1
+      ],
+      "origin": "ground_center",
+      "textures": 0
+    },
+    {
+      "id": "VEH_FIRE_ENGINE",
+      "label": "Vigili del fuoco",
+      "kind": "fire",
+      "model": "VEH_FIRE_ENGINE.glb",
+      "dimensions_blender_xyz": [
+        0.354,
+        0.816,
+        0.3375
+      ],
+      "triangles": 688,
+      "mesh_nodes": 7,
+      "wheel_nodes": [
+        "Wheel_FL",
+        "Wheel_RL",
+        "Wheel_FR",
+        "Wheel_RR"
+      ],
+      "beacon_nodes": [
+        "Beacon_L",
+        "Beacon_R"
+      ],
+      "wheel_radius": 0.054,
+      "wheel_rotation_axis": "X",
+      "forward_godot": [
+        0,
+        0,
+        1
+      ],
+      "origin": "ground_center",
+      "textures": 0
+    },
+    {
+      "id": "VEH_POLICE",
+      "label": "Polizia",
+      "kind": "police",
+      "model": "VEH_POLICE.glb",
+      "dimensions_blender_xyz": [
+        0.324,
+        0.656,
+        0.312
+      ],
+      "triangles": 512,
+      "mesh_nodes": 7,
+      "wheel_nodes": [
+        "Wheel_FL",
+        "Wheel_RL",
+        "Wheel_FR",
+        "Wheel_RR"
+      ],
+      "beacon_nodes": [
+        "Beacon_L",
+        "Beacon_R"
+      ],
+      "wheel_radius": 0.054,
+      "wheel_rotation_axis": "X",
+      "forward_godot": [
+        0,
+        0,
+        1
+      ],
+      "origin": "ground_center",
+      "textures": 0
+    }
+  ]
+}

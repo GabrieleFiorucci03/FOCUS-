@@ -1,0 +1,29 @@
+{
+  "id": "VEH_SEDAN_CORAL",
+  "label": "Berlina",
+  "kind": "sedan",
+  "model": "VEH_SEDAN_CORAL.glb",
+  "dimensions_blender_xyz": [
+    0.324,
+    0.656,
+    0.265
+  ],
+  "triangles": 352,
+  "mesh_nodes": 5,
+  "wheel_nodes": [
+    "Wheel_FL",
+    "Wheel_RL",
+    "Wheel_FR",
+    "Wheel_RR"
+  ],
+  "beacon_nodes": [],
+  "wheel_radius": 0.054,
+  "wheel_rotation_axis": "X",
+  "forward_godot": [
+    0,
+    0,
+    1
+  ],
+  "origin": "ground_center",
+  "textures": 0
+}

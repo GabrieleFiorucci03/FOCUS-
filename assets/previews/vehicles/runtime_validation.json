@@ -1,0 +1,23 @@
+{
+  "engine": "Godot 4.7.2",
+  "simulation_seconds": 120,
+  "peak_vehicles": 32,
+  "road_transitions": 608,
+  "vehicle_overlap_events": 0,
+  "checks_passed": [
+    "Full vehicle rectangles, following traffic and turns",
+    "Opposite lanes and vertically separated roads",
+    "Pedestrians remain off asphalt",
+    "Continuous vehicle lanes and pedestrian bridge connections",
+    "Rotated 1x2 slopes, ascending and descending",
+    "Bridge ramps and disconnected elevations",
+    "Road removal invalidates active traffic",
+    "Vehicle and pedestrian population caps",
+    "Existing road drawing tests",
+    "Existing city happiness tests",
+    "Windows release export"
+  ],
+  "render": "traffic_in_game.png",
+  "render_backend": "Godot OpenGL compatibility",
+  "notes": "Decorative traffic uses MultiMesh batches; this is a correctness test, not an FPS benchmark."
+}

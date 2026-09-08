@@ -1,0 +1,32 @@
+{
+  "id": "VEH_POLICE",
+  "label": "Polizia",
+  "kind": "police",
+  "model": "VEH_POLICE.glb",
+  "dimensions_blender_xyz": [
+    0.324,
+    0.656,
+    0.312
+  ],
+  "triangles": 512,
+  "mesh_nodes": 7,
+  "wheel_nodes": [
+    "Wheel_FL",
+    "Wheel_RL",
+    "Wheel_FR",
+    "Wheel_RR"
+  ],
+  "beacon_nodes": [
+    "Beacon_L",
+    "Beacon_R"
+  ],
+  "wheel_radius": 0.054,
+  "wheel_rotation_axis": "X",
+  "forward_godot": [
+    0,
+    0,
+    1
+  ],
+  "origin": "ground_center",
+  "textures": 0
+}

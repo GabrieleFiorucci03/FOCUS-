@@ -1,5 +1,13 @@
 # FOCUS! — pipeline asset Blender
 
+## Veicoli stilizzati
+
+`generate_vehicle_assets.py` genera tre auto civili, ambulanza, autopompa e
+polizia in `assets/models/vehicles/`, con ruote e lampeggianti separati per
+la futura animazione. Include sorgente Blender, metadata, controlli GLB e
+render dei file reimportati. Convenzioni e comando di rigenerazione sono in
+[`assets/models/vehicles/README.md`](../../assets/models/vehicles/README.md).
+
 Questa cartella genera il kit low-poly dell'MVP senza modellazione manuale.
 Gli asset sono originali e usano una direzione visiva comune chiamata
 **Focus Grove**: volumi morbidi e leggibili, materiali flat, pareti calde,

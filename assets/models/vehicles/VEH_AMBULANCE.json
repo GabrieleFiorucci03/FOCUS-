@@ -1,0 +1,32 @@
+{
+  "id": "VEH_AMBULANCE",
+  "label": "Ambulanza",
+  "kind": "ambulance",
+  "model": "VEH_AMBULANCE.glb",
+  "dimensions_blender_xyz": [
+    0.354,
+    0.746,
+    0.3375
+  ],
+  "triangles": 604,
+  "mesh_nodes": 7,
+  "wheel_nodes": [
+    "Wheel_FL",
+    "Wheel_RL",
+    "Wheel_FR",
+    "Wheel_RR"
+  ],
+  "beacon_nodes": [
+    "Beacon_L",
+    "Beacon_R"
+  ],
+  "wheel_radius": 0.054,
+  "wheel_rotation_axis": "X",
+  "forward_godot": [
+    0,
+    0,
+    1
+  ],
+  "origin": "ground_center",
+  "textures": 0
+}

@@ -1,0 +1,29 @@
+{
+  "id": "VEH_WAGON_OCHRE",
+  "label": "Station wagon",
+  "kind": "wagon",
+  "model": "VEH_WAGON_OCHRE.glb",
+  "dimensions_blender_xyz": [
+    0.324,
+    0.686,
+    0.265
+  ],
+  "triangles": 408,
+  "mesh_nodes": 5,
+  "wheel_nodes": [
+    "Wheel_FL",
+    "Wheel_RL",
+    "Wheel_FR",
+    "Wheel_RR"
+  ],
+  "beacon_nodes": [],
+  "wheel_radius": 0.054,
+  "wheel_rotation_axis": "X",
+  "forward_godot": [
+    0,
+    0,
+    1
+  ],
+  "origin": "ground_center",
+  "textures": 0
+}
