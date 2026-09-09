@@ -110,8 +110,9 @@ func _on_tick(remaining: float, elapsed: float) -> void:
 func _on_finita(elapsed: float) -> void:
 	Sfx.suona("fine")
 	# Un timer di concentrazione si usa guardando altrove: se la finestra e'
-	# dietro a quella in cui stavi lavorando, la campana da sola non basta.
-	DisplayServer.window_request_attention()
+	# dietro a quella in cui stavi lavorando — o se il telefono e' a faccia in
+	# giu' sulla scrivania — la campana da sola non basta.
+	Piattaforma.chiedi_attenzione()
 	_registra_sessione(elapsed, true)
 	_mostra_tempo(_durata_impostata(), 0.0)
 

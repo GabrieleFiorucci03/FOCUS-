@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3]
+[gd_scene load_steps=10 format=3]
 
 [ext_resource type="Script" path="res://scripts/city/city_view.gd" id="1_city"]
 [ext_resource type="Script" path="res://scripts/city/iso_camera.gd" id="2_cam"]
 [ext_resource type="PackedScene" path="res://scenes/ui/BarraCostruzioni.tscn" id="3_barra"]
 [ext_resource type="PackedScene" path="res://scenes/ui/PannelloCitta.tscn" id="4_conti"]
 [ext_resource type="PackedScene" path="res://scenes/ui/PannelloStato.tscn" id="5_stato"]
+[ext_resource type="Script" path="res://scripts/ui/comandi_tocco.gd" id="6_tocco"]
 
 [sub_resource type="ProceduralSkyMaterial" id="SkyMat_1"]
 sky_top_color = Color(0.352941, 0.505882, 0.678431, 1)
@@ -101,3 +102,13 @@ unique_name_in_owner = true
 
 [node name="Stato" parent="Interfaccia" instance=ExtResource("5_stato")]
 unique_name_in_owner = true
+
+[node name="ComandiTocco" type="Control" parent="Interfaccia"]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("6_tocco")

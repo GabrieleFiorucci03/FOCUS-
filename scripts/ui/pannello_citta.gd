@@ -92,7 +92,12 @@ func _spegni() -> void:
 
 
 func sotto_il_mouse() -> bool:
-	var punto := get_viewport().get_mouse_position()
+	return contiene(get_viewport().get_mouse_position())
+
+
+## Lo stesso, per un punto qualunque: la camera lo chiede di un dito, che non è
+## il mouse e non ha un posto solo dove sta.
+func contiene(punto: Vector2) -> bool:
 	if _pulsante.get_global_rect().has_point(punto):
 		return true
 	return _pannello.visible and _pannello.get_global_rect().has_point(punto)

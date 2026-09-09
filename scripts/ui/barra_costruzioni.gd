@@ -133,7 +133,12 @@ func _on_pulsante_commutato(acceso: bool) -> void:
 ## puntare una cella: sotto la fascia non c'è terreno da scegliere, c'è il
 ## negozio.
 func sotto_il_mouse() -> bool:
-	var punto := get_viewport().get_mouse_position()
+	return contiene(get_viewport().get_mouse_position())
+
+
+## Lo stesso, per un punto qualunque: la camera lo chiede di un dito, che non è
+## il mouse e non ha un posto solo dove sta.
+func contiene(punto: Vector2) -> bool:
 	if _pulsante.get_global_rect().has_point(punto):
 		return true
 	return _fascia.visible and _fascia.get_global_rect().has_point(punto)
@@ -563,17 +568,41 @@ func _annulla_la_pressione() -> void:
 func _descrizione_strumento(id: String) -> String:
 	match id:
 		"espandi":
-			return "Il mondo è una scacchiera di zone: clic su una zona spenta che confini con la tua per comprarla. Si paga la terra che c'è dentro, quindi il mare aperto non costa niente; e il prezzo cresce con la terra che possiedi già, così allargarsi è una scelta e non un automatismo."
+			return "Il mondo è una scacchiera di zone: %s una zona spenta che confini con la tua per comprarla. Si paga la terra che c'è dentro, quindi il mare aperto non costa niente; e il prezzo cresce con la terra che possiedi già, così allargarsi è una scelta e non un automatismo." % Piattaforma.verbo_su(false)
 		"sposta":
+			# Questa e' prosa e non un elenco di comandi: i puntini di
+			# _comandi_del_pezzo, in mezzo a una frase, suonerebbero male.
+			if Piattaforma.mobile:
+				return "Tocca una costruzione per prenderla in mano, tocca per riposarla dove vuoi. Qui sotto la giri e le cambi quota, × la rimette dov'era. Spostare non costa niente."
 			return "Clic su una costruzione per prenderla in mano, clic per riposarla dove vuoi. R la gira, PagSu e PagGiù le cambiano quota, Esc la rimette dov'era. Spostare non costa niente."
 		"demolisci":
-			return "Clic su una costruzione per demolirla: torna indietro il %d%% del prezzo, ma il terreno resta come l'hai spianato. Esc per smettere." % roundi(Config.refund_ratio * 100.0)
-		"livella":
-			return "Primo clic: prende la quota. Da lì in poi ci porta le celle che tocchi. %d crediti a gradino, senza rimborso." % Config.terrain_cost_per_level
-		_:
-			return "%s il terreno di un gradino (0,5 m) a ogni clic. %d crediti a gradino, senza rimborso. Sotto una costruzione non si tocca." % [
-				"Alza" if id == "alza" else "Abbassa", Config.terrain_cost_per_level
+			return "%s una costruzione per demolirla: torna indietro il %d%% del prezzo, ma il terreno resta come l'hai spianato. %s per smettere." % [
+				Piattaforma.verbo_su(), roundi(Config.refund_ratio * 100.0), Piattaforma.esc()
 			]
+		"livella":
+			return "Primo %s: prende la quota. Da lì in poi ci porta le celle che tocchi. %d crediti a gradino, senza rimborso." % [
+				Piattaforma.sostantivo(), Config.terrain_cost_per_level
+			]
+		_:
+			return "%s il terreno di un gradino (0,5 m) a ogni %s. %d crediti a gradino, senza rimborso. Sotto una costruzione non si tocca." % [
+				"Alza" if id == "alza" else "Abbassa", Piattaforma.sostantivo(),
+				Config.terrain_cost_per_level
+			]
+
+
+## Come si nomina, in una descrizione, il girare e l'alzare quello che hai in
+## mano: sul PC sono due tasti, sul telefono sono i pulsanti che compaiono in
+## basso a destra appena prendi qualcosa. Vedi [ComandiTocco].
+func _comandi_del_pezzo(con_quota: bool) -> String:
+	if Piattaforma.mobile:
+		return "qui sotto lo giri e gli cambi quota" if con_quota else "qui sotto lo giri"
+	return "R ruota · PagSu / PagGiù cambia quota" if con_quota else "R ruota"
+
+
+func _il_gomito() -> String:
+	if Piattaforma.mobile:
+		return "il pulsante che gira cambia il gomito"
+	return "R cambia il gomito"
 
 
 ## Che cosa fa un oggetto ai servizi, detto a parole. "" per chi non li tocca:
@@ -600,7 +629,9 @@ func _descrizione(id: String) -> String:
 	if _catalogo.si_traccia(id):
 		return ("%s · %d crediti a cella · premi e trascina per tracciare il percorso: "
 			+ "curve, incroci e rampe le sceglie il gioco guardando i vicini · "
-			+ "R cambia il gomito · Esc annulla") % [v["nome"], _catalogo.prezzo(id)]
+			+ "%s · %s annulla") % [
+				v["nome"], _catalogo.prezzo(id), _il_gomito(), Piattaforma.esc()
+			]
 	var f: Vector2i = v["footprint"]
 	var pezzi := PackedStringArray()
 	pezzi.append("%s · %dx%d celle · %d crediti" % [v["nome"], f.x, f.y, _catalogo.prezzo(id)])
@@ -610,8 +641,12 @@ func _descrizione(id: String) -> String:
 	match _catalogo.regola(id):
 		CityCatalog.Regola.PONTE, CityCatalog.Regola.RAMPA:
 			pezzi.append("va su qualunque cella libera, e non spiana niente")
-			pezzi.append("clic per posare · R ruota · PagSu / PagGiù cambia quota · Esc annulla")
+			pezzi.append("%s per posare · %s · %s annulla" % [
+				Piattaforma.verbo(false), _comandi_del_pezzo(true), Piattaforma.esc()
+			])
 		_:
 			pezzi.append("spiana il lotto al livello più basso che tocca")
-			pezzi.append("clic per posare · R ruota · Esc annulla")
+			pezzi.append("%s per posare · %s · %s annulla" % [
+				Piattaforma.verbo(false), _comandi_del_pezzo(false), Piattaforma.esc()
+			])
 	return " · ".join(pezzi)

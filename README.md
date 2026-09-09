@@ -20,6 +20,12 @@ si trasforma in crediti da spendere per tirare su, pezzo dopo pezzo, una città
 
 ---
 
+> [!TIP]
+> **Sei sul ramo `mobile`.** Stessa app, stesso gioco, stesso salvataggio: qui
+> cambia solo come la si comanda, perché un telefono non ha una tastiera né una
+> rotella. Il telefono va tenuto **in orizzontale**. Vedi
+> [Sul telefono](#sul-telefono); il ramo `main` resta quello per PC.
+
 > [!NOTE]
 > **Le cinque fasi sono chiuse.** Il giro è completo e rifinito: fai focus,
 > guadagni crediti, apri il negozio, costruisci, modelli il terreno, e le
@@ -241,6 +247,66 @@ I nomi italiani, gli scaffali e le regole di piazzamento stanno a parte, in
 [`data/catalog.json`](data/catalog.json): la pipeline riscrive il proprio
 catalogo a ogni rigenerazione, e quello del gioco non deve finirci sotto.
 
+## Sul telefono
+
+Il gioco è lo stesso, riga per riga: gli stessi crediti, lo stesso mondo, gli
+stessi pannelli negli stessi punti. La tela resta di 1280×720 punti e si allarga
+quanto è largo lo schermo, quindi un telefono in orizzontale non rimpicciolisce
+niente — regala larghezza. Quello che cambia sono i comandi, perché sette di
+loro sul PC erano tasti.
+
+| Sul PC | Sul telefono |
+|---|---|
+| WASD scorre la mappa | un dito la trascina |
+| rotella per lo zoom | due dita che si allargano |
+| tasto centrale per trascinare | due dita insieme |
+| `Q` / `E` girano la vista | i due pulsanti tondi in basso a destra |
+| `H` torna sulla città | il pulsante con la casa |
+| `R` gira il pezzo che hai in mano | il pulsante col quadrato |
+| `PagSu` / `PagGiù` cambiano quota | le due frecce |
+| `Esc` annulla | il pulsante con la croce, o il tasto Indietro |
+| `B` e `C` aprono negozio e conti | i due pulsanti in alto a sinistra, che c'erano già |
+
+I pulsanti del pezzo compaiono solo quando hai qualcosa in mano: girare niente
+non vuol dire niente, e un pulsante spento è peggio di un pulsante che non c'è.
+Con un pezzo in mano il primo dito serve a scegliere la cella, e a spostare la
+mappa restano le due dita — altrimenti ogni tentativo di scorrere poserebbe
+qualcosa.
+
+Tre cose succedono sotto, e vale la pena saperle:
+
+- **Il tempo si misura sull'orologio di sistema e non su quello monotono.** Su
+  Android il secondo si ferma col telefono quando va in sonno profondo, e
+  un'ora di focus a schermo spento tornerebbe indietro contata metà.
+- **La campana diventa una vibrazione**, che è l'equivalente telefonico di far
+  lampeggiare la finestra: un timer di concentrazione si usa guardando altrove.
+- **Mettere l'app da parte non chiude la sessione.** Su un telefono si esce
+  apposta — è il momento in cui il focus comincia davvero — quindi il tempo
+  continua a correre e la partita viene salvata, nel caso Android decida di non
+  riaprirci.
+
+> [!IMPORTANT]
+> La suoneria di fine sessione suona quando **torni nell'app**, non mentre sei
+> altrove: una notifica di sistema vorrebbe un plugin Android, e qui non ce n'è
+> nessuno. E se Android chiude l'app per far posto in memoria, una sessione in
+> corso non si recupera: quello che era già stato salvato sì.
+
+### Costruire l'APK
+
+Oltre a Godot 4.7 serve quello che serve a chiunque esporti per Android: l'SDK,
+un JDK 17, e un keystore di debug — la procedura è quella
+[della documentazione di Godot](https://docs.godotengine.org/en/stable/tutorials/export/exporting_for_android.html),
+si fa una volta e sta nelle impostazioni dell'editor, non nel repo.
+
+```bash
+godot --headless --export-release "Android" build/android/FOCUS.apk
+```
+
+Il preset sta in [`export_presets.cfg`](export_presets.cfg) accanto a quello per
+Windows: solo `arm64-v8a` (è il 2026), modalità immersiva accesa, e il permesso
+di vibrare, che serve alla campana. L'orientamento è bloccato in orizzontale nei
+due versi, così il telefono si può girare ma non si ritrova mai in verticale.
+
 ## Scaricalo
 
 Windows a 64 bit: prendi `FOCUS.exe` dall'ultima
@@ -280,6 +346,14 @@ Le impostazioni stanno in [`export_presets.cfg`](export_presets.cfg), versionato
 apposta: non contiene credenziali e documenta com'è fatta la build. Il `.pck`
 finisce dentro l'eseguibile, che infatti è uno solo.
 
+Su questo ramo la versione per PC continua a funzionare identica a quella di
+`main` — i comandi a tocco non compaiono e i suggerimenti nominano i tasti. Per
+provare l'interfaccia del telefono senza passare da un APK basta fingere:
+
+```bash
+godot -- --mobile
+```
+
 ## Roadmap
 
 | Fase | Cosa | Stato |
@@ -301,12 +375,12 @@ Il dettaglio sta in [`PIANO.md`](PIANO.md).
 FOCUS!/
 ├─ scenes/            main · menu · focus · city · ui
 ├─ scripts/
-│  ├─ autoload/       config.gd · save_manager.gd · sfx.gd
+│  ├─ autoload/       piattaforma.gd · config.gd · save_manager.gd · sfx.gd
 │  ├─ focus/          focus_timer.gd · focus_screen.gd
 │  ├─ city/           city_grid.gd · city_terrain.gd · terrain_mesh.gd
 │  │                    iso_camera.gd · city_catalog.gd · city_view.gd
 │  └─ ui/             shop_panel.gd · main_menu.gd · stats_panel.gd
-│                     grafico_giorni.gd · durata.gd
+│                     grafico_giorni.gd · durata.gd · comandi_tocco.gd
 ├─ data/              economy.json · catalog.json
 ├─ assets/
 │  ├─ models/realistic/   91 .glb + catalog.json (quelli che carica il gioco)

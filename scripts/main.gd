@@ -51,7 +51,13 @@ func _ready() -> void:
 	# Sotto questa misura il negozio comincerebbe a mangiarsi la citta e il
 	# pannello statistiche non ci starebbe piu dentro. Meglio non permetterlo
 	# che lasciar rimpicciolire la finestra fino a rompere il gioco.
-	get_window().min_size = Vector2i(1024, 640)
+	#
+	# Su un telefono non c'e' una finestra da rimpicciolire: lo schermo e' quello
+	# che e', e il gioco ci sta dentro perche' la tela resta di 720 punti in
+	# altezza e si allarga quanto serve. Chiedere una misura minima li' non
+	# vorrebbe dire niente.
+	if not Piattaforma.mobile:
+		get_window().min_size = Vector2i(1024, 640)
 
 	_focus = SCENA_FOCUS.instantiate()
 	_citta = SCENA_CITTA.instantiate()
@@ -101,8 +107,23 @@ func alterna_il_menu() -> void:
 
 
 func _notification(che_cosa: int) -> void:
-	if che_cosa == NOTIFICATION_WM_CLOSE_REQUEST:
-		_chiudi_bottega()
+	match che_cosa:
+		NOTIFICATION_WM_CLOSE_REQUEST:
+			_chiudi_bottega()
+		NOTIFICATION_WM_GO_BACK_REQUEST:
+			# Il tasto Indietro di Android e' l'Esc del telefono, e deve voler
+			# dire esattamente la stessa cosa: un passo indietro. Non chiamiamo
+			# `alterna_il_menu` — quello e' l'ultimo dei passi indietro, e prima
+			# di lui vengono le statistiche da chiudere e l'attrezzo da posare.
+			# Rifacendo il tasto, la fila di chi ha diritto a rispondere resta
+			# quella, e resta una sola.
+			Piattaforma.premi(KEY_ESCAPE)
+		NOTIFICATION_APPLICATION_PAUSED:
+			# Uscire dall'app non e' chiudere bottega. Su un telefono si esce
+			# apposta — e' il momento in cui il focus comincia davvero — quindi
+			# la sessione resta aperta e il tempo continua a correre. Si salva
+			# soltanto: da qui in poi Android puo' decidere di non riaprirci.
+			SaveManager.save_game()
 
 
 # --- Schermate --------------------------------------------------------------

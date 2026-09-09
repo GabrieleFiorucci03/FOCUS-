@@ -19,8 +19,11 @@ extends Node
 ##
 ## Contare i delta di _process accumula errore e si ferma se la finestra viene
 ## sospesa: per un'app che misura ore di concentrazione non va bene. Qui il
-## tempo si legge da Time.get_ticks_msec(), i frame servono solo a aggiornare
-## la UI.
+## tempo si legge dall'orologio, i frame servono solo a aggiornare la UI.
+##
+## *Quale* orologio lo decide [method Piattaforma.adesso_msec], e non e' un
+## dettaglio: su un telefono col monitor spento anche quello monotono si ferma,
+## e un'ora di focus tornerebbe indietro contata meta'.
 
 signal tick(remaining: float, elapsed: float)
 signal finished(elapsed: float)
@@ -44,7 +47,7 @@ func _ready() -> void:
 func start(seconds: float) -> void:
 	duration = maxf(0.0, seconds)
 	_closed_elapsed = 0.0
-	_segment_start_ms = Time.get_ticks_msec()
+	_segment_start_ms = Piattaforma.adesso_msec()
 	_set_state(State.RUNNING)
 	set_process(true)
 	_emit_tick()
@@ -61,7 +64,7 @@ func pause() -> void:
 func resume() -> void:
 	if state != State.PAUSED:
 		return
-	_segment_start_ms = Time.get_ticks_msec()
+	_segment_start_ms = Piattaforma.adesso_msec()
 	set_process(true)
 	_set_state(State.RUNNING)
 
@@ -78,7 +81,7 @@ func stop() -> float:
 
 func elapsed() -> float:
 	if state == State.RUNNING:
-		return _closed_elapsed + float(Time.get_ticks_msec() - _segment_start_ms) / 1000.0
+		return _closed_elapsed + float(Piattaforma.adesso_msec() - _segment_start_ms) / 1000.0
 	return _closed_elapsed
 
 

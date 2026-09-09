@@ -126,4 +126,10 @@ static func _riempimento(colore: Color) -> StyleBoxFlat:
 ## Se il mouse sta sopra il pannello. CityView lo chiede prima di puntare una
 ## cella: sotto il riquadro non c'è terreno da scegliere.
 func sotto_il_mouse() -> bool:
-	return _pannello.get_global_rect().has_point(get_viewport().get_mouse_position())
+	return contiene(get_viewport().get_mouse_position())
+
+
+## Lo stesso, per un punto qualunque: la camera lo chiede di un dito, che non è
+## il mouse e non ha un posto solo dove sta.
+func contiene(punto: Vector2) -> bool:
+	return _pannello.get_global_rect().has_point(punto)

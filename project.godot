@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+Piattaforma="*res://scripts/autoload/piattaforma.gd"
 Config="*res://scripts/autoload/config.gd"
 SaveManager="*res://scripts/autoload/save_manager.gd"
 Sfx="*res://scripts/autoload/sfx.gd"
@@ -29,3 +30,13 @@ window/size/viewport_width=1280
 window/size/viewport_height=720
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+window/handheld/orientation=4
+
+[input_devices]
+
+pointing/emulate_mouse_from_touch=true
+
+[rendering]
+
+renderer/rendering_method="forward_plus"
+renderer/rendering_method.mobile="mobile"

@@ -112,6 +112,7 @@ enum Attrezzo { ALZA, ABBASSA, LIVELLA }
 @onready var _stato: PannelloStato = %Stato
 @onready var _aiuto: Label = %Aiuto
 @onready var _messaggio_label: Label = %Messaggio
+@onready var _comandi: ComandiTocco = %ComandiTocco
 
 var griglia: CityGrid
 var terreno: CityTerrain
@@ -197,6 +198,10 @@ func _ready() -> void:
 	_barra.voce_scelta.connect(_on_voce_scelta)
 	_barra.strumento_scelto.connect(_on_strumento_scelto)
 	_conti.servizio_scelto.connect(_on_servizio_scelto)
+	# La camera prende i tocchi prima della GUI, e non sa cosa c'è aperto: la
+	# domanda gliela passiamo noi, che siamo gli unici a saperlo.
+	_camera.riserva(_punto_sui_pannelli)
+	_camera.gesto_a_due_dita.connect(_on_due_dita)
 	SaveManager.credits_changed.connect(_on_crediti_cambiati)
 	_barra.mostra_catalogo(catalogo)
 	_barra.aggiorna_saldo(SaveManager.credits)
@@ -1389,9 +1394,16 @@ func _on_voce_scelta(id: String) -> void:
 	if catalogo.si_traccia(id):
 		_modo = Modo.STRADA
 		_libera_fantasma()
+		_aggiorna_aiuto()
 		return
 	_modo = Modo.PIAZZA
 	_crea_fantasma()
+	# Il suggerimento va riscritto qui e non al prossimo giro di _process: chi
+	# ha appena scelto qualcosa non ha ancora mosso niente sopra il terreno, e
+	# fino ad allora leggerebbe le istruzioni del modo di prima. Sul telefono
+	# non sarebbe solo una riga sbagliata: sono i pulsanti per girare il pezzo,
+	# che compaiono con lei.
+	_aggiorna_aiuto()
 
 
 func _on_strumento_scelto(strumento: String) -> void:
@@ -2465,9 +2477,26 @@ static func _tinge(nodo: Node, materiale: Material) -> void:
 
 
 func _mouse_sul_pannello() -> bool:
-	if _barra.sotto_il_mouse() or _conti.sotto_il_mouse():
+	return _punto_sui_pannelli(get_viewport().get_mouse_position())
+
+
+## Lo stesso, ma per un punto qualunque.
+##
+## Un dito non è il mouse: non c'è un posto solo dove sta, e la camera ha
+## bisogno di chiedere di *quel* dito lì prima di prendersi il suo gesto.
+func _punto_sui_pannelli(punto: Vector2) -> bool:
+	if _barra.contiene(punto) or _conti.contiene(punto):
 		return true
-	return _stato.sotto_il_mouse()
+	return _stato.contiene(punto) or _comandi.contiene(punto)
+
+
+## Un secondo dito appoggiato mentre il primo stava tirando una strada: da lì in
+## poi il gesto è della camera, e il tracciato resterebbe appeso al nulla.
+func _on_due_dita() -> void:
+	if not _sta_tracciando():
+		return
+	_annulla_il_tracciato()
+	_messaggio("Tracciato lasciato lì.")
 
 
 # --- Testi ------------------------------------------------------------------
@@ -2483,9 +2512,31 @@ func _messaggio(testo: String) -> void:
 func _aggiorna_aiuto() -> void:
 	_aiuto.text = _suggerimento()
 	_messaggio_label.text = _messaggio_corrente
+	_aggiorna_i_comandi_a_tocco()
+
+
+## Quali pulsanti a tocco hanno senso adesso, e se un dito solo basta a
+## trascinare la mappa.
+##
+## Sta attaccato al suggerimento di proposito: sono la stessa cosa detta due
+## volte — a parole in fondo allo schermo, e in pulsanti in basso a destra — e
+## tenerli separati vorrebbe dire lasciarne indietro uno, prima o poi.
+func _aggiorna_i_comandi_a_tocco() -> void:
+	var in_mano := _modo == Modo.PIAZZA \
+		or (_modo == Modo.SPOSTA and not _in_mano.is_empty())
+	var si_gira := in_mano or _modo == Modo.STRADA
+	var si_alza := in_mano and (_modo == Modo.SPOSTA \
+		or (not _scelto.is_empty() and catalogo.regola(_scelto) != CityCatalog.Regola.TERRA))
+	_comandi.mostra(si_gira, si_alza, _modo != Modo.NAVIGA)
+	# Con un attrezzo in mano il primo dito serve a scegliere la cella, e a
+	# spostare la mappa restano le due dita: se la spostasse anche il primo,
+	# ogni tentativo di scorrere poserebbe qualcosa.
+	_camera.trascina_con_un_dito(_modo == Modo.NAVIGA)
 
 
 func _suggerimento() -> String:
+	if Piattaforma.mobile:
+		return _suggerimento_col_dito()
 	match _modo:
 		Modo.PIAZZA:
 			if not _scelto.is_empty() and catalogo.regola(_scelto) != CityCatalog.Regola.TERRA:
@@ -2509,36 +2560,78 @@ func _suggerimento() -> String:
 			return "WASD scorre (Shift corre) · Q / E ruota · rotella zoom · H torna a casa · B costruisci · C conti"
 
 
+## Lo stesso suggerimento, per chi ha un dito invece di una tastiera.
+##
+## Non è la frase di sopra con due parole cambiate, ed è scritta a parte apposta:
+## su un telefono i comandi non si nominano, si indicano, e i pulsanti stanno lì
+## sotto a destra. Meglio scriverle due volte che leggerle male una volta sola.
+## Le due frasi che invece cambierebbero per una parola — la zona e la strada,
+## quelle che hanno un prezzo dentro — restano una sola: vedi
+## [method Piattaforma.verbo].
+func _suggerimento_col_dito() -> String:
+	match _modo:
+		Modo.PIAZZA:
+			if not _scelto.is_empty() and catalogo.regola(_scelto) != CityCatalog.Regola.TERRA:
+				return "Tocca per posare · qui sotto lo giri e gli cambi quota · × annulla"
+			return "Tocca per posare · qui sotto lo giri · × annulla"
+		Modo.SPOSTA:
+			if _in_mano.is_empty():
+				return "Tocca una costruzione per prenderla in mano · × annulla"
+			return "Tocca per riposarla · qui sotto la giri e le cambi quota · × la rimette dov'era"
+		Modo.ZONA:
+			return _suggerimento_zona()
+		Modo.STRADA:
+			return _suggerimento_strada()
+		Modo.DEMOLISCI:
+			return "Tocca una costruzione per demolirla · × annulla"
+		Modo.TERRENO:
+			if _attrezzo == Attrezzo.LIVELLA and _quota_riferimento < 0:
+				return "Tocca per prendere la quota da copiare · × annulla"
+			return "Tocca per modellare il terreno · × annulla"
+		_:
+			return "Trascina per scorrere · due dita per zoomare · i pulsanti in basso a destra girano la vista e riportano sulla città"
+
+
 ## Il suggerimento mentre si compra: il prezzo della zona sotto il cursore, non
 ## più uno buono per tutte.
 ##
 ## Adesso che il prezzo dipende da quanta terra c'è dentro, un prezzo solo non
 ## esiste: quello che serve sapere è quanto costa *questa*, prima di cliccarci.
 func _suggerimento_zona() -> String:
+	var invito := "%s una zona spenta che confina con la tua per comprarla · %s annulla" % [
+		Piattaforma.verbo_su(), Piattaforma.esc()
+	]
 	if _cella == CELLA_NULLA:
-		return "Clic su una zona spenta che confina con la tua per comprarla · Esc annulla"
+		return invito
 	var zona := _zona_di(_cella)
 	if not _comprabile(zona):
-		return "Clic su una zona spenta che confina con la tua per comprarla · Esc annulla"
+		return invito
+	var comprala := "%s per comprarla · %s annulla" % [
+		Piattaforma.verbo(false), Piattaforma.esc()
+	]
 	var prezzo := SaveManager.costo_della_zona(zona)
 	if prezzo == 0:
-		return "Qui è tutta acqua: la prendi gratis · clic per comprarla · Esc annulla"
-	return "Questa zona costa %d crediti · clic per comprarla · Esc annulla" % prezzo
+		return "Qui è tutta acqua: la prendi gratis · " + comprala
+	return "Questa zona costa %d crediti · %s" % [prezzo, comprala]
 
 
 ## Il suggerimento mentre si traccia: quanto verrebbe lunga la strada e quanto
 ## costerebbe, aggiornati a ogni movimento. Decidere dopo aver pagato è la cosa
 ## che tracciare deve togliere di mezzo.
 func _suggerimento_strada() -> String:
+	var gomito := "il pulsante che gira cambia il gomito" if Piattaforma.mobile \
+		else "R cambia il gomito"
 	if not _sta_tracciando():
-		return "Premi e trascina per tracciare la strada · R cambia il gomito · Esc annulla"
+		return "Premi e trascina per tracciare la strada · %s · %s annulla" % [
+			gomito, Piattaforma.esc()
+		]
 	var pezzi: Array = _tracciato.get("pezzi", [])
 	var motivo := str(_tracciato.get("motivo", ""))
 	var coda := "" if motivo.is_empty() else " · " + motivo
 	if pezzi.is_empty():
 		return "Da qui non parte niente%s" % coda
-	return "%d celle · %d crediti · R cambia il gomito%s" % [
-		pezzi.size(), int(_tracciato.get("prezzo", 0)), coda
+	return "%d celle · %d crediti · %s%s" % [
+		pezzi.size(), int(_tracciato.get("prezzo", 0)), gomito, coda
 	]
 
 

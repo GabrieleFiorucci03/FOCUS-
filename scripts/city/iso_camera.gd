@@ -22,6 +22,13 @@ extends Node3D
 ## sull'asse Y, il figlio "Braccio" inclina, la Camera3D sta in fondo al braccio.
 ## Così ruotare la vista non tocca mai la posizione della camera, che resta
 ## sempre puntata al pivot.
+##
+## Su un telefono la rotella e il tasto centrale non ci sono, e al loro posto ci
+## sono le dita: uno trascina la mappa quando non c'è niente da posare, due la
+## trascinano sempre e allargandosi zoomano. Sotto succede la stessa cosa — gli
+## stessi [code]_sposta[/code] e [code]_zooma[/code] della versione col mouse —
+## perché la differenza fra un dito e una rotella sta tutta nell'evento che
+## arriva, non in quello che si fa quando arriva.
 
 ## Inclinazione della vista. 35.264° dà l'isometrica esatta; qualche grado in
 ## più fa vedere meglio i tetti e regge meglio gli edifici alti.
@@ -33,6 +40,9 @@ const ZOOM_MIN := 8.0
 const ZOOM_MAX := 90.0
 const ZOOM_INIZIALE := 34.0
 const ZOOM_PASSO := 1.12
+## Sotto questa distanza fra due dita il rapporto fra una misura e la successiva
+## è più rumore che gesto, e lo zoom scatterebbe.
+const PIZZICO_MINIMO := 12.0
 const DURATA_ROTAZIONE := 0.28
 
 ## Quanto scorre la vista con la tastiera, in schermate al secondo. La velocità
@@ -55,6 +65,9 @@ const SCORRIMENTI := {
 const TRASCINA_IL_MONDO := true
 
 signal ruotata(gradi: float)
+## Un secondo dito si è appoggiato. Chi stava tracciando una strada col primo
+## deve saperlo: da quel momento il gesto non è più suo, è della camera.
+signal gesto_a_due_dita()
 
 @onready var _braccio: Node3D = $Braccio
 @onready var _camera: Camera3D = $Braccio/Camera3D
@@ -62,6 +75,17 @@ signal ruotata(gradi: float)
 var _imbardata: float = 45.0
 var _tween: Tween
 var _trascinamento := false
+
+## Le dita appoggiate adesso: per indice, l'ultimo punto di ciascuna.
+var _dita: Dictionary = {}
+## Quanto erano distanti al giro prima. Il pizzico è il rapporto fra le due.
+var _distanza_fra_le_dita := 0.0
+## Se un dito solo basta a trascinare la mappa. La città lo spegne quando c'è
+## un attrezzo in mano: lì un dito sta posando, non scorrendo.
+var _un_dito_trascina := true
+## Cosa non è mappa, cioè i pannelli aperti. Un gesto che parte di lì non ci
+## riguarda: è la città a saperlo, e ce lo dice con questa domanda.
+var _riservato: Callable = Callable()
 
 
 func _ready() -> void:
@@ -165,6 +189,76 @@ func _unhandled_input(evento: InputEvent) -> void:
 					ruota(-1)
 				KEY_E:
 					ruota(1)
+
+
+# --- Dita -------------------------------------------------------------------
+
+## Se un dito solo basta a trascinare la mappa. Va spento mentre c'è qualcosa
+## da posare: lì il primo dito serve a scegliere la cella, e per spostare la
+## vista restano le due dita.
+func trascina_con_un_dito(si: bool) -> void:
+	_un_dito_trascina = si
+
+
+## Dove i gesti della camera non cominciano: sopra i pannelli comanda la GUI.
+func riserva(occupato: Callable) -> void:
+	_riservato = occupato
+
+
+## I tocchi si prendono da `_input` e non da `_unhandled_input`: quelli che
+## riguardano la GUI li abbiamo già esclusi con `_riservato`, e aspettare che
+## la GUI dica la sua vorrebbe dire lasciarsi scappare i gesti cominciati sul
+## terreno che passano sopra un pannello.
+##
+## In cambio non si consuma niente: il mouse finto che Godot ricava dal primo
+## dito continua per la sua strada, ed è lui a far funzionare i pulsanti, il
+## piazzamento e il tracciato delle strade, esattamente come sul PC.
+func _input(evento: InputEvent) -> void:
+	if evento is InputEventScreenTouch:
+		_dito_giu_o_su(evento as InputEventScreenTouch)
+	elif evento is InputEventScreenDrag:
+		_dito_scorre(evento as InputEventScreenDrag)
+
+
+func _dito_giu_o_su(tocco: InputEventScreenTouch) -> void:
+	if not tocco.pressed:
+		_dita.erase(tocco.index)
+		_distanza_fra_le_dita = 0.0
+		return
+	if _riservato.is_valid() and _riservato.call(tocco.position):
+		return
+	_dita[tocco.index] = tocco.position
+	if _dita.size() == 2:
+		_distanza_fra_le_dita = _distanza_fra_le_prime_due()
+		gesto_a_due_dita.emit()
+
+
+func _dito_scorre(scorrimento: InputEventScreenDrag) -> void:
+	# Un dito che non abbiamo visto appoggiarsi è partito da un pannello.
+	if not _dita.has(scorrimento.index):
+		return
+	_dita[scorrimento.index] = scorrimento.position
+	if _dita.size() == 1:
+		if _un_dito_trascina:
+			_sposta(scorrimento.relative)
+		return
+	if _dita.size() != 2:
+		return
+	# Con due dita arriva uno scorrimento per dito a ogni movimento: metà
+	# ciascuno, così la mappa segue il punto in mezzo e non fa il doppio della
+	# strada quando le dita si muovono insieme.
+	_sposta(scorrimento.relative * 0.5)
+	var distanza := _distanza_fra_le_prime_due()
+	if _distanza_fra_le_dita > PIZZICO_MINIMO and distanza > PIZZICO_MINIMO:
+		# Dita che si allargano vogliono guardare più da vicino, cioè una
+		# camera più stretta: il rapporto va preso al contrario.
+		_zooma(_distanza_fra_le_dita / distanza)
+	_distanza_fra_le_dita = distanza
+
+
+func _distanza_fra_le_prime_due() -> float:
+	var punti := _dita.values()
+	return (punti[0] as Vector2).distance_to(punti[1] as Vector2)
 
 
 func _zooma(fattore: float) -> void:
