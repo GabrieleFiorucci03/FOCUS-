@@ -8,6 +8,8 @@ Imposti un timer, lavori o studi per davvero, e ogni minuto di concentrazione
 si trasforma in crediti da spendere per tirare su, pezzo dopo pezzo, una città
 3D isometrica.
 
+**[Scheda del progetto su fioruccilabs.com →](https://fioruccilabs.com/lavori/focus/)**
+
 ![Il kit residenziale generato in Blender](assets/previews/catalog_residential.png)
 
 ![Godot](https://img.shields.io/badge/Godot-4.7-478cbf?logo=godotengine&logoColor=white)
